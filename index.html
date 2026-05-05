@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An interactive AWS resilience choreography map built with HTML, CSS, and JavaScript.">
+    <title>AWS Trust Choreography</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;750;850&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell" aria-label="AWS resilience choreography dashboard">
+      <section class="hero-panel">
+        <div class="intro">
+          <p class="eyebrow">AWS RESILIENCE</p>
+          <h1>Autonomous cloud trust choreography</h1>
+          <p class="lede">Stress-test edge traffic, identity, containers, data stores, and human fallback lanes as one coordinated recovery story.</p>
+        </div>
+
+        <div class="actions" aria-label="Simulation controls">
+          <button class="icon-button" id="replayButton" type="button" aria-label="Replay signal choreography" title="Replay signal choreography">
+            <span>R</span>
+          </button>
+          <button class="icon-button" id="incidentButton" type="button" aria-label="Escalate incident mode" title="Escalate incident mode">
+            <span>E</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="stage" aria-label="Interactive AWS service map">
+        <div class="grid-window">
+          <aside class="authority-card" aria-live="polite">
+            <span class="card-kicker">Resilience authority</span>
+            <strong id="scenarioTitle">Applications stay available even when confidence becomes uneven.</strong>
+            <span id="scenarioMeta">9 services, 7 trust paths</span>
+          </aside>
+
+          <div class="sweep" aria-hidden="true"></div>
+
+          <svg class="map" viewBox="0 0 1440 850" role="img" aria-labelledby="mapTitle mapDescription">
+            <title id="mapTitle">AWS trust path map</title>
+            <desc id="mapDescription">Glowing AWS service nodes linked by animated resilience paths and fallback lanes.</desc>
+            <defs>
+              <filter id="amberGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="7" result="blur">
+                </feGaussianBlur>
+                <feColorMatrix in="blur" values="1 0 0 0 1  0 0.74 0 0 0.58  0 0 0.1 0 0.12  0 0 0 1 0">
+                </feColorMatrix>
+                <feMerge>
+                  <feMergeNode></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+              <filter id="cyanGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
+                <feColorMatrix in="blur" values="0 0 0 0 0.2  0 0 0 0 0.82  0 0 0 0 1  0 0 0 1 0"></feColorMatrix>
+                <feMerge>
+                  <feMergeNode></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+              <filter id="greenGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="9" result="blur"></feGaussianBlur>
+                <feColorMatrix in="blur" values="0 0 0 0 0.45  0 0 0 0 1  0 0 0 0 0.67  0 0 0 1 0"></feColorMatrix>
+                <feMerge>
+                  <feMergeNode></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+              <filter id="violetGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
+                <feColorMatrix in="blur" values="0 0 0 0 0.77  0 0 0 0 0.48  0 0 0 0 1  0 0 0 1 0"></feColorMatrix>
+                <feMerge>
+                  <feMergeNode></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <g class="routes" fill="none" stroke-linecap="round">
+              <path id="route-edge" class="route route-primary" d="M215 250 C350 190 430 165 562 232 S786 330 930 295 S1090 210 1225 265"></path>
+              <path id="route-compute" class="route route-secondary" d="M215 250 C315 330 402 430 545 498 S773 668 900 564 S1014 386 1096 372"></path>
+              <path id="route-data" class="route route-primary" d="M1096 372 C1090 485 1108 605 1104 728"></path>
+              <path id="route-fallback" class="route route-fallback" d="M470 740 C628 718 720 630 820 558 S965 446 1096 372"></path>
+              <path id="route-governance" class="route route-secondary" d="M562 232 C620 350 645 442 545 498 S430 612 470 740"></path>
+            </g>
+
+            <g class="tokens" aria-hidden="true">
+              <circle r="7" class="packet packet-one">
+                <animateMotion dur="7.2s" repeatCount="indefinite" rotate="auto">
+                  <mpath href="#route-edge"></mpath>
+                </animateMotion>
+              </circle>
+              <circle r="7" class="packet packet-two">
+                <animateMotion dur="8.6s" begin="-2.4s" repeatCount="indefinite" rotate="auto">
+                  <mpath href="#route-compute"></mpath>
+                </animateMotion>
+              </circle>
+              <circle r="7" class="packet packet-three">
+                <animateMotion dur="6.8s" begin="-1.4s" repeatCount="indefinite" rotate="auto">
+                  <mpath href="#route-fallback"></mpath>
+                </animateMotion>
+              </circle>
+            </g>
+
+            <g class="event-tags" aria-hidden="true">
+              <g transform="translate(426 196)">
+                <rect class="diamond" width="18" height="18"></rect>
+                <text x="-44" y="-18">cache miss</text>
+              </g>
+              <g transform="translate(722 300)">
+                <rect class="diamond" width="18" height="18"></rect>
+                <text x="-32" y="-18">scale</text>
+              </g>
+              <g transform="translate(908 404)">
+                <rect class="diamond" width="18" height="18"></rect>
+                <text x="-38" y="-18">policy</text>
+              </g>
+              <g transform="translate(620 626)">
+                <rect class="diamond" width="18" height="18"></rect>
+                <text x="-58" y="-18">fallback</text>
+              </g>
+              <g transform="translate(1100 528)">
+                <rect class="diamond" width="18" height="18"></rect>
+                <text x="-42" y="-18">restore</text>
+              </g>
+            </g>
+
+            <g class="service-node hex-node" transform="translate(215 250)" data-node="CloudFront edge" data-score="82" data-label="Global traffic entry with WAF and Shield controls.">
+              <polygon points="0,-58 51,-29 51,29 0,58 -51,29 -51,-29"></polygon>
+              <text class="score" y="8">82%</text>
+              <text class="node-label" y="96">CloudFront Edge</text>
+              <text class="aws-chip" y="-78">WAF</text>
+            </g>
+
+            <g class="service-node hex-node amber" transform="translate(562 232)" data-node="EKS compute fleet" data-score="88" data-label="Container workloads shift across zones as target groups heat up.">
+              <polygon points="0,-58 51,-29 51,29 0,58 -51,29 -51,-29"></polygon>
+              <text class="score" y="8">88%</text>
+              <text class="node-label" y="96">EKS Compute</text>
+              <text class="aws-chip" y="-78">EKS</text>
+            </g>
+
+            <g class="service-node circle-node violet" transform="translate(1096 372)" data-node="IAM trust broker" data-score="64" data-label="Federated identity contracts are reviewed before emergency permissions widen.">
+              <circle r="58"></circle>
+              <text class="score" y="8">64%</text>
+              <text class="node-label" y="96">IAM Trust Broker</text>
+              <text class="aws-chip" y="-78">IAM</text>
+            </g>
+
+            <g class="service-node circle-node cyan" transform="translate(1104 728)" data-node="Aurora data mesh" data-score="76" data-label="Read replicas and event streams keep product state moving through recovery.">
+              <circle r="58"></circle>
+              <text class="score" y="8">76%</text>
+              <text class="node-label" y="96">Aurora Mesh</text>
+              <text class="aws-chip" y="-78">RDS</text>
+            </g>
+
+            <g class="service-node diamond-node green" transform="translate(820 558)" data-node="Step Functions core" data-score="93" data-label="Workflow state machine coordinates retries, compensations, and audit events.">
+              <rect x="-47" y="-47" width="94" height="94" transform="rotate(45)"></rect>
+              <text class="score" y="8">93%</text>
+              <text class="node-label" y="96">Step Functions Core</text>
+              <text class="aws-chip" y="-82">SFN</text>
+            </g>
+
+            <g class="service-node circle-node green" transform="translate(470 740)" data-node="Manual approval lane" data-score="58" data-label="Human review gates can take over if automated confidence dips.">
+              <circle r="52"></circle>
+              <text class="score" y="8">58%</text>
+              <text class="node-label" y="94">Manual Lane</text>
+              <text class="aws-chip" y="-72">SNS</text>
+            </g>
+
+            <g class="service-node small-node" transform="translate(545 498)" data-node="Lambda decision agent" data-score="79" data-label="Short-lived decision functions score incidents without carrying state.">
+              <circle r="20"></circle>
+              <text class="small-label" x="-48" y="-34">Lambda decision</text>
+            </g>
+
+            <g class="service-node small-node" transform="translate(900 564)" data-node="S3 evidence vault" data-score="84" data-label="Immutable recovery evidence lands in an encrypted audit bucket.">
+              <circle r="20"></circle>
+              <text class="small-label" x="-34" y="52">S3 vault</text>
+            </g>
+
+            <g class="service-node small-node" transform="translate(1225 265)" data-node="EventBridge mesh" data-score="72" data-label="Partner and internal events are normalized before fan-out.">
+              <circle r="20"></circle>
+              <text class="small-label" x="-58" y="-34">EventBridge</text>
+            </g>
+
+            <g class="cursor-mark" aria-hidden="true" transform="translate(888 430) rotate(-22)">
+              <path d="M0 0 L42 17 L22 27 L12 49 Z"></path>
+            </g>
+          </svg>
+
+          <section class="node-drawer" aria-live="polite">
+            <span id="nodeName">Step Functions core</span>
+            <strong id="nodeScore">93%</strong>
+            <p id="nodeCopy">Workflow state machine coordinates retries, compensations, and audit events.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="control-deck" aria-label="Scenario and telemetry controls">
+        <div class="scenario-strip" role="tablist" aria-label="Incident scenario">
+          <button class="scenario is-active" type="button" role="tab" aria-selected="true" data-scenario="steady">Steady state</button>
+          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="surge">Traffic surge</button>
+          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="identity">Identity drift</button>
+          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="recovery">Recovery drill</button>
+        </div>
+
+        <div class="metrics" aria-label="Live resilience metrics">
+          <article>
+            <span>Route health</span>
+            <strong id="routeHealth">87%</strong>
+          </article>
+          <article>
+            <span>Fallback ready</span>
+            <strong id="fallbackReady">58%</strong>
+          </article>
+          <article>
+            <span>Data durability</span>
+            <strong id="dataDurability">99.95</strong>
+          </article>
+          <article>
+            <span>Recovery ETA</span>
+            <strong id="recoveryEta">07m</strong>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
