@@ -1,6 +1,6 @@
 const scenarios = {
   steady: {
-    title: "Applications stay available even when confidence becomes uneven.",
+    title: "Cloud services keep serving while the command atlas rebalances risk.",
     meta: "9 services, 7 trust paths",
     routeHealth: "87%",
     fallbackReady: "58%",
@@ -16,7 +16,7 @@ const scenarios = {
     }
   },
   surge: {
-    title: "Edge pressure reroutes through cached paths while containers scale out.",
+    title: "Traffic pressure shifts through CloudFront while EKS capacity expands.",
     meta: "22k requests/sec, 3 autoscale events",
     routeHealth: "79%",
     fallbackReady: "61%",
@@ -32,7 +32,7 @@ const scenarios = {
     }
   },
   identity: {
-    title: "Identity drift narrows privileges before automation opens recovery lanes.",
+    title: "Identity drift tightens IAM permissions before recovery lanes open.",
     meta: "4 role changes, 2 approval gates",
     routeHealth: "73%",
     fallbackReady: "67%",
@@ -48,7 +48,7 @@ const scenarios = {
     }
   },
   recovery: {
-    title: "A rehearsed recovery drill proves the blast radius stays contained.",
+    title: "A recovery drill proves workflow state, data, and approvals stay aligned.",
     meta: "5 replayed incidents, 0 customer-impacting writes",
     routeHealth: "92%",
     fallbackReady: "83%",
@@ -77,6 +77,45 @@ const nodeHints = {
   "EventBridge mesh": "Partner and internal events are normalized before fan-out."
 };
 
+const nodeLinks = {
+  "CloudFront edge": {
+    href: "https://aws.amazon.com/cloudfront/",
+    label: "AWS CloudFront"
+  },
+  "EKS compute fleet": {
+    href: "https://aws.amazon.com/eks/",
+    label: "Amazon EKS"
+  },
+  "IAM trust broker": {
+    href: "https://aws.amazon.com/iam/",
+    label: "AWS IAM"
+  },
+  "Aurora data mesh": {
+    href: "https://aws.amazon.com/rds/aurora/",
+    label: "Amazon Aurora"
+  },
+  "Step Functions core": {
+    href: "https://aws.amazon.com/step-functions/",
+    label: "AWS Step Functions"
+  },
+  "Manual approval lane": {
+    href: "https://aws.amazon.com/sns/",
+    label: "Amazon SNS"
+  },
+  "Lambda decision agent": {
+    href: "https://aws.amazon.com/lambda/",
+    label: "AWS Lambda"
+  },
+  "S3 evidence vault": {
+    href: "https://aws.amazon.com/s3/",
+    label: "Amazon S3"
+  },
+  "EventBridge mesh": {
+    href: "https://aws.amazon.com/eventbridge/",
+    label: "Amazon EventBridge"
+  }
+};
+
 const scenarioButtons = document.querySelectorAll(".scenario");
 const root = document.querySelector(".grid-window");
 const replayButton = document.querySelector("#replayButton");
@@ -92,7 +131,8 @@ const textTargets = {
   recoveryEta: document.querySelector("#recoveryEta"),
   nodeName: document.querySelector("#nodeName"),
   nodeScore: document.querySelector("#nodeScore"),
-  nodeCopy: document.querySelector("#nodeCopy")
+  nodeCopy: document.querySelector("#nodeCopy"),
+  nodeLink: document.querySelector("#nodeLink")
 };
 
 let activeScenario = "steady";
@@ -144,6 +184,13 @@ function setNode(name) {
   textTargets.nodeName.textContent = name;
   textTargets.nodeScore.textContent = `${score}%`;
   textTargets.nodeCopy.textContent = nodeHints[name] || "Signal is moving cleanly through this trust path.";
+
+  const link = nodeLinks[name] || {
+    href: "https://aws.amazon.com/",
+    label: "AWS"
+  };
+  textTargets.nodeLink.href = link.href;
+  textTargets.nodeLink.textContent = link.label;
 }
 
 scenarioButtons.forEach((button) => {
