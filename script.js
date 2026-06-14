@@ -287,6 +287,109 @@ const postures = {
   }
 };
 
+const doctrines = {
+  steady: {
+    title: "Keep the system legible",
+    cards: [
+      {
+        label: "Failure model",
+        value: "Ambiguity drift",
+        detail: "The quiet risk is not outage, but losing track of which controls still explain the system."
+      },
+      {
+        label: "Operating stance",
+        value: "Observe and rehearse",
+        detail: "Keep dashboards calm while exercising the approval lane before it becomes urgent."
+      },
+      {
+        label: "Decision rule",
+        value: "Proof before change",
+        detail: "Treat every policy or routing change as a hypothesis that needs evidence."
+      },
+      {
+        label: "Recovery proof",
+        value: "Fresh replay",
+        detail: "A recent Step Functions replay plus S3 evidence snapshot proves the map is trustworthy."
+      }
+    ]
+  },
+  surge: {
+    title: "Preserve optionality under load",
+    cards: [
+      {
+        label: "Failure model",
+        value: "Capacity cascade",
+        detail: "A cache miss wave can turn compute, data, and identity into one coupled bottleneck."
+      },
+      {
+        label: "Operating stance",
+        value: "Absorb first",
+        detail: "Scale and shed pressure before reaching for broad architectural changes."
+      },
+      {
+        label: "Decision rule",
+        value: "Throttle writes early",
+        detail: "Protect Aurora before replica lag becomes the hidden cost of serving traffic."
+      },
+      {
+        label: "Recovery proof",
+        value: "Replay the surge",
+        detail: "EventBridge should preserve the shape of demand so autoscaling does not erase the lesson."
+      }
+    ]
+  },
+  identity: {
+    title: "Constrain authority before velocity",
+    cards: [
+      {
+        label: "Failure model",
+        value: "Trust expansion",
+        detail: "Incident pressure can widen permissions faster than teams can reason about them."
+      },
+      {
+        label: "Operating stance",
+        value: "Freeze and trace",
+        detail: "Hold role changes steady, then trace callers before granting more authority."
+      },
+      {
+        label: "Decision rule",
+        value: "Least temporary privilege",
+        detail: "Every emergency permission needs a narrow scope, owner, and expiry path."
+      },
+      {
+        label: "Recovery proof",
+        value: "Diff the graph",
+        detail: "IAM diffs plus approval notes show whether trust returned to its intended shape."
+      }
+    ]
+  },
+  recovery: {
+    title: "Turn drills into control memory",
+    cards: [
+      {
+        label: "Failure model",
+        value: "Unproven recovery",
+        detail: "A plan that has not been replayed is only documentation, not resilience."
+      },
+      {
+        label: "Operating stance",
+        value: "Exercise the loop",
+        detail: "Make traffic shift, workflow replay, data restore, and signoff happen together."
+      },
+      {
+        label: "Decision rule",
+        value: "No proof, no close",
+        detail: "Do not close the drill until each control lens produces evidence."
+      },
+      {
+        label: "Recovery proof",
+        value: "Signed timeline",
+        detail: "A timestamped replay summary becomes the next resilience backlog."
+      }
+    ]
+  }
+};
+
 const nodeHints = {
   "CloudFront edge": "Global traffic entry with WAF and Shield controls.",
   "EKS compute fleet": "Container workloads shift across zones as target groups heat up.",
@@ -358,7 +461,9 @@ const textTargets = {
   runbookTitle: document.querySelector("#runbookTitle"),
   runbookSteps: document.querySelector("#runbookSteps"),
   postureTitle: document.querySelector("#postureTitle"),
-  postureGrid: document.querySelector("#postureGrid")
+  postureGrid: document.querySelector("#postureGrid"),
+  doctrineTitle: document.querySelector("#doctrineTitle"),
+  doctrineGrid: document.querySelector("#doctrineGrid")
 };
 
 let activeScenario = "steady";
@@ -397,6 +502,7 @@ function setScenario(name) {
   updateScoreLabels(scenario.scores);
   renderRunbook(name);
   renderPosture(name);
+  renderDoctrine(name);
   setNode(selectedNode);
 }
 
@@ -429,6 +535,18 @@ function renderPosture(name) {
       </article>
     `;
   }).join("");
+}
+
+function renderDoctrine(name) {
+  const doctrine = doctrines[name] || doctrines.steady;
+  textTargets.doctrineTitle.textContent = doctrine.title;
+  textTargets.doctrineGrid.innerHTML = doctrine.cards.map((card) => `
+    <article class="doctrine-card">
+      <span>${card.label}</span>
+      <strong>${card.value}</strong>
+      <p>${card.detail}</p>
+    </article>
+  `).join("");
 }
 
 function setNode(name) {
