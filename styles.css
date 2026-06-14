@@ -532,6 +532,94 @@ h1 {
   line-height: 1;
 }
 
+.runbook-panel {
+  grid-column: 1 / -1;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(10, 15, 17, 0.76);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.runbook-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 58px;
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.runbook-head span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+
+.runbook-head strong {
+  color: var(--amber);
+  font-size: 1.1rem;
+  text-align: right;
+}
+
+.runbook-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border);
+}
+
+.runbook-step {
+  min-height: 148px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.025);
+  border-top: 4px solid var(--dim);
+}
+
+.runbook-step.active {
+  border-top-color: var(--danger);
+}
+
+.runbook-step.ready {
+  border-top-color: var(--green);
+}
+
+.runbook-step.observe {
+  border-top-color: var(--cyan);
+}
+
+.runbook-step.log {
+  border-top-color: var(--amber);
+}
+
+.runbook-step span,
+.runbook-step p {
+  color: var(--muted);
+}
+
+.runbook-step span {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.runbook-step strong {
+  display: block;
+  margin-top: 0.55rem;
+  color: var(--text);
+  font-size: 1.04rem;
+  line-height: 1.15;
+}
+
+.runbook-step p {
+  margin: 0.55rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.42;
+}
+
 .is-replaying .packet {
   animation: pulsePacket 550ms ease-in-out 3;
 }
@@ -579,6 +667,10 @@ h1 {
 
   .control-deck {
     grid-template-columns: 1fr;
+  }
+
+  .runbook-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .grid-window {
@@ -638,6 +730,19 @@ h1 {
 
   .metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .runbook-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .runbook-head strong {
+    text-align: left;
+  }
+
+  .runbook-steps {
+    grid-template-columns: 1fr;
   }
 }
 

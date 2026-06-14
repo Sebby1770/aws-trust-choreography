@@ -65,6 +65,109 @@ const scenarios = {
   }
 };
 
+const runbooks = {
+  steady: {
+    title: "Steady state watch",
+    steps: [
+      {
+        state: "observe",
+        label: "Observe edge",
+        detail: "Keep CloudFront, WAF, and Shield signals inside normal latency bands."
+      },
+      {
+        state: "ready",
+        label: "Check capacity",
+        detail: "Confirm EKS target groups have spare room before the next deployment."
+      },
+      {
+        state: "ready",
+        label: "Verify state",
+        detail: "Sample Step Functions executions and Aurora replica lag for drift."
+      },
+      {
+        state: "log",
+        label: "Archive proof",
+        detail: "Store the current confidence snapshot in the S3 evidence vault."
+      }
+    ]
+  },
+  surge: {
+    title: "Traffic surge response",
+    steps: [
+      {
+        state: "active",
+        label: "Raise edge guard",
+        detail: "Tighten WAF rules and watch CloudFront cache-miss pressure."
+      },
+      {
+        state: "active",
+        label: "Scale compute",
+        detail: "Let EKS expand hot services while Lambda scores noisy requests."
+      },
+      {
+        state: "ready",
+        label: "Protect data",
+        detail: "Throttle write-heavy paths before Aurora replica lag widens."
+      },
+      {
+        state: "log",
+        label: "Capture timeline",
+        detail: "Send EventBridge surge events to the audit stream for replay."
+      }
+    ]
+  },
+  identity: {
+    title: "Identity drift containment",
+    steps: [
+      {
+        state: "active",
+        label: "Freeze roles",
+        detail: "Pause risky IAM changes and require manual approval for elevation."
+      },
+      {
+        state: "active",
+        label: "Trace callers",
+        detail: "Map suspicious role sessions through Lambda and EventBridge events."
+      },
+      {
+        state: "ready",
+        label: "Narrow trust",
+        detail: "Reduce temporary permissions until Step Functions validates recovery."
+      },
+      {
+        state: "log",
+        label: "Preserve evidence",
+        detail: "Write IAM diffs and approval notes into the encrypted S3 vault."
+      }
+    ]
+  },
+  recovery: {
+    title: "Recovery drill checklist",
+    steps: [
+      {
+        state: "active",
+        label: "Replay workflow",
+        detail: "Run Step Functions through retry and compensation branches."
+      },
+      {
+        state: "ready",
+        label: "Shift traffic",
+        detail: "Confirm CloudFront can drain traffic toward the healthy lane."
+      },
+      {
+        state: "active",
+        label: "Restore data",
+        detail: "Validate Aurora recovery points before writes return to normal."
+      },
+      {
+        state: "log",
+        label: "Close drill",
+        detail: "Publish the EventBridge replay summary and operator signoff."
+      }
+    ]
+  }
+};
+
 const nodeHints = {
   "CloudFront edge": "Global traffic entry with WAF and Shield controls.",
   "EKS compute fleet": "Container workloads shift across zones as target groups heat up.",
@@ -132,7 +235,9 @@ const textTargets = {
   nodeName: document.querySelector("#nodeName"),
   nodeScore: document.querySelector("#nodeScore"),
   nodeCopy: document.querySelector("#nodeCopy"),
-  nodeLink: document.querySelector("#nodeLink")
+  nodeLink: document.querySelector("#nodeLink"),
+  runbookTitle: document.querySelector("#runbookTitle"),
+  runbookSteps: document.querySelector("#runbookSteps")
 };
 
 let activeScenario = "steady";
@@ -169,7 +274,20 @@ function setScenario(name) {
   textTargets.recoveryEta.textContent = scenario.recoveryEta;
 
   updateScoreLabels(scenario.scores);
+  renderRunbook(name);
   setNode(selectedNode);
+}
+
+function renderRunbook(name) {
+  const runbook = runbooks[name] || runbooks.steady;
+  textTargets.runbookTitle.textContent = runbook.title;
+  textTargets.runbookSteps.innerHTML = runbook.steps.map((step, index) => `
+    <article class="runbook-step ${step.state}">
+      <span>${String(index + 1).padStart(2, "0")}</span>
+      <strong>${step.label}</strong>
+      <p>${step.detail}</p>
+    </article>
+  `).join("");
 }
 
 function setNode(name) {
