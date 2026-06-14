@@ -620,6 +620,118 @@ h1 {
   line-height: 1.42;
 }
 
+.posture-panel {
+  grid-column: 1 / -1;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(10, 15, 17, 0.76);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.posture-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 58px;
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.posture-head span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+
+.posture-head strong {
+  color: var(--cyan);
+  font-size: 1.1rem;
+  text-align: right;
+}
+
+.posture-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border);
+}
+
+.posture-card {
+  min-height: 170px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.posture-card > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.posture-card span,
+.posture-card small,
+.posture-card p {
+  color: var(--muted);
+}
+
+.posture-card div span {
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.posture-card strong {
+  color: var(--text);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.posture-card.strong strong {
+  color: var(--green);
+}
+
+.posture-card.watch strong {
+  color: var(--amber);
+}
+
+.posture-card.strained strong {
+  color: var(--danger);
+}
+
+.posture-card p {
+  margin: 0.75rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.42;
+}
+
+.posture-card small {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.posture-bar {
+  display: block;
+  height: 8px;
+  margin-top: 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.posture-bar span {
+  display: block;
+  width: var(--score);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--green));
+}
+
 .is-replaying .packet {
   animation: pulsePacket 550ms ease-in-out 3;
 }
@@ -670,6 +782,10 @@ h1 {
   }
 
   .runbook-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .posture-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -732,16 +848,19 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .runbook-head {
+  .runbook-head,
+  .posture-head {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .runbook-head strong {
+  .runbook-head strong,
+  .posture-head strong {
     text-align: left;
   }
 
-  .runbook-steps {
+  .runbook-steps,
+  .posture-grid {
     grid-template-columns: 1fr;
   }
 }

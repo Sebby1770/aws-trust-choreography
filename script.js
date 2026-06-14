@@ -168,6 +168,125 @@ const runbooks = {
   }
 };
 
+const postures = {
+  steady: {
+    title: "Balanced watch",
+    lenses: [
+      {
+        name: "Prevent",
+        score: 82,
+        lever: "Edge policy hygiene",
+        detail: "WAF, Shield, and IAM controls are stable, with no elevated policy drift."
+      },
+      {
+        name: "Absorb",
+        score: 76,
+        lever: "Spare compute room",
+        detail: "EKS can absorb routine bursts while CloudFront keeps cache pressure contained."
+      },
+      {
+        name: "Recover",
+        score: 84,
+        lever: "Workflow replay",
+        detail: "Step Functions and Aurora have enough recovery context to replay common failures."
+      },
+      {
+        name: "Learn",
+        score: 71,
+        lever: "Evidence freshness",
+        detail: "S3 evidence is current, but the manual approval lane still deserves rehearsal."
+      }
+    ]
+  },
+  surge: {
+    title: "Absorb first",
+    lenses: [
+      {
+        name: "Prevent",
+        score: 68,
+        lever: "WAF rate tuning",
+        detail: "Edge controls need sharper thresholds while cache misses climb."
+      },
+      {
+        name: "Absorb",
+        score: 88,
+        lever: "EKS expansion",
+        detail: "The primary move is capacity absorption before customer-facing degradation."
+      },
+      {
+        name: "Recover",
+        score: 74,
+        lever: "Replica protection",
+        detail: "Aurora remains healthy if write-heavy paths are throttled early."
+      },
+      {
+        name: "Learn",
+        score: 66,
+        lever: "Traffic replay",
+        detail: "EventBridge should capture the surge timeline before autoscaling hides the shape."
+      }
+    ]
+  },
+  identity: {
+    title: "Constrain trust",
+    lenses: [
+      {
+        name: "Prevent",
+        score: 61,
+        lever: "Role freeze",
+        detail: "Policy drift is the main weakness, so change control beats extra capacity."
+      },
+      {
+        name: "Absorb",
+        score: 70,
+        lever: "Scoped fallback",
+        detail: "Manual approvals can absorb exceptions while broader access is narrowed."
+      },
+      {
+        name: "Recover",
+        score: 78,
+        lever: "Permission rollback",
+        detail: "Step Functions has enough state to coordinate staged permission recovery."
+      },
+      {
+        name: "Learn",
+        score: 86,
+        lever: "IAM evidence",
+        detail: "Identity diffs and caller traces are strong learning artifacts for the incident."
+      }
+    ]
+  },
+  recovery: {
+    title: "Prove recovery",
+    lenses: [
+      {
+        name: "Prevent",
+        score: 79,
+        lever: "Guardrail replay",
+        detail: "Preventive controls are checked by rerunning the guardrails under known load."
+      },
+      {
+        name: "Absorb",
+        score: 83,
+        lever: "Traffic drain",
+        detail: "CloudFront can steer traffic while compute and data services settle."
+      },
+      {
+        name: "Recover",
+        score: 94,
+        lever: "State validation",
+        detail: "Workflow, data, and approval state line up strongly during the drill."
+      },
+      {
+        name: "Learn",
+        score: 91,
+        lever: "Drill summary",
+        detail: "Replay evidence is ready to become a precise follow-up backlog."
+      }
+    ]
+  }
+};
+
 const nodeHints = {
   "CloudFront edge": "Global traffic entry with WAF and Shield controls.",
   "EKS compute fleet": "Container workloads shift across zones as target groups heat up.",
@@ -237,7 +356,9 @@ const textTargets = {
   nodeCopy: document.querySelector("#nodeCopy"),
   nodeLink: document.querySelector("#nodeLink"),
   runbookTitle: document.querySelector("#runbookTitle"),
-  runbookSteps: document.querySelector("#runbookSteps")
+  runbookSteps: document.querySelector("#runbookSteps"),
+  postureTitle: document.querySelector("#postureTitle"),
+  postureGrid: document.querySelector("#postureGrid")
 };
 
 let activeScenario = "steady";
@@ -275,6 +396,7 @@ function setScenario(name) {
 
   updateScoreLabels(scenario.scores);
   renderRunbook(name);
+  renderPosture(name);
   setNode(selectedNode);
 }
 
@@ -288,6 +410,25 @@ function renderRunbook(name) {
       <p>${step.detail}</p>
     </article>
   `).join("");
+}
+
+function renderPosture(name) {
+  const posture = postures[name] || postures.steady;
+  textTargets.postureTitle.textContent = posture.title;
+  textTargets.postureGrid.innerHTML = posture.lenses.map((lens) => {
+    const tone = lens.score >= 85 ? "strong" : lens.score >= 72 ? "watch" : "strained";
+    return `
+      <article class="posture-card ${tone}" style="--score:${lens.score}%">
+        <div>
+          <span>${lens.name}</span>
+          <strong>${lens.score}%</strong>
+        </div>
+        <p>${lens.detail}</p>
+        <small>Lever: ${lens.lever}</small>
+        <span class="posture-bar"><span></span></span>
+      </article>
+    `;
+  }).join("");
 }
 
 function setNode(name) {

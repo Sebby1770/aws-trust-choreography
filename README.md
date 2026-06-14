@@ -9,6 +9,7 @@ It visualizes a cloud recovery story with:
 - scenario tabs for steady state, traffic surge, identity drift, and recovery drill
 - clickable service nodes with live confidence copy and metrics
 - scenario-specific recovery runbooks that update with the active incident mode
+- a resilience posture model across Prevent, Absorb, Recover, and Learn control lenses
 - a visible link to the official [AWS website](https://aws.amazon.com/)
 
 Open `index.html` directly in a browser, or serve the folder with any static file server.
