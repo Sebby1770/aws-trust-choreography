@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="An interactive AWS resilience command atlas built with HTML, CSS, and JavaScript.">
     <title>AWS Resilience Command Atlas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;650;750;850&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -24,16 +21,25 @@
 
         <div class="actions" aria-label="Simulation controls">
           <button class="icon-button" id="replayButton" type="button" aria-label="Replay signal choreography" title="Replay signal choreography">
-            <span>R</span>
+            <span aria-hidden="true">&#8635;</span>
           </button>
           <button class="icon-button" id="incidentButton" type="button" aria-label="Escalate incident mode" title="Escalate incident mode">
-            <span>E</span>
+            <span aria-hidden="true">!</span>
           </button>
         </div>
       </section>
 
-      <section class="stage" aria-label="Interactive AWS service map">
-        <div class="grid-window">
+      <section class="command-workbench" aria-label="Live incident command workbench">
+        <nav class="scenario-strip" role="tablist" aria-label="Incident scenario">
+          <span class="rail-label">Scenarios</span>
+          <button class="scenario is-active" type="button" role="tab" aria-selected="true" data-scenario="steady">Steady state</button>
+          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="surge">Traffic surge</button>
+          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="identity">Identity drift</button>
+          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="recovery">Recovery drill</button>
+        </nav>
+
+        <section class="stage" aria-label="Interactive AWS service map">
+          <div class="grid-window">
           <aside class="authority-card" aria-live="polite">
             <span class="card-kicker">Resilience authority</span>
             <strong id="scenarioTitle">Applications stay available even when confidence becomes uneven.</strong>
@@ -199,16 +205,47 @@
             <p id="nodeCopy">Workflow state machine coordinates retries, compensations, and audit events.</p>
             <a id="nodeLink" href="https://aws.amazon.com/step-functions/" target="_blank" rel="noreferrer">AWS Step Functions</a>
           </section>
-        </div>
+          </div>
+        </section>
+
+        <aside class="incident-inspector" aria-label="Incident inspector">
+          <div class="inspector-title">
+            <span>Incident inspector</span>
+            <strong>Failure composer</strong>
+          </div>
+
+          <section class="failure-composer" aria-label="Failure injection composer">
+            <div class="failure-composer-head">
+              <span>Inject faults to rehearse and validate</span>
+              <strong id="failureComposerSummary">No faults injected</strong>
+            </div>
+            <div class="failure-controls" id="failureControls" role="group" aria-label="Inject failure modes">
+              <button type="button" data-failure-mode="edge" aria-pressed="false"><span></span>Edge flood</button>
+              <button type="button" data-failure-mode="identity" aria-pressed="false"><span></span>Identity breach</button>
+              <button type="button" data-failure-mode="data" aria-pressed="false"><span></span>Data lag</button>
+              <button type="button" data-failure-mode="workflow" aria-pressed="false"><span></span>Workflow backlog</button>
+            </div>
+            <div class="failure-readout">
+              <article>
+                <span>Blast radius</span>
+                <strong id="blastRadius">Contained</strong>
+              </article>
+              <article>
+                <span>Weakest node</span>
+                <strong id="weakestNode">Manual approval lane</strong>
+              </article>
+              <article>
+                <span>Composed recovery</span>
+                <strong id="composedRecovery">07m</strong>
+              </article>
+            </div>
+            <p id="failureRecommendation">Inject one or more faults to test how resilience controls interact.</p>
+            <button class="clear-failures" id="clearFailuresButton" type="button">Clear injections</button>
+          </section>
+        </aside>
       </section>
 
       <section class="control-deck" aria-label="Scenario and telemetry controls">
-        <div class="scenario-strip" role="tablist" aria-label="Incident scenario">
-          <button class="scenario is-active" type="button" role="tab" aria-selected="true" data-scenario="steady">Steady state</button>
-          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="surge">Traffic surge</button>
-          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="identity">Identity drift</button>
-          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="recovery">Recovery drill</button>
-        </div>
 
         <div class="metrics" aria-label="Live resilience metrics">
           <article>
@@ -253,34 +290,6 @@
           <div class="doctrine-grid" id="doctrineGrid" aria-live="polite"></div>
         </section>
 
-        <section class="failure-composer" aria-label="Failure injection composer">
-          <div class="failure-composer-head">
-            <span>Failure composer</span>
-            <strong id="failureComposerSummary">No faults injected</strong>
-          </div>
-          <div class="failure-controls" id="failureControls" role="group" aria-label="Inject failure modes">
-            <button type="button" data-failure-mode="edge" aria-pressed="false"><span></span>Edge flood</button>
-            <button type="button" data-failure-mode="identity" aria-pressed="false"><span></span>Identity breach</button>
-            <button type="button" data-failure-mode="data" aria-pressed="false"><span></span>Data lag</button>
-            <button type="button" data-failure-mode="workflow" aria-pressed="false"><span></span>Workflow backlog</button>
-          </div>
-          <div class="failure-readout">
-            <article>
-              <span>Blast radius</span>
-              <strong id="blastRadius">Contained</strong>
-            </article>
-            <article>
-              <span>Weakest node</span>
-              <strong id="weakestNode">Manual approval lane</strong>
-            </article>
-            <article>
-              <span>Composed recovery</span>
-              <strong id="composedRecovery">07m</strong>
-            </article>
-          </div>
-          <p id="failureRecommendation">Inject one or more faults to test how resilience controls interact.</p>
-          <button class="clear-failures" id="clearFailuresButton" type="button">Clear injections</button>
-        </section>
       </section>
     </main>
 

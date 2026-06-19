@@ -1147,3 +1147,538 @@ h1 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Command console redesign */
+:root {
+  --bg: #05080b;
+  --surface: #0a1117;
+  --surface-2: #0d1720;
+  --surface-3: #111c24;
+  --grid: rgba(124, 151, 166, 0.12);
+  --grid-soft: rgba(124, 151, 166, 0.055);
+  --text: #f4f7f8;
+  --muted: #96a6b0;
+  --dim: #63727b;
+  --border: #26343d;
+  --shadow: rgba(0, 0, 0, 0.34);
+}
+
+body {
+  background: var(--bg);
+}
+
+body::before {
+  background:
+    linear-gradient(rgba(132, 155, 169, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(132, 155, 169, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: none;
+}
+
+.app-shell {
+  width: min(1920px, 100%);
+  padding: 0.75rem;
+}
+
+.hero-panel {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 54px;
+  padding: 0 0.25rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.brand-line {
+  margin: 0;
+}
+
+.brand-line .eyebrow {
+  display: none;
+}
+
+.aws-link {
+  min-height: 30px;
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+}
+
+.aws-link::after {
+  display: none;
+}
+
+h1 {
+  font-size: clamp(1.2rem, 1.55vw, 1.65rem);
+  line-height: 1.1;
+}
+
+.lede {
+  display: none;
+}
+
+.actions {
+  gap: 0.45rem;
+  padding: 0;
+}
+
+.icon-button {
+  width: 38px;
+  border-radius: 4px;
+  background: var(--surface);
+  box-shadow: none;
+}
+
+.icon-button span {
+  width: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 1rem;
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+  transform: none;
+  border-color: var(--orange);
+  box-shadow: inset 0 -2px var(--orange);
+}
+
+.command-workbench {
+  display: grid;
+  grid-template-columns: 184px minmax(0, 1fr) 350px;
+  gap: 6px;
+  min-height: 620px;
+  height: min(690px, calc(100vh - 122px));
+  margin-top: 0.7rem;
+}
+
+.scenario-strip,
+.incident-inspector,
+.grid-window,
+.metrics,
+.runbook-panel,
+.posture-panel,
+.doctrine-panel {
+  border-color: var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  box-shadow: none;
+}
+
+.scenario-strip {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.rail-label,
+.inspector-title > span {
+  display: block;
+  min-height: 42px;
+  padding: 0.9rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.scenario {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 58px;
+  padding: 0.75rem 0.9rem 0.75rem 1.3rem;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.scenario::before {
+  position: absolute;
+  left: 0.75rem;
+  width: 5px;
+  height: 5px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  content: "";
+}
+
+.scenario.is-active {
+  color: var(--text);
+  background: rgba(255, 153, 0, 0.09);
+  box-shadow: inset 3px 0 var(--orange);
+}
+
+.scenario.is-active::before {
+  border-color: var(--orange);
+  background: var(--orange);
+}
+
+.stage,
+.grid-window {
+  min-width: 0;
+  height: 100%;
+}
+
+.grid-window {
+  min-height: 0;
+  background:
+    linear-gradient(rgba(120, 151, 168, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 151, 168, 0.07) 1px, transparent 1px),
+    #071018;
+  background-size: 76px 76px;
+  box-shadow: inset 0 2px rgba(255, 153, 0, 0.15);
+}
+
+.grid-window::before {
+  background: linear-gradient(90deg, transparent 0 42%, rgba(80, 213, 255, 0.035) 42% 50%, transparent 50%);
+}
+
+.sweep {
+  left: 42%;
+  width: 82px;
+  opacity: 0.45;
+}
+
+.authority-card {
+  top: 0.85rem;
+  left: 0.85rem;
+  width: min(330px, calc(100% - 1.7rem));
+  padding: 0.9rem 1rem;
+  border-radius: 4px;
+  background: rgba(8, 16, 22, 0.94);
+  box-shadow: inset 3px 0 var(--orange);
+  backdrop-filter: blur(6px);
+}
+
+.card-kicker,
+.authority-card span:last-child {
+  font-size: 0.7rem;
+}
+
+.authority-card strong {
+  margin: 0.45rem 0;
+  font-size: 1.03rem;
+  line-height: 1.32;
+}
+
+.route {
+  stroke-width: 5;
+}
+
+.route-secondary {
+  stroke-width: 3;
+}
+
+.route-fallback {
+  stroke-width: 4;
+}
+
+.node-drawer {
+  right: 0.85rem;
+  bottom: 0.85rem;
+  width: min(280px, calc(100% - 1.7rem));
+  padding: 0.85rem;
+  border-radius: 4px;
+  background: rgba(8, 16, 22, 0.95);
+  box-shadow: inset 3px 0 var(--green);
+}
+
+.node-drawer span,
+.node-drawer p,
+.node-drawer a {
+  font-size: 0.76rem;
+}
+
+.node-drawer strong {
+  font-size: 1.65rem;
+}
+
+.incident-inspector {
+  min-width: 0;
+  overflow: auto;
+  border: 1px solid var(--border);
+}
+
+.inspector-title strong {
+  display: block;
+  padding: 0.9rem 0.85rem 0.15rem;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.failure-composer {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.failure-composer-head {
+  display: block;
+  min-height: 0;
+  padding: 0 0.85rem 0.8rem;
+}
+
+.failure-composer-head span {
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+.failure-composer-head strong {
+  max-width: none;
+  margin-top: 0.55rem;
+  font-size: 0.76rem;
+  text-align: left;
+}
+
+.failure-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
+  padding: 0 0.75rem;
+  background: transparent;
+}
+
+.failure-controls button {
+  justify-content: flex-start;
+  min-height: 60px;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-2);
+  font-size: 0.78rem;
+}
+
+.failure-controls button.is-active {
+  background: rgba(255, 99, 92, 0.09);
+  box-shadow: inset 3px 0 var(--danger);
+}
+
+.failure-readout {
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0.75rem;
+  border: 1px solid var(--border);
+  background: transparent;
+}
+
+.failure-readout article {
+  min-height: 58px;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+}
+
+.failure-readout article:last-child {
+  border-bottom: 0;
+}
+
+.failure-readout span {
+  font-size: 0.66rem;
+}
+
+.failure-readout strong {
+  margin-top: 0.2rem;
+  font-size: 0.95rem;
+}
+
+#failureRecommendation {
+  margin: 0 0.75rem;
+  padding: 0.8rem 0;
+  font-size: 0.72rem;
+}
+
+.clear-failures {
+  width: calc(100% - 1.5rem);
+  min-height: 38px;
+  margin: 0 0.75rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.74rem;
+}
+
+.control-deck {
+  grid-template-columns: 1fr;
+  gap: 0.55rem;
+  margin-top: 0.55rem;
+}
+
+.metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metrics article {
+  min-height: 68px;
+  padding: 0.75rem 1rem;
+  border-right: 1px solid var(--border);
+  background: transparent;
+}
+
+.metrics strong {
+  font-size: 1.55rem;
+}
+
+.runbook-head,
+.posture-head,
+.doctrine-head {
+  min-height: 42px;
+  padding: 0.65rem 0.8rem;
+}
+
+.runbook-head strong,
+.posture-head strong,
+.doctrine-head strong {
+  font-size: 0.82rem;
+}
+
+.runbook-step,
+.posture-card,
+.doctrine-card {
+  background: var(--surface-2);
+}
+
+.runbook-step {
+  min-height: 116px;
+  padding: 0.8rem;
+}
+
+.runbook-step strong,
+.doctrine-card strong {
+  font-size: 0.9rem;
+}
+
+.runbook-step p,
+.posture-card p,
+.doctrine-card p {
+  font-size: 0.76rem;
+}
+
+.posture-card,
+.doctrine-card {
+  min-height: 132px;
+  padding: 0.8rem;
+}
+
+.posture-card strong {
+  font-size: 1.25rem;
+}
+
+.posture-bar {
+  height: 5px;
+  border-radius: 0;
+}
+
+.posture-bar span {
+  border-radius: 0;
+  background: var(--green);
+}
+
+.doctrine-card {
+  background: var(--surface-2);
+}
+
+@media (max-width: 1180px) {
+  .command-workbench {
+    grid-template-columns: 164px minmax(0, 1fr);
+    height: auto;
+  }
+
+  .stage,
+  .grid-window {
+    min-height: 650px;
+  }
+
+  .incident-inspector {
+    grid-column: 1 / -1;
+  }
+
+  .failure-controls {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .failure-readout {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    padding: 0.55rem;
+  }
+
+  .hero-panel {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.6rem;
+  }
+
+  .intro {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.55rem;
+  }
+
+  h1 {
+    font-size: 1rem;
+  }
+
+  .command-workbench {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .scenario-strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rail-label {
+    grid-column: 1 / -1;
+  }
+
+  .scenario {
+    min-height: 46px;
+  }
+
+  .stage,
+  .grid-window {
+    min-height: 530px;
+  }
+
+  .map {
+    top: 72px;
+    height: 430px;
+  }
+
+  .authority-card {
+    position: absolute;
+    margin: 0;
+  }
+
+  .authority-card strong {
+    font-size: 0.88rem;
+  }
+
+  .failure-controls,
+  .failure-readout,
+  .metrics,
+  .runbook-steps,
+  .posture-grid,
+  .doctrine-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics article {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}

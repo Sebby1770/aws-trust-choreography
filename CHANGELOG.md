@@ -4,6 +4,13 @@ All notable changes to this project are documented here.
 
 ## 2026-06-19
 
+### Redesigned
+
+- Rebuilt the first viewport as a three-zone incident command workbench with a scenario rail, dominant service topology, and live incident inspector.
+- Moved failure injection beside the topology so stacked faults and their consequences can be composed without leaving the map.
+- Reworked typography, spacing, borders, node details, telemetry, runbooks, posture controls, and doctrine into a denser operations-console system.
+- Added focused desktop, tablet, and mobile layouts that preserve the topology and controls without horizontal overflow.
+
 ### Added
 
 - Interactive Failure Composer with Edge Flood, Identity Breach, Data Lag, and Workflow Backlog injections.
