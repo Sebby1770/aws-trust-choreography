@@ -252,6 +252,35 @@
           </div>
           <div class="doctrine-grid" id="doctrineGrid" aria-live="polite"></div>
         </section>
+
+        <section class="failure-composer" aria-label="Failure injection composer">
+          <div class="failure-composer-head">
+            <span>Failure composer</span>
+            <strong id="failureComposerSummary">No faults injected</strong>
+          </div>
+          <div class="failure-controls" id="failureControls" role="group" aria-label="Inject failure modes">
+            <button type="button" data-failure-mode="edge" aria-pressed="false"><span></span>Edge flood</button>
+            <button type="button" data-failure-mode="identity" aria-pressed="false"><span></span>Identity breach</button>
+            <button type="button" data-failure-mode="data" aria-pressed="false"><span></span>Data lag</button>
+            <button type="button" data-failure-mode="workflow" aria-pressed="false"><span></span>Workflow backlog</button>
+          </div>
+          <div class="failure-readout">
+            <article>
+              <span>Blast radius</span>
+              <strong id="blastRadius">Contained</strong>
+            </article>
+            <article>
+              <span>Weakest node</span>
+              <strong id="weakestNode">Manual approval lane</strong>
+            </article>
+            <article>
+              <span>Composed recovery</span>
+              <strong id="composedRecovery">07m</strong>
+            </article>
+          </div>
+          <p id="failureRecommendation">Inject one or more faults to test how resilience controls interact.</p>
+          <button class="clear-failures" id="clearFailuresButton" type="button">Clear injections</button>
+        </section>
       </section>
     </main>
 

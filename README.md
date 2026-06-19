@@ -11,6 +11,9 @@ It visualizes a cloud recovery story with:
 - scenario-specific recovery runbooks that update with the active incident mode
 - a resilience posture model across Prevent, Absorb, Recover, and Learn control lenses
 - scenario-specific operating doctrine that names the failure model, stance, decision rule, and proof of recovery
+- interactive failure composition with stacked fault injection, blast-radius analysis, and live service-score degradation
 - a visible link to the official [AWS website](https://aws.amazon.com/)
 
 Open `index.html` directly in a browser, or serve the folder with any static file server.
+
+See [CHANGELOG.md](CHANGELOG.md) for dated release notes.

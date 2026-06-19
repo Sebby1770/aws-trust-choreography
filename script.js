@@ -65,6 +65,73 @@ const scenarios = {
   }
 };
 
+const failureModes = {
+  edge: {
+    id: "edge",
+    label: "Edge flood",
+    summary: "Cache misses and hostile traffic saturate the public entry path.",
+    scoreDeltas: {
+      "CloudFront edge": -24,
+      "EKS compute fleet": -10,
+      "IAM trust broker": -4
+    },
+    impactedNodes: ["CloudFront edge", "EKS compute fleet", "EventBridge mesh"],
+    routeHealthDelta: -18,
+    fallbackDelta: 4,
+    durabilityDelta: -0.01,
+    recoveryMinutes: 5,
+    recommendation: "Rate-limit at the edge, preserve cache capacity, and scale compute only after request quality is visible."
+  },
+  identity: {
+    id: "identity",
+    label: "Identity breach",
+    summary: "Federated trust expands beyond the intended emergency boundary.",
+    scoreDeltas: {
+      "IAM trust broker": -30,
+      "Step Functions core": -9,
+      "Manual approval lane": 8
+    },
+    impactedNodes: ["IAM trust broker", "Step Functions core", "Manual approval lane", "Lambda decision agent"],
+    routeHealthDelta: -10,
+    fallbackDelta: 7,
+    durabilityDelta: 0,
+    recoveryMinutes: 8,
+    recommendation: "Freeze role changes, route elevation through manual approval, and diff trust relationships before restoring speed."
+  },
+  data: {
+    id: "data",
+    label: "Data lag",
+    summary: "Replica delay and write pressure weaken recovery-point confidence.",
+    scoreDeltas: {
+      "Aurora data mesh": -28,
+      "Step Functions core": -7,
+      "EKS compute fleet": -5
+    },
+    impactedNodes: ["Aurora data mesh", "Step Functions core", "S3 evidence vault"],
+    routeHealthDelta: -8,
+    fallbackDelta: -4,
+    durabilityDelta: -0.12,
+    recoveryMinutes: 10,
+    recommendation: "Throttle writes, protect the last known recovery point, and prove replay order before reopening mutation paths."
+  },
+  workflow: {
+    id: "workflow",
+    label: "Workflow backlog",
+    summary: "Retries and compensations accumulate faster than state can settle.",
+    scoreDeltas: {
+      "Step Functions core": -25,
+      "EKS compute fleet": -7,
+      "Manual approval lane": -5
+    },
+    impactedNodes: ["Step Functions core", "Lambda decision agent", "EventBridge mesh", "Manual approval lane"],
+    routeHealthDelta: -12,
+    fallbackDelta: -6,
+    durabilityDelta: -0.02,
+    recoveryMinutes: 7,
+    recommendation: "Quarantine poison work, cap retries, and drain one compensation lane at a time with evidence attached."
+  }
+};
+
 const runbooks = {
   steady: {
     title: "Steady state watch",
@@ -463,23 +530,117 @@ const textTargets = {
   postureTitle: document.querySelector("#postureTitle"),
   postureGrid: document.querySelector("#postureGrid"),
   doctrineTitle: document.querySelector("#doctrineTitle"),
-  doctrineGrid: document.querySelector("#doctrineGrid")
+  doctrineGrid: document.querySelector("#doctrineGrid"),
+  failureComposerSummary: document.querySelector("#failureComposerSummary"),
+  failureControls: document.querySelector("#failureControls"),
+  blastRadius: document.querySelector("#blastRadius"),
+  weakestNode: document.querySelector("#weakestNode"),
+  composedRecovery: document.querySelector("#composedRecovery"),
+  failureRecommendation: document.querySelector("#failureRecommendation"),
+  clearFailuresButton: document.querySelector("#clearFailuresButton")
 };
 
 let activeScenario = "steady";
 let selectedNode = "Step Functions core";
+const activeFailures = new Set();
 
-function updateScoreLabels(scores) {
+function clampNumber(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function deriveComposedState(name) {
+  const scenario = scenarios[name] || scenarios.steady;
+  const scores = { ...scenario.scores };
+  const impactedNodes = new Set();
+  let routeHealth = Number.parseFloat(scenario.routeHealth);
+  let fallbackReady = Number.parseFloat(scenario.fallbackReady);
+  let dataDurability = Number.parseFloat(scenario.dataDurability);
+  let recoveryMinutes = Number.parseInt(scenario.recoveryEta, 10);
+  const activeModeObjects = Array.from(activeFailures).map((id) => failureModes[id]).filter(Boolean);
+
+  activeModeObjects.forEach((mode) => {
+    Object.entries(mode.scoreDeltas).forEach(([nodeName, delta]) => {
+      scores[nodeName] = clampNumber((scores[nodeName] || 78) + delta, 12, 99);
+    });
+    mode.impactedNodes.forEach((nodeName) => impactedNodes.add(nodeName));
+    routeHealth += mode.routeHealthDelta;
+    fallbackReady += mode.fallbackDelta;
+    dataDurability += mode.durabilityDelta;
+    recoveryMinutes += mode.recoveryMinutes;
+  });
+
+  routeHealth = Math.round(clampNumber(routeHealth, 12, 99));
+  fallbackReady = Math.round(clampNumber(fallbackReady, 10, 99));
+  dataDurability = clampNumber(dataDurability, 95, 99.99);
+  recoveryMinutes = Math.round(clampNumber(recoveryMinutes, 1, 99));
+
+  const weakestEntry = Object.entries(scores).sort((a, b) => a[1] - b[1])[0];
+  let blastRadius = "Contained";
+  if (activeModeObjects.length === 1) {
+    blastRadius = impactedNodes.size >= 4 ? "Domain-wide" : "Localized";
+  } else if (activeModeObjects.length === 2) {
+    blastRadius = "Cross-domain";
+  } else if (activeModeObjects.length >= 3) {
+    blastRadius = "Systemic";
+  }
+
+  const summary = activeModeObjects.length
+    ? `${activeModeObjects.length} fault${activeModeObjects.length === 1 ? "" : "s"} injected: ${activeModeObjects.map((mode) => mode.label).join(" + ")}`
+    : "No faults injected";
+  const recommendation = activeModeObjects.length
+    ? activeModeObjects.map((mode) => mode.recommendation).join(" ")
+    : "Inject one or more faults to test how resilience controls interact.";
+
+  return {
+    scores,
+    impactedNodes,
+    routeHealth,
+    fallbackReady,
+    dataDurability,
+    recoveryMinutes,
+    weakestNode: weakestEntry ? weakestEntry[0] : "Unknown",
+    weakestScore: weakestEntry ? weakestEntry[1] : 0,
+    blastRadius,
+    summary,
+    recommendation,
+    activeModeObjects
+  };
+}
+
+function updateScoreLabels(scores, impactedNodes) {
   serviceNodes.forEach((node) => {
     const name = node.dataset.node;
     const score = scores[name] || node.dataset.score;
     node.dataset.score = score;
+    node.classList.toggle("is-impacted", impactedNodes.has(name));
     const scoreLabel = node.querySelector(".score");
 
     if (scoreLabel) {
       scoreLabel.textContent = `${score}%`;
     }
   });
+}
+
+function renderComposedState(name) {
+  const composed = deriveComposedState(name);
+  textTargets.routeHealth.textContent = `${composed.routeHealth}%`;
+  textTargets.fallbackReady.textContent = `${composed.fallbackReady}%`;
+  textTargets.dataDurability.textContent = composed.dataDurability.toFixed(2);
+  textTargets.recoveryEta.textContent = `${String(composed.recoveryMinutes).padStart(2, "0")}m`;
+  textTargets.failureComposerSummary.textContent = composed.summary;
+  textTargets.blastRadius.textContent = composed.blastRadius;
+  textTargets.weakestNode.textContent = `${composed.weakestNode} (${composed.weakestScore}%)`;
+  textTargets.composedRecovery.textContent = `${String(composed.recoveryMinutes).padStart(2, "0")}m`;
+  textTargets.failureRecommendation.textContent = composed.recommendation;
+  textTargets.clearFailuresButton.disabled = activeFailures.size === 0;
+  root.classList.toggle("has-injected-failures", activeFailures.size > 0);
+  textTargets.failureControls.querySelectorAll("[data-failure-mode]").forEach((button) => {
+    const isActive = activeFailures.has(button.dataset.failureMode);
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+  updateScoreLabels(composed.scores, composed.impactedNodes);
+  return composed;
 }
 
 function setScenario(name) {
@@ -494,15 +655,10 @@ function setScenario(name) {
 
   textTargets.scenarioTitle.textContent = scenario.title;
   textTargets.scenarioMeta.textContent = scenario.meta;
-  textTargets.routeHealth.textContent = scenario.routeHealth;
-  textTargets.fallbackReady.textContent = scenario.fallbackReady;
-  textTargets.dataDurability.textContent = scenario.dataDurability;
-  textTargets.recoveryEta.textContent = scenario.recoveryEta;
-
-  updateScoreLabels(scenario.scores);
   renderRunbook(name);
   renderPosture(name);
   renderDoctrine(name);
+  renderComposedState(name);
   setNode(selectedNode);
 }
 
@@ -550,9 +706,9 @@ function renderDoctrine(name) {
 }
 
 function setNode(name) {
-  const scenario = scenarios[activeScenario];
+  const composed = deriveComposedState(activeScenario);
   selectedNode = name;
-  const score = scenario.scores[name] || document.querySelector(`[data-node="${name}"]`)?.dataset.score || "84";
+  const score = composed.scores[name] || document.querySelector(`[data-node="${name}"]`)?.dataset.score || "84";
 
   serviceNodes.forEach((node) => {
     node.classList.toggle("is-selected", node.dataset.node === name);
@@ -572,6 +728,27 @@ function setNode(name) {
 
 scenarioButtons.forEach((button) => {
   button.addEventListener("click", () => setScenario(button.dataset.scenario));
+});
+
+textTargets.failureControls.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-failure-mode]");
+  if (!button || !failureModes[button.dataset.failureMode]) {
+    return;
+  }
+  const modeId = button.dataset.failureMode;
+  if (activeFailures.has(modeId)) {
+    activeFailures.delete(modeId);
+  } else {
+    activeFailures.add(modeId);
+  }
+  renderComposedState(activeScenario);
+  setNode(selectedNode);
+});
+
+textTargets.clearFailuresButton.addEventListener("click", () => {
+  activeFailures.clear();
+  renderComposedState(activeScenario);
+  setNode(selectedNode);
 });
 
 serviceNodes.forEach((node) => {
