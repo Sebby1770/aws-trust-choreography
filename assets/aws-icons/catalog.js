@@ -1,0 +1,6905 @@
+window.AWS_ICON_CATALOG_META = {
+  "release": "2026-Q2",
+  "published": "2026-04-30",
+  "source": "https://aws.amazon.com/architecture/icons/",
+  "count": 862
+};
+
+window.AWS_ICON_CATALOG = [
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Analytics_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Analytics",
+    "path": "assets/aws-icons/category/Arch-Category_Analytics_64.svg",
+    "search": "analytics category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Application-Integration_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Application Integration",
+    "path": "assets/aws-icons/category/Arch-Category_Application-Integration_64.svg",
+    "search": "application integration category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Artificial-Intelligence_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Artificial Intelligence",
+    "path": "assets/aws-icons/category/Arch-Category_Artificial-Intelligence_64.svg",
+    "search": "artificial intelligence category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Blockchain_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Blockchain",
+    "path": "assets/aws-icons/category/Arch-Category_Blockchain_64.svg",
+    "search": "blockchain category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Business-Applications_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Business Applications",
+    "path": "assets/aws-icons/category/Arch-Category_Business-Applications_64.svg",
+    "search": "business applications category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Cloud-Financial-Management_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Cloud Financial Management",
+    "path": "assets/aws-icons/category/Arch-Category_Cloud-Financial-Management_64.svg",
+    "search": "cloud financial management category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Compute_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Compute",
+    "path": "assets/aws-icons/category/Arch-Category_Compute_64.svg",
+    "search": "compute category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Containers_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Containers",
+    "path": "assets/aws-icons/category/Arch-Category_Containers_64.svg",
+    "search": "containers category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Customer-Enablement_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Customer Enablement",
+    "path": "assets/aws-icons/category/Arch-Category_Customer-Enablement_64.svg",
+    "search": "customer enablement category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Customer-Experience_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Customer Experience",
+    "path": "assets/aws-icons/category/Arch-Category_Customer-Experience_64.svg",
+    "search": "customer experience category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Databases_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Databases",
+    "path": "assets/aws-icons/category/Arch-Category_Databases_64.svg",
+    "search": "databases category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Developer-Tools_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Developer Tools",
+    "path": "assets/aws-icons/category/Arch-Category_Developer-Tools_64.svg",
+    "search": "developer tools category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_End-User-Computing_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "End User Computing",
+    "path": "assets/aws-icons/category/Arch-Category_End-User-Computing_64.svg",
+    "search": "end user computing category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Front-End-Web-Mobile_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Front End Web Mobile",
+    "path": "assets/aws-icons/category/Arch-Category_Front-End-Web-Mobile_64.svg",
+    "search": "front end web mobile category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Games_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Games",
+    "path": "assets/aws-icons/category/Arch-Category_Games_64.svg",
+    "search": "games category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Internet-of-Things_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Internet of Things",
+    "path": "assets/aws-icons/category/Arch-Category_Internet-of-Things_64.svg",
+    "search": "internet of things category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Management-Tools_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Management Tools",
+    "path": "assets/aws-icons/category/Arch-Category_Management-Tools_64.svg",
+    "search": "management tools category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Media-Services_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Media Services",
+    "path": "assets/aws-icons/category/Arch-Category_Media-Services_64.svg",
+    "search": "media services category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Migration-Modernization_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Migration Modernization",
+    "path": "assets/aws-icons/category/Arch-Category_Migration-Modernization_64.svg",
+    "search": "migration modernization category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Multicloud-and-Hybrid_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Multicloud and Hybrid",
+    "path": "assets/aws-icons/category/Arch-Category_Multicloud-and-Hybrid_64.svg",
+    "search": "multicloud and hybrid category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Networking-Content-Delivery_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Networking Content Delivery",
+    "path": "assets/aws-icons/category/Arch-Category_Networking-Content-Delivery_64.svg",
+    "search": "networking content delivery category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Quantum-Technologies_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Quantum Technologies",
+    "path": "assets/aws-icons/category/Arch-Category_Quantum-Technologies_64.svg",
+    "search": "quantum technologies category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Satellite_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Satellite",
+    "path": "assets/aws-icons/category/Arch-Category_Satellite_64.svg",
+    "search": "satellite category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Security-Identity_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Security Identity",
+    "path": "assets/aws-icons/category/Arch-Category_Security-Identity_64.svg",
+    "search": "security identity category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Serverless_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Serverless",
+    "path": "assets/aws-icons/category/Arch-Category_Serverless_64.svg",
+    "search": "serverless category category"
+  },
+  {
+    "id": "category:assets/aws-icons/category/Arch-Category_Storage_64.svg",
+    "type": "category",
+    "category": "category",
+    "name": "Storage",
+    "path": "assets/aws-icons/category/Arch-Category_Storage_64.svg",
+    "search": "storage category category"
+  },
+  {
+    "id": "group:assets/aws-icons/group/Auto-Scaling-group_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "Auto Scaling group",
+    "path": "assets/aws-icons/group/Auto-Scaling-group_32.svg",
+    "search": "auto scaling group group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/AWS-Account_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "AWS Account",
+    "path": "assets/aws-icons/group/AWS-Account_32.svg",
+    "search": "aws account group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/AWS-Cloud_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "AWS Cloud",
+    "path": "assets/aws-icons/group/AWS-Cloud_32.svg",
+    "search": "aws cloud group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/AWS-Cloud_32_Dark.svg",
+    "type": "group",
+    "category": "group",
+    "name": "AWS Cloud 32 Dark",
+    "path": "assets/aws-icons/group/AWS-Cloud_32_Dark.svg",
+    "search": "aws cloud 32 dark group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/AWS-Cloud-logo_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "AWS Cloud logo",
+    "path": "assets/aws-icons/group/AWS-Cloud-logo_32.svg",
+    "search": "aws cloud logo group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/AWS-Cloud-logo_32_Dark.svg",
+    "type": "group",
+    "category": "group",
+    "name": "AWS Cloud logo 32 Dark",
+    "path": "assets/aws-icons/group/AWS-Cloud-logo_32_Dark.svg",
+    "search": "aws cloud logo 32 dark group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/AWS-IoT-Greengrass-Deployment_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "AWS IoT Greengrass Deployment",
+    "path": "assets/aws-icons/group/AWS-IoT-Greengrass-Deployment_32.svg",
+    "search": "aws iot greengrass deployment group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/Corporate-data-center_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "Corporate data center",
+    "path": "assets/aws-icons/group/Corporate-data-center_32.svg",
+    "search": "corporate data center group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/EC2-instance-contents_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "EC2 instance contents",
+    "path": "assets/aws-icons/group/EC2-instance-contents_32.svg",
+    "search": "ec2 instance contents group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/Private-subnet_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "Private subnet",
+    "path": "assets/aws-icons/group/Private-subnet_32.svg",
+    "search": "private subnet group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/Public-subnet_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "Public subnet",
+    "path": "assets/aws-icons/group/Public-subnet_32.svg",
+    "search": "public subnet group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/Region_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "Region",
+    "path": "assets/aws-icons/group/Region_32.svg",
+    "search": "region group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/Server-contents_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "Server contents",
+    "path": "assets/aws-icons/group/Server-contents_32.svg",
+    "search": "server contents group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/Spot-Fleet_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "Spot Fleet",
+    "path": "assets/aws-icons/group/Spot-Fleet_32.svg",
+    "search": "spot fleet group group"
+  },
+  {
+    "id": "group:assets/aws-icons/group/Virtual-private-cloud-VPC_32.svg",
+    "type": "group",
+    "category": "group",
+    "name": "Virtual private cloud VPC",
+    "path": "assets/aws-icons/group/Virtual-private-cloud-VPC_32.svg",
+    "search": "virtual private cloud vpc group group"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Athena_Data-Source-Connectors_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Athena Data Source Connectors",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Athena_Data-Source-Connectors_48.svg",
+    "search": "amazon athena data source connectors analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-CloudSearch_Search-Documents_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon CloudSearch Search Documents",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-CloudSearch_Search-Documents_48.svg",
+    "search": "amazon cloudsearch search documents analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-DataZone_Business-Data-Catalog_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon DataZone Business Data Catalog",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-DataZone_Business-Data-Catalog_48.svg",
+    "search": "amazon datazone business data catalog analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-DataZone_Data-Portal_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon DataZone Data Portal",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-DataZone_Data-Portal_48.svg",
+    "search": "amazon datazone data portal analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-DataZone_Data-Projects_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon DataZone Data Projects",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-DataZone_Data-Projects_48.svg",
+    "search": "amazon datazone data projects analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-EMR_Cluster_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon EMR Cluster",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-EMR_Cluster_48.svg",
+    "search": "amazon emr cluster analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-EMR_EMR-Engine_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon EMR EMR Engine",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-EMR_EMR-Engine_48.svg",
+    "search": "amazon emr emr engine analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-EMR_HDFS-Cluster_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon EMR HDFS Cluster",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-EMR_HDFS-Cluster_48.svg",
+    "search": "amazon emr hdfs cluster analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-MSK_Amazon-MSK-Connect_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon MSK Amazon MSK Connect",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-MSK_Amazon-MSK-Connect_48.svg",
+    "search": "amazon msk amazon msk connect analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Cluster-Administrator-Node_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service Cluster Administrator Node",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Cluster-Administrator-Node_48.svg",
+    "search": "amazon opensearch service cluster administrator node analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Data-Node_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service Data Node",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Data-Node_48.svg",
+    "search": "amazon opensearch service data node analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Index_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service Index",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Index_48.svg",
+    "search": "amazon opensearch service index analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Observability_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service Observability",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Observability_48.svg",
+    "search": "amazon opensearch service observability analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_OpenSearch-Dashboards_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service OpenSearch Dashboards",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_OpenSearch-Dashboards_48.svg",
+    "search": "amazon opensearch service opensearch dashboards analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_OpenSearch-Ingestion_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service OpenSearch Ingestion",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_OpenSearch-Ingestion_48.svg",
+    "search": "amazon opensearch service opensearch ingestion analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Traces_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service Traces",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_Traces_48.svg",
+    "search": "amazon opensearch service traces analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_UltraWarm-Node_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service UltraWarm Node",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-OpenSearch-Service_UltraWarm-Node_48.svg",
+    "search": "amazon opensearch service ultrawarm node analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Auto-copy_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Redshift Auto copy",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Auto-copy_48.svg",
+    "search": "amazon redshift auto copy analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Data-Sharing-Governance_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Redshift Data Sharing Governance",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Data-Sharing-Governance_48.svg",
+    "search": "amazon redshift data sharing governance analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Dense-Compute-Node_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Redshift Dense Compute Node",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Dense-Compute-Node_48.svg",
+    "search": "amazon redshift dense compute node analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Dense-Storage-Node_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Redshift Dense Storage Node",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Dense-Storage-Node_48.svg",
+    "search": "amazon redshift dense storage node analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_ML_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Redshift ML",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_ML_48.svg",
+    "search": "amazon redshift ml analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Query-Editor-v2.0_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Redshift Query Editor v2.0",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Query-Editor-v2.0_48.svg",
+    "search": "amazon redshift query editor v2.0 analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_RA3_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Redshift RA3",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_RA3_48.svg",
+    "search": "amazon redshift ra3 analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Streaming-Ingestion_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "Amazon Redshift Streaming Ingestion",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_Amazon-Redshift_Streaming-Ingestion_48.svg",
+    "search": "amazon redshift streaming ingestion analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_AWS-Data-Exchange-for-APIs_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "AWS Data Exchange for APIs",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_AWS-Data-Exchange-for-APIs_48.svg",
+    "search": "aws data exchange for apis analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_AWS-Glue_AWS-Glue-for-Ray_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "AWS Glue AWS Glue for Ray",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_AWS-Glue_AWS-Glue-for-Ray_48.svg",
+    "search": "aws glue aws glue for ray analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_AWS-Glue_Crawler_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "AWS Glue Crawler",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_AWS-Glue_Crawler_48.svg",
+    "search": "aws glue crawler analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_AWS-Glue_Data-Catalog_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "AWS Glue Data Catalog",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_AWS-Glue_Data-Catalog_48.svg",
+    "search": "aws glue data catalog analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_AWS-Glue_Data-Quality_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "AWS Glue Data Quality",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_AWS-Glue_Data-Quality_48.svg",
+    "search": "aws glue data quality analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Analytics/Res_AWS-Lake-Formation_Data-Lake_48.svg",
+    "type": "resource",
+    "category": "Analytics",
+    "name": "AWS Lake Formation Data Lake",
+    "path": "assets/aws-icons/resource/Res_Analytics/Res_AWS-Lake-Formation_Data-Lake_48.svg",
+    "search": "aws lake formation data lake analytics resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Custom-Event-Bus_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Custom Event Bus",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Custom-Event-Bus_48.svg",
+    "search": "amazon eventbridge custom event bus application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Default-Event-Bus_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Default Event Bus",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Default-Event-Bus_48.svg",
+    "search": "amazon eventbridge default event bus application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge-Event_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Event",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge-Event_48.svg",
+    "search": "amazon eventbridge event application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Pipes_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Pipes",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Pipes_48.svg",
+    "search": "amazon eventbridge pipes application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Rule_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Rule",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Rule_48.svg",
+    "search": "amazon eventbridge rule application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Saas-Partner-Event_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Saas Partner Event",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Saas-Partner-Event_48.svg",
+    "search": "amazon eventbridge saas partner event application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Scheduler_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Scheduler",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Scheduler_48.svg",
+    "search": "amazon eventbridge scheduler application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Schema_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Schema",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Schema_48.svg",
+    "search": "amazon eventbridge schema application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Schema-Registry_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge Schema Registry",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-EventBridge_Schema-Registry_48.svg",
+    "search": "amazon eventbridge schema registry application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-MQ_Broker_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon MQ Broker",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-MQ_Broker_48.svg",
+    "search": "amazon mq broker application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Notification-Service_Email-Notification_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon Simple Notification Service Email Notification",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Notification-Service_Email-Notification_48.svg",
+    "search": "amazon simple notification service email notification application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Notification-Service_HTTP-Notification_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon Simple Notification Service HTTP Notification",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Notification-Service_HTTP-Notification_48.svg",
+    "search": "amazon simple notification service http notification application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Notification-Service_Topic_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon Simple Notification Service Topic",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Notification-Service_Topic_48.svg",
+    "search": "amazon simple notification service topic application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Queue-Service_Message_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon Simple Queue Service Message",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Queue-Service_Message_48.svg",
+    "search": "amazon simple queue service message application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Queue-Service_Queue_48.svg",
+    "type": "resource",
+    "category": "Application Integration",
+    "name": "Amazon Simple Queue Service Queue",
+    "path": "assets/aws-icons/resource/Res_Application-Integration/Res_Amazon-Simple-Queue-Service_Queue_48.svg",
+    "search": "amazon simple queue service queue application integration resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-DevOps-Guru_Insights_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon DevOps Guru Insights",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-DevOps-Guru_Insights_48.svg",
+    "search": "amazon devops guru insights artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-Rekognition_Image_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Rekognition Image",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-Rekognition_Image_48.svg",
+    "search": "amazon rekognition image artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-Rekognition_Video_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Rekognition Video",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-Rekognition_Video_48.svg",
+    "search": "amazon rekognition video artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Canvas_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker AI Canvas",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Canvas_48.svg",
+    "search": "amazon sagemaker ai canvas artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Geospatial-ML_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker AI Geospatial ML",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Geospatial-ML_48.svg",
+    "search": "amazon sagemaker ai geospatial ml artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Model_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker AI Model",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Model_48.svg",
+    "search": "amazon sagemaker ai model artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Notebook_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker AI Notebook",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Notebook_48.svg",
+    "search": "amazon sagemaker ai notebook artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Shadow-Testing_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker AI Shadow Testing",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Shadow-Testing_48.svg",
+    "search": "amazon sagemaker ai shadow testing artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Train_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker AI Train",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-SageMaker-AI_Train_48.svg",
+    "search": "amazon sagemaker ai train artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-Textract_Analyze-Lending_48.svg",
+    "type": "resource",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Textract Analyze Lending",
+    "path": "assets/aws-icons/resource/Res_Artificial-Intelligence/Res_Amazon-Textract_Analyze-Lending_48.svg",
+    "search": "amazon textract analyze lending artificial intelligence resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Blockchain/Res_Amazon-Managed-Blockchain_Blockchain_48.svg",
+    "type": "resource",
+    "category": "Blockchain",
+    "name": "Amazon Managed Blockchain Blockchain",
+    "path": "assets/aws-icons/resource/Res_Blockchain/Res_Amazon-Managed-Blockchain_Blockchain_48.svg",
+    "search": "amazon managed blockchain blockchain blockchain resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Business-Applications/Res_Amazon-Pinpoint_Journey_48.svg",
+    "type": "resource",
+    "category": "Business Applications",
+    "name": "Amazon Pinpoint Journey",
+    "path": "assets/aws-icons/resource/Res_Business-Applications/Res_Amazon-Pinpoint_Journey_48.svg",
+    "search": "amazon pinpoint journey business applications resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Business-Applications/Res_Amazon-Simple-Email-Service_Email_48.svg",
+    "type": "resource",
+    "category": "Business Applications",
+    "name": "Amazon Simple Email Service Email",
+    "path": "assets/aws-icons/resource/Res_Business-Applications/Res_Amazon-Simple-Email-Service_Email_48.svg",
+    "search": "amazon simple email service email business applications resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_AMI_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 AMI",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_AMI_48.svg",
+    "search": "amazon ec2 ami compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Auto-Scaling_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 Auto Scaling",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Auto-Scaling_48.svg",
+    "search": "amazon ec2 auto scaling compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_AWS-Microservice-Extractor-for-.NET_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 AWS Microservice Extractor for .NET",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_AWS-Microservice-Extractor-for-.NET_48.svg",
+    "search": "amazon ec2 aws microservice extractor for .net compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_DB-Instance_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 DB Instance",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_DB-Instance_48.svg",
+    "search": "amazon ec2 db instance compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Elastic-IP-Address_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 Elastic IP Address",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Elastic-IP-Address_48.svg",
+    "search": "amazon ec2 elastic ip address compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Instance_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 Instance",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Instance_48.svg",
+    "search": "amazon ec2 instance compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Instance-with-CloudWatch_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 Instance with CloudWatch",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Instance-with-CloudWatch_48.svg",
+    "search": "amazon ec2 instance with cloudwatch compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Instances_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 Instances",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Instances_48.svg",
+    "search": "amazon ec2 instances compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Rescue_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 Rescue",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Rescue_48.svg",
+    "search": "amazon ec2 rescue compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Spot-Instance_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "Amazon EC2 Spot Instance",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_Amazon-EC2_Spot-Instance_48.svg",
+    "search": "amazon ec2 spot instance compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_AWS-Elastic-Beanstalk_Application_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "AWS Elastic Beanstalk Application",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_AWS-Elastic-Beanstalk_Application_48.svg",
+    "search": "aws elastic beanstalk application compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_AWS-Elastic-Beanstalk_Deployment_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "AWS Elastic Beanstalk Deployment",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_AWS-Elastic-Beanstalk_Deployment_48.svg",
+    "search": "aws elastic beanstalk deployment compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Compute/Res_AWS-Lambda_Lambda-Function_48.svg",
+    "type": "resource",
+    "category": "Compute",
+    "name": "AWS Lambda Lambda Function",
+    "path": "assets/aws-icons/resource/Res_Compute/Res_AWS-Lambda_Lambda-Function_48.svg",
+    "search": "aws lambda lambda function compute resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Registry_Image_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Registry Image",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Registry_Image_48.svg",
+    "search": "amazon elastic container registry image containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Registry_Registry_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Registry Registry",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Registry_Registry_48.svg",
+    "search": "amazon elastic container registry registry containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Container-1_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Service Container 1",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Container-1_48.svg",
+    "search": "amazon elastic container service container 1 containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Container-2_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Service Container 2",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Container-2_48.svg",
+    "search": "amazon elastic container service container 2 containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Container-3_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Service Container 3",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Container-3_48.svg",
+    "search": "amazon elastic container service container 3 containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_CopiIoT-CLI_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Service CopiIoT CLI",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_CopiIoT-CLI_48.svg",
+    "search": "amazon elastic container service copiiot cli containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_ECS-Service-Connect_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Service ECS Service Connect",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_ECS-Service-Connect_48.svg",
+    "search": "amazon elastic container service ecs service connect containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Service_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Service Service",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Service_48.svg",
+    "search": "amazon elastic container service service containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Task_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Service Task",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Container-Service_Task_48.svg",
+    "search": "amazon elastic container service task containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Kubernetes-Service_EKS-on-Outposts_48.svg",
+    "type": "resource",
+    "category": "Containers",
+    "name": "Amazon Elastic Kubernetes Service EKS on Outposts",
+    "path": "assets/aws-icons/resource/Res_Containers/Res_Amazon-Elastic-Kubernetes-Service_EKS-on-Outposts_48.svg",
+    "search": "amazon elastic kubernetes service eks on outposts containers resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora_Amazon-Aurora-Instance-alternate_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora Amazon Aurora Instance alternate",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora_Amazon-Aurora-Instance-alternate_48.svg",
+    "search": "amazon aurora amazon aurora instance alternate databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora_Amazon-RDS-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora Amazon RDS Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora_Amazon-RDS-Instance_48.svg",
+    "search": "amazon aurora amazon rds instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora_Amazon-RDS-Instance-Aternate_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora Amazon RDS Instance Aternate",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora_Amazon-RDS-Instance-Aternate_48.svg",
+    "search": "amazon aurora amazon rds instance aternate databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-Instance_48.svg",
+    "search": "amazon aurora instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-MariaDB-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora MariaDB Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-MariaDB-Instance_48.svg",
+    "search": "amazon aurora mariadb instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-MariaDB-Instance-Alternate_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora MariaDB Instance Alternate",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-MariaDB-Instance-Alternate_48.svg",
+    "search": "amazon aurora mariadb instance alternate databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-MySQL-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora MySQL Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-MySQL-Instance_48.svg",
+    "search": "amazon aurora mysql instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-MySQL-Instance-Alternate_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora MySQL Instance Alternate",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-MySQL-Instance-Alternate_48.svg",
+    "search": "amazon aurora mysql instance alternate databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-Oracle-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora Oracle Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-Oracle-Instance_48.svg",
+    "search": "amazon aurora oracle instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-Oracle-Instance-Alternate_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora Oracle Instance Alternate",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-Oracle-Instance-Alternate_48.svg",
+    "search": "amazon aurora oracle instance alternate databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-PIOPS-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora PIOPS Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-PIOPS-Instance_48.svg",
+    "search": "amazon aurora piops instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-PostgreSQL-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora PostgreSQL Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-PostgreSQL-Instance_48.svg",
+    "search": "amazon aurora postgresql instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-PostgreSQL-Instance-Alternate_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora PostgreSQL Instance Alternate",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-PostgreSQL-Instance-Alternate_48.svg",
+    "search": "amazon aurora postgresql instance alternate databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-SQL-Server-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora SQL Server Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-SQL-Server-Instance_48.svg",
+    "search": "amazon aurora sql server instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-SQL-Server-Instance-Alternate_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora SQL Server Instance Alternate",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora-SQL-Server-Instance-Alternate_48.svg",
+    "search": "amazon aurora sql server instance alternate databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora_Trusted-Language-Extensions-for-PostgreSQL_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon Aurora Trusted Language Extensions for PostgreSQL",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-Aurora_Trusted-Language-Extensions-for-PostgreSQL_48.svg",
+    "search": "amazon aurora trusted language extensions for postgresql databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DocumentDB_Elastic-Clusters_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DocumentDB Elastic Clusters",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DocumentDB_Elastic-Clusters_48.svg",
+    "search": "amazon documentdb elastic clusters databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Amazon-DynamoDB-Accelerator_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Amazon DynamoDB Accelerator",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Amazon-DynamoDB-Accelerator_48.svg",
+    "search": "amazon dynamodb amazon dynamodb accelerator databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Attribute_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Attribute",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Attribute_48.svg",
+    "search": "amazon dynamodb attribute databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Attributes_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Attributes",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Attributes_48.svg",
+    "search": "amazon dynamodb attributes databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Global-secondary-index_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Global secondary index",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Global-secondary-index_48.svg",
+    "search": "amazon dynamodb global secondary index databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Item_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Item",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Item_48.svg",
+    "search": "amazon dynamodb item databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Items_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Items",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Items_48.svg",
+    "search": "amazon dynamodb items databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Standard-Access-Table-Class_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Standard Access Table Class",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Standard-Access-Table-Class_48.svg",
+    "search": "amazon dynamodb standard access table class databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Standard-Infrequent-Access-Table-Class_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Standard Infrequent Access Table Class",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Standard-Infrequent-Access-Table-Class_48.svg",
+    "search": "amazon dynamodb standard infrequent access table class databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Stream_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Stream",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Stream_48.svg",
+    "search": "amazon dynamodb stream databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Table_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon DynamoDB Table",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-DynamoDB_Table_48.svg",
+    "search": "amazon dynamodb table databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-ElastiCache_Cache-Node_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon ElastiCache Cache Node",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-ElastiCache_Cache-Node_48.svg",
+    "search": "amazon elasticache cache node databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-ElastiCache_ElastiCache-for-Memcached_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon ElastiCache ElastiCache for Memcached",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-ElastiCache_ElastiCache-for-Memcached_48.svg",
+    "search": "amazon elasticache elasticache for memcached databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-ElastiCache_ElastiCache-for-Redis_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon ElastiCache ElastiCache for Redis",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-ElastiCache_ElastiCache-for-Redis_48.svg",
+    "search": "amazon elasticache elasticache for redis databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-ElastiCache_ElastiCache-for-Valkey_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon ElastiCache ElastiCache for Valkey",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-ElastiCache_ElastiCache-for-Valkey_48.svg",
+    "search": "amazon elasticache elasticache for valkey databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Blue-Green-Deployments_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon RDS Blue Green Deployments",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Blue-Green-Deployments_48.svg",
+    "search": "amazon rds blue green deployments databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Multi-AZ_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon RDS Multi AZ",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Multi-AZ_48.svg",
+    "search": "amazon rds multi az databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Multi-AZ-DB-Cluster_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon RDS Multi AZ DB Cluster",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Multi-AZ-DB-Cluster_48.svg",
+    "search": "amazon rds multi az db cluster databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Optimized-Writes_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon RDS Optimized Writes",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Optimized-Writes_48.svg",
+    "search": "amazon rds optimized writes databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS-Proxy-Instance_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon RDS Proxy Instance",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS-Proxy-Instance_48.svg",
+    "search": "amazon rds proxy instance databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS-Proxy-Instance-Alternate_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon RDS Proxy Instance Alternate",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS-Proxy-Instance-Alternate_48.svg",
+    "search": "amazon rds proxy instance alternate databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Trusted-Language-Extensions-for-PostgreSQL_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "Amazon RDS Trusted Language Extensions for PostgreSQL",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_Amazon-RDS_Trusted-Language-Extensions-for-PostgreSQL_48.svg",
+    "search": "amazon rds trusted language extensions for postgresql databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Databases/Res_AWS-Database-Migration-Service_Database-migration-workflow-or-job_48.svg",
+    "type": "resource",
+    "category": "Databases",
+    "name": "AWS Database Migration Service Database migration workflow or job",
+    "path": "assets/aws-icons/resource/Res_Databases/Res_AWS-Database-Migration-Service_Database-migration-workflow-or-job_48.svg",
+    "search": "aws database migration service database migration workflow or job databases resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Developer-Tools/Res_AWS-Cloud9_Cloud9_48.svg",
+    "type": "resource",
+    "category": "Developer Tools",
+    "name": "AWS Cloud9 Cloud9",
+    "path": "assets/aws-icons/resource/Res_Developer-Tools/Res_AWS-Cloud9_Cloud9_48.svg",
+    "search": "aws cloud9 cloud9 developer tools resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Geofence_48.svg",
+    "type": "resource",
+    "category": "Front End Web Mobile",
+    "name": "Amazon Location Service Geofence",
+    "path": "assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Geofence_48.svg",
+    "search": "amazon location service geofence front end web mobile resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Map _48.svg",
+    "type": "resource",
+    "category": "Front End Web Mobile",
+    "name": "Amazon Location Service Map",
+    "path": "assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Map _48.svg",
+    "search": "amazon location service map front end web mobile resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Place_48.svg",
+    "type": "resource",
+    "category": "Front End Web Mobile",
+    "name": "Amazon Location Service Place",
+    "path": "assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Place_48.svg",
+    "search": "amazon location service place front end web mobile resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Routes_48.svg",
+    "type": "resource",
+    "category": "Front End Web Mobile",
+    "name": "Amazon Location Service Routes",
+    "path": "assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Routes_48.svg",
+    "search": "amazon location service routes front end web mobile resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Track _48.svg",
+    "type": "resource",
+    "category": "Front End Web Mobile",
+    "name": "Amazon Location Service Track",
+    "path": "assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_Amazon-Location-Service_Track _48.svg",
+    "search": "amazon location service track front end web mobile resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_AWS-Amplify_AWS-Amplify-Studio_48.svg",
+    "type": "resource",
+    "category": "Front End Web Mobile",
+    "name": "AWS Amplify AWS Amplify Studio",
+    "path": "assets/aws-icons/resource/Res_Front-End-Web-Mobile/Res_AWS-Amplify_AWS-Amplify-Studio_48.svg",
+    "search": "aws amplify aws amplify studio front end web mobile resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Alert_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Alert 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Alert_48_Dark.svg",
+    "search": "alert 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Alert_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Alert 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Alert_48_Light.svg",
+    "search": "alert 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Authenticated-User_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Authenticated User 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Authenticated-User_48_Dark.svg",
+    "search": "authenticated user 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Authenticated-User_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Authenticated User 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Authenticated-User_48_Light.svg",
+    "search": "authenticated user 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_AWS-Management-Console_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "AWS Management Console 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_AWS-Management-Console_48_Dark.svg",
+    "search": "aws management console 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_AWS-Management-Console_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "AWS Management Console 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_AWS-Management-Console_48_Light.svg",
+    "search": "aws management console 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Camera_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Camera 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Camera_48_Dark.svg",
+    "search": "camera 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Camera_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Camera 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Camera_48_Light.svg",
+    "search": "camera 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Chat_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Chat 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Chat_48_Dark.svg",
+    "search": "chat 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Chat_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Chat 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Chat_48_Light.svg",
+    "search": "chat 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Client_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Client 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Client_48_Dark.svg",
+    "search": "client 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Client_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Client 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Client_48_Light.svg",
+    "search": "client 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Cold-Storage_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Cold Storage 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Cold-Storage_48_Dark.svg",
+    "search": "cold storage 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Cold-Storage_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Cold Storage 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Cold-Storage_48_Light.svg",
+    "search": "cold storage 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Credentials_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Credentials 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Credentials_48_Dark.svg",
+    "search": "credentials 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Credentials_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Credentials 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Credentials_48_Light.svg",
+    "search": "credentials 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Data-Stream_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Data Stream 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Data-Stream_48_Dark.svg",
+    "search": "data stream 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Data-Stream_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Data Stream 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Data-Stream_48_Light.svg",
+    "search": "data stream 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Data-Table_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Data Table 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Data-Table_48_Dark.svg",
+    "search": "data table 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Data-Table_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Data Table 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Data-Table_48_Light.svg",
+    "search": "data table 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Database_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Database 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Database_48_Dark.svg",
+    "search": "database 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Database_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Database 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Database_48_Light.svg",
+    "search": "database 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Disk_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Disk 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Disk_48_Dark.svg",
+    "search": "disk 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Disk_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Disk 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Disk_48_Light.svg",
+    "search": "disk 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Document_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Document 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Document_48_Dark.svg",
+    "search": "document 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Document_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Document 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Document_48_Light.svg",
+    "search": "document 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Documents_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Documents 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Documents_48_Dark.svg",
+    "search": "documents 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Documents_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Documents 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Documents_48_Light.svg",
+    "search": "documents 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Email_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Email 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Email_48_Dark.svg",
+    "search": "email 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Email_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Email 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Email_48_Light.svg",
+    "search": "email 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Firewall_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Firewall 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Firewall_48_Dark.svg",
+    "search": "firewall 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Firewall_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Firewall 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Firewall_48_Light.svg",
+    "search": "firewall 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Folder_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Folder 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Folder_48_Dark.svg",
+    "search": "folder 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Folder_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Folder 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Folder_48_Light.svg",
+    "search": "folder 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Folders_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Folders 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Folders_48_Dark.svg",
+    "search": "folders 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Folders_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Folders 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Folders_48_Light.svg",
+    "search": "folders 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Forums_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Forums 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Forums_48_Dark.svg",
+    "search": "forums 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Forums_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Forums 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Forums_48_Light.svg",
+    "search": "forums 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Gear_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Gear 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Gear_48_Dark.svg",
+    "search": "gear 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Gear_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Gear 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Gear_48_Light.svg",
+    "search": "gear 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Generic-Application_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Generic Application 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Generic-Application_48_Dark.svg",
+    "search": "generic application 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Generic-Application_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Generic Application 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Generic-Application_48_Light.svg",
+    "search": "generic application 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Git-Repository_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Git Repository 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Git-Repository_48_Dark.svg",
+    "search": "git repository 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Git-Repository_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Git Repository 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Git-Repository_48_Light.svg",
+    "search": "git repository 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Globe_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Globe 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Globe_48_Dark.svg",
+    "search": "globe 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Globe_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Globe 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Globe_48_Light.svg",
+    "search": "globe 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Internet_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Internet 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Internet_48_Dark.svg",
+    "search": "internet 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Internet_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Internet 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Internet_48_Light.svg",
+    "search": "internet 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Internet-alt1_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Internet alt1 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Internet-alt1_48_Dark.svg",
+    "search": "internet alt1 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Internet-alt1_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Internet alt1 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Internet-alt1_48_Light.svg",
+    "search": "internet alt1 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Internet-alt2_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Internet alt2 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Internet-alt2_48_Dark.svg",
+    "search": "internet alt2 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Internet-alt2_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Internet alt2 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Internet-alt2_48_Light.svg",
+    "search": "internet alt2 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_JSON-Script_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "JSON Script 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_JSON-Script_48_Dark.svg",
+    "search": "json script 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_JSON-Script_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "JSON Script 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_JSON-Script_48_Light.svg",
+    "search": "json script 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Logs_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Logs 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Logs_48_Dark.svg",
+    "search": "logs 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Logs_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Logs 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Logs_48_Light.svg",
+    "search": "logs 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Magnifying-Glass_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Magnifying Glass 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Magnifying-Glass_48_Dark.svg",
+    "search": "magnifying glass 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Magnifying-Glass_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Magnifying Glass 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Magnifying-Glass_48_Light.svg",
+    "search": "magnifying glass 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Metrics_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Metrics 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Metrics_48_Dark.svg",
+    "search": "metrics 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Metrics_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Metrics 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Metrics_48_Light.svg",
+    "search": "metrics 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Mobile-client_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Mobile client 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Mobile-client_48_Dark.svg",
+    "search": "mobile client 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Mobile-client_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Mobile client 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Mobile-client_48_Light.svg",
+    "search": "mobile client 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Multimedia_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Multimedia 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Multimedia_48_Dark.svg",
+    "search": "multimedia 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Multimedia_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Multimedia 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Multimedia_48_Light.svg",
+    "search": "multimedia 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Office-building_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Office building 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Office-building_48_Dark.svg",
+    "search": "office building 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Office-building_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Office building 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Office-building_48_Light.svg",
+    "search": "office building 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Programming-Language_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Programming Language 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Programming-Language_48_Dark.svg",
+    "search": "programming language 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Programming-Language_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Programming Language 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Programming-Language_48_Light.svg",
+    "search": "programming language 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Question_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Question 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Question_48_Dark.svg",
+    "search": "question 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Question_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Question 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Question_48_Light.svg",
+    "search": "question 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Recover_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Recover 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Recover_48_Dark.svg",
+    "search": "recover 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Recover_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Recover 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Recover_48_Light.svg",
+    "search": "recover 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_SAML-token_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "SAML token 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_SAML-token_48_Dark.svg",
+    "search": "saml token 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_SAML-token_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "SAML token 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_SAML-token_48_Light.svg",
+    "search": "saml token 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_SDK_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "SDK 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_SDK_48_Dark.svg",
+    "search": "sdk 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_SDK_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "SDK 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_SDK_48_Light.svg",
+    "search": "sdk 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Server_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Server 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Server_48_Dark.svg",
+    "search": "server 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Server_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Server 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Server_48_Light.svg",
+    "search": "server 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Servers_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Servers 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Servers_48_Dark.svg",
+    "search": "servers 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Servers_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Servers 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Servers_48_Light.svg",
+    "search": "servers 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Shield_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Shield 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Shield_48_Dark.svg",
+    "search": "shield 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Shield_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Shield 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Shield_48_Light.svg",
+    "search": "shield 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Source-Code_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Source Code 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Source-Code_48_Dark.svg",
+    "search": "source code 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Source-Code_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Source Code 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Source-Code_48_Light.svg",
+    "search": "source code 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_SSL-padlock_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "SSL padlock 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_SSL-padlock_48_Dark.svg",
+    "search": "ssl padlock 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_SSL-padlock_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "SSL padlock 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_SSL-padlock_48_Light.svg",
+    "search": "ssl padlock 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Tape-storage_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Tape storage 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Tape-storage_48_Dark.svg",
+    "search": "tape storage 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Tape-storage_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Tape storage 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Tape-storage_48_Light.svg",
+    "search": "tape storage 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Toolkit_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Toolkit 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Toolkit_48_Dark.svg",
+    "search": "toolkit 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Toolkit_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Toolkit 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Toolkit_48_Light.svg",
+    "search": "toolkit 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_User_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "User 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_User_48_Dark.svg",
+    "search": "user 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_User_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "User 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_User_48_Light.svg",
+    "search": "user 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Users_48_Dark.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Users 48 Dark",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Dark/Res_Users_48_Dark.svg",
+    "search": "users 48 dark general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Users_48_Light.svg",
+    "type": "resource",
+    "category": "General Icons",
+    "name": "Users 48 Light",
+    "path": "assets/aws-icons/resource/Res_General-Icons/Res_48_Light/Res_Users_48_Light.svg",
+    "search": "users 48 light general icons resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Action_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Action",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Action_48.svg",
+    "search": "aws iot action iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Actuator_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Actuator",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Actuator_48.svg",
+    "search": "aws iot actuator iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Alexa_Enabled-Device_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Alexa Enabled Device",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Alexa_Enabled-Device_48.svg",
+    "search": "aws iot alexa enabled device iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Alexa_Skill_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Alexa Skill",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Alexa_Skill_48.svg",
+    "search": "aws iot alexa skill iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Alexa_Voice-Service_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Alexa Voice Service",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Alexa_Voice-Service_48.svg",
+    "search": "aws iot alexa voice service iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Certificate_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Certificate",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Certificate_48.svg",
+    "search": "aws iot certificate iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Core_Device-Advisor_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Core Device Advisor",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Core_Device-Advisor_48.svg",
+    "search": "aws iot core device advisor iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Core_Device-Location_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Core Device Location",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Core_Device-Location_48.svg",
+    "search": "aws iot core device location iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Desired-State_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Desired State",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Desired-State_48.svg",
+    "search": "aws iot desired state iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Device-Defender_IoT-Device-Jobs_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Device Defender IoT Device Jobs",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Device-Defender_IoT-Device-Jobs_48.svg",
+    "search": "aws iot device defender iot device jobs iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Device-Gateway_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Device Gateway",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Device-Gateway_48.svg",
+    "search": "aws iot device gateway iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Device-Management_Fleet-Hub_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Device Management Fleet Hub",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Device-Management_Fleet-Hub_48.svg",
+    "search": "aws iot device management fleet hub iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Device-Tester_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Device Tester",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Device-Tester_48.svg",
+    "search": "aws iot device tester iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Echo_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Echo",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Echo_48.svg",
+    "search": "aws iot echo iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Fire_TV_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Fire TV",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Fire_TV_48.svg",
+    "search": "aws iot fire tv iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Fire-TV_Stick_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Fire TV Stick",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Fire-TV_Stick_48.svg",
+    "search": "aws iot fire tv stick iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Artifact_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Artifact",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Artifact_48.svg",
+    "search": "aws iot greengrass artifact iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Component",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component_48.svg",
+    "search": "aws iot greengrass component iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component-Machine-Learning_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Component Machine Learning",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component-Machine-Learning_48.svg",
+    "search": "aws iot greengrass component machine learning iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component-Nucleus_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Component Nucleus",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component-Nucleus_48.svg",
+    "search": "aws iot greengrass component nucleus iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component-Private_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Component Private",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component-Private_48.svg",
+    "search": "aws iot greengrass component private iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component-Public_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Component Public",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Component-Public_48.svg",
+    "search": "aws iot greengrass component public iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Connector_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Connector",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Connector_48.svg",
+    "search": "aws iot greengrass connector iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Interprocess-Communication_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Interprocess Communication",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Interprocess-Communication_48.svg",
+    "search": "aws iot greengrass interprocess communication iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Protocol_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Protocol",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Protocol_48.svg",
+    "search": "aws iot greengrass protocol iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Recipe_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Recipe",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Recipe_48.svg",
+    "search": "aws iot greengrass recipe iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Stream-Manager_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Greengrass Stream Manager",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Greengrass_Stream-Manager_48.svg",
+    "search": "aws iot greengrass stream manager iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Hardware-Board_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Hardware Board",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Hardware-Board_48.svg",
+    "search": "aws iot hardware board iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_HTTP_Protocol_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT HTTP Protocol",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_HTTP_Protocol_48.svg",
+    "search": "aws iot http protocol iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_HTTP2-Protocol_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT HTTP2 Protocol",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_HTTP2-Protocol_48.svg",
+    "search": "aws iot http2 protocol iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Lambda_Function_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Lambda Function",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Lambda_Function_48.svg",
+    "search": "aws iot lambda function iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_LoRaWAN-Protocol_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT LoRaWAN Protocol",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_LoRaWAN-Protocol_48.svg",
+    "search": "aws iot lorawan protocol iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_MQTT_Protocol_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT MQTT Protocol",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_MQTT_Protocol_48.svg",
+    "search": "aws iot mqtt protocol iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Over-Air-Update_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Over Air Update",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Over-Air-Update_48.svg",
+    "search": "aws iot over air update iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Policy_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Policy",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Policy_48.svg",
+    "search": "aws iot policy iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Reported-State_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Reported State",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Reported-State_48.svg",
+    "search": "aws iot reported state iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Rule_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Rule",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-Rule_48.svg",
+    "search": "aws iot rule iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Sailboat_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Sailboat",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Sailboat_48.svg",
+    "search": "aws iot sailboat iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Sensor_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Sensor",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Sensor_48.svg",
+    "search": "aws iot sensor iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Servo_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Servo",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Servo_48.svg",
+    "search": "aws iot servo iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Shadow_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Shadow",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Shadow_48.svg",
+    "search": "aws iot shadow iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Simulator_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Simulator",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Simulator_48.svg",
+    "search": "aws iot simulator iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Asset_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT SiteWise Asset",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Asset_48.svg",
+    "search": "aws iot sitewise asset iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Asset-Hierarchy_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT SiteWise Asset Hierarchy",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Asset-Hierarchy_48.svg",
+    "search": "aws iot sitewise asset hierarchy iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Asset-Model_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT SiteWise Asset Model",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Asset-Model_48.svg",
+    "search": "aws iot sitewise asset model iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Asset-Properties_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT SiteWise Asset Properties",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Asset-Properties_48.svg",
+    "search": "aws iot sitewise asset properties iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Data-Streams_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT SiteWise Data Streams",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT-SiteWise_Data-Streams_48.svg",
+    "search": "aws iot sitewise data streams iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Bank_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Bank",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Bank_48.svg",
+    "search": "aws iot thing bank iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Bicycle_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Bicycle",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Bicycle_48.svg",
+    "search": "aws iot thing bicycle iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Camera_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Camera",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Camera_48.svg",
+    "search": "aws iot thing camera iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Car_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Car",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Car_48.svg",
+    "search": "aws iot thing car iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Cart_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Cart",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Cart_48.svg",
+    "search": "aws iot thing cart iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Coffee-Pot_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Coffee Pot",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Coffee-Pot_48.svg",
+    "search": "aws iot thing coffee pot iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Door-Lock_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Door Lock",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Door-Lock_48.svg",
+    "search": "aws iot thing door lock iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Factory_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Factory",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Factory_48.svg",
+    "search": "aws iot thing factory iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_FreeRTOS-Device_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing FreeRTOS Device",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_FreeRTOS-Device_48.svg",
+    "search": "aws iot thing freertos device iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Generic_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Generic",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Generic_48.svg",
+    "search": "aws iot thing generic iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_House_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing House",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_House_48.svg",
+    "search": "aws iot thing house iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Humidity-Sensor_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Humidity Sensor",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Humidity-Sensor_48.svg",
+    "search": "aws iot thing humidity sensor iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Industrial-PC_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Industrial PC",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Industrial-PC_48.svg",
+    "search": "aws iot thing industrial pc iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Lightbulb_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Lightbulb",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Lightbulb_48.svg",
+    "search": "aws iot thing lightbulb iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Medical-Emergency_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Medical Emergency",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Medical-Emergency_48.svg",
+    "search": "aws iot thing medical emergency iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_PLC_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing PLC",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_PLC_48.svg",
+    "search": "aws iot thing plc iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Police-Emergency_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Police Emergency",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Police-Emergency_48.svg",
+    "search": "aws iot thing police emergency iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Relay_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Relay",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Relay_48.svg",
+    "search": "aws iot thing relay iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Stacklight_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Stacklight",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Stacklight_48.svg",
+    "search": "aws iot thing stacklight iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Temperature-Humidity-Sensor_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Temperature Humidity Sensor",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Temperature-Humidity-Sensor_48.svg",
+    "search": "aws iot thing temperature humidity sensor iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Temperature-Sensor_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Temperature Sensor",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Temperature-Sensor_48.svg",
+    "search": "aws iot thing temperature sensor iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Temperature-Vibration-Sensor_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Temperature Vibration Sensor",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Temperature-Vibration-Sensor_48.svg",
+    "search": "aws iot thing temperature vibration sensor iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Thermostat_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Thermostat",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Thermostat_48.svg",
+    "search": "aws iot thing thermostat iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Travel_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Travel",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Travel_48.svg",
+    "search": "aws iot thing travel iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Utility_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Utility",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Utility_48.svg",
+    "search": "aws iot thing utility iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Vibration-Sensor_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Vibration Sensor",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Vibration-Sensor_48.svg",
+    "search": "aws iot thing vibration sensor iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Windfarm_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Thing Windfarm",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Thing_Windfarm_48.svg",
+    "search": "aws iot thing windfarm iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Topic_48.svg",
+    "type": "resource",
+    "category": "IoT",
+    "name": "AWS IoT Topic",
+    "path": "assets/aws-icons/resource/Res_IoT/Res_AWS-IoT_Topic_48.svg",
+    "search": "aws iot topic iot resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Alarm_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Alarm",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Alarm_48.svg",
+    "search": "amazon cloudwatch alarm management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Cross-account-Observability_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Cross account Observability",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Cross-account-Observability_48.svg",
+    "search": "amazon cloudwatch cross account observability management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Data-Protection_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Data Protection",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Data-Protection_48.svg",
+    "search": "amazon cloudwatch data protection management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Event-Event-Based_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Event Event Based",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Event-Event-Based_48.svg",
+    "search": "amazon cloudwatch event event based management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Event-Time-Based_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Event Time Based",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Event-Time-Based_48.svg",
+    "search": "amazon cloudwatch event time based management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Evidently_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Evidently",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Evidently_48.svg",
+    "search": "amazon cloudwatch evidently management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Logs_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Logs",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Logs_48.svg",
+    "search": "amazon cloudwatch logs management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Metrics-Insights_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Metrics Insights",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Metrics-Insights_48.svg",
+    "search": "amazon cloudwatch metrics insights management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Rule_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Rule",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Rule_48.svg",
+    "search": "amazon cloudwatch rule management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_RUM_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch RUM",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_RUM_48.svg",
+    "search": "amazon cloudwatch rum management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Synthetics_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "Amazon CloudWatch Synthetics",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_Amazon-CloudWatch_Synthetics_48.svg",
+    "search": "amazon cloudwatch synthetics management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-CloudFormation_Change-Set_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS CloudFormation Change Set",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-CloudFormation_Change-Set_48.svg",
+    "search": "aws cloudformation change set management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-CloudFormation_Stack_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS CloudFormation Stack",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-CloudFormation_Stack_48.svg",
+    "search": "aws cloudformation stack management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-CloudFormation_Template_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS CloudFormation Template",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-CloudFormation_Template_48.svg",
+    "search": "aws cloudformation template management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-CloudTrail_CloudTrail-Lake_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS CloudTrail CloudTrail Lake",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-CloudTrail_CloudTrail-Lake_48.svg",
+    "search": "aws cloudtrail cloudtrail lake management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-License-Manager_Application-Discovery_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS License Manager Application Discovery",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-License-Manager_Application-Discovery_48.svg",
+    "search": "aws license manager application discovery management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-License-Manager_License-Blending_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS License Manager License Blending",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-License-Manager_License-Blending_48.svg",
+    "search": "aws license manager license blending management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Organizations_Account_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Organizations Account",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Organizations_Account_48.svg",
+    "search": "aws organizations account management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Organizations_Management-Account_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Organizations Management Account",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Organizations_Management-Account_48.svg",
+    "search": "aws organizations management account management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Organizations_Organizational-Unit_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Organizations Organizational Unit",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Organizations_Organizational-Unit_48.svg",
+    "search": "aws organizations organizational unit management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Application-Manager_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Application Manager",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Application-Manager_48.svg",
+    "search": "aws systems manager application manager management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Automation_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Automation",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Automation_48.svg",
+    "search": "aws systems manager automation management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Change-Calendar_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Change Calendar",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Change-Calendar_48.svg",
+    "search": "aws systems manager change calendar management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Change-Manager_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Change Manager",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Change-Manager_48.svg",
+    "search": "aws systems manager change manager management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Compliance_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Compliance",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Compliance_48.svg",
+    "search": "aws systems manager compliance management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Distributor_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Distributor",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Distributor_48.svg",
+    "search": "aws systems manager distributor management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Documents_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Documents",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Documents_48.svg",
+    "search": "aws systems manager documents management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Incident-Manager_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Incident Manager",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Incident-Manager_48.svg",
+    "search": "aws systems manager incident manager management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Inventory_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Inventory",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Inventory_48.svg",
+    "search": "aws systems manager inventory management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Maintenance-Windows_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Maintenance Windows",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Maintenance-Windows_48.svg",
+    "search": "aws systems manager maintenance windows management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_OpsCenter_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager OpsCenter",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_OpsCenter_48.svg",
+    "search": "aws systems manager opscenter management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Parameter-Store_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Parameter Store",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Parameter-Store_48.svg",
+    "search": "aws systems manager parameter store management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Patch-Manager_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Patch Manager",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Patch-Manager_48.svg",
+    "search": "aws systems manager patch manager management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Run-Command_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Run Command",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Run-Command_48.svg",
+    "search": "aws systems manager run command management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Session-Manager_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager Session Manager",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_Session-Manager_48.svg",
+    "search": "aws systems manager session manager management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_State-Manager_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Systems Manager State Manager",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Systems-Manager_State-Manager_48.svg",
+    "search": "aws systems manager state manager management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Trusted Advisor Checklist",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist_48.svg",
+    "search": "aws trusted advisor checklist management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist-Cost_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Trusted Advisor Checklist Cost",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist-Cost_48.svg",
+    "search": "aws trusted advisor checklist cost management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist-Fault-Tolerant_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Trusted Advisor Checklist Fault Tolerant",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist-Fault-Tolerant_48.svg",
+    "search": "aws trusted advisor checklist fault tolerant management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist-Performance_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Trusted Advisor Checklist Performance",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist-Performance_48.svg",
+    "search": "aws trusted advisor checklist performance management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist-Security_48.svg",
+    "type": "resource",
+    "category": "Management Governance",
+    "name": "AWS Trusted Advisor Checklist Security",
+    "path": "assets/aws-icons/resource/Res_Management-Governance/Res_AWS-Trusted-Advisor_Checklist-Security_48.svg",
+    "search": "aws trusted advisor checklist security management governance resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Media-Services/Res_AWS-Cloud-Digital-Interface_48.svg",
+    "type": "resource",
+    "category": "Media Services",
+    "name": "AWS Cloud Digital Interface",
+    "path": "assets/aws-icons/resource/Res_Media-Services/Res_AWS-Cloud-Digital-Interface_48.svg",
+    "search": "aws cloud digital interface media services resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Media-Services/Res_AWS-Elemental-MediaConnect_MediaConnect-Gateway_48.svg",
+    "type": "resource",
+    "category": "Media Services",
+    "name": "AWS Elemental MediaConnect MediaConnect Gateway",
+    "path": "assets/aws-icons/resource/Res_Media-Services/Res_AWS-Elemental-MediaConnect_MediaConnect-Gateway_48.svg",
+    "search": "aws elemental mediaconnect mediaconnect gateway media services resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Application-Discovery-Service_AWS-Agentless-Collector_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Application Discovery Service AWS Agentless Collector",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Application-Discovery-Service_AWS-Agentless-Collector_48.svg",
+    "search": "aws application discovery service aws agentless collector migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Application-Discovery-Service_AWS-Discovery-Agent_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Application Discovery Service AWS Discovery Agent",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Application-Discovery-Service_AWS-Discovery-Agent_48.svg",
+    "search": "aws application discovery service aws discovery agent migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Application-Discovery-Service_Migration-Evaluator-Collector_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Application Discovery Service Migration Evaluator Collector",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Application-Discovery-Service_Migration-Evaluator-Collector_48.svg",
+    "search": "aws application discovery service migration evaluator collector migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Datasync_Agent_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Datasync Agent",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Datasync_Agent_48.svg",
+    "search": "aws datasync agent migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-DataSync_Discovery_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS DataSync Discovery",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-DataSync_Discovery_48.svg",
+    "search": "aws datasync discovery migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Analyzer_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Mainframe Modernization Analyzer",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Analyzer_48.svg",
+    "search": "aws mainframe modernization analyzer migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Compiler_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Mainframe Modernization Compiler",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Compiler_48.svg",
+    "search": "aws mainframe modernization compiler migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Converter_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Mainframe Modernization Converter",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Converter_48.svg",
+    "search": "aws mainframe modernization converter migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Developer_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Mainframe Modernization Developer",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Developer_48.svg",
+    "search": "aws mainframe modernization developer migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Runtime_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Mainframe Modernization Runtime",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Mainframe-Modernization_Runtime_48.svg",
+    "search": "aws mainframe modernization runtime migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Migration-Hub_Refactor-Spaces-Applications_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Migration Hub Refactor Spaces Applications",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Migration-Hub_Refactor-Spaces-Applications_48.svg",
+    "search": "aws migration hub refactor spaces applications migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Migration-Hub_Refactor-Spaces-Environments_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Migration Hub Refactor Spaces Environments",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Migration-Hub_Refactor-Spaces-Environments_48.svg",
+    "search": "aws migration hub refactor spaces environments migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Migration-Hub_Refactor-Spaces-Services_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Migration Hub Refactor Spaces Services",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Migration-Hub_Refactor-Spaces-Services_48.svg",
+    "search": "aws migration hub refactor spaces services migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Transfer-Family_AWS-AS2_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Transfer Family AWS AS2",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Transfer-Family_AWS-AS2_48.svg",
+    "search": "aws transfer family aws as2 migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Transfer-Family_AWS-FTP_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Transfer Family AWS FTP",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Transfer-Family_AWS-FTP_48.svg",
+    "search": "aws transfer family aws ftp migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Transfer-Family_AWS-FTPS_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Transfer Family AWS FTPS",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Transfer-Family_AWS-FTPS_48.svg",
+    "search": "aws transfer family aws ftps migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Transfer-Family_AWS-SFTP_48.svg",
+    "type": "resource",
+    "category": "Migration Modernization",
+    "name": "AWS Transfer Family AWS SFTP",
+    "path": "assets/aws-icons/resource/Res_Migration-Modernization/Res_AWS-Transfer-Family_AWS-SFTP_48.svg",
+    "search": "aws transfer family aws sftp migration modernization resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-API-Gateway_Endpoint_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon API Gateway Endpoint",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-API-Gateway_Endpoint_48.svg",
+    "search": "amazon api gateway endpoint networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-CloudFront_Download-Distribution_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon CloudFront Download Distribution",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-CloudFront_Download-Distribution_48.svg",
+    "search": "amazon cloudfront download distribution networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-CloudFront_Edge-Location_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon CloudFront Edge Location",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-CloudFront_Edge-Location_48.svg",
+    "search": "amazon cloudfront edge location networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-CloudFront_Functions_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon CloudFront Functions",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-CloudFront_Functions_48.svg",
+    "search": "amazon cloudfront functions networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-CloudFront_Streaming-Distribution_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon CloudFront Streaming Distribution",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-CloudFront_Streaming-Distribution_48.svg",
+    "search": "amazon cloudfront streaming distribution networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53-Hosted-Zone_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Route 53 Hosted Zone",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53-Hosted-Zone_48.svg",
+    "search": "amazon route 53 hosted zone networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Readiness-Checks_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Route 53 Readiness Checks",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Readiness-Checks_48.svg",
+    "search": "amazon route 53 readiness checks networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Resolver_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Route 53 Resolver",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Resolver_48.svg",
+    "search": "amazon route 53 resolver networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Resolver-DNS-Firewall_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Route 53 Resolver DNS Firewall",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Resolver-DNS-Firewall_48.svg",
+    "search": "amazon route 53 resolver dns firewall networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Resolver-Query-Logging_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Route 53 Resolver Query Logging",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Resolver-Query-Logging_48.svg",
+    "search": "amazon route 53 resolver query logging networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Route-Table_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Route 53 Route Table",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Route-Table_48.svg",
+    "search": "amazon route 53 route table networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Routing-Controls_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Route 53 Routing Controls",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-Route-53_Routing-Controls_48.svg",
+    "search": "amazon route 53 routing controls networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Carrier-Gateway_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Carrier Gateway",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Carrier-Gateway_48.svg",
+    "search": "amazon vpc carrier gateway networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Customer-Gateway_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Customer Gateway",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Customer-Gateway_48.svg",
+    "search": "amazon vpc customer gateway networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Elastic-Network-Adapter_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Elastic Network Adapter",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Elastic-Network-Adapter_48.svg",
+    "search": "amazon vpc elastic network adapter networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Elastic-Network-Interface_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Elastic Network Interface",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Elastic-Network-Interface_48.svg",
+    "search": "amazon vpc elastic network interface networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Endpoints_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Endpoints",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Endpoints_48.svg",
+    "search": "amazon vpc endpoints networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Flow-Logs_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Flow Logs",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Flow-Logs_48.svg",
+    "search": "amazon vpc flow logs networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Internet-Gateway_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Internet Gateway",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Internet-Gateway_48.svg",
+    "search": "amazon vpc internet gateway networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_NAT-Gateway_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC NAT Gateway",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_NAT-Gateway_48.svg",
+    "search": "amazon vpc nat gateway networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Network-Access-Analyzer_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Network Access Analyzer",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Network-Access-Analyzer_48.svg",
+    "search": "amazon vpc network access analyzer networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Network-Access-Control-List_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Network Access Control List",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Network-Access-Control-List_48.svg",
+    "search": "amazon vpc network access control list networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Peering-Connection_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Peering Connection",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Peering-Connection_48.svg",
+    "search": "amazon vpc peering connection networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Reachability-Analyzer_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Reachability Analyzer",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Reachability-Analyzer_48.svg",
+    "search": "amazon vpc reachability analyzer networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Router_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Router",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Router_48.svg",
+    "search": "amazon vpc router networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Traffic-Mirroring_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Traffic Mirroring",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Traffic-Mirroring_48.svg",
+    "search": "amazon vpc traffic mirroring networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Virtual-private-cloud-VPC_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Virtual private cloud VPC",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_Virtual-private-cloud-VPC_48.svg",
+    "search": "amazon vpc virtual private cloud vpc networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_VPN-Connection_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC VPN Connection",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_VPN-Connection_48.svg",
+    "search": "amazon vpc vpn connection networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_VPN-Gateway_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC VPN Gateway",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Amazon-VPC_VPN-Gateway_48.svg",
+    "search": "amazon vpc vpn gateway networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Mesh_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS App Mesh Mesh",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Mesh_48.svg",
+    "search": "aws app mesh mesh networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Virtual-Gateway_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS App Mesh Virtual Gateway",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Virtual-Gateway_48.svg",
+    "search": "aws app mesh virtual gateway networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Virtual-Node_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS App Mesh Virtual Node",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Virtual-Node_48.svg",
+    "search": "aws app mesh virtual node networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Virtual-Router_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS App Mesh Virtual Router",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Virtual-Router_48.svg",
+    "search": "aws app mesh virtual router networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Virtual-Service_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS App Mesh Virtual Service",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-App-Mesh_Virtual-Service_48.svg",
+    "search": "aws app mesh virtual service networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-Map_Namespace_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS Cloud Map Namespace",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-Map_Namespace_48.svg",
+    "search": "aws cloud map namespace networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-Map_Resource_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS Cloud Map Resource",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-Map_Resource_48.svg",
+    "search": "aws cloud map resource networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-Map_Service_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS Cloud Map Service",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-Map_Service_48.svg",
+    "search": "aws cloud map service networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-WAN_Core-Network-Edge_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS Cloud WAN Core Network Edge",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-WAN_Core-Network-Edge_48.svg",
+    "search": "aws cloud wan core network edge networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-WAN_Segment-Network_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS Cloud WAN Segment Network",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-WAN_Segment-Network_48.svg",
+    "search": "aws cloud wan segment network networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-WAN_Transit-Gateway-Route-Table-Attachment_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS Cloud WAN Transit Gateway Route Table Attachment",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Cloud-WAN_Transit-Gateway-Route-Table-Attachment_48.svg",
+    "search": "aws cloud wan transit gateway route table attachment networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Direct-Connect_Gateway_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS Direct Connect Gateway",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Direct-Connect_Gateway_48.svg",
+    "search": "aws direct connect gateway networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Transit-Gateway_Attachment_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "AWS Transit Gateway Attachment",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_AWS-Transit-Gateway_Attachment_48.svg",
+    "search": "aws transit gateway attachment networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Elastic-Load-Balancing_Application-Load-Balancer_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Elastic Load Balancing Application Load Balancer",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Elastic-Load-Balancing_Application-Load-Balancer_48.svg",
+    "search": "elastic load balancing application load balancer networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Elastic-Load-Balancing_Classic-Load-Balancer_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Elastic Load Balancing Classic Load Balancer",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Elastic-Load-Balancing_Classic-Load-Balancer_48.svg",
+    "search": "elastic load balancing classic load balancer networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Elastic-Load-Balancing_Gateway-Load-Balancer_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Elastic Load Balancing Gateway Load Balancer",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Elastic-Load-Balancing_Gateway-Load-Balancer_48.svg",
+    "search": "elastic load balancing gateway load balancer networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Elastic-Load-Balancing_Network-Load-Balancer_48.svg",
+    "type": "resource",
+    "category": "Networking Content Delivery",
+    "name": "Elastic Load Balancing Network Load Balancer",
+    "path": "assets/aws-icons/resource/Res_Networking-Content-Delivery/Res_Elastic-Load-Balancing_Network-Load-Balancer_48.svg",
+    "search": "elastic load balancing network load balancer networking content delivery resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Chandelier_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Chandelier",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Chandelier_48.svg",
+    "search": "amazon braket chandelier quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Chip_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Chip",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Chip_48.svg",
+    "search": "amazon braket chip quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Embedded-Simulator_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Embedded Simulator",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Embedded-Simulator_48.svg",
+    "search": "amazon braket embedded simulator quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Managed-Simulator_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Managed Simulator",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Managed-Simulator_48.svg",
+    "search": "amazon braket managed simulator quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Noise-Simulator_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Noise Simulator",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Noise-Simulator_48.svg",
+    "search": "amazon braket noise simulator quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_QPU_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket QPU",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_QPU_48.svg",
+    "search": "amazon braket qpu quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Simulator",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator_48.svg",
+    "search": "amazon braket simulator quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator-1_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Simulator 1",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator-1_48.svg",
+    "search": "amazon braket simulator 1 quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator-2_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Simulator 2",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator-2_48.svg",
+    "search": "amazon braket simulator 2 quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator-3_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Simulator 3",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator-3_48.svg",
+    "search": "amazon braket simulator 3 quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator-4_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Simulator 4",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Simulator-4_48.svg",
+    "search": "amazon braket simulator 4 quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_State-Vector_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket State Vector",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_State-Vector_48.svg",
+    "search": "amazon braket state vector quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Tensor-Network_48.svg",
+    "type": "resource",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket Tensor Network",
+    "path": "assets/aws-icons/resource/Res_Quantum-Technologies/Res_Amazon-Braket_Tensor-Network_48.svg",
+    "search": "amazon braket tensor network quantum technologies resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_Amazon-Inspector_Agent_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "Amazon Inspector Agent",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_Amazon-Inspector_Agent_48.svg",
+    "search": "amazon inspector agent security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Certificate-Manager_Certificate-Authority_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Certificate Manager Certificate Authority",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Certificate-Manager_Certificate-Authority_48.svg",
+    "search": "aws certificate manager certificate authority security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Directory-Service_AD-Connector_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Directory Service AD Connector",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Directory-Service_AD-Connector_48.svg",
+    "search": "aws directory service ad connector security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Directory-Service_AWS-Managed-Microsoft-AD_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Directory Service AWS Managed Microsoft AD",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Directory-Service_AWS-Managed-Microsoft-AD_48.svg",
+    "search": "aws directory service aws managed microsoft ad security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Directory-Service_Simple-AD_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Directory Service Simple AD",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Directory-Service_Simple-AD_48.svg",
+    "search": "aws directory service simple ad security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Add-on_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management Add on",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Add-on_48.svg",
+    "search": "aws identity access management add on security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_AWS-STS_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management AWS STS",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_AWS-STS_48.svg",
+    "search": "aws identity access management aws sts security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_AWS-STS-Alternate_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management AWS STS Alternate",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_AWS-STS-Alternate_48.svg",
+    "search": "aws identity access management aws sts alternate security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Data-Encryption-Key_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management Data Encryption Key",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Data-Encryption-Key_48.svg",
+    "search": "aws identity access management data encryption key security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Encrypted-Data_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management Encrypted Data",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Encrypted-Data_48.svg",
+    "search": "aws identity access management encrypted data security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_IAM-Access-Analyzer_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management IAM Access Analyzer",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_IAM-Access-Analyzer_48.svg",
+    "search": "aws identity access management iam access analyzer security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_IAM-Roles-Anywhere_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management IAM Roles Anywhere",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_IAM-Roles-Anywhere_48.svg",
+    "search": "aws identity access management iam roles anywhere security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Long-Term-Security-Credential_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management Long Term Security Credential",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Long-Term-Security-Credential_48.svg",
+    "search": "aws identity access management long term security credential security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_MFA-Token_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management MFA Token",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_MFA-Token_48.svg",
+    "search": "aws identity access management mfa token security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Permissions_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management Permissions",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Permissions_48.svg",
+    "search": "aws identity access management permissions security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Role_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management Role",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Role_48.svg",
+    "search": "aws identity access management role security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Temporary-Security-Credential_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Identity Access Management Temporary Security Credential",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Identity-Access-Management_Temporary-Security-Credential_48.svg",
+    "search": "aws identity access management temporary security credential security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Key-Management-Service_External-Key-Store_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Key Management Service External Key Store",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Key-Management-Service_External-Key-Store_48.svg",
+    "search": "aws key management service external key store security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Network-Firewall_Endpoints_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Network Firewall Endpoints",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Network-Firewall_Endpoints_48.svg",
+    "search": "aws network firewall endpoints security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Security-Hub_Finding_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Security Hub Finding",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Security-Hub_Finding_48.svg",
+    "search": "aws security hub finding security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Shield_AWS-Shield-Advanced_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS Shield AWS Shield Advanced",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-Shield_AWS-Shield-Advanced_48.svg",
+    "search": "aws shield aws shield advanced security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Bad-Bot_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS WAF Bad Bot",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Bad-Bot_48.svg",
+    "search": "aws waf bad bot security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Bot_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS WAF Bot",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Bot_48.svg",
+    "search": "aws waf bot security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Bot-Control_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS WAF Bot Control",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Bot-Control_48.svg",
+    "search": "aws waf bot control security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Filtering-Rule_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS WAF Filtering Rule",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Filtering-Rule_48.svg",
+    "search": "aws waf filtering rule security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Labels_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS WAF Labels",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Labels_48.svg",
+    "search": "aws waf labels security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Managed-Rule_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS WAF Managed Rule",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Managed-Rule_48.svg",
+    "search": "aws waf managed rule security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Rule_48.svg",
+    "type": "resource",
+    "category": "Security Identity",
+    "name": "AWS WAF Rule",
+    "path": "assets/aws-icons/resource/Res_Security-Identity/Res_AWS-WAF_Rule_48.svg",
+    "search": "aws waf rule security identity resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Amazon-Data-Lifecycle-Manager_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic Block Store Amazon Data Lifecycle Manager",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Amazon-Data-Lifecycle-Manager_48.svg",
+    "search": "amazon elastic block store amazon data lifecycle manager storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Multiple-Volumes_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic Block Store Multiple Volumes",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Multiple-Volumes_48.svg",
+    "search": "amazon elastic block store multiple volumes storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Snapshot_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic Block Store Snapshot",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Snapshot_48.svg",
+    "search": "amazon elastic block store snapshot storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Volume_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic Block Store Volume",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Volume_48.svg",
+    "search": "amazon elastic block store volume storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Volume-gp3_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic Block Store Volume gp3",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-Block-Store_Volume-gp3_48.svg",
+    "search": "amazon elastic block store volume gp3 storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-Intelligent-Tiering_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic File System EFS Intelligent Tiering",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-Intelligent-Tiering_48.svg",
+    "search": "amazon elastic file system efs intelligent tiering storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-One-Zone_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic File System EFS One Zone",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-One-Zone_48.svg",
+    "search": "amazon elastic file system efs one zone storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-One-Zone-Infrequent-Access_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic File System EFS One Zone Infrequent Access",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-One-Zone-Infrequent-Access_48.svg",
+    "search": "amazon elastic file system efs one zone infrequent access storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-Standard_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic File System EFS Standard",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-Standard_48.svg",
+    "search": "amazon elastic file system efs standard storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-Standard-Infrequent-Access_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic File System EFS Standard Infrequent Access",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_EFS-Standard-Infrequent-Access_48.svg",
+    "search": "amazon elastic file system efs standard infrequent access storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_Elastic-Throughput_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic File System Elastic Throughput",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_Elastic-Throughput_48.svg",
+    "search": "amazon elastic file system elastic throughput storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_File-System_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Elastic File System File System",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Elastic-File-System_File-System_48.svg",
+    "search": "amazon elastic file system file system storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-File-Cache_Hybrid-NFS-linked-datasets_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon File Cache Hybrid NFS linked datasets",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-File-Cache_Hybrid-NFS-linked-datasets_48.svg",
+    "search": "amazon file cache hybrid nfs linked datasets storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-File-Cache_On-premises-NFS-linked-datasets_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon File Cache On premises NFS linked datasets",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-File-Cache_On-premises-NFS-linked-datasets_48.svg",
+    "search": "amazon file cache on premises nfs linked datasets storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-File-Cache_S3-linked-datasets_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon File Cache S3 linked datasets",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-File-Cache_S3-linked-datasets_48.svg",
+    "search": "amazon file cache s3 linked datasets storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_Bucket_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service Bucket",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_Bucket_48.svg",
+    "search": "amazon simple storage service bucket storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_Bucket-With-Objects_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service Bucket With Objects",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_Bucket-With-Objects_48.svg",
+    "search": "amazon simple storage service bucket with objects storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_Directory-bucket_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service Directory bucket",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_Directory-bucket_48.svg",
+    "search": "amazon simple storage service directory bucket storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_General-Access-Points_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service General Access Points",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_General-Access-Points_48.svg",
+    "search": "amazon simple storage service general access points storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service-Glacier_Archive_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service Glacier Archive",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service-Glacier_Archive_48.svg",
+    "search": "amazon simple storage service glacier archive storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service-Glacier_Vault_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service Glacier Vault",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service-Glacier_Vault_48.svg",
+    "search": "amazon simple storage service glacier vault storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_Object_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service Object",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_Object_48.svg",
+    "search": "amazon simple storage service object storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Batch-Operations_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Batch Operations",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Batch-Operations_48.svg",
+    "search": "amazon simple storage service s3 batch operations storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Express-One-Zone_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Express One Zone",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Express-One-Zone_48.svg",
+    "search": "amazon simple storage service s3 express one zone storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Files_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Files",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Files_48.svg",
+    "search": "amazon simple storage service s3 files storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Glacier-Deep-Archive_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Glacier Deep Archive",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Glacier-Deep-Archive_48.svg",
+    "search": "amazon simple storage service s3 glacier deep archive storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Glacier-Flexible-Retrieval_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Glacier Flexible Retrieval",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Glacier-Flexible-Retrieval_48.svg",
+    "search": "amazon simple storage service s3 glacier flexible retrieval storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Glacier-Instant-Retrieval_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Glacier Instant Retrieval",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Glacier-Instant-Retrieval_48.svg",
+    "search": "amazon simple storage service s3 glacier instant retrieval storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Intelligent-Tiering_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Intelligent Tiering",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Intelligent-Tiering_48.svg",
+    "search": "amazon simple storage service s3 intelligent tiering storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Multi-Region-Access-Points_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Multi Region Access Points",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Multi-Region-Access-Points_48.svg",
+    "search": "amazon simple storage service s3 multi region access points storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Object-Lambda_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Object Lambda",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Object-Lambda_48.svg",
+    "search": "amazon simple storage service s3 object lambda storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Object-Lambda-Access-Points_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Object Lambda Access Points",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Object-Lambda-Access-Points_48.svg",
+    "search": "amazon simple storage service s3 object lambda access points storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Object-Lock_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Object Lock",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Object-Lock_48.svg",
+    "search": "amazon simple storage service s3 object lock storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-On-Outposts_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 On Outposts",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-On-Outposts_48.svg",
+    "search": "amazon simple storage service s3 on outposts storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-One-Zone-IA_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 One Zone IA",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-One-Zone-IA_48.svg",
+    "search": "amazon simple storage service s3 one zone ia storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Replication_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Replication",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Replication_48.svg",
+    "search": "amazon simple storage service s3 replication storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Replication-Time-Control_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Replication Time Control",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Replication-Time-Control_48.svg",
+    "search": "amazon simple storage service s3 replication time control storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Select_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Select",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Select_48.svg",
+    "search": "amazon simple storage service s3 select storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Standard_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Standard",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Standard_48.svg",
+    "search": "amazon simple storage service s3 standard storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Standard-IA_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Standard IA",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Standard-IA_48.svg",
+    "search": "amazon simple storage service s3 standard ia storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Storage-Lens_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Storage Lens",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Storage-Lens_48.svg",
+    "search": "amazon simple storage service s3 storage lens storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Tables_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Tables",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Tables_48.svg",
+    "search": "amazon simple storage service s3 tables storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Vectors_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service S3 Vectors",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_S3-Vectors_48.svg",
+    "search": "amazon simple storage service s3 vectors storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_VPC-Access-Points_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service VPC Access Points",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_Amazon-Simple-Storage-Service_VPC-Access-Points_48.svg",
+    "search": "amazon simple storage service vpc access points storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Audit-Manager_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Audit Manager",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Audit-Manager_48.svg",
+    "search": "aws backup audit manager storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_AWS-Backup-for-AWS-CloudFormation_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup AWS Backup for AWS CloudFormation",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_AWS-Backup-for-AWS-CloudFormation_48.svg",
+    "search": "aws backup aws backup for aws cloudformation storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_AWS-Backup-support-for-Amazon-FSx-for-NetApp-ONTAP_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup AWS Backup support for Amazon FSx for NetApp ONTAP",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_AWS-Backup-support-for-Amazon-FSx-for-NetApp-ONTAP_48.svg",
+    "search": "aws backup aws backup support for amazon fsx for netapp ontap storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_AWS-Backup-support-for-Amazon-S3_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup AWS Backup support for Amazon S3",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_AWS-Backup-support-for-Amazon-S3_48.svg",
+    "search": "aws backup aws backup support for amazon s3 storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_AWS-Backup-Support-for-VMware-Workloads_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup AWS Backup Support for VMware Workloads",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_AWS-Backup-Support-for-VMware-Workloads_48.svg",
+    "search": "aws backup aws backup support for vmware workloads storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Backup-Plan_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Backup Plan",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Backup-Plan_48.svg",
+    "search": "aws backup backup plan storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Backup-Restore_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Backup Restore",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Backup-Restore_48.svg",
+    "search": "aws backup backup restore storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Backup-Vault_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Backup Vault",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Backup-Vault_48.svg",
+    "search": "aws backup backup vault storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Compliance-Reporting_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Compliance Reporting",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Compliance-Reporting_48.svg",
+    "search": "aws backup compliance reporting storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Compute_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Compute",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Compute_48.svg",
+    "search": "aws backup compute storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Database_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Database",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Database_48.svg",
+    "search": "aws backup database storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Gateway_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Gateway",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Gateway_48.svg",
+    "search": "aws backup gateway storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Legal-Hold_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Legal Hold",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Legal-Hold_48.svg",
+    "search": "aws backup legal hold storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Recovery-Point-Objective_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Recovery Point Objective",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Recovery-Point-Objective_48.svg",
+    "search": "aws backup recovery point objective storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Recovery-Time-Objective_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Recovery Time Objective",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Recovery-Time-Objective_48.svg",
+    "search": "aws backup recovery time objective storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Storage_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Storage",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Storage_48.svg",
+    "search": "aws backup storage storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Vault-Lock_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Vault Lock",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Vault-Lock_48.svg",
+    "search": "aws backup vault lock storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Virtual-Machine_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Virtual Machine",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Virtual-Machine_48.svg",
+    "search": "aws backup virtual machine storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Virtual-Machine-Monitor_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Backup Virtual Machine Monitor",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Backup_Virtual-Machine-Monitor_48.svg",
+    "search": "aws backup virtual machine monitor storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Snowball_Snowball-Import-Export_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Snowball Snowball Import Export",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Snowball_Snowball-Import-Export_48.svg",
+    "search": "aws snowball snowball import export storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Amazon-FSx-File-Gateway_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Storage Gateway Amazon FSx File Gateway",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Amazon-FSx-File-Gateway_48.svg",
+    "search": "aws storage gateway amazon fsx file gateway storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Amazon-S3-File-Gateway_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Storage Gateway Amazon S3 File Gateway",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Amazon-S3-File-Gateway_48.svg",
+    "search": "aws storage gateway amazon s3 file gateway storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Cached-Volume_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Storage Gateway Cached Volume",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Cached-Volume_48.svg",
+    "search": "aws storage gateway cached volume storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_File-Gateway_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Storage Gateway File Gateway",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_File-Gateway_48.svg",
+    "search": "aws storage gateway file gateway storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Noncached-Volume_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Storage Gateway Noncached Volume",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Noncached-Volume_48.svg",
+    "search": "aws storage gateway noncached volume storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Tape-Gateway_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Storage Gateway Tape Gateway",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Tape-Gateway_48.svg",
+    "search": "aws storage gateway tape gateway storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Virtual-Tape-Library_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Storage Gateway Virtual Tape Library",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Virtual-Tape-Library_48.svg",
+    "search": "aws storage gateway virtual tape library storage resource"
+  },
+  {
+    "id": "resource:assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Volume-Gateway_48.svg",
+    "type": "resource",
+    "category": "Storage",
+    "name": "AWS Storage Gateway Volume Gateway",
+    "path": "assets/aws-icons/resource/Res_Storage/Res_AWS-Storage-Gateway_Volume-Gateway_48.svg",
+    "search": "aws storage gateway volume gateway storage resource"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Athena_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon Athena",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Athena_64.svg",
+    "search": "amazon athena analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-CloudSearch_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon CloudSearch",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-CloudSearch_64.svg",
+    "search": "amazon cloudsearch analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Data-Firehose_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon Data Firehose",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Data-Firehose_64.svg",
+    "search": "amazon data firehose analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-DataZone_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon DataZone",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-DataZone_64.svg",
+    "search": "amazon datazone analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-EMR_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon EMR",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-EMR_64.svg",
+    "search": "amazon emr analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-FinSpace_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon FinSpace",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-FinSpace_64.svg",
+    "search": "amazon finspace analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Kinesis_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon Kinesis",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Kinesis_64.svg",
+    "search": "amazon kinesis analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Kinesis-Data-Streams_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon Kinesis Data Streams",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Kinesis-Data-Streams_64.svg",
+    "search": "amazon kinesis data streams analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Kinesis-Video-Streams_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon Kinesis Video Streams",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Kinesis-Video-Streams_64.svg",
+    "search": "amazon kinesis video streams analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Managed-Service-for-Apache-Flink_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon Managed Service for Apache Flink",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Managed-Service-for-Apache-Flink_64.svg",
+    "search": "amazon managed service for apache flink analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Managed-Streaming-for-Apache-Kafka_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon Managed Streaming for Apache Kafka",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Managed-Streaming-for-Apache-Kafka_64.svg",
+    "search": "amazon managed streaming for apache kafka analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-OpenSearch-Service_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon OpenSearch Service",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-OpenSearch-Service_64.svg",
+    "search": "amazon opensearch service analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Redshift_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon Redshift",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-Redshift_64.svg",
+    "search": "amazon redshift analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-SageMaker_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "Amazon SageMaker",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_Amazon-SageMaker_64.svg",
+    "search": "amazon sagemaker analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Clean-Rooms_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "AWS Clean Rooms",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Clean-Rooms_64.svg",
+    "search": "aws clean rooms analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Data-Exchange_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "AWS Data Exchange",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Data-Exchange_64.svg",
+    "search": "aws data exchange analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Entity-Resolution_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "AWS Entity Resolution",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Entity-Resolution_64.svg",
+    "search": "aws entity resolution analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Glue_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "AWS Glue",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Glue_64.svg",
+    "search": "aws glue analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Glue-DataBrew_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "AWS Glue DataBrew",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Glue-DataBrew_64.svg",
+    "search": "aws glue databrew analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Lake-Formation_64.svg",
+    "type": "service",
+    "category": "Analytics",
+    "name": "AWS Lake Formation",
+    "path": "assets/aws-icons/service/Arch_Analytics/64/Arch_AWS-Lake-Formation_64.svg",
+    "search": "aws lake formation analytics service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-AppFlow_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "Amazon AppFlow",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-AppFlow_64.svg",
+    "search": "amazon appflow application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-EventBridge_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "Amazon EventBridge",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-EventBridge_64.svg",
+    "search": "amazon eventbridge application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-Managed-Workflows-for-Apache-Airflow_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "Amazon Managed Workflows for Apache Airflow",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-Managed-Workflows-for-Apache-Airflow_64.svg",
+    "search": "amazon managed workflows for apache airflow application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-MQ_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "Amazon MQ",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-MQ_64.svg",
+    "search": "amazon mq application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-Simple-Notification-Service_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "Amazon Simple Notification Service",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-Simple-Notification-Service_64.svg",
+    "search": "amazon simple notification service application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-Simple-Queue-Service_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "Amazon Simple Queue Service",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-Simple-Queue-Service_64.svg",
+    "search": "amazon simple queue service application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-AppSync_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "AWS AppSync",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-AppSync_64.svg",
+    "search": "aws appsync application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-B2B-Data-Interchange_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "AWS B2B Data Interchange",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-B2B-Data-Interchange_64.svg",
+    "search": "aws b2b data interchange application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-Express-Workflows_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "AWS Express Workflows",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-Express-Workflows_64.svg",
+    "search": "aws express workflows application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-Step-Functions_64.svg",
+    "type": "service",
+    "category": "Application Integration",
+    "name": "AWS Step Functions",
+    "path": "assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-Step-Functions_64.svg",
+    "search": "aws step functions application integration service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Augmented-AI-A2I_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Augmented AI A2I",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Augmented-AI-A2I_64.svg",
+    "search": "amazon augmented ai a2i artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Bedrock_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Bedrock",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Bedrock_64.svg",
+    "search": "amazon bedrock artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Bedrock-AgentCore_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Bedrock AgentCore",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Bedrock-AgentCore_64.svg",
+    "search": "amazon bedrock agentcore artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-CodeGuru_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon CodeGuru",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-CodeGuru_64.svg",
+    "search": "amazon codeguru artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-CodeWhisperer_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon CodeWhisperer",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-CodeWhisperer_64.svg",
+    "search": "amazon codewhisperer artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Comprehend_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Comprehend",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Comprehend_64.svg",
+    "search": "amazon comprehend artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Comprehend-Medical_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Comprehend Medical",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Comprehend-Medical_64.svg",
+    "search": "amazon comprehend medical artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-DevOps-Guru_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon DevOps Guru",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-DevOps-Guru_64.svg",
+    "search": "amazon devops guru artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Elastic-Inference_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Elastic Inference",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Elastic-Inference_64.svg",
+    "search": "amazon elastic inference artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Forecast_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Forecast",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Forecast_64.svg",
+    "search": "amazon forecast artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Fraud-Detector_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Fraud Detector",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Fraud-Detector_64.svg",
+    "search": "amazon fraud detector artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Kendra_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Kendra",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Kendra_64.svg",
+    "search": "amazon kendra artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Lex_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Lex",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Lex_64.svg",
+    "search": "amazon lex artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Lookout-for-Equipment_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Lookout for Equipment",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Lookout-for-Equipment_64.svg",
+    "search": "amazon lookout for equipment artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Lookout-for-Vision_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Lookout for Vision",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Lookout-for-Vision_64.svg",
+    "search": "amazon lookout for vision artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Monitron_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Monitron",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Monitron_64.svg",
+    "search": "amazon monitron artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Nova_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Nova",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Nova_64.svg",
+    "search": "amazon nova artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Personalize_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Personalize",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Personalize_64.svg",
+    "search": "amazon personalize artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Polly_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Polly",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Polly_64.svg",
+    "search": "amazon polly artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Q_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Q",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Q_64.svg",
+    "search": "amazon q artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Rekognition_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Rekognition",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Rekognition_64.svg",
+    "search": "amazon rekognition artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-SageMaker-AI_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker AI",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-SageMaker-AI_64.svg",
+    "search": "amazon sagemaker ai artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-SageMaker-Ground-Truth_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker Ground Truth",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-SageMaker-Ground-Truth_64.svg",
+    "search": "amazon sagemaker ground truth artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-SageMaker-Studio-Lab_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon SageMaker Studio Lab",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-SageMaker-Studio-Lab_64.svg",
+    "search": "amazon sagemaker studio lab artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Textract_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Textract",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Textract_64.svg",
+    "search": "amazon textract artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Transcribe_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Transcribe",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Transcribe_64.svg",
+    "search": "amazon transcribe artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Translate_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Amazon Translate",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Amazon-Translate_64.svg",
+    "search": "amazon translate artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Apache-MXNet-on-AWS_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "Apache MXNet on AWS",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_Apache-MXNet-on-AWS_64.svg",
+    "search": "apache mxnet on aws artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-App-Studio_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS App Studio",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-App-Studio_64.svg",
+    "search": "aws app studio artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Deep-Learning-AMIs_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS Deep Learning AMIs",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Deep-Learning-AMIs_64.svg",
+    "search": "aws deep learning amis artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Deep-Learning-Containers_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS Deep Learning Containers",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Deep-Learning-Containers_64.svg",
+    "search": "aws deep learning containers artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-DeepRacer_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS DeepRacer",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-DeepRacer_64.svg",
+    "search": "aws deepracer artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Elemental-Inference_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS Elemental Inference",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Elemental-Inference_64.svg",
+    "search": "aws elemental inference artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-HealthImaging_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS HealthImaging",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-HealthImaging_64.svg",
+    "search": "aws healthimaging artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-HealthLake_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS HealthLake",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-HealthLake_64.svg",
+    "search": "aws healthlake artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-HealthOmics_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS HealthOmics",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-HealthOmics_64.svg",
+    "search": "aws healthomics artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-HealthScribe_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS HealthScribe",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-HealthScribe_64.svg",
+    "search": "aws healthscribe artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Neuron_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS Neuron",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Neuron_64.svg",
+    "search": "aws neuron artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Panorama_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "AWS Panorama",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_AWS-Panorama_64.svg",
+    "search": "aws panorama artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_PyTorch-on-AWS_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "PyTorch on AWS",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_PyTorch-on-AWS_64.svg",
+    "search": "pytorch on aws artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_TensorFlow-on-AWS_64.svg",
+    "type": "service",
+    "category": "Artificial Intelligence",
+    "name": "TensorFlow on AWS",
+    "path": "assets/aws-icons/service/Arch_Artificial-Intelligence/64/Arch_TensorFlow-on-AWS_64.svg",
+    "search": "tensorflow on aws artificial intelligence service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Blockchain/64/Arch_Amazon-Managed-Blockchain_64.svg",
+    "type": "service",
+    "category": "Blockchain",
+    "name": "Amazon Managed Blockchain",
+    "path": "assets/aws-icons/service/Arch_Blockchain/64/Arch_Amazon-Managed-Blockchain_64.svg",
+    "search": "amazon managed blockchain blockchain service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Chime_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon Chime",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Chime_64.svg",
+    "search": "amazon chime business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Chime-SDK_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon Chime SDK",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Chime-SDK_64.svg",
+    "search": "amazon chime sdk business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Connect_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon Connect",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Connect_64.svg",
+    "search": "amazon connect business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Pinpoint_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon Pinpoint",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Pinpoint_64.svg",
+    "search": "amazon pinpoint business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Pinpoint-APIs_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon Pinpoint APIs",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Pinpoint-APIs_64.svg",
+    "search": "amazon pinpoint apis business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Quick_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon Quick",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Quick_64.svg",
+    "search": "amazon quick business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Simple-Email-Service_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon Simple Email Service",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-Simple-Email-Service_64.svg",
+    "search": "amazon simple email service business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-WorkDocs_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon WorkDocs",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-WorkDocs_64.svg",
+    "search": "amazon workdocs business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-WorkDocs-SDK_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon WorkDocs SDK",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-WorkDocs-SDK_64.svg",
+    "search": "amazon workdocs sdk business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-WorkMail_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "Amazon WorkMail",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_Amazon-WorkMail_64.svg",
+    "search": "amazon workmail business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_AWS-AppFabric_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "AWS AppFabric",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_AWS-AppFabric_64.svg",
+    "search": "aws appfabric business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_AWS-End-User-Messaging_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "AWS End User Messaging",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_AWS-End-User-Messaging_64.svg",
+    "search": "aws end user messaging business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_AWS-Supply-Chain_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "AWS Supply Chain",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_AWS-Supply-Chain_64.svg",
+    "search": "aws supply chain business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Business-Applications/64/Arch_AWS-Wickr_64.svg",
+    "type": "service",
+    "category": "Business Applications",
+    "name": "AWS Wickr",
+    "path": "assets/aws-icons/service/Arch_Business-Applications/64/Arch_AWS-Wickr_64.svg",
+    "search": "aws wickr business applications service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_AWS-Billing-Conductor_64.svg",
+    "type": "service",
+    "category": "Cloud Financial Management",
+    "name": "AWS Billing Conductor",
+    "path": "assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_AWS-Billing-Conductor_64.svg",
+    "search": "aws billing conductor cloud financial management service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_AWS-Budgets_64.svg",
+    "type": "service",
+    "category": "Cloud Financial Management",
+    "name": "AWS Budgets",
+    "path": "assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_AWS-Budgets_64.svg",
+    "search": "aws budgets cloud financial management service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_AWS-Cost-and-Usage-Report_64.svg",
+    "type": "service",
+    "category": "Cloud Financial Management",
+    "name": "AWS Cost and Usage Report",
+    "path": "assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_AWS-Cost-and-Usage-Report_64.svg",
+    "search": "aws cost and usage report cloud financial management service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_AWS-Cost-Explorer_64.svg",
+    "type": "service",
+    "category": "Cloud Financial Management",
+    "name": "AWS Cost Explorer",
+    "path": "assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_AWS-Cost-Explorer_64.svg",
+    "search": "aws cost explorer cloud financial management service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_Reserved-Instance-Reporting_64.svg",
+    "type": "service",
+    "category": "Cloud Financial Management",
+    "name": "Reserved Instance Reporting",
+    "path": "assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_Reserved-Instance-Reporting_64.svg",
+    "search": "reserved instance reporting cloud financial management service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_Savings-Plans_64.svg",
+    "type": "service",
+    "category": "Cloud Financial Management",
+    "name": "Savings Plans",
+    "path": "assets/aws-icons/service/Arch_Cloud-Financial-Management/64/Arch_Savings-Plans_64.svg",
+    "search": "savings plans cloud financial management service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-DCV_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Amazon DCV",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-DCV_64.svg",
+    "search": "amazon dcv compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-EC2_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Amazon EC2",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-EC2_64.svg",
+    "search": "amazon ec2 compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-EC2-Auto-Scaling_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Amazon EC2 Auto Scaling",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-EC2-Auto-Scaling_64.svg",
+    "search": "amazon ec2 auto scaling compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-EC2-Image-Builder_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Amazon EC2 Image Builder",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-EC2-Image-Builder_64.svg",
+    "search": "amazon ec2 image builder compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-Elastic-VMware-Service_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Amazon Elastic VMware Service",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-Elastic-VMware-Service_64.svg",
+    "search": "amazon elastic vmware service compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-Lightsail_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Amazon Lightsail",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-Lightsail_64.svg",
+    "search": "amazon lightsail compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-Lightsail-for-Research_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Amazon Lightsail for Research",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-Lightsail-for-Research_64.svg",
+    "search": "amazon lightsail for research compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-App-Runner_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS App Runner",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-App-Runner_64.svg",
+    "search": "aws app runner compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Batch_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Batch",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Batch_64.svg",
+    "search": "aws batch compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Compute-Optimizer_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Compute Optimizer",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Compute-Optimizer_64.svg",
+    "search": "aws compute optimizer compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Elastic-Beanstalk_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Elastic Beanstalk",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Elastic-Beanstalk_64.svg",
+    "search": "aws elastic beanstalk compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Lambda_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Lambda",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Lambda_64.svg",
+    "search": "aws lambda compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Local-Zones_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Local Zones",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Local-Zones_64.svg",
+    "search": "aws local zones compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Nitro-Enclaves_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Nitro Enclaves",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Nitro-Enclaves_64.svg",
+    "search": "aws nitro enclaves compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Outposts-family_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Outposts family",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Outposts-family_64.svg",
+    "search": "aws outposts family compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Outposts-rack_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Outposts rack",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Outposts-rack_64.svg",
+    "search": "aws outposts rack compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Outposts-servers_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Outposts servers",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Outposts-servers_64.svg",
+    "search": "aws outposts servers compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Parallel-Cluster_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Parallel Cluster",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Parallel-Cluster_64.svg",
+    "search": "aws parallel cluster compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Parallel-Computing-Service_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Parallel Computing Service",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Parallel-Computing-Service_64.svg",
+    "search": "aws parallel computing service compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Serverless-Application-Repository_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Serverless Application Repository",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Serverless-Application-Repository_64.svg",
+    "search": "aws serverless application repository compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-SimSpace-Weaver_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS SimSpace Weaver",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-SimSpace-Weaver_64.svg",
+    "search": "aws simspace weaver compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Wavelength_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "AWS Wavelength",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Wavelength_64.svg",
+    "search": "aws wavelength compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Bottlerocket_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Bottlerocket",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Bottlerocket_64.svg",
+    "search": "bottlerocket compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Compute/64/Arch_Elastic-Fabric-Adapter_64.svg",
+    "type": "service",
+    "category": "Compute",
+    "name": "Elastic Fabric Adapter",
+    "path": "assets/aws-icons/service/Arch_Compute/64/Arch_Elastic-Fabric-Adapter_64.svg",
+    "search": "elastic fabric adapter compute service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-ECS-Anywhere_64.svg",
+    "type": "service",
+    "category": "Containers",
+    "name": "Amazon ECS Anywhere",
+    "path": "assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-ECS-Anywhere_64.svg",
+    "search": "amazon ecs anywhere containers service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-EKS-Anywhere_64.svg",
+    "type": "service",
+    "category": "Containers",
+    "name": "Amazon EKS Anywhere",
+    "path": "assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-EKS-Anywhere_64.svg",
+    "search": "amazon eks anywhere containers service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-EKS-Distro_64.svg",
+    "type": "service",
+    "category": "Containers",
+    "name": "Amazon EKS Distro",
+    "path": "assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-EKS-Distro_64.svg",
+    "search": "amazon eks distro containers service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-Elastic-Container-Registry_64.svg",
+    "type": "service",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Registry",
+    "path": "assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-Elastic-Container-Registry_64.svg",
+    "search": "amazon elastic container registry containers service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-Elastic-Container-Service_64.svg",
+    "type": "service",
+    "category": "Containers",
+    "name": "Amazon Elastic Container Service",
+    "path": "assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-Elastic-Container-Service_64.svg",
+    "search": "amazon elastic container service containers service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-Elastic-Kubernetes-Service_64.svg",
+    "type": "service",
+    "category": "Containers",
+    "name": "Amazon Elastic Kubernetes Service",
+    "path": "assets/aws-icons/service/Arch_Containers/64/Arch_Amazon-Elastic-Kubernetes-Service_64.svg",
+    "search": "amazon elastic kubernetes service containers service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Containers/64/Arch_AWS-Fargate_64.svg",
+    "type": "service",
+    "category": "Containers",
+    "name": "AWS Fargate",
+    "path": "assets/aws-icons/service/Arch_Containers/64/Arch_AWS-Fargate_64.svg",
+    "search": "aws fargate containers service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Containers/64/Arch_Red-Hat-OpenShift-Service-on-AWS_64.svg",
+    "type": "service",
+    "category": "Containers",
+    "name": "Red Hat OpenShift Service on AWS",
+    "path": "assets/aws-icons/service/Arch_Containers/64/Arch_Red-Hat-OpenShift-Service-on-AWS_64.svg",
+    "search": "red hat openshift service on aws containers service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Activate_64.svg",
+    "type": "service",
+    "category": "Customer Enablement",
+    "name": "AWS Activate",
+    "path": "assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Activate_64.svg",
+    "search": "aws activate customer enablement service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-IQ_64.svg",
+    "type": "service",
+    "category": "Customer Enablement",
+    "name": "AWS IQ",
+    "path": "assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-IQ_64.svg",
+    "search": "aws iq customer enablement service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Managed-Services_64.svg",
+    "type": "service",
+    "category": "Customer Enablement",
+    "name": "AWS Managed Services",
+    "path": "assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Managed-Services_64.svg",
+    "search": "aws managed services customer enablement service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Professional-Services_64.svg",
+    "type": "service",
+    "category": "Customer Enablement",
+    "name": "AWS Professional Services",
+    "path": "assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Professional-Services_64.svg",
+    "search": "aws professional services customer enablement service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-rePost_64.svg",
+    "type": "service",
+    "category": "Customer Enablement",
+    "name": "AWS rePost",
+    "path": "assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-rePost_64.svg",
+    "search": "aws repost customer enablement service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-rePost-Private_64.svg",
+    "type": "service",
+    "category": "Customer Enablement",
+    "name": "AWS rePost Private",
+    "path": "assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-rePost-Private_64.svg",
+    "search": "aws repost private customer enablement service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Support_64.svg",
+    "type": "service",
+    "category": "Customer Enablement",
+    "name": "AWS Support",
+    "path": "assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Support_64.svg",
+    "search": "aws support customer enablement service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Training-Certification_64.svg",
+    "type": "service",
+    "category": "Customer Enablement",
+    "name": "AWS Training Certification",
+    "path": "assets/aws-icons/service/Arch_Customer-Enablement/64/Arch_AWS-Training-Certification_64.svg",
+    "search": "aws training certification customer enablement service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-Aurora_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon Aurora",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-Aurora_64.svg",
+    "search": "amazon aurora databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-DocumentDB_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon DocumentDB",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-DocumentDB_64.svg",
+    "search": "amazon documentdb databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-DynamoDB_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon DynamoDB",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-DynamoDB_64.svg",
+    "search": "amazon dynamodb databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-ElastiCache_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon ElastiCache",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-ElastiCache_64.svg",
+    "search": "amazon elasticache databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-Keyspaces_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon Keyspaces",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-Keyspaces_64.svg",
+    "search": "amazon keyspaces databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-MemoryDB_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon MemoryDB",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-MemoryDB_64.svg",
+    "search": "amazon memorydb databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-Neptune_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon Neptune",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-Neptune_64.svg",
+    "search": "amazon neptune databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-RDS_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon RDS",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-RDS_64.svg",
+    "search": "amazon rds databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-Timestream_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Amazon Timestream",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-Timestream_64.svg",
+    "search": "amazon timestream databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_AWS-Database-Migration-Service_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "AWS Database Migration Service",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_AWS-Database-Migration-Service_64.svg",
+    "search": "aws database migration service databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Databases/64/Arch_Oracle-Database-at-AWS_64.svg",
+    "type": "service",
+    "category": "Databases",
+    "name": "Oracle Database at AWS",
+    "path": "assets/aws-icons/service/Arch_Databases/64/Arch_Oracle-Database-at-AWS_64.svg",
+    "search": "oracle database at aws databases service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_Amazon-CodeCatalyst_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "Amazon CodeCatalyst",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_Amazon-CodeCatalyst_64.svg",
+    "search": "amazon codecatalyst developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_Amazon-Corretto_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "Amazon Corretto",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_Amazon-Corretto_64.svg",
+    "search": "amazon corretto developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Cloud-Control-API_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS Cloud Control API",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Cloud-Control-API_64.svg",
+    "search": "aws cloud control api developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Cloud-Development-Kit_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS Cloud Development Kit",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Cloud-Development-Kit_64.svg",
+    "search": "aws cloud development kit developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Cloud9_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS Cloud9",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Cloud9_64.svg",
+    "search": "aws cloud9 developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CloudShell_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS CloudShell",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CloudShell_64.svg",
+    "search": "aws cloudshell developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodeArtifact_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS CodeArtifact",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodeArtifact_64.svg",
+    "search": "aws codeartifact developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodeBuild_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS CodeBuild",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodeBuild_64.svg",
+    "search": "aws codebuild developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodeCommit_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS CodeCommit",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodeCommit_64.svg",
+    "search": "aws codecommit developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodeDeploy_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS CodeDeploy",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodeDeploy_64.svg",
+    "search": "aws codedeploy developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodePipeline_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS CodePipeline",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-CodePipeline_64.svg",
+    "search": "aws codepipeline developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Command-Line-Interface_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS Command Line Interface",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Command-Line-Interface_64.svg",
+    "search": "aws command line interface developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Fault-Injection-Service_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS Fault Injection Service",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Fault-Injection-Service_64.svg",
+    "search": "aws fault injection service developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Infrastructure-Composer_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS Infrastructure Composer",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Infrastructure-Composer_64.svg",
+    "search": "aws infrastructure composer developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Tools-and-SDKs_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS Tools and SDKs",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-Tools-and-SDKs_64.svg",
+    "search": "aws tools and sdks developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-X-Ray_64.svg",
+    "type": "service",
+    "category": "Developer Tools",
+    "name": "AWS X Ray",
+    "path": "assets/aws-icons/service/Arch_Developer-Tools/64/Arch_AWS-X-Ray_64.svg",
+    "search": "aws x ray developer tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_End-User-Computing/64/Arch_Amazon-WorkSpaces_64.svg",
+    "type": "service",
+    "category": "End User Computing",
+    "name": "Amazon WorkSpaces",
+    "path": "assets/aws-icons/service/Arch_End-User-Computing/64/Arch_Amazon-WorkSpaces_64.svg",
+    "search": "amazon workspaces end user computing service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Front-End-Web-Mobile/64/Arch_Amazon-Location-Service_64.svg",
+    "type": "service",
+    "category": "Front End Web Mobile",
+    "name": "Amazon Location Service",
+    "path": "assets/aws-icons/service/Arch_Front-End-Web-Mobile/64/Arch_Amazon-Location-Service_64.svg",
+    "search": "amazon location service front end web mobile service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Front-End-Web-Mobile/64/Arch_AWS-Amplify_64.svg",
+    "type": "service",
+    "category": "Front End Web Mobile",
+    "name": "AWS Amplify",
+    "path": "assets/aws-icons/service/Arch_Front-End-Web-Mobile/64/Arch_AWS-Amplify_64.svg",
+    "search": "aws amplify front end web mobile service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Front-End-Web-Mobile/64/Arch_AWS-Device-Farm_64.svg",
+    "type": "service",
+    "category": "Front End Web Mobile",
+    "name": "AWS Device Farm",
+    "path": "assets/aws-icons/service/Arch_Front-End-Web-Mobile/64/Arch_AWS-Device-Farm_64.svg",
+    "search": "aws device farm front end web mobile service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Games/64/Arch_Amazon-GameLift-Servers_64.svg",
+    "type": "service",
+    "category": "Games",
+    "name": "Amazon GameLift Servers",
+    "path": "assets/aws-icons/service/Arch_Games/64/Arch_Amazon-GameLift-Servers_64.svg",
+    "search": "amazon gamelift servers games service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Games/64/Arch_Amazon-GameLift-Streams_64.svg",
+    "type": "service",
+    "category": "Games",
+    "name": "Amazon GameLift Streams",
+    "path": "assets/aws-icons/service/Arch_Games/64/Arch_Amazon-GameLift-Streams_64.svg",
+    "search": "amazon gamelift streams games service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Games/64/Arch_Open-3D-Engine_64.svg",
+    "type": "service",
+    "category": "Games",
+    "name": "Open 3D Engine",
+    "path": "assets/aws-icons/service/Arch_Games/64/Arch_Open-3D-Engine_64.svg",
+    "search": "open 3d engine games service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_General-Icons/64/Arch_AWS-Marketplace_Dark_64.svg",
+    "type": "service",
+    "category": "General Icons",
+    "name": "AWS Marketplace Dark",
+    "path": "assets/aws-icons/service/Arch_General-Icons/64/Arch_AWS-Marketplace_Dark_64.svg",
+    "search": "aws marketplace dark general icons service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_General-Icons/64/Arch_AWS-Marketplace_Light_64.svg",
+    "type": "service",
+    "category": "General Icons",
+    "name": "AWS Marketplace Light",
+    "path": "assets/aws-icons/service/Arch_General-Icons/64/Arch_AWS-Marketplace_Light_64.svg",
+    "search": "aws marketplace light general icons service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Core_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT Core",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Core_64.svg",
+    "search": "aws iot core internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Device-Defender_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT Device Defender",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Device-Defender_64.svg",
+    "search": "aws iot device defender internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Device-Management_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT Device Management",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Device-Management_64.svg",
+    "search": "aws iot device management internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Events_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT Events",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Events_64.svg",
+    "search": "aws iot events internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-ExpressLink_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT ExpressLink",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-ExpressLink_64.svg",
+    "search": "aws iot expresslink internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-FleetWise_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT FleetWise",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-FleetWise_64.svg",
+    "search": "aws iot fleetwise internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Greengrass_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT Greengrass",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-Greengrass_64.svg",
+    "search": "aws iot greengrass internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-SiteWise_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT SiteWise",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-SiteWise_64.svg",
+    "search": "aws iot sitewise internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-TwinMaker_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "AWS IoT TwinMaker",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_AWS-IoT-TwinMaker_64.svg",
+    "search": "aws iot twinmaker internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_FreeRTOS_64.svg",
+    "type": "service",
+    "category": "Internet of Things",
+    "name": "FreeRTOS",
+    "path": "assets/aws-icons/service/Arch_Internet-of-Things/64/Arch_FreeRTOS_64.svg",
+    "search": "freertos internet of things service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_Amazon-CloudWatch_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "Amazon CloudWatch",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_Amazon-CloudWatch_64.svg",
+    "search": "amazon cloudwatch management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_Amazon-Managed-Grafana_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "Amazon Managed Grafana",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_Amazon-Managed-Grafana_64.svg",
+    "search": "amazon managed grafana management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_Amazon-Managed-Service-for-Prometheus_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "Amazon Managed Service for Prometheus",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_Amazon-Managed-Service-for-Prometheus_64.svg",
+    "search": "amazon managed service for prometheus management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-AppConfig_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS AppConfig",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-AppConfig_64.svg",
+    "search": "aws appconfig management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Application-Auto-Scaling_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Application Auto Scaling",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Application-Auto-Scaling_64.svg",
+    "search": "aws application auto scaling management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Auto-Scaling_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Auto Scaling",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Auto-Scaling_64.svg",
+    "search": "aws auto scaling management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Backint-Agent_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Backint Agent",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Backint-Agent_64.svg",
+    "search": "aws backint agent management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Chatbot_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Chatbot",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Chatbot_64.svg",
+    "search": "aws chatbot management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-CloudFormation_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS CloudFormation",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-CloudFormation_64.svg",
+    "search": "aws cloudformation management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-CloudTrail_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS CloudTrail",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-CloudTrail_64.svg",
+    "search": "aws cloudtrail management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Compute-Optimizer_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Compute Optimizer",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Compute-Optimizer_64.svg",
+    "search": "aws compute optimizer management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Config_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Config",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Config_64.svg",
+    "search": "aws config management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Console-Mobile-Application_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Console Mobile Application",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Console-Mobile-Application_64.svg",
+    "search": "aws console mobile application management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Control-Tower_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Control Tower",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Control-Tower_64.svg",
+    "search": "aws control tower management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-DevOps-Agent_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS DevOps Agent",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-DevOps-Agent_64.svg",
+    "search": "aws devops agent management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Distro-for-OpenTelemetry_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Distro for OpenTelemetry",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Distro-for-OpenTelemetry_64.svg",
+    "search": "aws distro for opentelemetry management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Health-Dashboard_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Health Dashboard",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Health-Dashboard_64.svg",
+    "search": "aws health dashboard management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Launch-Wizard_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Launch Wizard",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Launch-Wizard_64.svg",
+    "search": "aws launch wizard management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-License-Manager_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS License Manager",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-License-Manager_64.svg",
+    "search": "aws license manager management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Management-Console_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Management Console",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Management-Console_64.svg",
+    "search": "aws management console management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Organizations_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Organizations",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Organizations_64.svg",
+    "search": "aws organizations management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Partner-Central_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Partner Central",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Partner-Central_64.svg",
+    "search": "aws partner central management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Proton_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Proton",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Proton_64.svg",
+    "search": "aws proton management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Resilience-Hub_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Resilience Hub",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Resilience-Hub_64.svg",
+    "search": "aws resilience hub management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Resource-Explorer_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Resource Explorer",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Resource-Explorer_64.svg",
+    "search": "aws resource explorer management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Service-Catalog_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Service Catalog",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Service-Catalog_64.svg",
+    "search": "aws service catalog management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Service-Management-Connector_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Service Management Connector",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Service-Management-Connector_64.svg",
+    "search": "aws service management connector management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Sustainability_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Sustainability",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Sustainability_64.svg",
+    "search": "aws sustainability management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Systems-Manager_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Systems Manager",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Systems-Manager_64.svg",
+    "search": "aws systems manager management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Telco-Network-Builder_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Telco Network Builder",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Telco-Network-Builder_64.svg",
+    "search": "aws telco network builder management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Trusted-Advisor_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Trusted Advisor",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Trusted-Advisor_64.svg",
+    "search": "aws trusted advisor management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-User-Notifications_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS User Notifications",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-User-Notifications_64.svg",
+    "search": "aws user notifications management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Well-Architected-Tool_64.svg",
+    "type": "service",
+    "category": "Management Tools",
+    "name": "AWS Well Architected Tool",
+    "path": "assets/aws-icons/service/Arch_Management-Tools/64/Arch_AWS-Well-Architected-Tool_64.svg",
+    "search": "aws well architected tool management tools service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_Amazon-Interactive-Video-Service_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "Amazon Interactive Video Service",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_Amazon-Interactive-Video-Service_64.svg",
+    "search": "amazon interactive video service media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_Amazon-Kinesis-Video-Streams_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "Amazon Kinesis Video Streams",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_Amazon-Kinesis-Video-Streams_64.svg",
+    "search": "amazon kinesis video streams media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Deadline-Cloud_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Deadline Cloud",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Deadline-Cloud_64.svg",
+    "search": "aws deadline cloud media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Appliances-&-Software_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental Appliances & Software",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Appliances-&-Software_64.svg",
+    "search": "aws elemental appliances & software media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Conductor_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental Conductor",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Conductor_64.svg",
+    "search": "aws elemental conductor media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Delta_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental Delta",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Delta_64.svg",
+    "search": "aws elemental delta media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Link_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental Link",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Link_64.svg",
+    "search": "aws elemental link media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Live_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental Live",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Live_64.svg",
+    "search": "aws elemental live media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaConnect_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental MediaConnect",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaConnect_64.svg",
+    "search": "aws elemental mediaconnect media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaConvert_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental MediaConvert",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaConvert_64.svg",
+    "search": "aws elemental mediaconvert media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaLive_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental MediaLive",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaLive_64.svg",
+    "search": "aws elemental medialive media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaPackage_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental MediaPackage",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaPackage_64.svg",
+    "search": "aws elemental mediapackage media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaStore_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental MediaStore",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaStore_64.svg",
+    "search": "aws elemental mediastore media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaTailor_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental MediaTailor",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-MediaTailor_64.svg",
+    "search": "aws elemental mediatailor media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Server_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Elemental Server",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Elemental-Server_64.svg",
+    "search": "aws elemental server media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-Deadline_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Thinkbox Deadline",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-Deadline_64.svg",
+    "search": "aws thinkbox deadline media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-Frost_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Thinkbox Frost",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-Frost_64.svg",
+    "search": "aws thinkbox frost media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-Krakatoa_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Thinkbox Krakatoa",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-Krakatoa_64.svg",
+    "search": "aws thinkbox krakatoa media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-Stoke_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Thinkbox Stoke",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-Stoke_64.svg",
+    "search": "aws thinkbox stoke media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-XMesh_64.svg",
+    "type": "service",
+    "category": "Media Services",
+    "name": "AWS Thinkbox XMesh",
+    "path": "assets/aws-icons/service/Arch_Media-Services/64/Arch_AWS-Thinkbox-XMesh_64.svg",
+    "search": "aws thinkbox xmesh media services service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Application-Discovery-Service_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS Application Discovery Service",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Application-Discovery-Service_64.svg",
+    "search": "aws application discovery service migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Application-Migration-Service_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS Application Migration Service",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Application-Migration-Service_64.svg",
+    "search": "aws application migration service migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Data-Transfer-Terminal_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS Data Transfer Terminal",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Data-Transfer-Terminal_64.svg",
+    "search": "aws data transfer terminal migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-DataSync_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS DataSync",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-DataSync_64.svg",
+    "search": "aws datasync migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Mainframe-Modernization_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS Mainframe Modernization",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Mainframe-Modernization_64.svg",
+    "search": "aws mainframe modernization migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Migration-Evaluator_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS Migration Evaluator",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Migration-Evaluator_64.svg",
+    "search": "aws migration evaluator migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Migration-Hub_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS Migration Hub",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Migration-Hub_64.svg",
+    "search": "aws migration hub migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Transfer-Family_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS Transfer Family",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Transfer-Family_64.svg",
+    "search": "aws transfer family migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Transform_64.svg",
+    "type": "service",
+    "category": "Migration Modernization",
+    "name": "AWS Transform",
+    "path": "assets/aws-icons/service/Arch_Migration-Modernization/64/Arch_AWS-Transform_64.svg",
+    "search": "aws transform migration modernization service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-API-Gateway_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "Amazon API Gateway",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-API-Gateway_64.svg",
+    "search": "amazon api gateway networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-Application-Recovery-Controller_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Application Recovery Controller",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-Application-Recovery-Controller_64.svg",
+    "search": "amazon application recovery controller networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-CloudFront_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "Amazon CloudFront",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-CloudFront_64.svg",
+    "search": "amazon cloudfront networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-Route-53_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Route 53",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-Route-53_64.svg",
+    "search": "amazon route 53 networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-Virtual-Private-Cloud_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "Amazon Virtual Private Cloud",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-Virtual-Private-Cloud_64.svg",
+    "search": "amazon virtual private cloud networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-VPC-Lattice_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "Amazon VPC Lattice",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-VPC-Lattice_64.svg",
+    "search": "amazon vpc lattice networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-App-Mesh_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS App Mesh",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-App-Mesh_64.svg",
+    "search": "aws app mesh networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Client-VPN_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Client VPN",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Client-VPN_64.svg",
+    "search": "aws client vpn networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Cloud-Map_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Cloud Map",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Cloud-Map_64.svg",
+    "search": "aws cloud map networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Cloud-WAN_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Cloud WAN",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Cloud-WAN_64.svg",
+    "search": "aws cloud wan networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Direct-Connect_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Direct Connect",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Direct-Connect_64.svg",
+    "search": "aws direct connect networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Global-Accelerator_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Global Accelerator",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Global-Accelerator_64.svg",
+    "search": "aws global accelerator networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Interconnect_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Interconnect",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Interconnect_64.svg",
+    "search": "aws interconnect networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-PrivateLink_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS PrivateLink",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-PrivateLink_64.svg",
+    "search": "aws privatelink networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-RTB-Fabric_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS RTB Fabric",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-RTB-Fabric_64.svg",
+    "search": "aws rtb fabric networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Site-to-Site-VPN_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Site to Site VPN",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Site-to-Site-VPN_64.svg",
+    "search": "aws site to site vpn networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Transit-Gateway_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Transit Gateway",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Transit-Gateway_64.svg",
+    "search": "aws transit gateway networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Verified-Access_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "AWS Verified Access",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_AWS-Verified-Access_64.svg",
+    "search": "aws verified access networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Elastic-Load-Balancing_64.svg",
+    "type": "service",
+    "category": "Networking Content Delivery",
+    "name": "Elastic Load Balancing",
+    "path": "assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Elastic-Load-Balancing_64.svg",
+    "search": "elastic load balancing networking content delivery service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Quantum-Technologies/64/Arch_Amazon-Braket_64.svg",
+    "type": "service",
+    "category": "Quantum Technologies",
+    "name": "Amazon Braket",
+    "path": "assets/aws-icons/service/Arch_Quantum-Technologies/64/Arch_Amazon-Braket_64.svg",
+    "search": "amazon braket quantum technologies service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Satellite/64/Arch_AWS-Ground-Station_64.svg",
+    "type": "service",
+    "category": "Satellite",
+    "name": "AWS Ground Station",
+    "path": "assets/aws-icons/service/Arch_Satellite/64/Arch_AWS-Ground-Station_64.svg",
+    "search": "aws ground station satellite service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Cloud-Directory_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "Amazon Cloud Directory",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Cloud-Directory_64.svg",
+    "search": "amazon cloud directory security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Cognito_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "Amazon Cognito",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Cognito_64.svg",
+    "search": "amazon cognito security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Detective_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "Amazon Detective",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Detective_64.svg",
+    "search": "amazon detective security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-GuardDuty_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "Amazon GuardDuty",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-GuardDuty_64.svg",
+    "search": "amazon guardduty security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Inspector_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "Amazon Inspector",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Inspector_64.svg",
+    "search": "amazon inspector security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Macie_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "Amazon Macie",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Macie_64.svg",
+    "search": "amazon macie security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Security-Lake_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "Amazon Security Lake",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Security-Lake_64.svg",
+    "search": "amazon security lake security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Verified-Permissions_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "Amazon Verified Permissions",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Verified-Permissions_64.svg",
+    "search": "amazon verified permissions security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Artifact_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Artifact",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Artifact_64.svg",
+    "search": "aws artifact security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Audit-Manager_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Audit Manager",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Audit-Manager_64.svg",
+    "search": "aws audit manager security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Certificate-Manager_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Certificate Manager",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Certificate-Manager_64.svg",
+    "search": "aws certificate manager security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-CloudHSM_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS CloudHSM",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-CloudHSM_64.svg",
+    "search": "aws cloudhsm security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Directory-Service_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Directory Service",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Directory-Service_64.svg",
+    "search": "aws directory service security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Firewall-Manager_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Firewall Manager",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Firewall-Manager_64.svg",
+    "search": "aws firewall manager security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-IAM-Identity-Center_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS IAM Identity Center",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-IAM-Identity-Center_64.svg",
+    "search": "aws iam identity center security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Identity-and-Access-Management_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Identity and Access Management",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Identity-and-Access-Management_64.svg",
+    "search": "aws identity and access management security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Key-Management-Service_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Key Management Service",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Key-Management-Service_64.svg",
+    "search": "aws key management service security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Network-Firewall_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Network Firewall",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Network-Firewall_64.svg",
+    "search": "aws network firewall security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Payment-Cryptography_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Payment Cryptography",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Payment-Cryptography_64.svg",
+    "search": "aws payment cryptography security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Private-Certificate-Authority_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Private Certificate Authority",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Private-Certificate-Authority_64.svg",
+    "search": "aws private certificate authority security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Resource-Access-Manager_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Resource Access Manager",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Resource-Access-Manager_64.svg",
+    "search": "aws resource access manager security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Secrets-Manager_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Secrets Manager",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Secrets-Manager_64.svg",
+    "search": "aws secrets manager security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Security-Agent_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Security Agent",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Security-Agent_64.svg",
+    "search": "aws security agent security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Security-Hub_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Security Hub",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Security-Hub_64.svg",
+    "search": "aws security hub security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Security-Incident-Response_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Security Incident Response",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Security-Incident-Response_64.svg",
+    "search": "aws security incident response security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Shield_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Shield",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Shield_64.svg",
+    "search": "aws shield security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Signer_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS Signer",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-Signer_64.svg",
+    "search": "aws signer security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-WAF_64.svg",
+    "type": "service",
+    "category": "Security Identity",
+    "name": "AWS WAF",
+    "path": "assets/aws-icons/service/Arch_Security-Identity/64/Arch_AWS-WAF_64.svg",
+    "search": "aws waf security identity service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-EFS_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon EFS",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-EFS_64.svg",
+    "search": "amazon efs storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-Elastic-Block-Store_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon Elastic Block Store",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-Elastic-Block-Store_64.svg",
+    "search": "amazon elastic block store storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-File-Cache_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon File Cache",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-File-Cache_64.svg",
+    "search": "amazon file cache storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon FSx",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx_64.svg",
+    "search": "amazon fsx storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx-for-Lustre_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon FSx for Lustre",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx-for-Lustre_64.svg",
+    "search": "amazon fsx for lustre storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx-for-NetApp-ONTAP_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon FSx for NetApp ONTAP",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx-for-NetApp-ONTAP_64.svg",
+    "search": "amazon fsx for netapp ontap storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx-for-OpenZFS_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon FSx for OpenZFS",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx-for-OpenZFS_64.svg",
+    "search": "amazon fsx for openzfs storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx-for-WFS_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon FSx for WFS",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-FSx-for-WFS_64.svg",
+    "search": "amazon fsx for wfs storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-S3-on-Outposts_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon S3 on Outposts",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-S3-on-Outposts_64.svg",
+    "search": "amazon s3 on outposts storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-Simple-Storage-Service_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-Simple-Storage-Service_64.svg",
+    "search": "amazon simple storage service storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-Simple-Storage-Service-Glacier_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "Amazon Simple Storage Service Glacier",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_Amazon-Simple-Storage-Service-Glacier_64.svg",
+    "search": "amazon simple storage service glacier storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Backup_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "AWS Backup",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Backup_64.svg",
+    "search": "aws backup storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Elastic-Disaster-Recovery_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "AWS Elastic Disaster Recovery",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Elastic-Disaster-Recovery_64.svg",
+    "search": "aws elastic disaster recovery storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Snowball_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "AWS Snowball",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Snowball_64.svg",
+    "search": "aws snowball storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Snowball-Edge_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "AWS Snowball Edge",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Snowball-Edge_64.svg",
+    "search": "aws snowball edge storage service"
+  },
+  {
+    "id": "service:assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Storage-Gateway_64.svg",
+    "type": "service",
+    "category": "Storage",
+    "name": "AWS Storage Gateway",
+    "path": "assets/aws-icons/service/Arch_Storage/64/Arch_AWS-Storage-Gateway_64.svg",
+    "search": "aws storage gateway storage service"
+  }
+];

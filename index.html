@@ -6,6 +6,7 @@
     <meta name="description" content="An interactive AWS resilience command atlas built with HTML, CSS, and JavaScript.">
     <title>AWS Resilience Command Atlas</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="flow-studio.css">
   </head>
   <body>
     <main class="app-shell" aria-label="AWS Resilience Command Atlas dashboard">
@@ -291,8 +292,142 @@
         </section>
 
       </section>
+
+      <section class="flow-studio" aria-labelledby="flowStudioTitle">
+        <header class="flow-studio-head">
+          <div>
+            <h2 id="flowStudioTitle">AWS Flow Studio</h2>
+            <p>Compose, validate, and export your own AWS architecture.</p>
+          </div>
+          <div class="flow-studio-meta" aria-live="polite">
+            <span><strong id="flowNodeCount">0</strong> nodes</span>
+            <span><strong id="flowConnectionCount">0</strong> connections</span>
+            <span id="flowSaveState">Ready</span>
+          </div>
+          <div class="flow-toolbar" role="toolbar" aria-label="Flow editor tools">
+            <button class="is-active" type="button" data-flow-mode="select" title="Select and move nodes"><span aria-hidden="true">&#8598;</span>Select</button>
+            <button type="button" data-flow-mode="connect" title="Connect two nodes"><span aria-hidden="true">&#8644;</span>Connect</button>
+            <button id="flowDeleteButton" type="button" title="Delete selected node or connection"><span aria-hidden="true">&#215;</span>Delete</button>
+            <span class="toolbar-divider" aria-hidden="true"></span>
+            <button id="flowUndoButton" type="button" title="Undo"><span aria-hidden="true">&#8630;</span>Undo</button>
+            <button id="flowRedoButton" type="button" title="Redo"><span aria-hidden="true">&#8631;</span>Redo</button>
+            <button id="flowFitButton" type="button" title="Fit architecture to canvas"><span aria-hidden="true">&#9974;</span>Fit</button>
+            <span class="toolbar-divider" aria-hidden="true"></span>
+            <button id="flowSaveButton" type="button" title="Save architecture locally"><span aria-hidden="true">&#9635;</span>Save</button>
+            <button id="flowExportButton" type="button" title="Export architecture as JSON"><span aria-hidden="true">&#8681;</span>Export</button>
+          </div>
+        </header>
+
+        <div class="flow-workspace">
+          <aside class="flow-library" aria-label="AWS icon library">
+            <div class="flow-library-tabs" role="tablist" aria-label="Icon type">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-icon-type="service">Services</button>
+              <button type="button" role="tab" aria-selected="false" data-icon-type="resource">Resources</button>
+              <button type="button" role="tab" aria-selected="false" data-icon-type="group">Groups</button>
+              <button type="button" role="tab" aria-selected="false" data-icon-type="category">Categories</button>
+            </div>
+            <label class="flow-search" for="flowIconSearch">
+              <span>Search icon library</span>
+              <input id="flowIconSearch" type="search" placeholder="Search 862 official icons" autocomplete="off">
+            </label>
+            <label class="flow-category" for="flowCategoryFilter">
+              <span>Category</span>
+              <select id="flowCategoryFilter">
+                <option value="all">All categories</option>
+              </select>
+            </label>
+            <div class="flow-library-summary">
+              <span id="flowLibraryCount">0 icons</span>
+              <a href="https://aws.amazon.com/architecture/icons/" target="_blank" rel="noreferrer">Official AWS set</a>
+            </div>
+            <div class="flow-icon-grid" id="flowIconGrid" aria-live="polite"></div>
+          </aside>
+
+          <section class="flow-canvas-shell" aria-label="Architecture canvas">
+            <div class="flow-canvas-titlebar">
+              <label for="flowArchitectureName">Architecture</label>
+              <input id="flowArchitectureName" type="text" value="My resilient workload" maxlength="80">
+              <span id="flowCanvasHint">Select an icon to add it</span>
+            </div>
+            <div class="flow-canvas" id="flowCanvas" tabindex="0" aria-label="Diagram canvas. Add AWS icons and connect them into a flow.">
+              <svg class="flow-connections" id="flowConnections" aria-hidden="true"></svg>
+              <div class="flow-node-layer" id="flowNodeLayer"></div>
+              <div class="flow-empty-state" id="flowEmptyState">
+                <strong>Build your AWS flow</strong>
+                <span>Choose a template or add services from the official icon library.</span>
+              </div>
+            </div>
+            <div class="flow-templates" aria-label="Architecture templates">
+              <span>Start with a template</span>
+              <button type="button" data-flow-template="serverless">Serverless API<small>API Gateway + Lambda + DynamoDB</small></button>
+              <button type="button" data-flow-template="events">Event pipeline<small>EventBridge + Step Functions + SQS</small></button>
+              <button type="button" data-flow-template="web">Resilient web app<small>CloudFront + EC2 + RDS</small></button>
+              <button type="button" data-flow-template="blank">Blank<small>Clear the canvas</small></button>
+            </div>
+          </section>
+
+          <aside class="flow-inspector" aria-label="Flow inspector">
+            <div class="flow-inspector-head">
+              <span>Inspector</span>
+              <strong id="flowInspectorMode">Diagram</strong>
+            </div>
+            <div class="flow-selected-summary" id="flowSelectedSummary">
+              <span class="flow-selected-placeholder">Select a node to inspect it.</span>
+            </div>
+            <div class="flow-node-fields" id="flowNodeFields" hidden>
+              <label for="flowNodeName">Name<input id="flowNodeName" type="text" maxlength="60"></label>
+              <label for="flowNodeEnvironment">Environment
+                <select id="flowNodeEnvironment">
+                  <option>Production</option>
+                  <option>Staging</option>
+                  <option>Development</option>
+                  <option>Shared</option>
+                </select>
+              </label>
+              <label for="flowNodeCriticality">Criticality
+                <select id="flowNodeCriticality">
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </label>
+              <label for="flowNodeNotes">Notes<textarea id="flowNodeNotes" rows="4" maxlength="280"></textarea></label>
+            </div>
+            <section class="flow-checks" aria-labelledby="flowChecksTitle">
+              <div>
+                <span>Architecture checks</span>
+                <strong id="flowChecksTitle">0 checks</strong>
+              </div>
+              <div id="flowChecksList"></div>
+            </section>
+          </aside>
+        </div>
+
+        <footer class="flow-statusbar">
+          <span id="flowStatusMessage">Ready</span>
+          <label for="flowRegion">Region
+            <select id="flowRegion">
+              <option value="us-east-1">us-east-1</option>
+              <option value="us-west-2">us-west-2</option>
+              <option value="eu-west-1">eu-west-1</option>
+              <option value="ap-southeast-2">ap-southeast-2</option>
+              <option value="ap-northeast-1">ap-northeast-1</option>
+            </select>
+          </label>
+          <label class="flow-grid-toggle"><input id="flowGridToggle" type="checkbox" checked> Grid</label>
+          <label for="flowZoom">Zoom
+            <select id="flowZoom">
+              <option value="0.8">80%</option>
+              <option value="1" selected>100%</option>
+              <option value="1.2">120%</option>
+            </select>
+          </label>
+        </footer>
+      </section>
     </main>
 
+    <script src="assets/aws-icons/catalog.js"></script>
+    <script src="flow-studio.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

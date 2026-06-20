@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented here.
 
+## 2026-06-20
+
+### Added
+
+- AWS Flow Studio for creating custom AWS architectures inside the Command Atlas.
+- Searchable catalog of 862 official AWS service, resource, group, and category SVG icons from the 2026 Q2 architecture icon package.
+- Draggable diagram nodes, directional connection mode, connection selection, node deletion, undo, redo, and fit-to-canvas controls.
+- Node inspector for custom names, environment, criticality, and architecture notes.
+- Serverless API, Event Pipeline, Resilient Web App, and Blank starter templates.
+- Live architecture checks for connected paths, isolated services, observability, public-edge protection, and data recovery intent.
+- Local architecture persistence, grid and zoom preferences, regional context, and JSON export.
+
+### Validation
+
+- Desktop interaction flow covering icon search, node creation, connection, inspector editing, undo, redo, save, export, and template switching.
+- Responsive verification at 1536 x 1024 and 390 x 844 with no horizontal overflow or browser console errors.
+
 ## 2026-06-19
 
 ### Redesigned

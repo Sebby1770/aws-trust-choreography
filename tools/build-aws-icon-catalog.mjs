@@ -1,0 +1,55 @@
+import { readdir, writeFile } from "node:fs/promises";
+import { extname, join, relative, sep } from "node:path";
+
+const projectRoot = new URL("../", import.meta.url).pathname;
+const iconRoot = join(projectRoot, "assets/aws-icons");
+const outputPath = join(iconRoot, "catalog.js");
+
+async function walk(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = await Promise.all(entries.map(async (entry) => {
+    const path = join(directory, entry.name);
+    return entry.isDirectory() ? walk(path) : [path];
+  }));
+  return files.flat();
+}
+
+function words(value) {
+  return value
+    .replace(/^(Arch|Res)_/, "")
+    .replace(/_(16|32|48|64)$/, "")
+    .replace(/^Arch-Category_/, "")
+    .replaceAll("_", " ")
+    .replaceAll("-", " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const files = (await walk(iconRoot))
+  .filter((path) => extname(path).toLowerCase() === ".svg")
+  .map((path) => {
+    const relativePath = relative(projectRoot, path).split(sep).join("/");
+    const parts = relative(iconRoot, path).split(sep);
+    const type = parts[0];
+    const categoryPart = type === "service" || type === "resource" ? parts[1] : type;
+    const filename = parts.at(-1).replace(/\.svg$/i, "");
+    return {
+      id: `${type}:${relativePath}`,
+      type,
+      category: words(categoryPart),
+      name: words(filename),
+      path: relativePath,
+      search: `${words(filename)} ${words(categoryPart)} ${type}`.toLowerCase()
+    };
+  })
+  .sort((a, b) => a.type.localeCompare(b.type) || a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
+
+const output = `window.AWS_ICON_CATALOG_META = ${JSON.stringify({
+  release: "2026-Q2",
+  published: "2026-04-30",
+  source: "https://aws.amazon.com/architecture/icons/",
+  count: files.length
+}, null, 2)};\n\nwindow.AWS_ICON_CATALOG = ${JSON.stringify(files, null, 2)};\n`;
+
+await writeFile(outputPath, output);
+console.log(`Wrote ${files.length} icons to ${outputPath}`);
