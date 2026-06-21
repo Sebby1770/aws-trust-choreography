@@ -295,26 +295,28 @@
 
       <section class="flow-studio" aria-labelledby="flowStudioTitle">
         <header class="flow-studio-head">
-          <div>
+          <div class="flow-studio-brand">
             <h2 id="flowStudioTitle">AWS Flow Studio</h2>
-            <p>Compose, validate, and export your own AWS architecture.</p>
+            <p>Design, analyze, and simulate resilient architectures.</p>
           </div>
           <div class="flow-studio-meta" aria-live="polite">
+            <span id="flowSaveState">Auto-saved</span>
             <span><strong id="flowNodeCount">0</strong> nodes</span>
-            <span><strong id="flowConnectionCount">0</strong> connections</span>
-            <span id="flowSaveState">Ready</span>
+            <span><strong id="flowConnectionCount">0</strong> paths</span>
           </div>
           <div class="flow-toolbar" role="toolbar" aria-label="Flow editor tools">
             <button class="is-active" type="button" data-flow-mode="select" title="Select and move nodes"><span aria-hidden="true">&#8598;</span>Select</button>
             <button type="button" data-flow-mode="connect" title="Connect two nodes"><span aria-hidden="true">&#8644;</span>Connect</button>
-            <button id="flowDeleteButton" type="button" title="Delete selected node or connection"><span aria-hidden="true">&#215;</span>Delete</button>
+            <button id="flowAutoLayoutButton" type="button" title="Automatically arrange the architecture"><span aria-hidden="true">&#8285;</span>Auto layout</button>
+            <button id="flowDeleteButton" type="button" title="Delete the selected node or path"><span aria-hidden="true">&#215;</span></button>
             <span class="toolbar-divider" aria-hidden="true"></span>
-            <button id="flowUndoButton" type="button" title="Undo"><span aria-hidden="true">&#8630;</span>Undo</button>
-            <button id="flowRedoButton" type="button" title="Redo"><span aria-hidden="true">&#8631;</span>Redo</button>
-            <button id="flowFitButton" type="button" title="Fit architecture to canvas"><span aria-hidden="true">&#9974;</span>Fit</button>
-            <span class="toolbar-divider" aria-hidden="true"></span>
+            <button id="flowUndoButton" type="button" title="Undo"><span aria-hidden="true">&#8630;</span></button>
+            <button id="flowRedoButton" type="button" title="Redo"><span aria-hidden="true">&#8631;</span></button>
+            <button id="flowImportButton" type="button" title="Import architecture JSON"><span aria-hidden="true">&#8679;</span>Import</button>
+            <input id="flowImportInput" type="file" accept="application/json,.json" hidden>
             <button id="flowSaveButton" type="button" title="Save architecture locally"><span aria-hidden="true">&#9635;</span>Save</button>
-            <button id="flowExportButton" type="button" title="Export architecture as JSON"><span aria-hidden="true">&#8681;</span>Export</button>
+            <button id="flowExportButton" type="button" title="Export architecture as JSON"><span aria-hidden="true">{ }</span>JSON</button>
+            <button id="flowExportSvgButton" type="button" title="Export architecture as an SVG diagram"><span aria-hidden="true">&#8681;</span>SVG</button>
           </div>
         </header>
 
@@ -327,15 +329,17 @@
               <button type="button" role="tab" aria-selected="false" data-icon-type="category">Categories</button>
             </div>
             <label class="flow-search" for="flowIconSearch">
-              <span>Search icon library</span>
+              <span>Search AWS icons</span>
               <input id="flowIconSearch" type="search" placeholder="Search 862 official icons" autocomplete="off">
             </label>
             <label class="flow-category" for="flowCategoryFilter">
               <span>Category</span>
-              <select id="flowCategoryFilter">
-                <option value="all">All categories</option>
-              </select>
+              <select id="flowCategoryFilter"><option value="all">All categories</option></select>
             </label>
+            <section class="flow-recent" aria-labelledby="flowRecentTitle">
+              <div><span id="flowRecentTitle">Recently used</span><small>Quick add</small></div>
+              <div id="flowRecentIcons"></div>
+            </section>
             <div class="flow-library-summary">
               <span id="flowLibraryCount">0 icons</span>
               <a href="https://aws.amazon.com/architecture/icons/" target="_blank" rel="noreferrer">Official AWS set</a>
@@ -345,20 +349,36 @@
 
           <section class="flow-canvas-shell" aria-label="Architecture canvas">
             <div class="flow-canvas-titlebar">
+              <button id="flowLibraryToggle" type="button" title="Toggle icon library" aria-label="Toggle icon library">&#8249;</button>
               <label for="flowArchitectureName">Architecture</label>
               <input id="flowArchitectureName" type="text" value="My resilient workload" maxlength="80">
               <span id="flowCanvasHint">Select an icon to add it</span>
             </div>
             <div class="flow-canvas" id="flowCanvas" tabindex="0" aria-label="Diagram canvas. Add AWS icons and connect them into a flow.">
+              <div class="flow-zone-bands" aria-hidden="true">
+                <span>Primary request path</span>
+                <span>Data and asynchronous work</span>
+                <span>Shared services and telemetry</span>
+              </div>
               <svg class="flow-connections" id="flowConnections" aria-hidden="true"></svg>
               <div class="flow-node-layer" id="flowNodeLayer"></div>
-              <div class="flow-empty-state" id="flowEmptyState">
-                <strong>Build your AWS flow</strong>
-                <span>Choose a template or add services from the official icon library.</span>
+              <div class="flow-empty-state" id="flowEmptyState"><strong>Build your AWS flow</strong><span>Choose a template or add services from the official icon library.</span></div>
+              <div class="flow-canvas-controls" aria-label="Canvas controls">
+                <button id="flowZoomInButton" type="button" title="Zoom in" aria-label="Zoom in">+</button>
+                <button id="flowZoomOutButton" type="button" title="Zoom out" aria-label="Zoom out">&#8722;</button>
+                <button id="flowFitButton" type="button" title="Fit architecture to canvas" aria-label="Fit architecture to canvas">&#9974;</button>
               </div>
+              <div class="flow-minimap" aria-label="Architecture minimap"><svg id="flowMinimap" viewBox="0 0 160 92" aria-hidden="true"></svg></div>
+            </div>
+            <div class="flow-simulation" aria-label="Architecture simulation">
+              <div class="flow-simulation-state"><span>Simulation</span><strong id="flowSimulationState">Ready</strong></div>
+              <button id="flowRunSimulationButton" type="button"><span aria-hidden="true">&#9654;</span>Run traffic</button>
+              <button id="flowInjectFailureButton" type="button"><span aria-hidden="true">!</span>Inject failure</button>
+              <button id="flowResetSimulationButton" type="button" title="Reset simulation" aria-label="Reset simulation">&#8635;</button>
+              <div class="flow-impact-summary"><span>Affected paths</span><strong id="flowAffectedPaths">0</strong><small id="flowSimulationMessage">Select a node to rehearse failure.</small></div>
             </div>
             <div class="flow-templates" aria-label="Architecture templates">
-              <span>Start with a template</span>
+              <span>Starter templates</span>
               <button type="button" data-flow-template="serverless">Serverless API<small>API Gateway + Lambda + DynamoDB</small></button>
               <button type="button" data-flow-template="events">Event pipeline<small>EventBridge + Step Functions + SQS</small></button>
               <button type="button" data-flow-template="web">Resilient web app<small>CloudFront + EC2 + RDS</small></button>
@@ -366,38 +386,40 @@
             </div>
           </section>
 
-          <aside class="flow-inspector" aria-label="Flow inspector">
-            <div class="flow-inspector-head">
-              <span>Inspector</span>
-              <strong id="flowInspectorMode">Diagram</strong>
+          <aside class="flow-inspector" aria-label="Architecture intelligence">
+            <div class="flow-inspector-head"><span>Architecture intelligence</span><strong id="flowInspectorMode">Diagram</strong></div>
+            <div class="flow-inspector-tabs" role="tablist" aria-label="Inspector view">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-inspector-tab="inspect">Inspect</button>
+              <button type="button" role="tab" aria-selected="false" data-inspector-tab="analyze">Analyze</button>
             </div>
-            <div class="flow-selected-summary" id="flowSelectedSummary">
-              <span class="flow-selected-placeholder">Select a node to inspect it.</span>
+            <section class="flow-score-panel" aria-labelledby="flowScoreTitle">
+              <div class="flow-score-ring" id="flowScoreRing"><strong id="flowScore">0</strong><span>/ 100</span></div>
+              <div><span id="flowScoreTitle">Resilience score</span><strong id="flowScoreGrade">Building</strong><p id="flowScoreSummary">Add services and paths to begin analysis.</p></div>
+            </section>
+            <div class="flow-score-metrics" aria-label="Architecture score dimensions">
+              <span>Security<strong id="flowSecurityScore">0</strong></span>
+              <span>Reliability<strong id="flowReliabilityScore">0</strong></span>
+              <span>Observability<strong id="flowObservabilityScore">0</strong></span>
+              <span>Recovery<strong id="flowRecoveryScore">0</strong></span>
             </div>
-            <div class="flow-node-fields" id="flowNodeFields" hidden>
-              <label for="flowNodeName">Name<input id="flowNodeName" type="text" maxlength="60"></label>
-              <label for="flowNodeEnvironment">Environment
-                <select id="flowNodeEnvironment">
-                  <option>Production</option>
-                  <option>Staging</option>
-                  <option>Development</option>
-                  <option>Shared</option>
-                </select>
-              </label>
-              <label for="flowNodeCriticality">Criticality
-                <select id="flowNodeCriticality">
-                  <option value="high">High</option>
-                  <option value="medium">Medium</option>
-                  <option value="low">Low</option>
-                </select>
-              </label>
-              <label for="flowNodeNotes">Notes<textarea id="flowNodeNotes" rows="4" maxlength="280"></textarea></label>
-            </div>
-            <section class="flow-checks" aria-labelledby="flowChecksTitle">
-              <div>
-                <span>Architecture checks</span>
-                <strong id="flowChecksTitle">0 checks</strong>
+            <div id="flowInspectPanel">
+              <div class="flow-selected-summary" id="flowSelectedSummary"><span class="flow-selected-placeholder">Select a node or path to inspect it.</span></div>
+              <div class="flow-node-fields" id="flowNodeFields" hidden>
+                <label for="flowNodeName">Name<input id="flowNodeName" type="text" maxlength="60"></label>
+                <div class="flow-field-row">
+                  <label for="flowNodeEnvironment">Environment<select id="flowNodeEnvironment"><option>Production</option><option>Staging</option><option>Development</option><option>Shared</option></select></label>
+                  <label for="flowNodeCriticality">Criticality<select id="flowNodeCriticality"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></label>
+                </div>
+                <label for="flowNodeNotes">Notes<textarea id="flowNodeNotes" rows="3" maxlength="280"></textarea></label>
               </div>
+              <div class="flow-connection-fields" id="flowConnectionFields" hidden>
+                <label for="flowConnectionName">Path label<input id="flowConnectionName" type="text" maxlength="32"></label>
+                <label for="flowConnectionType">Traffic type<select id="flowConnectionType"><option value="request">Synchronous request</option><option value="event">Event / queue</option><option value="data">Data access</option><option value="telemetry">Telemetry</option><option value="replication">Replication</option></select></label>
+                <label class="flow-encryption-toggle"><input id="flowConnectionEncrypted" type="checkbox" checked> Encrypted in transit</label>
+              </div>
+            </div>
+            <section class="flow-checks" id="flowAnalyzePanel" aria-labelledby="flowChecksTitle" hidden>
+              <div><span>Prioritized recommendations</span><strong id="flowChecksTitle">0 checks</strong></div>
               <div id="flowChecksList"></div>
             </section>
           </aside>
@@ -405,23 +427,9 @@
 
         <footer class="flow-statusbar">
           <span id="flowStatusMessage">Ready</span>
-          <label for="flowRegion">Region
-            <select id="flowRegion">
-              <option value="us-east-1">us-east-1</option>
-              <option value="us-west-2">us-west-2</option>
-              <option value="eu-west-1">eu-west-1</option>
-              <option value="ap-southeast-2">ap-southeast-2</option>
-              <option value="ap-northeast-1">ap-northeast-1</option>
-            </select>
-          </label>
+          <label for="flowRegion">Region<select id="flowRegion"><option value="us-east-1">us-east-1</option><option value="us-west-2">us-west-2</option><option value="eu-west-1">eu-west-1</option><option value="ap-southeast-2">ap-southeast-2</option><option value="ap-northeast-1">ap-northeast-1</option></select></label>
           <label class="flow-grid-toggle"><input id="flowGridToggle" type="checkbox" checked> Grid</label>
-          <label for="flowZoom">Zoom
-            <select id="flowZoom">
-              <option value="0.8">80%</option>
-              <option value="1" selected>100%</option>
-              <option value="1.2">120%</option>
-            </select>
-          </label>
+          <label for="flowZoom">Zoom<select id="flowZoom"><option value="0.75">75%</option><option value="0.9">90%</option><option value="1" selected>100%</option><option value="1.15">115%</option><option value="1.3">130%</option></select></label>
         </footer>
       </section>
     </main>

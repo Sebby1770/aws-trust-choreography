@@ -14,6 +14,11 @@ It visualizes a cloud recovery story with:
 - scenario-specific operating doctrine that names the failure model, stance, decision rule, and proof of recovery
 - interactive failure composition with stacked fault injection, blast-radius analysis, and live service-score degradation
 - AWS Flow Studio with draggable architecture nodes, directional connections, templates, validation, local saves, and JSON export
+- live Architecture Intelligence scoring across security, reliability, observability, and recovery
+- editable semantic paths for requests, events, data, telemetry, and replication, including encryption intent
+- traffic simulation and node-failure rehearsal with downstream blast-radius analysis
+- automatic topology layout, layered workload bands, a minimap, quick-add history, and collapsible editor rails
+- architecture JSON import plus portable SVG diagram export
 - a searchable library of 862 official AWS architecture icons across services, resources, groups, and categories
 - a visible link to the official [AWS website](https://aws.amazon.com/)
 - responsive operations-console layouts for desktop, tablet, and mobile

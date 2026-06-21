@@ -2,6 +2,29 @@
 
 All notable changes to this project are documented here.
 
+## 2026-06-21
+
+### Added
+
+- Architecture Intelligence with a live resilience score and separate Security, Reliability, Observability, and Recovery dimensions.
+- Prioritized design recommendations that react to topology coverage, identity boundaries, observability, recovery intent, and path encryption.
+- Semantic architecture paths for synchronous requests, events, data access, telemetry, and replication, including editable labels and encryption state.
+- Traffic simulation and node-failure rehearsal with downstream blast-radius tracing, affected path highlighting, and score impact.
+- Automatic topology layout, a live minimap, canvas zoom controls, collapsible icon library, and recently used AWS services.
+- Architecture import from Flow Studio JSON and portable SVG diagram export with embedded official AWS icons.
+- Auto-save and keyboard shortcuts for undo, redo, and save.
+
+### Improved
+
+- Rebuilt Flow Studio as a topology-first architecture lab with a larger canvas, compact command bar, layered workload bands, and an architecture-intelligence rail.
+- Expanded the Serverless API, Event Pipeline, and Resilient Web App templates to model production concerns such as edge protection, identity, telemetry, queues, backups, and recovery paths.
+- Refined desktop and mobile layouts so the editor, simulation dock, icon catalog, and analysis remain usable without horizontal overflow.
+
+### Validation
+
+- Browser-tested path editing, score recalculation, failure injection, traffic simulation, auto-layout, icon search and creation, JSON import/export, SVG export, auto-save, and library collapse.
+- Verified all 862 official AWS icons, desktop rendering at 1536 x 1024, mobile rendering at 390 x 844, and zero browser console errors.
+
 ## 2026-06-20
 
 ### Added
