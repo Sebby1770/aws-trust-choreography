@@ -22,8 +22,8 @@ function ready(fn) {
 }
 
 ready(() => {
-  initTheme(document.querySelector("#themeButton"));
-  initAtlas();
+  const theme = initTheme(document.querySelector("#themeButton"));
+  initAtlas({ theme });
 
   const studio = document.querySelector(".flow-studio");
   if (!studio) return;

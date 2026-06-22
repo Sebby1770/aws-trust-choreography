@@ -30,6 +30,10 @@ framework, no runtime dependencies.
 
 **Experience**
 
+- **Command palette (⌘K)** — a keyboard-first launcher that fuzzy-matches across every action:
+  switch scenarios, inject or clear faults, inspect any node, change theme, or copy a report.
+- **Copy incident report** — generates a shareable Markdown summary (scenario, faults, telemetry,
+  weakest node, recommendation, and a deep link) from the live state.
 - **Shareable deep links** — the active scenario, injected faults, and selected node are encoded in
   the URL hash, so the share button copies a link that reopens the exact same view.
 - **Theming** — light / dark / follow-system, persisted across visits.
@@ -69,6 +73,8 @@ src/
   flow-studio.js       architecture studio
   theme.js             light/dark/system theme controller
   url-state.js         shareable URL-hash state (unit-tested)
+  command-palette.js   ⌘K launcher + fuzzy ranking (unit-tested)
+  incident-report.js   Markdown incident-report builder (unit-tested)
   icon-catalog.js      lazy loader for the icon catalog chunk
 tests/                 Vitest suites for the pure modules
 assets/aws-icons/      862 official AWS architecture SVGs + generated catalog

@@ -19,8 +19,10 @@ import {
 } from "./resilience-model.js";
 import { prefersReducedMotion } from "./theme.js";
 import { readStateFromUrl, syncStateToUrl } from "./url-state.js";
+import { initCommandPalette } from "./command-palette.js";
+import { buildIncidentReport } from "./incident-report.js";
 
-export function initAtlas() {
+export function initAtlas({ theme } = {}) {
   const scenarioButtons = document.querySelectorAll(".scenario");
   const root = document.querySelector(".grid-window");
   const replayButton = document.querySelector("#replayButton");
@@ -203,10 +205,8 @@ export function initAtlas() {
     button.addEventListener("click", () => setScenario(button.dataset.scenario));
   });
 
-  textTargets.failureControls.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-failure-mode]");
-    if (!button || !failureModes[button.dataset.failureMode]) return;
-    const modeId = button.dataset.failureMode;
+  function toggleFailure(modeId) {
+    if (!failureModes[modeId]) return;
     if (activeFailures.has(modeId)) {
       activeFailures.delete(modeId);
     } else {
@@ -215,14 +215,21 @@ export function initAtlas() {
     renderComposedState(activeScenario);
     setNode(selectedNode, { sync: false });
     persistToUrl();
-  });
+  }
 
-  textTargets.clearFailuresButton.addEventListener("click", () => {
+  function clearFailures() {
     activeFailures.clear();
     renderComposedState(activeScenario);
     setNode(selectedNode, { sync: false });
     persistToUrl();
+  }
+
+  textTargets.failureControls.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-failure-mode]");
+    if (button) toggleFailure(button.dataset.failureMode);
   });
+
+  textTargets.clearFailuresButton.addEventListener("click", clearFailures);
 
   serviceNodes.forEach((node) => {
     node.setAttribute("tabindex", "0");
@@ -319,4 +326,131 @@ export function initAtlas() {
   setScenario(initial.scenario || activeScenario, { sync: false });
   // Reflect the resolved (sanitised) state back into the URL.
   persistToUrl();
+
+  // --- Lightweight toast for transient confirmations ---------------------
+
+  let toastEl = null;
+  let toastTimer = 0;
+  function flashToast(message) {
+    if (!toastEl) {
+      toastEl = document.createElement("div");
+      toastEl.className = "atlas-toast";
+      toastEl.setAttribute("role", "status");
+      toastEl.setAttribute("aria-live", "polite");
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = message;
+    toastEl.classList.add("is-visible");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => toastEl.classList.remove("is-visible"), 2200);
+  }
+
+  async function copyIncidentReport() {
+    const composed = deriveComposedState(activeScenario, activeFailures);
+    const markdown = buildIncidentReport({
+      scenarioName: activeScenario,
+      scenarioTitle: scenarios[activeScenario]?.title,
+      composed,
+      selectedNode,
+      url: window.location.href,
+    });
+    try {
+      await navigator.clipboard.writeText(markdown);
+      flashToast("Incident report copied to clipboard");
+    } catch {
+      console.log(markdown);
+      flashToast("Clipboard blocked — report logged to console");
+    }
+  }
+
+  // --- Command palette (⌘K) ----------------------------------------------
+
+  function buildCommands() {
+    const commands = [];
+    scenarioButtons.forEach((button) => {
+      const id = button.dataset.scenario;
+      commands.push({
+        id: `scenario:${id}`,
+        group: "Scenario",
+        label: `Scenario — ${button.textContent.trim()}`,
+        hint: activeScenario === id ? "active" : "",
+        keywords: "scenario incident mode switch",
+        run: () => setScenario(id),
+      });
+    });
+    Object.values(failureModes).forEach((mode) => {
+      const on = activeFailures.has(mode.id);
+      commands.push({
+        id: `fault:${mode.id}`,
+        group: "Fault",
+        label: `${on ? "Clear" : "Inject"} fault — ${mode.label}`,
+        hint: on ? "injected" : "",
+        keywords: `fault failure inject ${mode.summary}`,
+        run: () => toggleFailure(mode.id),
+      });
+    });
+    commands.push({
+      id: "fault:clear",
+      group: "Fault",
+      label: "Clear all injected faults",
+      keywords: "reset faults clear",
+      run: clearFailures,
+    });
+    Object.keys(nodeHints).forEach((node) => {
+      commands.push({
+        id: `node:${node}`,
+        group: "Inspect",
+        label: `Inspect — ${node}`,
+        keywords: "node service select inspect",
+        run: () => setNode(node),
+      });
+    });
+    if (theme && typeof theme.setMode === "function") {
+      ["system", "light", "dark"].forEach((mode) => {
+        commands.push({
+          id: `theme:${mode}`,
+          group: "Theme",
+          label: `Theme — ${mode}`,
+          hint: theme.mode === mode ? "active" : "",
+          keywords: "theme appearance dark light system",
+          run: () => theme.setMode(mode),
+        });
+      });
+    }
+    commands.push(
+      {
+        id: "action:replay",
+        group: "Action",
+        label: "Replay signal choreography",
+        keywords: "replay animate",
+        run: () => replayButton?.click(),
+      },
+      {
+        id: "action:incident",
+        group: "Action",
+        label: "Escalate incident mode",
+        keywords: "escalate panic",
+        run: () => incidentButton?.click(),
+      },
+      {
+        id: "action:share",
+        group: "Action",
+        label: "Copy shareable link",
+        keywords: "share url deep link",
+        run: () => shareButton?.click(),
+      },
+      {
+        id: "action:report",
+        group: "Action",
+        label: "Copy incident report (Markdown)",
+        keywords: "export report summary markdown",
+        run: copyIncidentReport,
+      }
+    );
+    return commands;
+  }
+
+  const palette = initCommandPalette(buildCommands);
+  const commandButton = document.querySelector("#commandButton");
+  if (commandButton) commandButton.addEventListener("click", palette.open);
 }

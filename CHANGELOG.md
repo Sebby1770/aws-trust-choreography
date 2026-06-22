@@ -9,6 +9,8 @@ All notable changes to this project are documented here.
 - A professional toolchain: Vite dev server, Vitest unit tests, ESLint, and Prettier, wired together behind `npm run check`.
 - GitHub Actions CI (lint, format check, tests) and a GitHub Pages deploy workflow.
 - Light / dark / follow-system theming with a header toggle, persisted across visits.
+- A command palette (⌘K / Ctrl-K) with fuzzy search across every action — switch scenarios, inject/clear faults, inspect nodes, and change theme from the keyboard.
+- A "Copy incident report" command that generates a shareable Markdown summary (scenario, faults, telemetry, weakest node, recommendation, deep link) from the live state.
 - Shareable deep links — the active scenario, injected faults, and selected node are encoded in the URL hash, and a share button copies a link that reopens the exact same view.
 - Accessibility pass: a skip link, role/keyboard semantics on service nodes, a high-contrast focus ring, and full `prefers-reduced-motion` support that freezes the SVG choreography.
 - Unit tests for the resilience composition model and the URL-state codec.
