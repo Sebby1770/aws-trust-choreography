@@ -1,31 +1,75 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="An interactive AWS resilience command atlas built with HTML, CSS, and JavaScript.">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="An interactive AWS resilience command atlas built with HTML, CSS, and JavaScript."
+    />
     <title>AWS Resilience Command Atlas</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="flow-studio.css">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="flow-studio.css" />
   </head>
   <body>
-    <main class="app-shell" aria-label="AWS Resilience Command Atlas dashboard">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main id="main-content" class="app-shell" aria-label="AWS Resilience Command Atlas dashboard">
       <section class="hero-panel">
         <div class="intro">
           <div class="brand-line">
             <p class="eyebrow">AWS COMMAND ATLAS</p>
-            <a class="aws-link" href="https://aws.amazon.com/" target="_blank" rel="noreferrer" aria-label="Open the official AWS website">AWS</a>
+            <a
+              class="aws-link"
+              href="https://aws.amazon.com/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the official AWS website"
+              >AWS</a
+            >
           </div>
           <h1>AWS Resilience Command Atlas</h1>
-          <p class="lede">Track how edge traffic, containers, identity, workflow state, and recovery lanes move through a live cloud incident.</p>
+          <p class="lede">
+            Track how edge traffic, containers, identity, workflow state, and recovery lanes move
+            through a live cloud incident.
+          </p>
         </div>
 
         <div class="actions" aria-label="Simulation controls">
-          <button class="icon-button" id="replayButton" type="button" aria-label="Replay signal choreography" title="Replay signal choreography">
+          <button
+            class="icon-button"
+            id="replayButton"
+            type="button"
+            aria-label="Replay signal choreography"
+            title="Replay signal choreography"
+          >
             <span aria-hidden="true">&#8635;</span>
           </button>
-          <button class="icon-button" id="incidentButton" type="button" aria-label="Escalate incident mode" title="Escalate incident mode">
+          <button
+            class="icon-button"
+            id="incidentButton"
+            type="button"
+            aria-label="Escalate incident mode"
+            title="Escalate incident mode"
+          >
             <span aria-hidden="true">!</span>
+          </button>
+          <button
+            class="icon-button"
+            id="shareButton"
+            type="button"
+            aria-label="Copy a shareable link to this view"
+            title="Copy a shareable link to this view"
+          >
+            <span aria-hidden="true">&#128279;</span>
+          </button>
+          <button
+            class="icon-button"
+            id="themeButton"
+            type="button"
+            aria-label="Theme: follow system"
+            title="Theme: follow system"
+          >
+            <span aria-hidden="true">&#9680;</span>
           </button>
         </div>
       </section>
@@ -33,179 +77,312 @@
       <section class="command-workbench" aria-label="Live incident command workbench">
         <nav class="scenario-strip" role="tablist" aria-label="Incident scenario">
           <span class="rail-label">Scenarios</span>
-          <button class="scenario is-active" type="button" role="tab" aria-selected="true" data-scenario="steady">Steady state</button>
-          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="surge">Traffic surge</button>
-          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="identity">Identity drift</button>
-          <button class="scenario" type="button" role="tab" aria-selected="false" data-scenario="recovery">Recovery drill</button>
+          <button
+            class="scenario is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            data-scenario="steady"
+          >
+            Steady state
+          </button>
+          <button
+            class="scenario"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-scenario="surge"
+          >
+            Traffic surge
+          </button>
+          <button
+            class="scenario"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-scenario="identity"
+          >
+            Identity drift
+          </button>
+          <button
+            class="scenario"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-scenario="recovery"
+          >
+            Recovery drill
+          </button>
         </nav>
 
         <section class="stage" aria-label="Interactive AWS service map">
           <div class="grid-window">
-          <aside class="authority-card" aria-live="polite">
-            <span class="card-kicker">Resilience authority</span>
-            <strong id="scenarioTitle">Applications stay available even when confidence becomes uneven.</strong>
-            <span id="scenarioMeta">9 services, 7 trust paths</span>
-          </aside>
+            <aside class="authority-card" aria-live="polite">
+              <span class="card-kicker">Resilience authority</span>
+              <strong id="scenarioTitle"
+                >Applications stay available even when confidence becomes uneven.</strong
+              >
+              <span id="scenarioMeta">9 services, 7 trust paths</span>
+            </aside>
 
-          <div class="sweep" aria-hidden="true"></div>
+            <div class="sweep" aria-hidden="true"></div>
 
-          <svg class="map" viewBox="0 0 1440 850" role="img" aria-labelledby="mapTitle mapDescription">
-            <title id="mapTitle">AWS trust path map</title>
-            <desc id="mapDescription">Glowing AWS service nodes linked by animated resilience paths and fallback lanes.</desc>
-            <defs>
-              <filter id="amberGlow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="7" result="blur">
-                </feGaussianBlur>
-                <feColorMatrix in="blur" values="1 0 0 0 1  0 0.74 0 0 0.58  0 0 0.1 0 0.12  0 0 0 1 0">
-                </feColorMatrix>
-                <feMerge>
-                  <feMergeNode></feMergeNode>
-                  <feMergeNode in="SourceGraphic"></feMergeNode>
-                </feMerge>
-              </filter>
-              <filter id="cyanGlow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
-                <feColorMatrix in="blur" values="0 0 0 0 0.2  0 0 0 0 0.82  0 0 0 0 1  0 0 0 1 0"></feColorMatrix>
-                <feMerge>
-                  <feMergeNode></feMergeNode>
-                  <feMergeNode in="SourceGraphic"></feMergeNode>
-                </feMerge>
-              </filter>
-              <filter id="greenGlow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="9" result="blur"></feGaussianBlur>
-                <feColorMatrix in="blur" values="0 0 0 0 0.45  0 0 0 0 1  0 0 0 0 0.67  0 0 0 1 0"></feColorMatrix>
-                <feMerge>
-                  <feMergeNode></feMergeNode>
-                  <feMergeNode in="SourceGraphic"></feMergeNode>
-                </feMerge>
-              </filter>
-              <filter id="violetGlow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
-                <feColorMatrix in="blur" values="0 0 0 0 0.77  0 0 0 0 0.48  0 0 0 0 1  0 0 0 1 0"></feColorMatrix>
-                <feMerge>
-                  <feMergeNode></feMergeNode>
-                  <feMergeNode in="SourceGraphic"></feMergeNode>
-                </feMerge>
-              </filter>
-            </defs>
+            <svg
+              class="map"
+              viewBox="0 0 1440 850"
+              role="img"
+              aria-labelledby="mapTitle mapDescription"
+            >
+              <title id="mapTitle">AWS trust path map</title>
+              <desc id="mapDescription">
+                Glowing AWS service nodes linked by animated resilience paths and fallback lanes.
+              </desc>
+              <defs>
+                <filter id="amberGlow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="7" result="blur"></feGaussianBlur>
+                  <feColorMatrix
+                    in="blur"
+                    values="1 0 0 0 1  0 0.74 0 0 0.58  0 0 0.1 0 0.12  0 0 0 1 0"
+                  ></feColorMatrix>
+                  <feMerge>
+                    <feMergeNode></feMergeNode>
+                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                  </feMerge>
+                </filter>
+                <filter id="cyanGlow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
+                  <feColorMatrix
+                    in="blur"
+                    values="0 0 0 0 0.2  0 0 0 0 0.82  0 0 0 0 1  0 0 0 1 0"
+                  ></feColorMatrix>
+                  <feMerge>
+                    <feMergeNode></feMergeNode>
+                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                  </feMerge>
+                </filter>
+                <filter id="greenGlow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="9" result="blur"></feGaussianBlur>
+                  <feColorMatrix
+                    in="blur"
+                    values="0 0 0 0 0.45  0 0 0 0 1  0 0 0 0 0.67  0 0 0 1 0"
+                  ></feColorMatrix>
+                  <feMerge>
+                    <feMergeNode></feMergeNode>
+                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                  </feMerge>
+                </filter>
+                <filter id="violetGlow" x="-40%" y="-40%" width="180%" height="180%">
+                  <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
+                  <feColorMatrix
+                    in="blur"
+                    values="0 0 0 0 0.77  0 0 0 0 0.48  0 0 0 0 1  0 0 0 1 0"
+                  ></feColorMatrix>
+                  <feMerge>
+                    <feMergeNode></feMergeNode>
+                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                  </feMerge>
+                </filter>
+              </defs>
 
-            <g class="routes" fill="none" stroke-linecap="round">
-              <path id="route-edge" class="route route-primary" d="M215 250 C350 190 430 165 562 232 S786 330 930 295 S1090 210 1225 265"></path>
-              <path id="route-compute" class="route route-secondary" d="M215 250 C315 330 402 430 545 498 S773 668 900 564 S1014 386 1096 372"></path>
-              <path id="route-data" class="route route-primary" d="M1096 372 C1090 485 1108 605 1104 728"></path>
-              <path id="route-fallback" class="route route-fallback" d="M470 740 C628 718 720 630 820 558 S965 446 1096 372"></path>
-              <path id="route-governance" class="route route-secondary" d="M562 232 C620 350 645 442 545 498 S430 612 470 740"></path>
-            </g>
-
-            <g class="tokens" aria-hidden="true">
-              <circle r="7" class="packet packet-one">
-                <animateMotion dur="7.2s" repeatCount="indefinite" rotate="auto">
-                  <mpath href="#route-edge"></mpath>
-                </animateMotion>
-              </circle>
-              <circle r="7" class="packet packet-two">
-                <animateMotion dur="8.6s" begin="-2.4s" repeatCount="indefinite" rotate="auto">
-                  <mpath href="#route-compute"></mpath>
-                </animateMotion>
-              </circle>
-              <circle r="7" class="packet packet-three">
-                <animateMotion dur="6.8s" begin="-1.4s" repeatCount="indefinite" rotate="auto">
-                  <mpath href="#route-fallback"></mpath>
-                </animateMotion>
-              </circle>
-            </g>
-
-            <g class="event-tags" aria-hidden="true">
-              <g transform="translate(426 196)">
-                <rect class="diamond" width="18" height="18"></rect>
-                <text x="-44" y="-18">cache miss</text>
+              <g class="routes" fill="none" stroke-linecap="round">
+                <path
+                  id="route-edge"
+                  class="route route-primary"
+                  d="M215 250 C350 190 430 165 562 232 S786 330 930 295 S1090 210 1225 265"
+                ></path>
+                <path
+                  id="route-compute"
+                  class="route route-secondary"
+                  d="M215 250 C315 330 402 430 545 498 S773 668 900 564 S1014 386 1096 372"
+                ></path>
+                <path
+                  id="route-data"
+                  class="route route-primary"
+                  d="M1096 372 C1090 485 1108 605 1104 728"
+                ></path>
+                <path
+                  id="route-fallback"
+                  class="route route-fallback"
+                  d="M470 740 C628 718 720 630 820 558 S965 446 1096 372"
+                ></path>
+                <path
+                  id="route-governance"
+                  class="route route-secondary"
+                  d="M562 232 C620 350 645 442 545 498 S430 612 470 740"
+                ></path>
               </g>
-              <g transform="translate(722 300)">
-                <rect class="diamond" width="18" height="18"></rect>
-                <text x="-32" y="-18">scale</text>
+
+              <g class="tokens" aria-hidden="true">
+                <circle r="7" class="packet packet-one">
+                  <animateMotion dur="7.2s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#route-edge"></mpath>
+                  </animateMotion>
+                </circle>
+                <circle r="7" class="packet packet-two">
+                  <animateMotion dur="8.6s" begin="-2.4s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#route-compute"></mpath>
+                  </animateMotion>
+                </circle>
+                <circle r="7" class="packet packet-three">
+                  <animateMotion dur="6.8s" begin="-1.4s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#route-fallback"></mpath>
+                  </animateMotion>
+                </circle>
               </g>
-              <g transform="translate(908 404)">
-                <rect class="diamond" width="18" height="18"></rect>
-                <text x="-38" y="-18">policy</text>
+
+              <g class="event-tags" aria-hidden="true">
+                <g transform="translate(426 196)">
+                  <rect class="diamond" width="18" height="18"></rect>
+                  <text x="-44" y="-18">cache miss</text>
+                </g>
+                <g transform="translate(722 300)">
+                  <rect class="diamond" width="18" height="18"></rect>
+                  <text x="-32" y="-18">scale</text>
+                </g>
+                <g transform="translate(908 404)">
+                  <rect class="diamond" width="18" height="18"></rect>
+                  <text x="-38" y="-18">policy</text>
+                </g>
+                <g transform="translate(620 626)">
+                  <rect class="diamond" width="18" height="18"></rect>
+                  <text x="-58" y="-18">fallback</text>
+                </g>
+                <g transform="translate(1100 528)">
+                  <rect class="diamond" width="18" height="18"></rect>
+                  <text x="-42" y="-18">restore</text>
+                </g>
               </g>
-              <g transform="translate(620 626)">
-                <rect class="diamond" width="18" height="18"></rect>
-                <text x="-58" y="-18">fallback</text>
+
+              <g
+                class="service-node hex-node"
+                transform="translate(215 250)"
+                data-node="CloudFront edge"
+                data-score="82"
+                data-label="Global traffic entry with WAF and Shield controls."
+              >
+                <polygon points="0,-58 51,-29 51,29 0,58 -51,29 -51,-29"></polygon>
+                <text class="score" y="8">82%</text>
+                <text class="node-label" y="96">CloudFront Edge</text>
+                <text class="aws-chip" y="-78">WAF</text>
               </g>
-              <g transform="translate(1100 528)">
-                <rect class="diamond" width="18" height="18"></rect>
-                <text x="-42" y="-18">restore</text>
+
+              <g
+                class="service-node hex-node amber"
+                transform="translate(562 232)"
+                data-node="EKS compute fleet"
+                data-score="88"
+                data-label="Container workloads shift across zones as target groups heat up."
+              >
+                <polygon points="0,-58 51,-29 51,29 0,58 -51,29 -51,-29"></polygon>
+                <text class="score" y="8">88%</text>
+                <text class="node-label" y="96">EKS Compute</text>
+                <text class="aws-chip" y="-78">EKS</text>
               </g>
-            </g>
 
-            <g class="service-node hex-node" transform="translate(215 250)" data-node="CloudFront edge" data-score="82" data-label="Global traffic entry with WAF and Shield controls.">
-              <polygon points="0,-58 51,-29 51,29 0,58 -51,29 -51,-29"></polygon>
-              <text class="score" y="8">82%</text>
-              <text class="node-label" y="96">CloudFront Edge</text>
-              <text class="aws-chip" y="-78">WAF</text>
-            </g>
+              <g
+                class="service-node circle-node violet"
+                transform="translate(1096 372)"
+                data-node="IAM trust broker"
+                data-score="64"
+                data-label="Federated identity contracts are reviewed before emergency permissions widen."
+              >
+                <circle r="58"></circle>
+                <text class="score" y="8">64%</text>
+                <text class="node-label" y="96">IAM Trust Broker</text>
+                <text class="aws-chip" y="-78">IAM</text>
+              </g>
 
-            <g class="service-node hex-node amber" transform="translate(562 232)" data-node="EKS compute fleet" data-score="88" data-label="Container workloads shift across zones as target groups heat up.">
-              <polygon points="0,-58 51,-29 51,29 0,58 -51,29 -51,-29"></polygon>
-              <text class="score" y="8">88%</text>
-              <text class="node-label" y="96">EKS Compute</text>
-              <text class="aws-chip" y="-78">EKS</text>
-            </g>
+              <g
+                class="service-node circle-node cyan"
+                transform="translate(1104 728)"
+                data-node="Aurora data mesh"
+                data-score="76"
+                data-label="Read replicas and event streams keep product state moving through recovery."
+              >
+                <circle r="58"></circle>
+                <text class="score" y="8">76%</text>
+                <text class="node-label" y="96">Aurora Mesh</text>
+                <text class="aws-chip" y="-78">RDS</text>
+              </g>
 
-            <g class="service-node circle-node violet" transform="translate(1096 372)" data-node="IAM trust broker" data-score="64" data-label="Federated identity contracts are reviewed before emergency permissions widen.">
-              <circle r="58"></circle>
-              <text class="score" y="8">64%</text>
-              <text class="node-label" y="96">IAM Trust Broker</text>
-              <text class="aws-chip" y="-78">IAM</text>
-            </g>
+              <g
+                class="service-node diamond-node green"
+                transform="translate(820 558)"
+                data-node="Step Functions core"
+                data-score="93"
+                data-label="Workflow state machine coordinates retries, compensations, and audit events."
+              >
+                <rect x="-47" y="-47" width="94" height="94" transform="rotate(45)"></rect>
+                <text class="score" y="8">93%</text>
+                <text class="node-label" y="96">Step Functions Core</text>
+                <text class="aws-chip" y="-82">SFN</text>
+              </g>
 
-            <g class="service-node circle-node cyan" transform="translate(1104 728)" data-node="Aurora data mesh" data-score="76" data-label="Read replicas and event streams keep product state moving through recovery.">
-              <circle r="58"></circle>
-              <text class="score" y="8">76%</text>
-              <text class="node-label" y="96">Aurora Mesh</text>
-              <text class="aws-chip" y="-78">RDS</text>
-            </g>
+              <g
+                class="service-node circle-node green"
+                transform="translate(470 740)"
+                data-node="Manual approval lane"
+                data-score="58"
+                data-label="Human review gates can take over if automated confidence dips."
+              >
+                <circle r="52"></circle>
+                <text class="score" y="8">58%</text>
+                <text class="node-label" y="94">Manual Lane</text>
+                <text class="aws-chip" y="-72">SNS</text>
+              </g>
 
-            <g class="service-node diamond-node green" transform="translate(820 558)" data-node="Step Functions core" data-score="93" data-label="Workflow state machine coordinates retries, compensations, and audit events.">
-              <rect x="-47" y="-47" width="94" height="94" transform="rotate(45)"></rect>
-              <text class="score" y="8">93%</text>
-              <text class="node-label" y="96">Step Functions Core</text>
-              <text class="aws-chip" y="-82">SFN</text>
-            </g>
+              <g
+                class="service-node small-node"
+                transform="translate(545 498)"
+                data-node="Lambda decision agent"
+                data-score="79"
+                data-label="Short-lived decision functions score incidents without carrying state."
+              >
+                <circle r="20"></circle>
+                <text class="small-label" x="-48" y="-34">Lambda decision</text>
+              </g>
 
-            <g class="service-node circle-node green" transform="translate(470 740)" data-node="Manual approval lane" data-score="58" data-label="Human review gates can take over if automated confidence dips.">
-              <circle r="52"></circle>
-              <text class="score" y="8">58%</text>
-              <text class="node-label" y="94">Manual Lane</text>
-              <text class="aws-chip" y="-72">SNS</text>
-            </g>
+              <g
+                class="service-node small-node"
+                transform="translate(900 564)"
+                data-node="S3 evidence vault"
+                data-score="84"
+                data-label="Immutable recovery evidence lands in an encrypted audit bucket."
+              >
+                <circle r="20"></circle>
+                <text class="small-label" x="-34" y="52">S3 vault</text>
+              </g>
 
-            <g class="service-node small-node" transform="translate(545 498)" data-node="Lambda decision agent" data-score="79" data-label="Short-lived decision functions score incidents without carrying state.">
-              <circle r="20"></circle>
-              <text class="small-label" x="-48" y="-34">Lambda decision</text>
-            </g>
+              <g
+                class="service-node small-node"
+                transform="translate(1225 265)"
+                data-node="EventBridge mesh"
+                data-score="72"
+                data-label="Partner and internal events are normalized before fan-out."
+              >
+                <circle r="20"></circle>
+                <text class="small-label" x="-58" y="-34">EventBridge</text>
+              </g>
 
-            <g class="service-node small-node" transform="translate(900 564)" data-node="S3 evidence vault" data-score="84" data-label="Immutable recovery evidence lands in an encrypted audit bucket.">
-              <circle r="20"></circle>
-              <text class="small-label" x="-34" y="52">S3 vault</text>
-            </g>
+              <g class="cursor-mark" aria-hidden="true" transform="translate(888 430) rotate(-22)">
+                <path d="M0 0 L42 17 L22 27 L12 49 Z"></path>
+              </g>
+            </svg>
 
-            <g class="service-node small-node" transform="translate(1225 265)" data-node="EventBridge mesh" data-score="72" data-label="Partner and internal events are normalized before fan-out.">
-              <circle r="20"></circle>
-              <text class="small-label" x="-58" y="-34">EventBridge</text>
-            </g>
-
-            <g class="cursor-mark" aria-hidden="true" transform="translate(888 430) rotate(-22)">
-              <path d="M0 0 L42 17 L22 27 L12 49 Z"></path>
-            </g>
-          </svg>
-
-          <section class="node-drawer" aria-live="polite">
-            <span id="nodeName">Step Functions core</span>
-            <strong id="nodeScore">93%</strong>
-            <p id="nodeCopy">Workflow state machine coordinates retries, compensations, and audit events.</p>
-            <a id="nodeLink" href="https://aws.amazon.com/step-functions/" target="_blank" rel="noreferrer">AWS Step Functions</a>
-          </section>
+            <section class="node-drawer" aria-live="polite">
+              <span id="nodeName">Step Functions core</span>
+              <strong id="nodeScore">93%</strong>
+              <p id="nodeCopy">
+                Workflow state machine coordinates retries, compensations, and audit events.
+              </p>
+              <a
+                id="nodeLink"
+                href="https://aws.amazon.com/step-functions/"
+                target="_blank"
+                rel="noreferrer"
+                >AWS Step Functions</a
+              >
+            </section>
           </div>
         </section>
 
@@ -220,11 +397,24 @@
               <span>Inject faults to rehearse and validate</span>
               <strong id="failureComposerSummary">No faults injected</strong>
             </div>
-            <div class="failure-controls" id="failureControls" role="group" aria-label="Inject failure modes">
-              <button type="button" data-failure-mode="edge" aria-pressed="false"><span></span>Edge flood</button>
-              <button type="button" data-failure-mode="identity" aria-pressed="false"><span></span>Identity breach</button>
-              <button type="button" data-failure-mode="data" aria-pressed="false"><span></span>Data lag</button>
-              <button type="button" data-failure-mode="workflow" aria-pressed="false"><span></span>Workflow backlog</button>
+            <div
+              class="failure-controls"
+              id="failureControls"
+              role="group"
+              aria-label="Inject failure modes"
+            >
+              <button type="button" data-failure-mode="edge" aria-pressed="false">
+                <span></span>Edge flood
+              </button>
+              <button type="button" data-failure-mode="identity" aria-pressed="false">
+                <span></span>Identity breach
+              </button>
+              <button type="button" data-failure-mode="data" aria-pressed="false">
+                <span></span>Data lag
+              </button>
+              <button type="button" data-failure-mode="workflow" aria-pressed="false">
+                <span></span>Workflow backlog
+              </button>
             </div>
             <div class="failure-readout">
               <article>
@@ -240,14 +430,17 @@
                 <strong id="composedRecovery">07m</strong>
               </article>
             </div>
-            <p id="failureRecommendation">Inject one or more faults to test how resilience controls interact.</p>
-            <button class="clear-failures" id="clearFailuresButton" type="button">Clear injections</button>
+            <p id="failureRecommendation">
+              Inject one or more faults to test how resilience controls interact.
+            </p>
+            <button class="clear-failures" id="clearFailuresButton" type="button">
+              Clear injections
+            </button>
           </section>
         </aside>
       </section>
 
       <section class="control-deck" aria-label="Scenario and telemetry controls">
-
         <div class="metrics" aria-label="Live resilience metrics">
           <article>
             <span>Route health</span>
@@ -290,7 +483,6 @@
           </div>
           <div class="doctrine-grid" id="doctrineGrid" aria-live="polite"></div>
         </section>
-
       </section>
 
       <section class="flow-studio" aria-labelledby="flowStudioTitle">
@@ -305,36 +497,90 @@
             <span><strong id="flowConnectionCount">0</strong> paths</span>
           </div>
           <div class="flow-toolbar" role="toolbar" aria-label="Flow editor tools">
-            <button class="is-active" type="button" data-flow-mode="select" title="Select and move nodes"><span aria-hidden="true">&#8598;</span>Select</button>
-            <button type="button" data-flow-mode="connect" title="Connect two nodes"><span aria-hidden="true">&#8644;</span>Connect</button>
-            <button id="flowAutoLayoutButton" type="button" title="Automatically arrange the architecture"><span aria-hidden="true">&#8285;</span>Auto layout</button>
-            <button id="flowDeleteButton" type="button" title="Delete the selected node or path"><span aria-hidden="true">&#215;</span></button>
+            <button
+              class="is-active"
+              type="button"
+              data-flow-mode="select"
+              title="Select and move nodes"
+            >
+              <span aria-hidden="true">&#8598;</span>Select
+            </button>
+            <button type="button" data-flow-mode="connect" title="Connect two nodes">
+              <span aria-hidden="true">&#8644;</span>Connect
+            </button>
+            <button
+              id="flowAutoLayoutButton"
+              type="button"
+              title="Automatically arrange the architecture"
+            >
+              <span aria-hidden="true">&#8285;</span>Auto layout
+            </button>
+            <button id="flowDeleteButton" type="button" title="Delete the selected node or path">
+              <span aria-hidden="true">&#215;</span>
+            </button>
             <span class="toolbar-divider" aria-hidden="true"></span>
-            <button id="flowUndoButton" type="button" title="Undo"><span aria-hidden="true">&#8630;</span></button>
-            <button id="flowRedoButton" type="button" title="Redo"><span aria-hidden="true">&#8631;</span></button>
-            <button id="flowImportButton" type="button" title="Import architecture JSON"><span aria-hidden="true">&#8679;</span>Import</button>
-            <input id="flowImportInput" type="file" accept="application/json,.json" hidden>
-            <button id="flowSaveButton" type="button" title="Save architecture locally"><span aria-hidden="true">&#9635;</span>Save</button>
-            <button id="flowExportButton" type="button" title="Export architecture as JSON"><span aria-hidden="true">{ }</span>JSON</button>
-            <button id="flowExportSvgButton" type="button" title="Export architecture as an SVG diagram"><span aria-hidden="true">&#8681;</span>SVG</button>
+            <button id="flowUndoButton" type="button" title="Undo">
+              <span aria-hidden="true">&#8630;</span>
+            </button>
+            <button id="flowRedoButton" type="button" title="Redo">
+              <span aria-hidden="true">&#8631;</span>
+            </button>
+            <button id="flowImportButton" type="button" title="Import architecture JSON">
+              <span aria-hidden="true">&#8679;</span>Import
+            </button>
+            <input id="flowImportInput" type="file" accept="application/json,.json" hidden />
+            <button id="flowSaveButton" type="button" title="Save architecture locally">
+              <span aria-hidden="true">&#9635;</span>Save
+            </button>
+            <button id="flowExportButton" type="button" title="Export architecture as JSON">
+              <span aria-hidden="true">{ }</span>JSON
+            </button>
+            <button
+              id="flowExportSvgButton"
+              type="button"
+              title="Export architecture as an SVG diagram"
+            >
+              <span aria-hidden="true">&#8681;</span>SVG
+            </button>
           </div>
         </header>
 
         <div class="flow-workspace">
           <aside class="flow-library" aria-label="AWS icon library">
             <div class="flow-library-tabs" role="tablist" aria-label="Icon type">
-              <button class="is-active" type="button" role="tab" aria-selected="true" data-icon-type="service">Services</button>
-              <button type="button" role="tab" aria-selected="false" data-icon-type="resource">Resources</button>
-              <button type="button" role="tab" aria-selected="false" data-icon-type="group">Groups</button>
-              <button type="button" role="tab" aria-selected="false" data-icon-type="category">Categories</button>
+              <button
+                class="is-active"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                data-icon-type="service"
+              >
+                Services
+              </button>
+              <button type="button" role="tab" aria-selected="false" data-icon-type="resource">
+                Resources
+              </button>
+              <button type="button" role="tab" aria-selected="false" data-icon-type="group">
+                Groups
+              </button>
+              <button type="button" role="tab" aria-selected="false" data-icon-type="category">
+                Categories
+              </button>
             </div>
             <label class="flow-search" for="flowIconSearch">
               <span>Search AWS icons</span>
-              <input id="flowIconSearch" type="search" placeholder="Search 862 official icons" autocomplete="off">
+              <input
+                id="flowIconSearch"
+                type="search"
+                placeholder="Search 862 official icons"
+                autocomplete="off"
+              />
             </label>
             <label class="flow-category" for="flowCategoryFilter">
               <span>Category</span>
-              <select id="flowCategoryFilter"><option value="all">All categories</option></select>
+              <select id="flowCategoryFilter">
+                <option value="all">All categories</option>
+              </select>
             </label>
             <section class="flow-recent" aria-labelledby="flowRecentTitle">
               <div><span id="flowRecentTitle">Recently used</span><small>Quick add</small></div>
@@ -342,19 +588,38 @@
             </section>
             <div class="flow-library-summary">
               <span id="flowLibraryCount">0 icons</span>
-              <a href="https://aws.amazon.com/architecture/icons/" target="_blank" rel="noreferrer">Official AWS set</a>
+              <a href="https://aws.amazon.com/architecture/icons/" target="_blank" rel="noreferrer"
+                >Official AWS set</a
+              >
             </div>
             <div class="flow-icon-grid" id="flowIconGrid" aria-live="polite"></div>
           </aside>
 
           <section class="flow-canvas-shell" aria-label="Architecture canvas">
             <div class="flow-canvas-titlebar">
-              <button id="flowLibraryToggle" type="button" title="Toggle icon library" aria-label="Toggle icon library">&#8249;</button>
+              <button
+                id="flowLibraryToggle"
+                type="button"
+                title="Toggle icon library"
+                aria-label="Toggle icon library"
+              >
+                &#8249;
+              </button>
               <label for="flowArchitectureName">Architecture</label>
-              <input id="flowArchitectureName" type="text" value="My resilient workload" maxlength="80">
+              <input
+                id="flowArchitectureName"
+                type="text"
+                value="My resilient workload"
+                maxlength="80"
+              />
               <span id="flowCanvasHint">Select an icon to add it</span>
             </div>
-            <div class="flow-canvas" id="flowCanvas" tabindex="0" aria-label="Diagram canvas. Add AWS icons and connect them into a flow.">
+            <div
+              class="flow-canvas"
+              id="flowCanvas"
+              tabindex="0"
+              aria-label="Diagram canvas. Add AWS icons and connect them into a flow."
+            >
               <div class="flow-zone-bands" aria-hidden="true">
                 <span>Primary request path</span>
                 <span>Data and asynchronous work</span>
@@ -362,39 +627,97 @@
               </div>
               <svg class="flow-connections" id="flowConnections" aria-hidden="true"></svg>
               <div class="flow-node-layer" id="flowNodeLayer"></div>
-              <div class="flow-empty-state" id="flowEmptyState"><strong>Build your AWS flow</strong><span>Choose a template or add services from the official icon library.</span></div>
-              <div class="flow-canvas-controls" aria-label="Canvas controls">
-                <button id="flowZoomInButton" type="button" title="Zoom in" aria-label="Zoom in">+</button>
-                <button id="flowZoomOutButton" type="button" title="Zoom out" aria-label="Zoom out">&#8722;</button>
-                <button id="flowFitButton" type="button" title="Fit architecture to canvas" aria-label="Fit architecture to canvas">&#9974;</button>
+              <div class="flow-empty-state" id="flowEmptyState">
+                <strong>Build your AWS flow</strong
+                ><span>Choose a template or add services from the official icon library.</span>
               </div>
-              <div class="flow-minimap" aria-label="Architecture minimap"><svg id="flowMinimap" viewBox="0 0 160 92" aria-hidden="true"></svg></div>
+              <div class="flow-canvas-controls" aria-label="Canvas controls">
+                <button id="flowZoomInButton" type="button" title="Zoom in" aria-label="Zoom in">
+                  +
+                </button>
+                <button id="flowZoomOutButton" type="button" title="Zoom out" aria-label="Zoom out">
+                  &#8722;
+                </button>
+                <button
+                  id="flowFitButton"
+                  type="button"
+                  title="Fit architecture to canvas"
+                  aria-label="Fit architecture to canvas"
+                >
+                  &#9974;
+                </button>
+              </div>
+              <div class="flow-minimap" aria-label="Architecture minimap">
+                <svg id="flowMinimap" viewBox="0 0 160 92" aria-hidden="true"></svg>
+              </div>
             </div>
             <div class="flow-simulation" aria-label="Architecture simulation">
-              <div class="flow-simulation-state"><span>Simulation</span><strong id="flowSimulationState">Ready</strong></div>
-              <button id="flowRunSimulationButton" type="button"><span aria-hidden="true">&#9654;</span>Run traffic</button>
-              <button id="flowInjectFailureButton" type="button"><span aria-hidden="true">!</span>Inject failure</button>
-              <button id="flowResetSimulationButton" type="button" title="Reset simulation" aria-label="Reset simulation">&#8635;</button>
-              <div class="flow-impact-summary"><span>Affected paths</span><strong id="flowAffectedPaths">0</strong><small id="flowSimulationMessage">Select a node to rehearse failure.</small></div>
+              <div class="flow-simulation-state">
+                <span>Simulation</span><strong id="flowSimulationState">Ready</strong>
+              </div>
+              <button id="flowRunSimulationButton" type="button">
+                <span aria-hidden="true">&#9654;</span>Run traffic
+              </button>
+              <button id="flowInjectFailureButton" type="button">
+                <span aria-hidden="true">!</span>Inject failure
+              </button>
+              <button
+                id="flowResetSimulationButton"
+                type="button"
+                title="Reset simulation"
+                aria-label="Reset simulation"
+              >
+                &#8635;
+              </button>
+              <div class="flow-impact-summary">
+                <span>Affected paths</span><strong id="flowAffectedPaths">0</strong
+                ><small id="flowSimulationMessage">Select a node to rehearse failure.</small>
+              </div>
             </div>
             <div class="flow-templates" aria-label="Architecture templates">
               <span>Starter templates</span>
-              <button type="button" data-flow-template="serverless">Serverless API<small>API Gateway + Lambda + DynamoDB</small></button>
-              <button type="button" data-flow-template="events">Event pipeline<small>EventBridge + Step Functions + SQS</small></button>
-              <button type="button" data-flow-template="web">Resilient web app<small>CloudFront + EC2 + RDS</small></button>
-              <button type="button" data-flow-template="blank">Blank<small>Clear the canvas</small></button>
+              <button type="button" data-flow-template="serverless">
+                Serverless API<small>API Gateway + Lambda + DynamoDB</small>
+              </button>
+              <button type="button" data-flow-template="events">
+                Event pipeline<small>EventBridge + Step Functions + SQS</small>
+              </button>
+              <button type="button" data-flow-template="web">
+                Resilient web app<small>CloudFront + EC2 + RDS</small>
+              </button>
+              <button type="button" data-flow-template="blank">
+                Blank<small>Clear the canvas</small>
+              </button>
             </div>
           </section>
 
           <aside class="flow-inspector" aria-label="Architecture intelligence">
-            <div class="flow-inspector-head"><span>Architecture intelligence</span><strong id="flowInspectorMode">Diagram</strong></div>
+            <div class="flow-inspector-head">
+              <span>Architecture intelligence</span><strong id="flowInspectorMode">Diagram</strong>
+            </div>
             <div class="flow-inspector-tabs" role="tablist" aria-label="Inspector view">
-              <button class="is-active" type="button" role="tab" aria-selected="true" data-inspector-tab="inspect">Inspect</button>
-              <button type="button" role="tab" aria-selected="false" data-inspector-tab="analyze">Analyze</button>
+              <button
+                class="is-active"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                data-inspector-tab="inspect"
+              >
+                Inspect
+              </button>
+              <button type="button" role="tab" aria-selected="false" data-inspector-tab="analyze">
+                Analyze
+              </button>
             </div>
             <section class="flow-score-panel" aria-labelledby="flowScoreTitle">
-              <div class="flow-score-ring" id="flowScoreRing"><strong id="flowScore">0</strong><span>/ 100</span></div>
-              <div><span id="flowScoreTitle">Resilience score</span><strong id="flowScoreGrade">Building</strong><p id="flowScoreSummary">Add services and paths to begin analysis.</p></div>
+              <div class="flow-score-ring" id="flowScoreRing">
+                <strong id="flowScore">0</strong><span>/ 100</span>
+              </div>
+              <div>
+                <span id="flowScoreTitle">Resilience score</span
+                ><strong id="flowScoreGrade">Building</strong>
+                <p id="flowScoreSummary">Add services and paths to begin analysis.</p>
+              </div>
             </section>
             <div class="flow-score-metrics" aria-label="Architecture score dimensions">
               <span>Security<strong id="flowSecurityScore">0</strong></span>
@@ -403,23 +726,63 @@
               <span>Recovery<strong id="flowRecoveryScore">0</strong></span>
             </div>
             <div id="flowInspectPanel">
-              <div class="flow-selected-summary" id="flowSelectedSummary"><span class="flow-selected-placeholder">Select a node or path to inspect it.</span></div>
+              <div class="flow-selected-summary" id="flowSelectedSummary">
+                <span class="flow-selected-placeholder">Select a node or path to inspect it.</span>
+              </div>
               <div class="flow-node-fields" id="flowNodeFields" hidden>
-                <label for="flowNodeName">Name<input id="flowNodeName" type="text" maxlength="60"></label>
+                <label for="flowNodeName"
+                  >Name<input id="flowNodeName" type="text" maxlength="60"
+                /></label>
                 <div class="flow-field-row">
-                  <label for="flowNodeEnvironment">Environment<select id="flowNodeEnvironment"><option>Production</option><option>Staging</option><option>Development</option><option>Shared</option></select></label>
-                  <label for="flowNodeCriticality">Criticality<select id="flowNodeCriticality"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></label>
+                  <label for="flowNodeEnvironment"
+                    >Environment<select id="flowNodeEnvironment">
+                      <option>Production</option>
+                      <option>Staging</option>
+                      <option>Development</option>
+                      <option>Shared</option>
+                    </select></label
+                  >
+                  <label for="flowNodeCriticality"
+                    >Criticality<select id="flowNodeCriticality">
+                      <option value="high">High</option>
+                      <option value="medium">Medium</option>
+                      <option value="low">Low</option>
+                    </select></label
+                  >
                 </div>
-                <label for="flowNodeNotes">Notes<textarea id="flowNodeNotes" rows="3" maxlength="280"></textarea></label>
+                <label for="flowNodeNotes"
+                  >Notes<textarea id="flowNodeNotes" rows="3" maxlength="280"></textarea>
+                </label>
               </div>
               <div class="flow-connection-fields" id="flowConnectionFields" hidden>
-                <label for="flowConnectionName">Path label<input id="flowConnectionName" type="text" maxlength="32"></label>
-                <label for="flowConnectionType">Traffic type<select id="flowConnectionType"><option value="request">Synchronous request</option><option value="event">Event / queue</option><option value="data">Data access</option><option value="telemetry">Telemetry</option><option value="replication">Replication</option></select></label>
-                <label class="flow-encryption-toggle"><input id="flowConnectionEncrypted" type="checkbox" checked> Encrypted in transit</label>
+                <label for="flowConnectionName"
+                  >Path label<input id="flowConnectionName" type="text" maxlength="32"
+                /></label>
+                <label for="flowConnectionType"
+                  >Traffic type<select id="flowConnectionType">
+                    <option value="request">Synchronous request</option>
+                    <option value="event">Event / queue</option>
+                    <option value="data">Data access</option>
+                    <option value="telemetry">Telemetry</option>
+                    <option value="replication">Replication</option>
+                  </select></label
+                >
+                <label class="flow-encryption-toggle"
+                  ><input id="flowConnectionEncrypted" type="checkbox" checked /> Encrypted in
+                  transit</label
+                >
               </div>
             </div>
-            <section class="flow-checks" id="flowAnalyzePanel" aria-labelledby="flowChecksTitle" hidden>
-              <div><span>Prioritized recommendations</span><strong id="flowChecksTitle">0 checks</strong></div>
+            <section
+              class="flow-checks"
+              id="flowAnalyzePanel"
+              aria-labelledby="flowChecksTitle"
+              hidden
+            >
+              <div>
+                <span>Prioritized recommendations</span
+                ><strong id="flowChecksTitle">0 checks</strong>
+              </div>
               <div id="flowChecksList"></div>
             </section>
           </aside>
@@ -427,15 +790,31 @@
 
         <footer class="flow-statusbar">
           <span id="flowStatusMessage">Ready</span>
-          <label for="flowRegion">Region<select id="flowRegion"><option value="us-east-1">us-east-1</option><option value="us-west-2">us-west-2</option><option value="eu-west-1">eu-west-1</option><option value="ap-southeast-2">ap-southeast-2</option><option value="ap-northeast-1">ap-northeast-1</option></select></label>
-          <label class="flow-grid-toggle"><input id="flowGridToggle" type="checkbox" checked> Grid</label>
-          <label for="flowZoom">Zoom<select id="flowZoom"><option value="0.75">75%</option><option value="0.9">90%</option><option value="1" selected>100%</option><option value="1.15">115%</option><option value="1.3">130%</option></select></label>
+          <label for="flowRegion"
+            >Region<select id="flowRegion">
+              <option value="us-east-1">us-east-1</option>
+              <option value="us-west-2">us-west-2</option>
+              <option value="eu-west-1">eu-west-1</option>
+              <option value="ap-southeast-2">ap-southeast-2</option>
+              <option value="ap-northeast-1">ap-northeast-1</option>
+            </select></label
+          >
+          <label class="flow-grid-toggle"
+            ><input id="flowGridToggle" type="checkbox" checked /> Grid</label
+          >
+          <label for="flowZoom"
+            >Zoom<select id="flowZoom">
+              <option value="0.75">75%</option>
+              <option value="0.9">90%</option>
+              <option value="1" selected>100%</option>
+              <option value="1.15">115%</option>
+              <option value="1.3">130%</option>
+            </select></label
+          >
         </footer>
       </section>
     </main>
 
-    <script src="assets/aws-icons/catalog.js"></script>
-    <script src="flow-studio.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>

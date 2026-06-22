@@ -1,8 +1,23 @@
-(function initializeFlowStudio(global) {
+/**
+ * AWS Flow Studio — a topology-first architecture lab.
+ *
+ * Initialized by src/main.js once the icon catalog has been lazily loaded. The
+ * catalog is passed in (rather than read from a global) so the 327 KB data file
+ * can be code-split and fetched only when the studio is first revealed.
+ *
+ * @param {Array} iconCatalog - the AWS icon catalog entries
+ * @param {object} iconCatalogMeta - catalog metadata (release, count, ...)
+ */
+export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   "use strict";
 
-  const catalog = Array.isArray(global.AWS_ICON_CATALOG) ? global.AWS_ICON_CATALOG : [];
-  const catalogMeta = global.AWS_ICON_CATALOG_META || { count: catalog.length };
+  const global = typeof window !== "undefined" ? window : globalThis;
+  const catalog = Array.isArray(iconCatalog)
+    ? iconCatalog
+    : Array.isArray(global.AWS_ICON_CATALOG)
+      ? global.AWS_ICON_CATALOG
+      : [];
+  const catalogMeta = iconCatalogMeta || global.AWS_ICON_CATALOG_META || { count: catalog.length };
   const storageKey = "aws-command-atlas-flow-studio-v2";
   const legacyStorageKey = "aws-command-atlas-flow-studio-v1";
   const criticalityColors = {
@@ -91,7 +106,7 @@
   let connectSourceId = null;
   let nodeSequence = 0;
   let connectionSequence = 0;
-  let history = [];
+  const history = [];
   let future = [];
   let dragState = null;
   let inspectorTab = "inspect";
@@ -1482,4 +1497,6 @@
     save: saveArchitecture,
     catalogCount: catalog.length
   };
-})(typeof window !== "undefined" ? window : globalThis);
+
+  return global.AWSFlowStudio;
+}

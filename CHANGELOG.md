@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented here.
 
+## 2026-06-22
+
+### Added
+
+- A professional toolchain: Vite dev server, Vitest unit tests, ESLint, and Prettier, wired together behind `npm run check`.
+- GitHub Actions CI (lint, format check, tests) and a GitHub Pages deploy workflow.
+- Light / dark / follow-system theming with a header toggle, persisted across visits.
+- Shareable deep links — the active scenario, injected faults, and selected node are encoded in the URL hash, and a share button copies a link that reopens the exact same view.
+- Accessibility pass: a skip link, role/keyboard semantics on service nodes, a high-contrast focus ring, and full `prefers-reduced-motion` support that freezes the SVG choreography.
+- Unit tests for the resilience composition model and the URL-state codec.
+
+### Changed
+
+- Refactored the monolithic scripts into focused ES modules under `src/`, extracting the pure resilience domain model and URL-state logic into dependency-free, unit-tested units.
+- Converted the icon catalog to an ES module and lazy-loaded both it (~327 KB) and Flow Studio via dynamic `import()` so they no longer block first paint — the initial JavaScript payload is now a fraction of the previous eager load.
+
+### Validation
+
+- ESLint, Prettier, and Vitest (26 tests) all green.
+- Browser-tested scenario switching, fault injection and telemetry, node selection, deep-link encode/restore, theme toggle, lazy Flow Studio init, and mobile layout with zero console errors and no horizontal overflow.
+
 ## 2026-06-21
 
 ### Added

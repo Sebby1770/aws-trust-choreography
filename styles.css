@@ -1682,3 +1682,121 @@ h1 {
     border-bottom: 1px solid var(--border);
   }
 }
+
+/* =====================================================================
+   Accessibility, theming, and shareable-view enhancements
+   ===================================================================== */
+
+/* Skip link — visible only on keyboard focus */
+.skip-link {
+  position: fixed;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--orange);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 800;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: none;
+}
+
+/* A clearly visible, high-contrast focus indicator for keyboard users (WCAG
+   2.4.7). `!important` guarantees it wins over the pre-existing component rules
+   that set `outline: none`; outline-offset keeps it legible alongside the
+   existing box-shadow focus rings. */
+:root {
+  --focus: #4ea8ff;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus) !important;
+  outline-offset: 2px !important;
+}
+
+/* SVG service nodes are focusable (role=button); give the outline something to
+   hug since SVG groups have no box. */
+.service-node:focus-visible polygon,
+.service-node:focus-visible circle,
+.service-node:focus-visible rect {
+  stroke: var(--focus);
+  stroke-width: 3px;
+}
+
+/* "Link copied" confirmation on the share button */
+.icon-button.is-copied {
+  border-color: var(--green);
+  box-shadow: inset 0 -2px var(--green);
+  color: var(--green);
+}
+
+.icon-button.is-copied span {
+  color: var(--green);
+}
+
+/* Active theme button reads slightly brighter */
+.icon-button[data-theme-mode]:not([data-theme-mode="system"]) {
+  border-color: rgba(255, 153, 0, 0.5);
+}
+
+/* ---------------------------------------------------------------------
+   Light theme — applied when forced via [data-theme="light"] or when the
+   OS prefers light and the user has not overridden the choice.
+   --------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #e9eef2;
+  --surface: #ffffff;
+  --surface-2: #f3f6f9;
+  --surface-3: #e7edf1;
+  --grid: rgba(36, 57, 72, 0.12);
+  --grid-soft: rgba(36, 57, 72, 0.06);
+  --text: #0c1a23;
+  --muted: #3f515c;
+  --dim: #64747d;
+  --border: #c5d1d9;
+  --shadow: rgba(22, 43, 58, 0.16);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #e9eef2;
+    --surface: #ffffff;
+    --surface-2: #f3f6f9;
+    --surface-3: #e7edf1;
+    --grid: rgba(36, 57, 72, 0.12);
+    --grid-soft: rgba(36, 57, 72, 0.06);
+    --text: #0c1a23;
+    --muted: #3f515c;
+    --dim: #64747d;
+    --border: #c5d1d9;
+    --shadow: rgba(22, 43, 58, 0.16);
+  }
+}
+
+/* Tone down the dark-tuned overlay washes so panels read crisply on light */
+:root[data-theme="light"] .icon-button,
+:root:not([data-theme]) .icon-button {
+  background: var(--surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep,
+  .cursor-mark {
+    display: none;
+  }
+}
+
+/* JS-applied when the operator (or OS) requests reduced motion */
+.grid-window.reduced-motion .sweep {
+  animation: none;
+}

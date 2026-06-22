@@ -1,0 +1,12 @@
+dist/
+coverage/
+node_modules/
+assets/aws-icons/
+CHANGELOG.md
+
+# Large pre-existing files predate the formatter — kept out of scope so the
+# formatting pass stays reviewable. Run Prettier on these in a dedicated commit
+# if you want to bring them in.
+src/flow-studio.js
+styles.css
+flow-studio.css
