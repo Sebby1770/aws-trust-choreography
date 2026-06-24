@@ -2257,3 +2257,174 @@ body.cmdk-open {
     min-height: 0;
   }
 }
+
+/* =====================================================================
+   v2.1 — readable titles on the dark "screens" + signature title style
+   ===================================================================== */
+
+/* The Flow Studio and the topology map are deliberately dark workspaces.
+   Pin the dark palette to them so their text stays light regardless of the
+   global light/dark theme (fixes invisible titles in light mode). */
+.flow-studio,
+.grid-window {
+  color-scheme: dark;
+  --bg: #05080b;
+  --surface: #0a1117;
+  --surface-2: #0d1720;
+  --surface-3: #111c24;
+  --grid: rgba(124, 151, 166, 0.12);
+  --grid-soft: rgba(124, 151, 166, 0.055);
+  --text: #f4f7f8;
+  --muted: #aebcc6;
+  --dim: #7e8e98;
+  --border: #26343d;
+  --shadow: rgba(0, 0, 0, 0.34);
+}
+
+/* Signature gradient titles — readable base colour with an accent sweep. */
+h1 {
+  background: linear-gradient(100deg, var(--text) 52%, var(--orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.flow-studio-brand h2,
+#flowStudioTitle {
+  color: #f4f7f8;
+  background: linear-gradient(100deg, #f4f7f8 50%, var(--flow-cyan, #42d6f5));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 850;
+}
+
+/* Make the "Architecture" label + name field legible on the dark titlebar */
+.flow-canvas-titlebar label,
+.flow-canvas-titlebar #flowArchitectureName {
+  color: #f4f7f8;
+}
+
+.flow-canvas-titlebar #flowArchitectureName::placeholder {
+  color: #7e8e98;
+}
+
+/* Console + section eyebrows: a touch more presence */
+.console-title strong,
+.authority-card strong {
+  color: var(--text);
+}
+
+/* =====================================================================
+   v2.2 — "make it your own" edit mode
+   ===================================================================== */
+
+.edit-button.is-active {
+  border-color: var(--green);
+  box-shadow: inset 0 -2px var(--green);
+}
+
+.edit-button.is-active span {
+  color: var(--green);
+}
+
+/* Editable identity affordance */
+.app-shell.is-editing h1,
+.app-shell.is-editing .lede {
+  outline: 1px dashed rgba(255, 153, 0, 0.55);
+  outline-offset: 6px;
+  border-radius: 6px;
+  cursor: text;
+}
+
+/* Make the gradient title solid while editing so the caret + text are visible */
+.app-shell.is-editing h1 {
+  background: none;
+  -webkit-text-fill-color: var(--text);
+  color: var(--text);
+}
+
+.app-shell.is-editing .service-node {
+  cursor: cell;
+}
+
+.app-shell.is-editing .service-node:hover polygon,
+.app-shell.is-editing .service-node:hover circle,
+.app-shell.is-editing .service-node:hover rect {
+  stroke: var(--orange);
+  stroke-width: 7;
+}
+
+/* Node editor popover */
+.node-editor {
+  position: fixed;
+  inset: 0;
+  z-index: 2200;
+  display: none;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(2, 6, 10, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.node-editor.is-open {
+  display: grid;
+}
+
+.node-editor-card {
+  width: min(380px, 100%);
+  padding: 1.3rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.node-editor-card h3 {
+  margin: 0 0 1rem;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.node-editor-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.node-editor-card input {
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+}
+
+.node-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.node-editor-actions button {
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.node-editor-actions button.is-primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--orange), #ffc46b);
+  color: #0a0d0f;
+}

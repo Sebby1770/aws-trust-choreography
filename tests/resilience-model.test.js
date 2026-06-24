@@ -124,3 +124,25 @@ describe("deriveComposedState — bounds and robustness", () => {
     expect(scenarios.steady.scores).toEqual(before);
   });
 });
+
+describe("deriveComposedState — personalization score overrides", () => {
+  it("applies a per-node base override before faults", () => {
+    const composed = deriveComposedState("steady", [], { "CloudFront edge": 95 });
+    expect(composed.scores["CloudFront edge"]).toBe(95);
+  });
+
+  it("lets faults stack on top of an override and clamps the result", () => {
+    // identity overrides IAM to 90, then identity breach (-30) -> 60
+    const composed = deriveComposedState("steady", ["identity"], { "IAM trust broker": 90 });
+    expect(composed.scores["IAM trust broker"]).toBe(60);
+  });
+
+  it("clamps overrides into the valid range and ignores non-finite values", () => {
+    const composed = deriveComposedState("steady", [], {
+      "CloudFront edge": 500,
+      "Aurora data mesh": NaN,
+    });
+    expect(composed.scores["CloudFront edge"]).toBe(99);
+    expect(composed.scores["Aurora data mesh"]).toBe(scenarios.steady.scores["Aurora data mesh"]);
+  });
+});

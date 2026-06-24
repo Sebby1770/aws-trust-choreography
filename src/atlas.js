@@ -21,10 +21,15 @@ import { prefersReducedMotion } from "./theme.js";
 import { readStateFromUrl, syncStateToUrl } from "./url-state.js";
 import { initCommandPalette } from "./command-palette.js";
 import { buildIncidentReport } from "./incident-report.js";
+import { loadProfile, saveProfile, resetProfile, sanitizeScore } from "./personalize.js";
 
 export function initAtlas({ theme } = {}) {
   const scenarioButtons = document.querySelectorAll(".scenario");
   const root = document.querySelector(".grid-window");
+  const shell = document.querySelector(".app-shell");
+  const heroTitle = document.querySelector("h1");
+  const heroLede = document.querySelector(".lede");
+  const editButton = document.querySelector("#editButton");
   const replayButton = document.querySelector("#replayButton");
   const incidentButton = document.querySelector("#incidentButton");
   const shareButton = document.querySelector("#shareButton");
@@ -63,6 +68,21 @@ export function initAtlas({ theme } = {}) {
   let selectedNode = "Step Functions core";
   const activeFailures = new Set();
 
+  // Personalization: a per-visitor profile and the original (default) labels so
+  // a custom name can always fall back to the shipped one.
+  const profile = loadProfile();
+  let editing = false;
+  const originalLabels = new Map();
+  serviceNodes.forEach((node) => {
+    const label = node.querySelector(".node-label");
+    if (label) originalLabels.set(node.dataset.node, label.textContent);
+  });
+
+  /** Display name for a node, honouring the visitor's overrides. */
+  function nodeDisplayName(key) {
+    return profile.names[key] || originalLabels.get(key) || key;
+  }
+
   function persistToUrl() {
     syncStateToUrl({ scenario: activeScenario, failures: activeFailures, node: selectedNode });
   }
@@ -77,11 +97,13 @@ export function initAtlas({ theme } = {}) {
       if (scoreLabel) {
         scoreLabel.textContent = `${score}%`;
       }
+      const label = node.querySelector(".node-label");
+      if (label) label.textContent = nodeDisplayName(name);
     });
   }
 
   function renderComposedState(name) {
-    const composed = deriveComposedState(name, activeFailures);
+    const composed = deriveComposedState(name, activeFailures, profile.scores);
     textTargets.routeHealth.textContent = `${composed.routeHealth}%`;
     textTargets.fallbackReady.textContent = `${composed.fallbackReady}%`;
     textTargets.dataDurability.textContent = composed.dataDurability.toFixed(2);
@@ -156,7 +178,7 @@ export function initAtlas({ theme } = {}) {
   }
 
   function setNode(name, { sync = true } = {}) {
-    const composed = deriveComposedState(activeScenario, activeFailures);
+    const composed = deriveComposedState(activeScenario, activeFailures, profile.scores);
     selectedNode = name;
     const score =
       composed.scores[name] ||
@@ -167,7 +189,7 @@ export function initAtlas({ theme } = {}) {
       node.classList.toggle("is-selected", node.dataset.node === name);
     });
 
-    textTargets.nodeName.textContent = name;
+    textTargets.nodeName.textContent = nodeDisplayName(name);
     textTargets.nodeScore.textContent = `${score}%`;
     textTargets.nodeCopy.textContent =
       nodeHints[name] || "Signal is moving cleanly through this trust path.";
@@ -231,14 +253,22 @@ export function initAtlas({ theme } = {}) {
 
   textTargets.clearFailuresButton.addEventListener("click", clearFailures);
 
+  function handleNodeActivate(key) {
+    if (editing) {
+      openNodeEditor(key);
+    } else {
+      setNode(key);
+    }
+  }
+
   serviceNodes.forEach((node) => {
     node.setAttribute("tabindex", "0");
     node.setAttribute("role", "button");
-    node.addEventListener("click", () => setNode(node.dataset.node));
+    node.addEventListener("click", () => handleNodeActivate(node.dataset.node));
     node.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        setNode(node.dataset.node);
+        handleNodeActivate(node.dataset.node);
       }
     });
   });
@@ -312,6 +342,129 @@ export function initAtlas({ theme } = {}) {
       .addEventListener("change", applyMotionPreference);
   }
 
+  // --- Personalization: edit mode ----------------------------------------
+
+  const defaultTitle = heroTitle ? heroTitle.textContent : "";
+  const defaultLede = heroLede ? heroLede.textContent : "";
+
+  function applyProfileIdentity() {
+    if (heroTitle) heroTitle.textContent = profile.title || defaultTitle;
+    if (heroLede) heroLede.textContent = profile.lede || defaultLede;
+  }
+
+  function saveIdentityFromDom() {
+    if (heroTitle) {
+      const value = heroTitle.textContent.trim();
+      profile.title = value && value !== defaultTitle.trim() ? value : "";
+    }
+    if (heroLede) {
+      const value = heroLede.textContent.trim();
+      profile.lede = value && value !== defaultLede.trim() ? value : "";
+    }
+    saveProfile(profile);
+  }
+
+  function setEditing(on) {
+    editing = Boolean(on);
+    if (shell) shell.classList.toggle("is-editing", editing);
+    [heroTitle, heroLede].forEach((el) => {
+      if (el) el.contentEditable = editing ? "true" : "false";
+    });
+    if (editButton) {
+      editButton.classList.toggle("is-active", editing);
+      editButton.setAttribute("aria-pressed", String(editing));
+      editButton.setAttribute(
+        "aria-label",
+        editing ? "Done editing — exit edit mode" : "Edit this atlas to make it your own"
+      );
+    }
+    flashToast(
+      editing
+        ? "Edit mode on — rename the title and click any service to tailor it"
+        : "Saved your changes"
+    );
+  }
+
+  [heroTitle, heroLede].forEach((el) => {
+    if (!el) return;
+    el.addEventListener("blur", saveIdentityFromDom);
+    el.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        el.blur();
+      }
+    });
+  });
+
+  // Node editor popover (created lazily, reused).
+  let nodeEditor = null;
+  function openNodeEditor(key) {
+    if (!nodeEditor) {
+      nodeEditor = document.createElement("div");
+      nodeEditor.className = "node-editor";
+      nodeEditor.innerHTML = `
+        <div class="node-editor-card" role="dialog" aria-modal="true" aria-label="Edit service">
+          <h3>Edit service</h3>
+          <label>Name<input type="text" maxlength="48" data-field="name" /></label>
+          <label>Confidence score (12–99)<input type="number" min="12" max="99" data-field="score" /></label>
+          <div class="node-editor-actions">
+            <button type="button" data-action="cancel">Cancel</button>
+            <button type="button" data-action="save" class="is-primary">Save</button>
+          </div>
+        </div>`;
+      document.body.appendChild(nodeEditor);
+      nodeEditor.addEventListener("click", (event) => {
+        if (event.target === nodeEditor || event.target.dataset.action === "cancel") {
+          nodeEditor.classList.remove("is-open");
+        } else if (event.target.dataset.action === "save") {
+          commitNodeEditor();
+        }
+      });
+    }
+    nodeEditor.dataset.key = key;
+    const composed = deriveComposedState(activeScenario, activeFailures, profile.scores);
+    nodeEditor.querySelector('[data-field="name"]').value = nodeDisplayName(key);
+    nodeEditor.querySelector('[data-field="score"]').value =
+      profile.scores[key] ?? composed.scores[key] ?? "";
+    nodeEditor.classList.add("is-open");
+    nodeEditor.querySelector('[data-field="name"]').focus();
+  }
+
+  function commitNodeEditor() {
+    const key = nodeEditor.dataset.key;
+    const name = nodeEditor.querySelector('[data-field="name"]').value.trim();
+    const score = sanitizeScore(nodeEditor.querySelector('[data-field="score"]').value);
+    if (name && name !== originalLabels.get(key)) {
+      profile.names[key] = name;
+    } else {
+      delete profile.names[key];
+    }
+    if (score !== null) profile.scores[key] = score;
+    saveProfile(profile);
+    nodeEditor.classList.remove("is-open");
+    renderComposedState(activeScenario);
+    setNode(key, { sync: false });
+    flashToast(`Updated ${name || nodeDisplayName(key)}`);
+  }
+
+  function resetPersonalization() {
+    resetProfile();
+    profile.title = "";
+    profile.lede = "";
+    profile.names = {};
+    profile.scores = {};
+    applyProfileIdentity();
+    renderComposedState(activeScenario);
+    setNode(selectedNode, { sync: false });
+    flashToast("Restored the original atlas");
+  }
+
+  if (editButton) {
+    editButton.addEventListener("click", () => setEditing(!editing));
+  }
+
+  applyProfileIdentity();
+
   // --- Boot from URL or defaults -----------------------------------------
 
   const initial = readStateFromUrl();
@@ -346,7 +499,7 @@ export function initAtlas({ theme } = {}) {
   }
 
   async function copyIncidentReport() {
-    const composed = deriveComposedState(activeScenario, activeFailures);
+    const composed = deriveComposedState(activeScenario, activeFailures, profile.scores);
     const markdown = buildIncidentReport({
       scenarioName: activeScenario,
       scenarioTitle: scenarios[activeScenario]?.title,
@@ -445,6 +598,20 @@ export function initAtlas({ theme } = {}) {
         label: "Copy incident report (Markdown)",
         keywords: "export report summary markdown",
         run: copyIncidentReport,
+      },
+      {
+        id: "action:edit",
+        group: "Personalize",
+        label: editing ? "Exit edit mode" : "Edit — make this atlas your own",
+        keywords: "edit customize personalize rename tailor",
+        run: () => setEditing(!editing),
+      },
+      {
+        id: "action:reset",
+        group: "Personalize",
+        label: "Reset personalization to defaults",
+        keywords: "reset restore defaults clear personalization",
+        run: resetPersonalization,
       }
     );
     return commands;

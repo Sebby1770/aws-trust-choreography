@@ -522,11 +522,16 @@ export function clampNumber(value, min, max) {
  *
  * @param {string} name - scenario key (steady | surge | identity | recovery)
  * @param {Iterable<string>} [activeFailures] - failure-mode ids to stack
+ * @param {Object<string, number>} [scoreOverrides] - per-node base score
+ *        overrides (personalization), applied before faults
  * @returns derived telemetry, fault-adjusted scores, and operator guidance
  */
-export function deriveComposedState(name, activeFailures = []) {
+export function deriveComposedState(name, activeFailures = [], scoreOverrides = {}) {
   const scenario = scenarios[name] || scenarios.steady;
   const scores = { ...scenario.scores };
+  Object.entries(scoreOverrides || {}).forEach(([nodeName, value]) => {
+    if (Number.isFinite(value)) scores[nodeName] = clampNumber(value, 12, 99);
+  });
   const impactedNodes = new Set();
   let routeHealth = Number.parseFloat(scenario.routeHealth);
   let fallbackReady = Number.parseFloat(scenario.fallbackReady);

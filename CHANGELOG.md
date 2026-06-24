@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here.
 
+## 2026-06-24 — Edit mode & readable titles
+
+### Added
+
+- **"Make it your own" edit mode** — an Edit toggle (and command-palette actions) lets any visitor tailor the atlas to their own system: rename the headline and subtitle inline, and click any service node to rename it and set its own confidence score. Everything persists to `localStorage`, with a one-click reset to defaults.
+- Per-node base **score overrides** flow through the same composition engine, so injected faults still stack on top of a personalized baseline.
+
+### Fixed
+
+- **Invisible titles in light mode** — the Flow Studio and topology map are now treated as always-dark "screens" (the dark palette is pinned to them), so their titles and labels stay legible regardless of the light/dark theme. Previously the hardcoded-dark panels showed theme-dark text in light mode.
+
+### Changed
+
+- Signature **gradient titles** for the headline and the Flow Studio heading (readable base colour with an accent sweep) for a more distinctive look.
+
 ## 2026-06-24
 
 ### Added

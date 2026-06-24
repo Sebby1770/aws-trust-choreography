@@ -23,6 +23,9 @@ dedicated, full-screen **Flow Studio**.
 - A **failure composer** that stacks faults (edge flood, identity breach, data lag, workflow
   backlog), recomputes service confidence scores, and classifies blast radius from _Contained_ to
   _Systemic_.
+- **Make it your own** — an edit mode lets any visitor rename the atlas and its services and set
+  their own confidence scores; the personalization persists in the browser, with a reset to
+  defaults.
 
 **AWS Flow Studio** (full-screen)
 
@@ -81,6 +84,7 @@ src/
   atlas.js             incident-command DOM controller
   flow-studio.js       architecture studio
   ai-icons.js          Claude/ChatGPT/AI library nodes (unit-tested)
+  personalize.js       per-visitor edit profile (unit-tested)
   views.js             Command Atlas ↔ Flow Studio workspace switcher
   console-deck.js      operations-console module dropdown
   theme.js             light/dark/system theme controller
