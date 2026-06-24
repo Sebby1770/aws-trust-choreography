@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented here.
 
+## 2026-06-24
+
+### Added
+
+- **Workspace views** — a header switcher splits the app into a full "Command Atlas" workspace and a dedicated, full-screen "Flow Studio" screen. The choice persists across visits.
+- **AI / LLM building blocks in Flow Studio** — a new "AI" library tab with Claude, ChatGPT, Foundation Model, AI Agent, Vector Database, Embeddings Model, and AI Guardrails nodes (custom icons) that drop straight onto the canvas.
+- **AI starter templates** — Claude RAG assistant, AI agent platform, and GenAI chatbot, alongside the existing AWS templates, each scored by the same Architecture Intelligence engine.
+- **Operations console** — the incident modules (Incident inspector, Telemetry, Active runbook, Control posture, Operating doctrine) now live in one right-hand console with a dropdown to switch between them, replacing the long stacked deck and giving the topology map more room.
+
+### Changed
+
+- Reorganized the Command Atlas into a cleaner rail · map · console layout; the map is now the dominant element.
+- The AI catalog leads the Flow Studio library and is merged client-side, keeping the official 862-icon AWS set intact.
+
+### Validation
+
+- ESLint, Prettier, and Vitest (45 tests) green.
+- Browser-verified: view switching, the full-screen Flow Studio, the AI library tab (7 nodes), the Claude RAG / AI agent / GenAI chatbot templates, and the console dropdown switching across all five modules — zero console errors.
+
 ## 2026-06-22
 
 ### Added

@@ -8,9 +8,14 @@ framework, no runtime dependencies.
 
 ## What it does
 
-**Incident command workbench**
+A header **workspace switcher** splits the app into two screens: the **Command Atlas** and a
+dedicated, full-screen **Flow Studio**.
 
-- A three-zone workbench: scenario rail, live service topology, and an incident inspector.
+**Command Atlas**
+
+- A rail · map · console layout: scenario rail, a dominant live service topology, and an
+  **Operations console** whose dropdown switches between Incident inspector, Telemetry, Active
+  runbook, Control posture, and Operating doctrine.
 - Glowing service nodes for CloudFront, EKS, IAM, Aurora, Step Functions, Lambda, S3, EventBridge,
   and an SNS-backed manual lane, joined by animated trust-path packets and fallback routes.
 - Scenario tabs — steady state, traffic surge, identity drift, recovery drill — that drive the
@@ -18,12 +23,16 @@ framework, no runtime dependencies.
 - A **failure composer** that stacks faults (edge flood, identity breach, data lag, workflow
   backlog), recomputes service confidence scores, and classifies blast radius from _Contained_ to
   _Systemic_.
-- A resilience posture model (Prevent / Absorb / Recover / Learn) and scenario-specific doctrine.
 
-**AWS Flow Studio**
+**AWS Flow Studio** (full-screen)
 
 - A topology-first architecture lab: draggable nodes, directional connections, auto-layout, undo /
   redo, templates, local autosave, and JSON / SVG export.
+- **AI / LLM building blocks** — an "AI" library tab with Claude, ChatGPT, Foundation Model, AI
+  Agent, Vector Database, Embeddings Model, and AI Guardrails nodes you can drop into an AWS
+  architecture.
+- **Starter templates** — Claude RAG assistant, AI agent platform, GenAI chatbot, plus Serverless
+  API, Event pipeline, and Resilient web app.
 - Live Architecture Intelligence scoring across security, reliability, observability, and recovery.
 - A searchable library of **862 official AWS architecture icons**, lazy-loaded so it never blocks
   first paint.
@@ -71,11 +80,15 @@ src/
   resilience-model.js  pure scenario/fault domain model (unit-tested)
   atlas.js             incident-command DOM controller
   flow-studio.js       architecture studio
+  ai-icons.js          Claude/ChatGPT/AI library nodes (unit-tested)
+  views.js             Command Atlas ↔ Flow Studio workspace switcher
+  console-deck.js      operations-console module dropdown
   theme.js             light/dark/system theme controller
   url-state.js         shareable URL-hash state (unit-tested)
   command-palette.js   ⌘K launcher + fuzzy ranking (unit-tested)
   incident-report.js   Markdown incident-report builder (unit-tested)
   icon-catalog.js      lazy loader for the icon catalog chunk
+assets/ai-icons/       custom AI / LLM node SVGs
 tests/                 Vitest suites for the pure modules
 assets/aws-icons/      862 official AWS architecture SVGs + generated catalog
 tools/                 icon-catalog generator
