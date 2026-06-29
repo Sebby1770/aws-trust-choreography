@@ -1,5 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { sanitizeScore, normalizeProfile, emptyProfile } from "../src/personalize.js";
+import {
+  sanitizeScore,
+  normalizeProfile,
+  emptyProfile,
+  isProfileEmpty,
+  encodeProfile,
+  decodeProfile,
+  readSharedProfile,
+} from "../src/personalize.js";
 
 describe("sanitizeScore", () => {
   it("clamps to [12, 99] and rounds", () => {
@@ -37,5 +45,57 @@ describe("normalizeProfile", () => {
     const p = normalizeProfile({ scores: { "CloudFront edge": 150, "IAM trust broker": "bad" } });
     expect(p.scores["CloudFront edge"]).toBe(99);
     expect(p.scores["IAM trust broker"]).toBeUndefined();
+  });
+});
+
+describe("isProfileEmpty", () => {
+  it("is true for an empty profile and false once customized", () => {
+    expect(isProfileEmpty(emptyProfile())).toBe(true);
+    expect(isProfileEmpty({ title: "Mine" })).toBe(false);
+    expect(isProfileEmpty({ scores: { "IAM trust broker": 90 } })).toBe(false);
+  });
+});
+
+describe("encodeProfile / decodeProfile", () => {
+  it("round-trips a customized profile", () => {
+    const profile = {
+      title: "Acme Payments Resilience",
+      lede: "How Acme stays up",
+      names: { "CloudFront edge": "Acme Edge (CDN)" },
+      scores: { "CloudFront edge": 97 },
+    };
+    const decoded = decodeProfile(encodeProfile(profile));
+    expect(decoded.title).toBe(profile.title);
+    expect(decoded.lede).toBe(profile.lede);
+    expect(decoded.names["CloudFront edge"]).toBe("Acme Edge (CDN)");
+    expect(decoded.scores["CloudFront edge"]).toBe(97);
+  });
+
+  it("produces a URL-safe string (no +, /, or =)", () => {
+    const encoded = encodeProfile({ title: "A/B + test = ✓ 日本語" });
+    expect(encoded).not.toMatch(/[+/=]/);
+    expect(decodeProfile(encoded).title).toBe("A/B + test = ✓ 日本語");
+  });
+
+  it("returns an empty profile for garbage input", () => {
+    expect(isProfileEmpty(decodeProfile("!!!not-base64!!!"))).toBe(true);
+  });
+});
+
+describe("readSharedProfile", () => {
+  const win = (hash) => ({ location: { hash } });
+
+  it("reads a profile from the p parameter", () => {
+    const encoded = encodeProfile({ title: "Shared Atlas" });
+    const profile = readSharedProfile(win(`#scenario=surge&p=${encoded}`));
+    expect(profile.title).toBe("Shared Atlas");
+  });
+
+  it("returns null when there is no p parameter", () => {
+    expect(readSharedProfile(win("#scenario=surge"))).toBeNull();
+  });
+
+  it("returns null for an empty shared profile", () => {
+    expect(readSharedProfile(win(`#p=${encodeProfile(emptyProfile())}`))).toBeNull();
   });
 });

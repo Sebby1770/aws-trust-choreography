@@ -7,6 +7,7 @@ All notable changes to this project are documented here.
 ### Added
 
 - **"Make it your own" edit mode** — an Edit toggle (and command-palette actions) lets any visitor tailor the atlas to their own system: rename the headline and subtitle inline, and click any service node to rename it and set its own confidence score. Everything persists to `localStorage`, with a one-click reset to defaults.
+- **Share my version** — a "Copy a link to my version" command encodes the full personalization (title, subtitle, renamed services, custom scores) into a compact, URL-safe link; opening it adopts that tailored atlas for the visitor to keep editing.
 - Per-node base **score overrides** flow through the same composition engine, so injected faults still stack on top of a personalized baseline.
 
 ### Fixed

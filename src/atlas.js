@@ -18,10 +18,17 @@ import {
   deriveComposedState,
 } from "./resilience-model.js";
 import { prefersReducedMotion } from "./theme.js";
-import { readStateFromUrl, syncStateToUrl } from "./url-state.js";
+import { encodeState, readStateFromUrl, syncStateToUrl } from "./url-state.js";
 import { initCommandPalette } from "./command-palette.js";
 import { buildIncidentReport } from "./incident-report.js";
-import { loadProfile, saveProfile, resetProfile, sanitizeScore } from "./personalize.js";
+import {
+  loadProfile,
+  saveProfile,
+  resetProfile,
+  sanitizeScore,
+  encodeProfile,
+  readSharedProfile,
+} from "./personalize.js";
 
 export function initAtlas({ theme } = {}) {
   const scenarioButtons = document.querySelectorAll(".scenario");
@@ -77,6 +84,16 @@ export function initAtlas({ theme } = {}) {
     const label = node.querySelector(".node-label");
     if (label) originalLabels.set(node.dataset.node, label.textContent);
   });
+
+  // Adopt a profile shared via a "my version" link (the visitor opening it keeps
+  // their own copy thereafter; the heavy `p` param drops off on the next change).
+  const sharedProfile = readSharedProfile();
+  let adoptedSharedProfile = false;
+  if (sharedProfile) {
+    Object.assign(profile, sharedProfile);
+    saveProfile(profile);
+    adoptedSharedProfile = true;
+  }
 
   /** Display name for a node, honouring the visitor's overrides. */
   function nodeDisplayName(key) {
@@ -516,6 +533,29 @@ export function initAtlas({ theme } = {}) {
     }
   }
 
+  /** A shareable link that carries the visitor's full personalization. */
+  function buildMyVersionUrl() {
+    const base = encodeState({
+      scenario: activeScenario,
+      failures: activeFailures,
+      node: selectedNode,
+    });
+    const encoded = encodeProfile(profile);
+    const hash = encoded ? `${base}&p=${encoded}` : base;
+    return `${window.location.origin}${window.location.pathname}${hash ? `#${hash}` : ""}`;
+  }
+
+  async function copyMyVersionLink() {
+    const url = buildMyVersionUrl();
+    try {
+      await navigator.clipboard.writeText(url);
+      flashToast("Link to your version copied — anyone who opens it sees your edits");
+    } catch {
+      console.log(url);
+      flashToast("Clipboard blocked — link logged to console");
+    }
+  }
+
   // --- Command palette (⌘K) ----------------------------------------------
 
   function buildCommands() {
@@ -607,6 +647,13 @@ export function initAtlas({ theme } = {}) {
         run: () => setEditing(!editing),
       },
       {
+        id: "action:sharemine",
+        group: "Personalize",
+        label: "Copy a link to my version",
+        keywords: "share my version link send edits personalization",
+        run: copyMyVersionLink,
+      },
+      {
         id: "action:reset",
         group: "Personalize",
         label: "Reset personalization to defaults",
@@ -620,4 +667,8 @@ export function initAtlas({ theme } = {}) {
   const palette = initCommandPalette(buildCommands);
   const commandButton = document.querySelector("#commandButton");
   if (commandButton) commandButton.addEventListener("click", palette.open);
+
+  if (adoptedSharedProfile) {
+    flashToast("Loaded a shared, personalized atlas — it's yours to edit now");
+  }
 }

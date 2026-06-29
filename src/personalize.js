@@ -63,3 +63,45 @@ export function resetProfile() {
     /* ignore */
   }
 }
+
+/** True when the profile carries no customization. */
+export function isProfileEmpty(profile) {
+  const p = normalizeProfile(profile);
+  return (
+    !p.title && !p.lede && Object.keys(p.names).length === 0 && Object.keys(p.scores).length === 0
+  );
+}
+
+/** Encode a profile into a compact, URL-safe string (base64url of JSON). */
+export function encodeProfile(profile) {
+  const json = JSON.stringify(normalizeProfile(profile));
+  const b64 = btoa(unescape(encodeURIComponent(json)));
+  return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+/** Decode a base64url profile string; returns an empty profile on any error. */
+export function decodeProfile(value) {
+  try {
+    const b64 = String(value)
+      .replace(/-/g, "+")
+      .replace(/_/g, "/")
+      .padEnd(Math.ceil(String(value).length / 4) * 4, "=");
+    return normalizeProfile(JSON.parse(decodeURIComponent(escape(atob(b64)))));
+  } catch {
+    return emptyProfile();
+  }
+}
+
+/**
+ * Read a shared profile from the `p` parameter of a window's location hash.
+ * Returns the decoded profile, or null when there is no (non-empty) shared
+ * profile to apply.
+ */
+export function readSharedProfile(win = typeof window !== "undefined" ? window : undefined) {
+  if (!win) return null;
+  const params = new URLSearchParams(String(win.location.hash).replace(/^#/, ""));
+  const encoded = params.get("p");
+  if (!encoded) return null;
+  const profile = decodeProfile(encoded);
+  return isProfileEmpty(profile) ? null : profile;
+}

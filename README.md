@@ -25,7 +25,7 @@ dedicated, full-screen **Flow Studio**.
   _Systemic_.
 - **Make it your own** — an edit mode lets any visitor rename the atlas and its services and set
   their own confidence scores; the personalization persists in the browser, with a reset to
-  defaults.
+  defaults, and a "Copy a link to my version" command shares the whole tailored atlas as a URL.
 
 **AWS Flow Studio** (full-screen)
 
