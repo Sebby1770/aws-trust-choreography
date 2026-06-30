@@ -2,6 +2,64 @@
 
 All notable changes to this project are documented here.
 
+## 2026-06-24 — Edit mode & readable titles
+
+### Added
+
+- **"Make it your own" edit mode** — an Edit toggle (and command-palette actions) lets any visitor tailor the atlas to their own system: rename the headline and subtitle inline, and click any service node to rename it and set its own confidence score. Everything persists to `localStorage`, with a one-click reset to defaults.
+- **Share my version** — a "Copy a link to my version" command encodes the full personalization (title, subtitle, renamed services, custom scores) into a compact, URL-safe link; opening it adopts that tailored atlas for the visitor to keep editing.
+- Per-node base **score overrides** flow through the same composition engine, so injected faults still stack on top of a personalized baseline.
+
+### Fixed
+
+- **Invisible titles in light mode** — the Flow Studio and topology map are now treated as always-dark "screens" (the dark palette is pinned to them), so their titles and labels stay legible regardless of the light/dark theme. Previously the hardcoded-dark panels showed theme-dark text in light mode.
+
+### Changed
+
+- Signature **gradient titles** for the headline and the Flow Studio heading (readable base colour with an accent sweep) for a more distinctive look.
+
+## 2026-06-24
+
+### Added
+
+- **Workspace views** — a header switcher splits the app into a full "Command Atlas" workspace and a dedicated, full-screen "Flow Studio" screen. The choice persists across visits.
+- **AI / LLM building blocks in Flow Studio** — a new "AI" library tab with Claude, ChatGPT, Foundation Model, AI Agent, Vector Database, Embeddings Model, and AI Guardrails nodes (custom icons) that drop straight onto the canvas.
+- **AI starter templates** — Claude RAG assistant, AI agent platform, and GenAI chatbot, alongside the existing AWS templates, each scored by the same Architecture Intelligence engine.
+- **Operations console** — the incident modules (Incident inspector, Telemetry, Active runbook, Control posture, Operating doctrine) now live in one right-hand console with a dropdown to switch between them, replacing the long stacked deck and giving the topology map more room.
+
+### Changed
+
+- Reorganized the Command Atlas into a cleaner rail · map · console layout; the map is now the dominant element.
+- The AI catalog leads the Flow Studio library and is merged client-side, keeping the official 862-icon AWS set intact.
+
+### Validation
+
+- ESLint, Prettier, and Vitest (45 tests) green.
+- Browser-verified: view switching, the full-screen Flow Studio, the AI library tab (7 nodes), the Claude RAG / AI agent / GenAI chatbot templates, and the console dropdown switching across all five modules — zero console errors.
+
+## 2026-06-22
+
+### Added
+
+- A professional toolchain: Vite dev server, Vitest unit tests, ESLint, and Prettier, wired together behind `npm run check`.
+- GitHub Actions CI (lint, format check, tests) and a GitHub Pages deploy workflow.
+- Light / dark / follow-system theming with a header toggle, persisted across visits.
+- A command palette (⌘K / Ctrl-K) with fuzzy search across every action — switch scenarios, inject/clear faults, inspect nodes, and change theme from the keyboard.
+- A "Copy incident report" command that generates a shareable Markdown summary (scenario, faults, telemetry, weakest node, recommendation, deep link) from the live state.
+- Shareable deep links — the active scenario, injected faults, and selected node are encoded in the URL hash, and a share button copies a link that reopens the exact same view.
+- Accessibility pass: a skip link, role/keyboard semantics on service nodes, a high-contrast focus ring, and full `prefers-reduced-motion` support that freezes the SVG choreography.
+- Unit tests for the resilience composition model and the URL-state codec.
+
+### Changed
+
+- Refactored the monolithic scripts into focused ES modules under `src/`, extracting the pure resilience domain model and URL-state logic into dependency-free, unit-tested units.
+- Converted the icon catalog to an ES module and lazy-loaded both it (~327 KB) and Flow Studio via dynamic `import()` so they no longer block first paint — the initial JavaScript payload is now a fraction of the previous eager load.
+
+### Validation
+
+- ESLint, Prettier, and Vitest (26 tests) all green.
+- Browser-tested scenario switching, fault injection and telemetry, node selection, deep-link encode/restore, theme toggle, lazy Flow Studio init, and mobile layout with zero console errors and no horizontal overflow.
+
 ## 2026-06-21
 
 ### Added

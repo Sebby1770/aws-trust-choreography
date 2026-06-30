@@ -17,7 +17,13 @@
   --danger: #ff635c;
   --border: rgba(232, 239, 232, 0.16);
   --shadow: rgba(0, 0, 0, 0.42);
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 * {
@@ -102,7 +108,10 @@ a {
   font-size: 0.86rem;
   font-weight: 850;
   text-decoration: none;
-  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
 }
 
 .aws-link::after {
@@ -150,12 +159,15 @@ h1 {
   border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--text);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent),
-    var(--surface);
-  box-shadow: 0 12px 32px var(--shadow), inset 0 -3px rgba(255, 153, 0, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent), var(--surface);
+  box-shadow:
+    0 12px 32px var(--shadow),
+    inset 0 -3px rgba(255, 153, 0, 0.1);
   cursor: pointer;
-  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .icon-button span {
@@ -175,7 +187,9 @@ h1 {
 .icon-button:focus-visible {
   transform: translateY(-2px);
   border-color: rgba(255, 153, 0, 0.62);
-  box-shadow: 0 16px 38px var(--shadow), 0 0 0 4px rgba(255, 153, 0, 0.1);
+  box-shadow:
+    0 16px 38px var(--shadow),
+    0 0 0 4px rgba(255, 153, 0, 0.1);
   outline: none;
 }
 
@@ -194,8 +208,14 @@ h1 {
     linear-gradient(90deg, rgba(224, 235, 229, 0.09) 1px, transparent 1px),
     linear-gradient(120deg, rgba(255, 153, 0, 0.12), transparent 28%),
     linear-gradient(180deg, rgba(14, 24, 28, 0.98), rgba(7, 11, 13, 0.96));
-  background-size: 92px 92px, 92px 92px, auto, auto;
-  box-shadow: 0 28px 90px var(--shadow), inset 0 4px rgba(255, 153, 0, 0.16);
+  background-size:
+    92px 92px,
+    92px 92px,
+    auto,
+    auto;
+  box-shadow:
+    0 28px 90px var(--shadow),
+    inset 0 4px rgba(255, 153, 0, 0.16);
 }
 
 .grid-window::before {
@@ -216,7 +236,11 @@ h1 {
   width: 116px;
   border-inline: 1px solid rgba(80, 213, 255, 0.26);
   background:
-    repeating-linear-gradient(180deg, rgba(80, 213, 255, 0.08) 0 12px, rgba(80, 213, 255, 0.02) 12px 24px),
+    repeating-linear-gradient(
+      180deg,
+      rgba(80, 213, 255, 0.08) 0 12px,
+      rgba(80, 213, 255, 0.02) 12px 24px
+    ),
     rgba(80, 213, 255, 0.025);
   animation: sweepDrift 8s ease-in-out infinite alternate;
   pointer-events: none;
@@ -232,7 +256,9 @@ h1 {
   border: 1px solid rgba(255, 153, 0, 0.26);
   border-radius: 8px;
   background: linear-gradient(180deg, rgba(20, 29, 32, 0.96), rgba(8, 13, 15, 0.93));
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35), inset 5px 0 rgba(255, 153, 0, 0.68);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.35),
+    inset 5px 0 rgba(255, 153, 0, 0.68);
   backdrop-filter: blur(10px);
 }
 
@@ -325,7 +351,10 @@ h1 {
   fill: rgba(10, 16, 18, 0.9);
   stroke: var(--cyan);
   stroke-width: 5;
-  transition: stroke-width 160ms ease, filter 160ms ease, fill 160ms ease;
+  transition:
+    stroke-width 160ms ease,
+    filter 160ms ease,
+    fill 160ms ease;
 }
 
 .hex-node polygon {
@@ -426,7 +455,9 @@ h1 {
   border: 1px solid rgba(134, 247, 173, 0.24);
   border-radius: 8px;
   background: linear-gradient(180deg, rgba(17, 25, 26, 0.94), rgba(8, 12, 13, 0.93));
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.34), inset 4px 0 rgba(134, 247, 173, 0.54);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.34),
+    inset 4px 0 rgba(134, 247, 173, 0.54);
   backdrop-filter: blur(10px);
 }
 
@@ -790,8 +821,7 @@ h1 {
   min-height: 164px;
   padding: 1rem;
   background:
-    linear-gradient(180deg, rgba(183, 148, 255, 0.06), transparent 70%),
-    rgba(255, 255, 255, 0.025);
+    linear-gradient(180deg, rgba(183, 148, 255, 0.06), transparent 70%), rgba(255, 255, 255, 0.025);
 }
 
 .doctrine-card span {
@@ -1260,7 +1290,7 @@ h1 {
 }
 
 .scenario-strip,
-.incident-inspector,
+.console-deck,
 .grid-window,
 .metrics,
 .runbook-panel,
@@ -1335,14 +1365,18 @@ h1 {
   min-height: 0;
   background:
     linear-gradient(rgba(120, 151, 168, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(120, 151, 168, 0.07) 1px, transparent 1px),
-    #071018;
+    linear-gradient(90deg, rgba(120, 151, 168, 0.07) 1px, transparent 1px), #071018;
   background-size: 76px 76px;
   box-shadow: inset 0 2px rgba(255, 153, 0, 0.15);
 }
 
 .grid-window::before {
-  background: linear-gradient(90deg, transparent 0 42%, rgba(80, 213, 255, 0.035) 42% 50%, transparent 50%);
+  background: linear-gradient(
+    90deg,
+    transparent 0 42%,
+    rgba(80, 213, 255, 0.035) 42% 50%,
+    transparent 50%
+  );
 }
 
 .sweep {
@@ -1405,7 +1439,7 @@ h1 {
   font-size: 1.65rem;
 }
 
-.incident-inspector {
+.console-deck {
   min-width: 0;
   overflow: auto;
   border: 1px solid var(--border);
@@ -1599,7 +1633,7 @@ h1 {
     min-height: 650px;
   }
 
-  .incident-inspector {
+  .console-deck {
     grid-column: 1 / -1;
   }
 
@@ -1681,4 +1715,716 @@ h1 {
     border-right: 0;
     border-bottom: 1px solid var(--border);
   }
+}
+
+/* =====================================================================
+   Accessibility, theming, and shareable-view enhancements
+   ===================================================================== */
+
+/* Skip link — visible only on keyboard focus */
+.skip-link {
+  position: fixed;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--orange);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 800;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: none;
+}
+
+/* A clearly visible, high-contrast focus indicator for keyboard users (WCAG
+   2.4.7). `!important` guarantees it wins over the pre-existing component rules
+   that set `outline: none`; outline-offset keeps it legible alongside the
+   existing box-shadow focus rings. */
+:root {
+  --focus: #4ea8ff;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus) !important;
+  outline-offset: 2px !important;
+}
+
+/* SVG service nodes are focusable (role=button); give the outline something to
+   hug since SVG groups have no box. */
+.service-node:focus-visible polygon,
+.service-node:focus-visible circle,
+.service-node:focus-visible rect {
+  stroke: var(--focus);
+  stroke-width: 3px;
+}
+
+/* "Link copied" confirmation on the share button */
+.icon-button.is-copied {
+  border-color: var(--green);
+  box-shadow: inset 0 -2px var(--green);
+  color: var(--green);
+}
+
+.icon-button.is-copied span {
+  color: var(--green);
+}
+
+/* Active theme button reads slightly brighter */
+.icon-button[data-theme-mode]:not([data-theme-mode="system"]) {
+  border-color: rgba(255, 153, 0, 0.5);
+}
+
+/* ---------------------------------------------------------------------
+   Light theme — applied when forced via [data-theme="light"] or when the
+   OS prefers light and the user has not overridden the choice.
+   --------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #e9eef2;
+  --surface: #ffffff;
+  --surface-2: #f3f6f9;
+  --surface-3: #e7edf1;
+  --grid: rgba(36, 57, 72, 0.12);
+  --grid-soft: rgba(36, 57, 72, 0.06);
+  --text: #0c1a23;
+  --muted: #3f515c;
+  --dim: #64747d;
+  --border: #c5d1d9;
+  --shadow: rgba(22, 43, 58, 0.16);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #e9eef2;
+    --surface: #ffffff;
+    --surface-2: #f3f6f9;
+    --surface-3: #e7edf1;
+    --grid: rgba(36, 57, 72, 0.12);
+    --grid-soft: rgba(36, 57, 72, 0.06);
+    --text: #0c1a23;
+    --muted: #3f515c;
+    --dim: #64747d;
+    --border: #c5d1d9;
+    --shadow: rgba(22, 43, 58, 0.16);
+  }
+}
+
+/* Tone down the dark-tuned overlay washes so panels read crisply on light */
+:root[data-theme="light"] .icon-button,
+:root:not([data-theme]) .icon-button {
+  background: var(--surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep,
+  .cursor-mark {
+    display: none;
+  }
+}
+
+/* JS-applied when the operator (or OS) requests reduced motion */
+.grid-window.reduced-motion .sweep {
+  animation: none;
+}
+
+/* =====================================================================
+   Command palette (⌘K) and toast
+   ===================================================================== */
+
+.command-button {
+  width: auto !important;
+  padding: 0 0.6rem;
+}
+
+.command-button span {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.cmdk {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: start center;
+  padding-top: 12vh;
+}
+
+.cmdk[hidden] {
+  display: none;
+}
+
+.cmdk-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 10, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.cmdk-panel {
+  position: relative;
+  width: min(640px, calc(100vw - 2rem));
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  animation: cmdkPop 140ms ease;
+}
+
+@keyframes cmdkPop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.985);
+  }
+}
+
+.cmdk-input {
+  padding: 1.05rem 1.2rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.cmdk-input:focus {
+  outline: none;
+}
+
+.cmdk-input::placeholder {
+  color: var(--dim);
+}
+
+.cmdk-list {
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.cmdk-item.is-active {
+  background: rgba(255, 153, 0, 0.16);
+  box-shadow: inset 2px 0 0 var(--orange);
+}
+
+.cmdk-item-label {
+  font-weight: 600;
+}
+
+.cmdk-item-hint {
+  flex: none;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(134, 247, 173, 0.16);
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cmdk-empty {
+  padding: 1.2rem;
+  color: var(--dim);
+  text-align: center;
+}
+
+.cmdk-foot {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--dim);
+  font-size: 0.78rem;
+}
+
+.cmdk-foot kbd {
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface-2);
+  font: inherit;
+  font-size: 0.72rem;
+}
+
+body.cmdk-open {
+  overflow: hidden;
+}
+
+.atlas-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  z-index: 2100;
+  transform: translate(-50%, 1.5rem);
+  padding: 0.7rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.atlas-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmdk-panel {
+    animation: none;
+  }
+  .atlas-toast {
+    transition: opacity 120ms ease;
+  }
+}
+
+/* =====================================================================
+   v2 — workspace views, view switcher, operations console, AI library
+   ===================================================================== */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Workspace views --- */
+.view {
+  display: none;
+}
+
+.view.is-active {
+  display: block;
+}
+
+/* Hero becomes a three-part bar: identity · workspace switch · actions */
+.hero-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.2rem;
+}
+
+.hero-panel .intro {
+  flex: 1 1 240px;
+}
+
+.view-switch {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+
+.view-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.46rem 1.05rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.view-tab-glyph {
+  font-size: 1.02rem;
+}
+
+.view-tab:hover {
+  color: var(--text);
+}
+
+.view-tab.is-active {
+  color: #0a0d0f;
+  background: linear-gradient(135deg, var(--orange), #ffc46b);
+  box-shadow: 0 6px 18px rgba(255, 153, 0, 0.32);
+}
+
+/* Full-screen Flow Studio screen */
+.app-shell[data-active-view="studio"] .flow-studio {
+  margin-top: 0.7rem;
+  min-height: calc(100vh - 8.2rem);
+}
+
+.app-shell[data-active-view="studio"] .flow-workspace {
+  min-height: calc(100vh - 17rem);
+}
+
+/* --- Operations console (right workbench column) --- */
+.console-deck {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.console-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.55rem 0.7rem 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255, 153, 0, 0.08), transparent);
+}
+
+.console-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.console-title span {
+  color: var(--dim);
+  font-size: 0.64rem;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.console-title strong {
+  color: var(--text);
+  font-size: 0.98rem;
+}
+
+.console-select select {
+  padding: 0.42rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.console-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.7rem;
+}
+
+.console-module {
+  display: block;
+  animation: consoleFade 200ms ease;
+}
+
+.console-module[hidden] {
+  display: none;
+}
+
+@keyframes consoleFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* Module-specific tweaks inside the narrow console column */
+.console-module[data-module="telemetry"] .metrics {
+  grid-template-columns: 1fr 1fr;
+}
+
+.console-module .runbook-head,
+.console-module .posture-head,
+.console-module .doctrine-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: 0.7rem;
+}
+
+.console-module .runbook-head span,
+.console-module .posture-head span,
+.console-module .doctrine-head span {
+  color: var(--dim);
+  font-size: 0.64rem;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.console-module .runbook-head strong,
+.console-module .posture-head strong,
+.console-module .doctrine-head strong {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+/* --- AI library tab + AI templates in Flow Studio --- */
+.flow-library-tabs .flow-tab-ai {
+  position: relative;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  border-color: transparent;
+}
+
+.flow-library-tabs .flow-tab-ai[aria-selected="true"],
+.flow-library-tabs .flow-tab-ai.is-active {
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.4);
+}
+
+.flow-templates .is-ai-template {
+  border-color: rgba(139, 92, 246, 0.5);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.16), rgba(236, 72, 153, 0.05));
+}
+
+.flow-templates .is-ai-template small {
+  color: var(--muted);
+}
+
+.flow-templates .is-ai-template::after {
+  content: "AI";
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+}
+
+.flow-templates button {
+  position: relative;
+}
+
+/* Stack the hero switcher cleanly on small screens */
+@media (max-width: 760px) {
+  .hero-panel {
+    display: flex;
+  }
+  .view-switch {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+  .app-shell[data-active-view="studio"] .flow-studio,
+  .app-shell[data-active-view="studio"] .flow-workspace {
+    min-height: 0;
+  }
+}
+
+/* =====================================================================
+   v2.1 — readable titles on the dark "screens" + signature title style
+   ===================================================================== */
+
+/* The Flow Studio and the topology map are deliberately dark workspaces.
+   Pin the dark palette to them so their text stays light regardless of the
+   global light/dark theme (fixes invisible titles in light mode). */
+.flow-studio,
+.grid-window {
+  color-scheme: dark;
+  --bg: #05080b;
+  --surface: #0a1117;
+  --surface-2: #0d1720;
+  --surface-3: #111c24;
+  --grid: rgba(124, 151, 166, 0.12);
+  --grid-soft: rgba(124, 151, 166, 0.055);
+  --text: #f4f7f8;
+  --muted: #aebcc6;
+  --dim: #7e8e98;
+  --border: #26343d;
+  --shadow: rgba(0, 0, 0, 0.34);
+}
+
+/* Signature gradient titles — readable base colour with an accent sweep. */
+h1 {
+  background: linear-gradient(100deg, var(--text) 52%, var(--orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.flow-studio-brand h2,
+#flowStudioTitle {
+  color: #f4f7f8;
+  background: linear-gradient(100deg, #f4f7f8 50%, var(--flow-cyan, #42d6f5));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 850;
+}
+
+/* Make the "Architecture" label + name field legible on the dark titlebar */
+.flow-canvas-titlebar label,
+.flow-canvas-titlebar #flowArchitectureName {
+  color: #f4f7f8;
+}
+
+.flow-canvas-titlebar #flowArchitectureName::placeholder {
+  color: #7e8e98;
+}
+
+/* Console + section eyebrows: a touch more presence */
+.console-title strong,
+.authority-card strong {
+  color: var(--text);
+}
+
+/* =====================================================================
+   v2.2 — "make it your own" edit mode
+   ===================================================================== */
+
+.edit-button.is-active {
+  border-color: var(--green);
+  box-shadow: inset 0 -2px var(--green);
+}
+
+.edit-button.is-active span {
+  color: var(--green);
+}
+
+/* Editable identity affordance */
+.app-shell.is-editing h1,
+.app-shell.is-editing .lede {
+  outline: 1px dashed rgba(255, 153, 0, 0.55);
+  outline-offset: 6px;
+  border-radius: 6px;
+  cursor: text;
+}
+
+/* Make the gradient title solid while editing so the caret + text are visible */
+.app-shell.is-editing h1 {
+  background: none;
+  -webkit-text-fill-color: var(--text);
+  color: var(--text);
+}
+
+.app-shell.is-editing .service-node {
+  cursor: cell;
+}
+
+.app-shell.is-editing .service-node:hover polygon,
+.app-shell.is-editing .service-node:hover circle,
+.app-shell.is-editing .service-node:hover rect {
+  stroke: var(--orange);
+  stroke-width: 7;
+}
+
+/* Node editor popover */
+.node-editor {
+  position: fixed;
+  inset: 0;
+  z-index: 2200;
+  display: none;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(2, 6, 10, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.node-editor.is-open {
+  display: grid;
+}
+
+.node-editor-card {
+  width: min(380px, 100%);
+  padding: 1.3rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.node-editor-card h3 {
+  margin: 0 0 1rem;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.node-editor-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.node-editor-card input {
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+}
+
+.node-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.node-editor-actions button {
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.node-editor-actions button.is-primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--orange), #ffc46b);
+  color: #0a0d0f;
 }

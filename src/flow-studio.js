@@ -1,14 +1,29 @@
-(function initializeFlowStudio(global) {
+/**
+ * AWS Flow Studio — a topology-first architecture lab.
+ *
+ * Initialized by src/main.js once the icon catalog has been lazily loaded. The
+ * catalog is passed in (rather than read from a global) so the 327 KB data file
+ * can be code-split and fetched only when the studio is first revealed.
+ *
+ * @param {Array} iconCatalog - the AWS icon catalog entries
+ * @param {object} iconCatalogMeta - catalog metadata (release, count, ...)
+ */
+export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   "use strict";
 
-  const catalog = Array.isArray(global.AWS_ICON_CATALOG) ? global.AWS_ICON_CATALOG : [];
-  const catalogMeta = global.AWS_ICON_CATALOG_META || { count: catalog.length };
+  const global = typeof window !== "undefined" ? window : globalThis;
+  const catalog = Array.isArray(iconCatalog)
+    ? iconCatalog
+    : Array.isArray(global.AWS_ICON_CATALOG)
+      ? global.AWS_ICON_CATALOG
+      : [];
+  const catalogMeta = iconCatalogMeta || global.AWS_ICON_CATALOG_META || { count: catalog.length };
   const storageKey = "aws-command-atlas-flow-studio-v2";
   const legacyStorageKey = "aws-command-atlas-flow-studio-v1";
   const criticalityColors = {
     high: "#ff635c",
     medium: "#ffb84d",
-    low: "#86f7ad"
+    low: "#86f7ad",
   };
 
   const elements = {
@@ -76,7 +91,7 @@
     statusMessage: document.getElementById("flowStatusMessage"),
     region: document.getElementById("flowRegion"),
     gridToggle: document.getElementById("flowGridToggle"),
-    zoom: document.getElementById("flowZoom")
+    zoom: document.getElementById("flowZoom"),
   };
 
   if (!elements.canvas || !catalog.length) {
@@ -91,7 +106,7 @@
   let connectSourceId = null;
   let nodeSequence = 0;
   let connectionSequence = 0;
-  let history = [];
+  const history = [];
   let future = [];
   let dragState = null;
   let inspectorTab = "inspect";
@@ -108,14 +123,14 @@
     grid: true,
     zoom: 1,
     nodes: [],
-    connections: []
+    connections: [],
   };
 
   state.connections = state.connections.map((connection) => ({
     type: "request",
     label: "HTTPS",
     encrypted: true,
-    ...connection
+    ...connection,
   }));
 
   function clamp(value, minimum, maximum) {
@@ -132,8 +147,9 @@
 
   function loadState() {
     try {
-      const saved = safeParse(global.localStorage.getItem(storageKey))
-        || safeParse(global.localStorage.getItem(legacyStorageKey));
+      const saved =
+        safeParse(global.localStorage.getItem(storageKey)) ||
+        safeParse(global.localStorage.getItem(legacyStorageKey));
       if (!saved || !Array.isArray(saved.nodes) || !Array.isArray(saved.connections)) {
         return null;
       }
@@ -150,7 +166,7 @@
       grid: state.grid,
       zoom: state.zoom,
       nodes: state.nodes,
-      connections: state.connections
+      connections: state.connections,
     });
   }
 
@@ -204,9 +220,15 @@
 
   function findIcon(name, preferredType = "service") {
     const normalized = name.toLowerCase();
-    return catalog.find((icon) => icon.type === preferredType && icon.name.toLowerCase() === normalized)
-      || catalog.find((icon) => icon.type === preferredType && icon.name.toLowerCase().includes(normalized))
-      || catalog.find((icon) => icon.name.toLowerCase().includes(normalized));
+    return (
+      catalog.find(
+        (icon) => icon.type === preferredType && icon.name.toLowerCase() === normalized
+      ) ||
+      catalog.find(
+        (icon) => icon.type === preferredType && icon.name.toLowerCase().includes(normalized)
+      ) ||
+      catalog.find((icon) => icon.name.toLowerCase().includes(normalized))
+    );
   }
 
   function nextNodeId() {
@@ -232,7 +254,7 @@
       y: clamp(y, 0.08, 0.92),
       environment: overrides.environment || "Production",
       criticality: overrides.criticality || "medium",
-      notes: overrides.notes || ""
+      notes: overrides.notes || "",
     };
   }
 
@@ -261,10 +283,20 @@
     if (names.includes("cloudwatch") || names.includes("x-ray")) {
       return { type: "telemetry", label: "Telemetry", encrypted: true };
     }
-    if (names.includes("eventbridge") || names.includes("queue") || names.includes("sqs") || names.includes("sns")) {
+    if (
+      names.includes("eventbridge") ||
+      names.includes("queue") ||
+      names.includes("sqs") ||
+      names.includes("sns")
+    ) {
       return { type: "event", label: "Events", encrypted: true };
     }
-    if (names.includes("dynamodb") || names.includes("rds") || names.includes("s3") || names.includes("aurora")) {
+    if (
+      names.includes("dynamodb") ||
+      names.includes("rds") ||
+      names.includes("s3") ||
+      names.includes("aurora")
+    ) {
       return { type: "data", label: "Query", encrypted: true };
     }
     return { type: "request", label: "HTTPS", encrypted: true };
@@ -275,12 +307,19 @@
       elements.statusMessage.textContent = "Choose two different nodes";
       return;
     }
-    if (state.connections.some((connection) => connection.from === fromId && connection.to === toId)) {
+    if (
+      state.connections.some((connection) => connection.from === fromId && connection.to === toId)
+    ) {
       elements.statusMessage.textContent = "Those nodes are already connected";
       return;
     }
     commit("Connection added", () => {
-      const connection = { id: nextConnectionId(), from: fromId, to: toId, ...connectionDefaults(fromId, toId) };
+      const connection = {
+        id: nextConnectionId(),
+        from: fromId,
+        to: toId,
+        ...connectionDefaults(fromId, toId),
+      };
       state.connections.push(connection);
       selectedConnectionId = connection.id;
       selectedNodeId = null;
@@ -293,7 +332,9 @@
       const node = state.nodes.find((item) => item.id === selectedNodeId);
       commit(`Deleted ${node?.name || "node"}`, () => {
         state.nodes = state.nodes.filter((item) => item.id !== selectedNodeId);
-        state.connections = state.connections.filter((connection) => connection.from !== selectedNodeId && connection.to !== selectedNodeId);
+        state.connections = state.connections.filter(
+          (connection) => connection.from !== selectedNodeId && connection.to !== selectedNodeId
+        );
         selectedNodeId = null;
         connectSourceId = null;
         resetSimulationState();
@@ -302,7 +343,9 @@
     }
     if (selectedConnectionId) {
       commit("Connection deleted", () => {
-        state.connections = state.connections.filter((connection) => connection.id !== selectedConnectionId);
+        state.connections = state.connections.filter(
+          (connection) => connection.id !== selectedConnectionId
+        );
         selectedConnectionId = null;
         resetSimulationState();
       });
@@ -317,9 +360,8 @@
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", String(active));
     });
-    elements.canvasHint.textContent = mode === "connect"
-      ? "Select a source node, then a destination"
-      : "Select an icon to add it";
+    elements.canvasHint.textContent =
+      mode === "connect" ? "Select a source node, then a destination" : "Select an icon to add it";
     renderNodes();
   }
 
@@ -339,8 +381,9 @@
 
   function renderCategories() {
     const current = elements.categoryFilter.value;
-    const categories = [...new Set(catalog.filter((icon) => icon.type === iconType).map((icon) => icon.category))]
-      .sort((a, b) => a.localeCompare(b));
+    const categories = [
+      ...new Set(catalog.filter((icon) => icon.type === iconType).map((icon) => icon.category)),
+    ].sort((a, b) => a.localeCompare(b));
     elements.categoryFilter.replaceChildren();
     const allOption = document.createElement("option");
     allOption.value = "all";
@@ -381,9 +424,10 @@
       empty.textContent = "No AWS icons match this filter.";
       elements.iconGrid.append(empty);
     }
-    elements.libraryCount.textContent = icons.length > visible.length
-      ? `${icons.length} icons · showing ${visible.length}`
-      : `${icons.length} icons`;
+    elements.libraryCount.textContent =
+      icons.length > visible.length
+        ? `${icons.length} icons · showing ${visible.length}`
+        : `${icons.length} icons`;
     renderRecentIcons();
   }
 
@@ -428,7 +472,10 @@
   function renderConnections() {
     const nodeMap = new Map(state.nodes.map((node) => [node.id, node]));
     const rect = elements.canvas.getBoundingClientRect();
-    elements.connections.setAttribute("viewBox", `0 0 ${Math.max(1, rect.width)} ${Math.max(1, rect.height)}`);
+    elements.connections.setAttribute(
+      "viewBox",
+      `0 0 ${Math.max(1, rect.width)} ${Math.max(1, rect.height)}`
+    );
     elements.connections.replaceChildren();
 
     const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
@@ -456,12 +503,17 @@
       const pathData = connectionPath(from, to);
       const visible = document.createElementNS("http://www.w3.org/2000/svg", "path");
       visible.setAttribute("d", pathData);
-      visible.setAttribute("class", [
-        "flow-connection",
-        `is-${connection.type || "request"}`,
-        selectedConnectionId === connection.id ? "is-selected" : "",
-        affectedConnectionIds.has(connection.id) ? "is-affected" : ""
-      ].filter(Boolean).join(" "));
+      visible.setAttribute(
+        "class",
+        [
+          "flow-connection",
+          `is-${connection.type || "request"}`,
+          selectedConnectionId === connection.id ? "is-selected" : "",
+          affectedConnectionIds.has(connection.id) ? "is-affected" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")
+      );
       const hit = document.createElementNS("http://www.w3.org/2000/svg", "path");
       hit.setAttribute("d", pathData);
       hit.setAttribute("class", "flow-connection-hit");
@@ -470,7 +522,8 @@
       label.setAttribute("class", "flow-connection-label");
       label.setAttribute("x", String(((from.x + to.x) / 2) * rect.width));
       label.setAttribute("y", String(((from.y + to.y) / 2) * rect.height - 8));
-      label.textContent = connection.label || connectionDefaults(connection.from, connection.to).label;
+      label.textContent =
+        connection.label || connectionDefaults(connection.from, connection.to).label;
       elements.connections.append(visible, label, hit);
     });
   }
@@ -489,8 +542,14 @@
       button.dataset.nodeId = node.id;
       button.style.left = `${node.x * 100}%`;
       button.style.top = `${node.y * 100}%`;
-      button.style.setProperty("--criticality", criticalityColors[node.criticality] || criticalityColors.medium);
-      button.setAttribute("aria-label", `${node.name}, ${node.environment}, ${node.criticality} criticality`);
+      button.style.setProperty(
+        "--criticality",
+        criticalityColors[node.criticality] || criticalityColors.medium
+      );
+      button.setAttribute(
+        "aria-label",
+        `${node.name}, ${node.environment}, ${node.criticality} criticality`
+      );
       const image = document.createElement("img");
       image.src = node.iconPath;
       image.alt = "";
@@ -551,7 +610,11 @@
     elements.selectedSummary.replaceChildren();
     elements.nodeFields.hidden = !node;
     elements.connectionFields.hidden = !connection;
-    elements.inspectorMode.textContent = node ? "Node" : selectedConnectionId ? "Connection" : "Diagram";
+    elements.inspectorMode.textContent = node
+      ? "Node"
+      : selectedConnectionId
+        ? "Connection"
+        : "Diagram";
     if (!node) {
       if (connection) {
         const from = state.nodes.find((item) => item.id === connection.from);
@@ -605,84 +668,206 @@
   function architectureChecks() {
     const checks = [];
     const names = state.nodes.map((node) => `${node.name} ${node.serviceName}`.toLowerCase());
-    const connectedIds = new Set(state.connections.flatMap((connection) => [connection.from, connection.to]));
+    const connectedIds = new Set(
+      state.connections.flatMap((connection) => [connection.from, connection.to])
+    );
     const isolated = state.nodes.filter((node) => !connectedIds.has(node.id));
     const hasMonitoring = names.some((name) => name.includes("cloudwatch"));
-    const hasPublicEntry = names.some((name) => name.includes("cloudfront") || name.includes("api gateway"));
+    const hasPublicEntry = names.some(
+      (name) => name.includes("cloudfront") || name.includes("api gateway")
+    );
     const hasEdgeSecurity = names.some((name) => name.includes("waf") || name.includes("shield"));
-    const hasData = names.some((name) => name.includes("dynamodb") || name.includes("rds") || name.includes("aurora") || name.includes("s3"));
-    const hasRecovery = names.some((name) => name.includes("backup") || name.includes("s3") || name.includes("glacier"));
+    const hasData = names.some(
+      (name) =>
+        name.includes("dynamodb") ||
+        name.includes("rds") ||
+        name.includes("aurora") ||
+        name.includes("s3")
+    );
+    const hasRecovery = names.some(
+      (name) => name.includes("backup") || name.includes("s3") || name.includes("glacier")
+    );
 
-    checks.push(state.nodes.length >= 2 && state.connections.length >= 1
-      ? { tone: "pass", title: "Flow path established", detail: `${state.connections.length} directional connection${state.connections.length === 1 ? "" : "s"}` }
-      : { tone: "warn", title: "Architecture is not connected", detail: "Add at least two nodes and connect them." });
-    checks.push(isolated.length
-      ? { tone: "warn", title: `${isolated.length} isolated node${isolated.length === 1 ? "" : "s"}`, detail: "Connect every service to make ownership and traffic flow visible." }
-      : { tone: "pass", title: "No isolated services", detail: "Every node participates in the architecture flow." });
-    checks.push(hasMonitoring
-      ? { tone: "pass", title: "Observability present", detail: "CloudWatch is represented in the design." }
-      : { tone: "warn", title: "No observability service", detail: "Add CloudWatch or another telemetry destination." });
+    checks.push(
+      state.nodes.length >= 2 && state.connections.length >= 1
+        ? {
+            tone: "pass",
+            title: "Flow path established",
+            detail: `${state.connections.length} directional connection${state.connections.length === 1 ? "" : "s"}`,
+          }
+        : {
+            tone: "warn",
+            title: "Architecture is not connected",
+            detail: "Add at least two nodes and connect them.",
+          }
+    );
+    checks.push(
+      isolated.length
+        ? {
+            tone: "warn",
+            title: `${isolated.length} isolated node${isolated.length === 1 ? "" : "s"}`,
+            detail: "Connect every service to make ownership and traffic flow visible.",
+          }
+        : {
+            tone: "pass",
+            title: "No isolated services",
+            detail: "Every node participates in the architecture flow.",
+          }
+    );
+    checks.push(
+      hasMonitoring
+        ? {
+            tone: "pass",
+            title: "Observability present",
+            detail: "CloudWatch is represented in the design.",
+          }
+        : {
+            tone: "warn",
+            title: "No observability service",
+            detail: "Add CloudWatch or another telemetry destination.",
+          }
+    );
     if (hasPublicEntry) {
-      checks.push(hasEdgeSecurity
-        ? { tone: "pass", title: "Public edge is protected", detail: "WAF or Shield is present near the entry path." }
-        : { tone: "warn", title: "Public edge needs protection", detail: "Consider AWS WAF or Shield for public traffic." });
+      checks.push(
+        hasEdgeSecurity
+          ? {
+              tone: "pass",
+              title: "Public edge is protected",
+              detail: "WAF or Shield is present near the entry path.",
+            }
+          : {
+              tone: "warn",
+              title: "Public edge needs protection",
+              detail: "Consider AWS WAF or Shield for public traffic.",
+            }
+      );
     }
     if (hasData) {
-      checks.push(hasRecovery
-        ? { tone: "pass", title: "Recovery target represented", detail: "The architecture includes a durable recovery service." }
-        : { tone: "warn", title: "Data recovery is unclear", detail: "Add AWS Backup, S3, or Glacier to show recovery intent." });
+      checks.push(
+        hasRecovery
+          ? {
+              tone: "pass",
+              title: "Recovery target represented",
+              detail: "The architecture includes a durable recovery service.",
+            }
+          : {
+              tone: "warn",
+              title: "Data recovery is unclear",
+              detail: "Add AWS Backup, S3, or Glacier to show recovery intent.",
+            }
+      );
     }
     const unencrypted = state.connections.filter((connection) => connection.encrypted === false);
     if (unencrypted.length) {
-      checks.unshift({ tone: "fail", title: `${unencrypted.length} unencrypted path${unencrypted.length === 1 ? "" : "s"}`, detail: "Enable in-transit encryption for every workload path." });
+      checks.unshift({
+        tone: "fail",
+        title: `${unencrypted.length} unencrypted path${unencrypted.length === 1 ? "" : "s"}`,
+        detail: "Enable in-transit encryption for every workload path.",
+      });
     } else if (state.connections.length) {
-      checks.push({ tone: "pass", title: "Traffic encryption declared", detail: "Every modeled path is encrypted in transit." });
+      checks.push({
+        tone: "pass",
+        title: "Traffic encryption declared",
+        detail: "Every modeled path is encrypted in transit.",
+      });
     }
-    const hasIdentity = names.some((name) => name.includes("iam") || name.includes("cognito") || name.includes("identity"));
-    checks.push(hasIdentity
-      ? { tone: "pass", title: "Identity boundary represented", detail: "The design includes an AWS identity control." }
-      : { tone: "warn", title: "Identity boundary is implicit", detail: "Add IAM, Cognito, or IAM Identity Center to show trust ownership." });
+    const hasIdentity = names.some(
+      (name) => name.includes("iam") || name.includes("cognito") || name.includes("identity")
+    );
+    checks.push(
+      hasIdentity
+        ? {
+            tone: "pass",
+            title: "Identity boundary represented",
+            detail: "The design includes an AWS identity control.",
+          }
+        : {
+            tone: "warn",
+            title: "Identity boundary is implicit",
+            detail: "Add IAM, Cognito, or IAM Identity Center to show trust ownership.",
+          }
+    );
     return checks;
   }
 
   function architectureAnalysis() {
     const names = state.nodes.map((node) => `${node.name} ${node.serviceName}`.toLowerCase());
-    const includesAny = (...terms) => names.some((name) => terms.some((term) => name.includes(term)));
-    const connectedIds = new Set(state.connections.flatMap((connection) => [connection.from, connection.to]));
+    const includesAny = (...terms) =>
+      names.some((name) => terms.some((term) => name.includes(term)));
+    const connectedIds = new Set(
+      state.connections.flatMap((connection) => [connection.from, connection.to])
+    );
     const connectedRatio = state.nodes.length ? connectedIds.size / state.nodes.length : 0;
     const encryptedRatio = state.connections.length
-      ? state.connections.filter((connection) => connection.encrypted !== false).length / state.connections.length
+      ? state.connections.filter((connection) => connection.encrypted !== false).length /
+        state.connections.length
       : 0;
-    const security = clamp(Math.round(
-      20 + encryptedRatio * 35
-      + (includesAny("waf", "shield") ? 25 : 0)
-      + (includesAny("iam", "cognito", "identity center") ? 20 : 0)
-    ), 0, 100);
-    const reliability = clamp(Math.round(
-      22 + connectedRatio * 30
-      + Math.min(18, state.nodes.length * 2.5)
-      + (includesAny("queue", "sqs", "eventbridge", "auto scaling", "elastic load") ? 22 : 0)
-      + (state.nodes.filter((node) => node.environment === "Production").length >= 3 ? 8 : 0)
-    ), 0, 100);
-    const observability = clamp(Math.round(
-      18 + (includesAny("cloudwatch") ? 48 : 0)
-      + (includesAny("x-ray", "cloudtrail") ? 22 : 0)
-      + (state.connections.some((connection) => connection.type === "telemetry") ? 12 : 0)
-    ), 0, 100);
-    const recovery = clamp(Math.round(
-      18 + (includesAny("backup", "glacier") ? 38 : 0)
-      + (includesAny("s3", "dynamodb", "aurora", "rds") ? 24 : 0)
-      + (includesAny("queue", "sqs", "step functions") ? 20 : 0)
-    ), 0, 100);
+    const security = clamp(
+      Math.round(
+        20 +
+          encryptedRatio * 35 +
+          (includesAny("waf", "shield") ? 25 : 0) +
+          (includesAny("iam", "cognito", "identity center") ? 20 : 0)
+      ),
+      0,
+      100
+    );
+    const reliability = clamp(
+      Math.round(
+        22 +
+          connectedRatio * 30 +
+          Math.min(18, state.nodes.length * 2.5) +
+          (includesAny("queue", "sqs", "eventbridge", "auto scaling", "elastic load") ? 22 : 0) +
+          (state.nodes.filter((node) => node.environment === "Production").length >= 3 ? 8 : 0)
+      ),
+      0,
+      100
+    );
+    const observability = clamp(
+      Math.round(
+        18 +
+          (includesAny("cloudwatch") ? 48 : 0) +
+          (includesAny("x-ray", "cloudtrail") ? 22 : 0) +
+          (state.connections.some((connection) => connection.type === "telemetry") ? 12 : 0)
+      ),
+      0,
+      100
+    );
+    const recovery = clamp(
+      Math.round(
+        18 +
+          (includesAny("backup", "glacier") ? 38 : 0) +
+          (includesAny("s3", "dynamodb", "aurora", "rds") ? 24 : 0) +
+          (includesAny("queue", "sqs", "step functions") ? 20 : 0)
+      ),
+      0,
+      100
+    );
     const failurePenalty = failedNodeId ? Math.min(20, 7 + affectedNodeIds.size * 2) : 0;
-    const overall = clamp(Math.round((security + reliability + observability + recovery) / 4) - failurePenalty, 0, 100);
+    const overall = clamp(
+      Math.round((security + reliability + observability + recovery) / 4) - failurePenalty,
+      0,
+      100
+    );
     return { security, reliability, observability, recovery, overall };
   }
 
   function renderScore() {
     const analysis = architectureAnalysis();
-    const grade = analysis.overall >= 85 ? "Excellent" : analysis.overall >= 70 ? "Good" : analysis.overall >= 50 ? "Developing" : "At risk";
-    const color = analysis.overall >= 70 ? "var(--green)" : analysis.overall >= 50 ? "var(--amber)" : "var(--danger)";
+    const grade =
+      analysis.overall >= 85
+        ? "Excellent"
+        : analysis.overall >= 70
+          ? "Good"
+          : analysis.overall >= 50
+            ? "Developing"
+            : "At risk";
+    const color =
+      analysis.overall >= 70
+        ? "var(--green)"
+        : analysis.overall >= 50
+          ? "var(--amber)"
+          : "var(--danger)";
     elements.score.textContent = String(analysis.overall);
     elements.scoreGrade.textContent = grade;
     elements.scoreGrade.style.color = color;
@@ -731,20 +916,28 @@
       elements.simulationState.textContent = "Failure active";
       elements.simulationState.style.color = "var(--danger)";
       elements.affectedPaths.textContent = String(affectedConnectionIds.size);
-      elements.affectedPaths.style.color = affectedConnectionIds.size ? "var(--danger)" : "var(--green)";
+      elements.affectedPaths.style.color = affectedConnectionIds.size
+        ? "var(--danger)"
+        : "var(--green)";
       elements.simulationMessage.textContent = `${failedNode?.name || "Selected service"} failure reaches ${affectedNodeIds.size} downstream node${affectedNodeIds.size === 1 ? "" : "s"}.`;
     } else {
       elements.simulationState.textContent = simulationRunning ? "Traffic running" : "Ready";
-      elements.simulationState.style.color = simulationRunning ? "var(--flow-cyan)" : "var(--green)";
+      elements.simulationState.style.color = simulationRunning
+        ? "var(--flow-cyan)"
+        : "var(--green)";
       elements.affectedPaths.textContent = "0";
       elements.affectedPaths.style.color = "var(--green)";
-      elements.simulationMessage.textContent = selectedNodeId ? "Selected node is ready for failure rehearsal." : "Select a node to rehearse failure.";
+      elements.simulationMessage.textContent = selectedNodeId
+        ? "Selected node is ready for failure rehearsal."
+        : "Select a node to rehearse failure.";
     }
   }
 
   function toggleTrafficSimulation() {
     simulationRunning = !simulationRunning;
-    elements.statusMessage.textContent = simulationRunning ? "Live traffic simulation started" : "Traffic simulation paused";
+    elements.statusMessage.textContent = simulationRunning
+      ? "Live traffic simulation started"
+      : "Traffic simulation paused";
     elements.statusMessage.style.color = simulationRunning ? "var(--cyan)" : "var(--muted)";
     renderSimulation();
     renderConnections();
@@ -838,9 +1031,17 @@
           ["Amazon DynamoDB", 0.75, 0.42, "Application state"],
           ["Amazon Simple Storage Service", 0.55, 0.48, "Object archive"],
           ["Amazon CloudWatch", 0.75, 0.78, "Service telemetry"],
-          ["Amazon Cognito", 0.23, 0.78, "Customer identity"]
+          ["Amazon Cognito", 0.23, 0.78, "Customer identity"],
         ],
-        links: [[0, 1], [1, 2], [2, 3], [3, 4], [3, 5], [3, 6], [7, 2]]
+        links: [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [3, 4],
+          [3, 5],
+          [3, 6],
+          [7, 2],
+        ],
       },
       events: {
         title: "Event pipeline",
@@ -852,9 +1053,17 @@
           ["Amazon DynamoDB", 0.8, 0.47, "Processing state"],
           ["Amazon Simple Storage Service", 0.55, 0.47, "Result archive"],
           ["Amazon CloudWatch", 0.7, 0.78, "Pipeline telemetry"],
-          ["AWS Identity and Access Management", 0.29, 0.78, "Execution roles"]
+          ["AWS Identity and Access Management", 0.29, 0.78, "Execution roles"],
         ],
-        links: [[0, 1], [1, 2], [2, 3], [3, 4], [3, 5], [3, 6], [7, 1]]
+        links: [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [3, 4],
+          [3, 5],
+          [3, 6],
+          [7, 1],
+        ],
       },
       web: {
         title: "Resilient web app",
@@ -867,10 +1076,85 @@
           ["Amazon RDS", 0.82, 0.44, "Primary database"],
           ["Amazon Simple Storage Service", 0.49, 0.47, "Static assets"],
           ["Amazon CloudWatch", 0.67, 0.78, "Operations telemetry"],
-          ["AWS Backup", 0.82, 0.78, "Recovery vault"]
+          ["AWS Backup", 0.82, 0.78, "Recovery vault"],
         ],
-        links: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [6, 1], [4, 7], [5, 8]]
-      }
+        links: [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [3, 4],
+          [4, 5],
+          [6, 1],
+          [4, 7],
+          [5, 8],
+        ],
+      },
+      "claude-rag": {
+        title: "Claude RAG assistant",
+        nodes: [
+          ["Amazon API Gateway", 0.1, 0.2, "Chat API"],
+          ["AWS Lambda", 0.27, 0.2, "Orchestrator"],
+          ["Claude", 0.46, 0.2, "Claude — reasoning"],
+          ["AI Guardrails", 0.64, 0.2, "Safety filter"],
+          ["Embeddings Model", 0.27, 0.48, "Embeddings"],
+          ["Vector Database", 0.46, 0.48, "Knowledge index"],
+          ["Amazon Simple Storage Service", 0.64, 0.48, "Source documents"],
+          ["Amazon CloudWatch", 0.46, 0.8, "Token & latency telemetry"],
+        ],
+        links: [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [1, 4],
+          [4, 5],
+          [5, 6],
+          [1, 7],
+        ],
+      },
+      "ai-agent": {
+        title: "AI agent platform",
+        nodes: [
+          ["Amazon API Gateway", 0.1, 0.2, "Agent API"],
+          ["AI Agent", 0.28, 0.2, "Planner / orchestrator"],
+          ["Foundation Model", 0.47, 0.2, "Reasoning model"],
+          ["AI Guardrails", 0.65, 0.2, "Policy guardrails"],
+          ["AWS Lambda", 0.28, 0.48, "Tool functions"],
+          ["Amazon DynamoDB", 0.47, 0.48, "Agent memory"],
+          ["Vector Database", 0.65, 0.48, "Retrieval"],
+          ["Amazon CloudWatch", 0.47, 0.8, "Traces & evals"],
+        ],
+        links: [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [1, 4],
+          [1, 5],
+          [1, 6],
+          [1, 7],
+        ],
+      },
+      chatbot: {
+        title: "GenAI chatbot",
+        nodes: [
+          ["Amazon CloudFront", 0.08, 0.2, "Edge"],
+          ["Amazon API Gateway", 0.25, 0.2, "Chat API"],
+          ["AWS Lambda", 0.42, 0.2, "Backend"],
+          ["ChatGPT", 0.6, 0.2, "ChatGPT"],
+          ["AI Guardrails", 0.78, 0.2, "Moderation"],
+          ["Amazon Cognito", 0.25, 0.48, "Customer auth"],
+          ["Amazon DynamoDB", 0.6, 0.48, "Conversation history"],
+          ["Amazon CloudWatch", 0.6, 0.8, "Telemetry"],
+        ],
+        links: [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [3, 4],
+          [5, 1],
+          [2, 6],
+          [2, 7],
+        ],
+      },
     };
     return definitions[name];
   }
@@ -901,21 +1185,18 @@
     }
     const build = () => {
       state.name = definition.title;
-      state.nodes = definition.nodes.map(([service, x, y, nodeName], index) => makeNode(
-        iconForTemplate(service),
-        x,
-        y,
-        {
+      state.nodes = definition.nodes.map(([service, x, y, nodeName], index) =>
+        makeNode(iconForTemplate(service), x, y, {
           name: nodeName,
           criticality: index < 3 ? "high" : "medium",
-          notes: `Official ${service} component in the ${definition.title} flow.`
-        }
-      ));
+          notes: `Official ${service} component in the ${definition.title} flow.`,
+        })
+      );
       state.connections = definition.links.map(([from, to]) => ({
         id: nextConnectionId(),
         from: state.nodes[from].id,
         to: state.nodes[to].id,
-        ...connectionDefaults(state.nodes[from].id, state.nodes[to].id)
+        ...connectionDefaults(state.nodes[from].id, state.nodes[to].id),
       }));
       recentIconIds = state.nodes.slice(0, 4).map((node) => node.iconId);
       selectedNodeId = state.nodes[1]?.id || state.nodes[0]?.id || null;
@@ -973,9 +1254,11 @@
 
   function adjustZoom(direction) {
     const levels = [0.75, 0.9, 1, 1.15, 1.3];
-    const currentIndex = levels.reduce((closest, level, index) => (
-      Math.abs(level - state.zoom) < Math.abs(levels[closest] - state.zoom) ? index : closest
-    ), 0);
+    const currentIndex = levels.reduce(
+      (closest, level, index) =>
+        Math.abs(level - state.zoom) < Math.abs(levels[closest] - state.zoom) ? index : closest,
+      0
+    );
     const nextIndex = clamp(currentIndex + direction, 0, levels.length - 1);
     state.zoom = levels[nextIndex];
     elements.zoom.value = String(state.zoom);
@@ -1017,7 +1300,9 @@
         }
       });
       const depth = new Map();
-      const queue = state.nodes.filter((node) => indegree.get(node.id) === 0).map((node) => node.id);
+      const queue = state.nodes
+        .filter((node) => indegree.get(node.id) === 0)
+        .map((node) => node.id);
       if (!queue.length) {
         queue.push(state.nodes[0].id);
       }
@@ -1070,13 +1355,18 @@
       format: "aws-command-atlas-flow-v1",
       exportedAt: new Date().toISOString(),
       iconRelease: catalogMeta.release,
-      architecture: safeParse(architectureSnapshot())
+      architecture: safeParse(architectureSnapshot()),
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${state.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "aws-architecture"}.json`;
+    link.download = `${
+      state.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") || "aws-architecture"
+    }.json`;
     document.body.append(link);
     link.click();
     link.remove();
@@ -1086,9 +1376,17 @@
   }
 
   function escapeXml(value) {
-    return String(value).replace(/[<>&"']/g, (character) => ({
-      "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&apos;"
-    })[character]);
+    return String(value).replace(
+      /[<>&"']/g,
+      (character) =>
+        ({
+          "<": "&lt;",
+          ">": "&gt;",
+          "&": "&amp;",
+          '"': "&quot;",
+          "'": "&apos;",
+        })[character]
+    );
   }
 
   async function iconAsDataUrl(path) {
@@ -1112,34 +1410,48 @@
   async function exportSvgArchitecture() {
     const width = 1600;
     const height = 900;
-    const iconEntries = await Promise.all(state.nodes.map(async (node) => [node.id, await iconAsDataUrl(node.iconPath)]));
+    const iconEntries = await Promise.all(
+      state.nodes.map(async (node) => [node.id, await iconAsDataUrl(node.iconPath)])
+    );
     const iconMap = new Map(iconEntries);
     const nodeMap = new Map(state.nodes.map((node) => [node.id, node]));
-    const lines = state.connections.map((connection) => {
-      const from = nodeMap.get(connection.from);
-      const to = nodeMap.get(connection.to);
-      if (!from || !to) {
-        return "";
-      }
-      const x1 = from.x * width;
-      const y1 = from.y * height;
-      const x2 = to.x * width;
-      const y2 = to.y * height;
-      const bend = Math.max(60, Math.abs(x2 - x1) * 0.42) * (x2 >= x1 ? 1 : -1);
-      const dash = connection.type === "event" || connection.type === "telemetry" ? ' stroke-dasharray="10 8"' : "";
-      return `<path d="M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}" fill="none" stroke="#9db7c3" stroke-width="3"${dash} marker-end="url(#arrow)"/><text x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 12}" fill="#bfd0d7" font-size="16" text-anchor="middle">${escapeXml(connection.label || "Path")}</text>`;
-    }).join("");
-    const nodes = state.nodes.map((node) => {
-      const x = node.x * width;
-      const y = node.y * height;
-      return `<g transform="translate(${x - 58} ${y - 58})"><rect width="116" height="116" rx="6" fill="#07141d" stroke="${criticalityColors[node.criticality] || criticalityColors.medium}"/><image href="${escapeXml(iconMap.get(node.id))}" x="31" y="12" width="54" height="54"/><text x="58" y="88" fill="#f5fafc" font-size="15" font-weight="700" text-anchor="middle">${escapeXml(node.name.slice(0, 22))}</text><text x="58" y="106" fill="#8fa3ad" font-size="11" text-anchor="middle">${escapeXml(node.environment)}</text></g>`;
-    }).join("");
+    const lines = state.connections
+      .map((connection) => {
+        const from = nodeMap.get(connection.from);
+        const to = nodeMap.get(connection.to);
+        if (!from || !to) {
+          return "";
+        }
+        const x1 = from.x * width;
+        const y1 = from.y * height;
+        const x2 = to.x * width;
+        const y2 = to.y * height;
+        const bend = Math.max(60, Math.abs(x2 - x1) * 0.42) * (x2 >= x1 ? 1 : -1);
+        const dash =
+          connection.type === "event" || connection.type === "telemetry"
+            ? ' stroke-dasharray="10 8"'
+            : "";
+        return `<path d="M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}" fill="none" stroke="#9db7c3" stroke-width="3"${dash} marker-end="url(#arrow)"/><text x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 12}" fill="#bfd0d7" font-size="16" text-anchor="middle">${escapeXml(connection.label || "Path")}</text>`;
+      })
+      .join("");
+    const nodes = state.nodes
+      .map((node) => {
+        const x = node.x * width;
+        const y = node.y * height;
+        return `<g transform="translate(${x - 58} ${y - 58})"><rect width="116" height="116" rx="6" fill="#07141d" stroke="${criticalityColors[node.criticality] || criticalityColors.medium}"/><image href="${escapeXml(iconMap.get(node.id))}" x="31" y="12" width="54" height="54"/><text x="58" y="88" fill="#f5fafc" font-size="15" font-weight="700" text-anchor="middle">${escapeXml(node.name.slice(0, 22))}</text><text x="58" y="106" fill="#8fa3ad" font-size="11" text-anchor="middle">${escapeXml(node.environment)}</text></g>`;
+      })
+      .join("");
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="#16303c" stroke-width="1"/></pattern><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9db7c3"/></marker></defs><rect width="100%" height="100%" fill="#06131d"/><rect width="100%" height="100%" fill="url(#grid)"/><text x="38" y="48" fill="#ffffff" font-size="24" font-family="system-ui" font-weight="700">${escapeXml(state.name)}</text><text x="38" y="74" fill="#8fa3ad" font-size="14" font-family="system-ui">${escapeXml(state.region)} · AWS Flow Studio</text><g font-family="system-ui">${lines}${nodes}</g></svg>`;
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${state.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "aws-architecture"}.svg`;
+    link.download = `${
+      state.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") || "aws-architecture"
+    }.svg`;
     document.body.append(link);
     link.click();
     link.remove();
@@ -1155,30 +1467,48 @@
       if (!imported || !Array.isArray(imported.nodes) || !Array.isArray(imported.connections)) {
         throw new Error("This file does not contain an AWS Flow Studio architecture.");
       }
-      const validNodes = imported.nodes.map((node) => {
-        const icon = catalog.find((item) => item.id === node.iconId) || findIcon(node.serviceName || node.name || "");
-        if (!icon) {
-          return null;
-        }
-        return {
-          ...makeNode(icon, Number.isFinite(Number(node.x)) ? Number(node.x) : 0.5, Number.isFinite(Number(node.y)) ? Number(node.y) : 0.5),
-          id: String(node.id || nextNodeId()),
-          name: String(node.name || icon.name).slice(0, 60),
-          environment: ["Production", "Staging", "Development", "Shared"].includes(node.environment) ? node.environment : "Production",
-          criticality: ["high", "medium", "low"].includes(node.criticality) ? node.criticality : "medium",
-          notes: String(node.notes || "").slice(0, 280)
-        };
-      }).filter(Boolean);
+      const validNodes = imported.nodes
+        .map((node) => {
+          const icon =
+            catalog.find((item) => item.id === node.iconId) ||
+            findIcon(node.serviceName || node.name || "");
+          if (!icon) {
+            return null;
+          }
+          return {
+            ...makeNode(
+              icon,
+              Number.isFinite(Number(node.x)) ? Number(node.x) : 0.5,
+              Number.isFinite(Number(node.y)) ? Number(node.y) : 0.5
+            ),
+            id: String(node.id || nextNodeId()),
+            name: String(node.name || icon.name).slice(0, 60),
+            environment: ["Production", "Staging", "Development", "Shared"].includes(
+              node.environment
+            )
+              ? node.environment
+              : "Production",
+            criticality: ["high", "medium", "low"].includes(node.criticality)
+              ? node.criticality
+              : "medium",
+            notes: String(node.notes || "").slice(0, 280),
+          };
+        })
+        .filter(Boolean);
       const nodeIds = new Set(validNodes.map((node) => node.id));
       const validConnections = imported.connections
-        .filter((connection) => nodeIds.has(String(connection.from)) && nodeIds.has(String(connection.to)))
+        .filter(
+          (connection) => nodeIds.has(String(connection.from)) && nodeIds.has(String(connection.to))
+        )
         .map((connection) => ({
           id: String(connection.id || nextConnectionId()),
           from: String(connection.from),
           to: String(connection.to),
-          type: ["request", "event", "data", "telemetry", "replication"].includes(connection.type) ? connection.type : "request",
+          type: ["request", "event", "data", "telemetry", "replication"].includes(connection.type)
+            ? connection.type
+            : "request",
           label: String(connection.label || "HTTPS").slice(0, 32),
-          encrypted: connection.encrypted !== false
+          encrypted: connection.encrypted !== false,
         }));
       commit("Architecture imported", () => {
         state.name = String(imported.name || "Imported architecture").slice(0, 80);
@@ -1318,7 +1648,7 @@
       originalX: node.x,
       originalY: node.y,
       snapshot: architectureSnapshot(),
-      moved: false
+      moved: false,
     };
     nodeElement.setPointerCapture?.(event.pointerId);
     event.preventDefault();
@@ -1333,7 +1663,10 @@
     const dy = (event.clientY - dragState.startY) / Math.max(1, rect.height);
     dragState.node.x = clamp(dragState.originalX + dx, 0.06, 0.94);
     dragState.node.y = clamp(dragState.originalY + dy, 0.08, 0.92);
-    dragState.moved = dragState.moved || Math.abs(event.clientX - dragState.startX) > 2 || Math.abs(event.clientY - dragState.startY) > 2;
+    dragState.moved =
+      dragState.moved ||
+      Math.abs(event.clientX - dragState.startX) > 2 ||
+      Math.abs(event.clientY - dragState.startY) > 2;
     const nodeElement = elements.nodeLayer.querySelector(`[data-node-id="${dragState.node.id}"]`);
     if (nodeElement) {
       nodeElement.style.left = `${dragState.node.x * 100}%`;
@@ -1370,7 +1703,11 @@
   });
 
   elements.canvas.addEventListener("click", (event) => {
-    if (event.target === elements.canvas || event.target === elements.nodeLayer || event.target === elements.connections) {
+    if (
+      event.target === elements.canvas ||
+      event.target === elements.nodeLayer ||
+      event.target === elements.connections
+    ) {
       selectedNodeId = null;
       selectedConnectionId = null;
       connectSourceId = null;
@@ -1438,17 +1775,34 @@
     renderNodes();
   });
 
-  elements.nodeName.addEventListener("input", () => updateSelectedNode("name", elements.nodeName.value));
-  elements.nodeEnvironment.addEventListener("change", () => updateSelectedNode("environment", elements.nodeEnvironment.value));
-  elements.nodeCriticality.addEventListener("change", () => updateSelectedNode("criticality", elements.nodeCriticality.value));
-  elements.nodeNotes.addEventListener("input", () => updateSelectedNode("notes", elements.nodeNotes.value));
-  elements.connectionName.addEventListener("input", () => updateSelectedConnection("label", elements.connectionName.value));
-  elements.connectionType.addEventListener("change", () => updateSelectedConnection("type", elements.connectionType.value));
-  elements.connectionEncrypted.addEventListener("change", () => updateSelectedConnection("encrypted", elements.connectionEncrypted.checked));
+  elements.nodeName.addEventListener("input", () =>
+    updateSelectedNode("name", elements.nodeName.value)
+  );
+  elements.nodeEnvironment.addEventListener("change", () =>
+    updateSelectedNode("environment", elements.nodeEnvironment.value)
+  );
+  elements.nodeCriticality.addEventListener("change", () =>
+    updateSelectedNode("criticality", elements.nodeCriticality.value)
+  );
+  elements.nodeNotes.addEventListener("input", () =>
+    updateSelectedNode("notes", elements.nodeNotes.value)
+  );
+  elements.connectionName.addEventListener("input", () =>
+    updateSelectedConnection("label", elements.connectionName.value)
+  );
+  elements.connectionType.addEventListener("change", () =>
+    updateSelectedConnection("type", elements.connectionType.value)
+  );
+  elements.connectionEncrypted.addEventListener("change", () =>
+    updateSelectedConnection("encrypted", elements.connectionEncrypted.checked)
+  );
 
   global.addEventListener("keydown", (event) => {
     const target = event.target;
-    const typing = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement;
+    const typing =
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement ||
+      target instanceof HTMLSelectElement;
     if (typing) {
       return;
     }
@@ -1480,6 +1834,8 @@
     getState: () => safeParse(architectureSnapshot()),
     applyTemplate,
     save: saveArchitecture,
-    catalogCount: catalog.length
+    catalogCount: catalog.length,
   };
-})(typeof window !== "undefined" ? window : globalThis);
+
+  return global.AWSFlowStudio;
+}
