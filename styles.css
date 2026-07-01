@@ -2428,3 +2428,121 @@ h1 {
   background: linear-gradient(135deg, var(--orange), #ffc46b);
   color: #0a0d0f;
 }
+
+/* =====================================================================
+   v2.4 — Incident Playback (cinematic walkthrough)
+   ===================================================================== */
+
+.play-button.is-active span,
+.play-button[aria-pressed="true"] span {
+  color: var(--green);
+}
+
+.playback-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 1.6rem;
+  z-index: 2150;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: min(720px, calc(100vw - 2rem));
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgba(255, 153, 0, 0.45);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(16, 24, 30, 0.97), rgba(8, 13, 16, 0.97));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  color: #f4f7f8;
+  transform: translate(-50%, 1.6rem);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.playback-banner.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.playback-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.playback-copy strong {
+  color: var(--amber);
+  font-size: 0.74rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.playback-copy span {
+  color: #dbe6ec;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.playback-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: none;
+}
+
+.playback-dots i {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(219, 230, 236, 0.22);
+  transition: background 200ms ease;
+}
+
+.playback-dots i.is-on {
+  background: var(--orange);
+  box-shadow: 0 0 10px rgba(255, 153, 0, 0.7);
+}
+
+.playback-stop {
+  flex: none;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f4f7f8;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.playback-stop:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* During playback, gently spotlight the map by dimming the rest */
+.app-shell.is-playing .scenario-strip,
+.app-shell.is-playing .console-deck {
+  opacity: 0.72;
+  transition: opacity 300ms ease;
+}
+
+@media (max-width: 620px) {
+  .playback-banner {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playback-banner {
+    transition: opacity 150ms ease;
+  }
+}

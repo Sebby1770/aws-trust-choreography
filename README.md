@@ -20,6 +20,9 @@ dedicated, full-screen **Flow Studio**.
   and an SNS-backed manual lane, joined by animated trust-path packets and fallback routes.
 - Scenario tabs — steady state, traffic surge, identity drift, recovery drill — that drive the
   topology, telemetry, runbooks, posture model, and operating doctrine.
+- **Incident Playback** — a ▶ cinematic mode that auto-runs a narrated, six-step incident
+  walkthrough (steady → surge → edge flood → identity drift → compounding failure → recovery),
+  captioning each step, then hands control back.
 - A **failure composer** that stacks faults (edge flood, identity breach, data lag, workflow
   backlog), recomputes service confidence scores, and classifies blast radius from _Contained_ to
   _Systemic_.
