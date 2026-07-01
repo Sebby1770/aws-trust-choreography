@@ -29,6 +29,7 @@ import {
   encodeProfile,
   readSharedProfile,
 } from "./personalize.js";
+import { PLAYBACK_SCRIPT, PLAYBACK_LENGTH } from "./playback.js";
 
 export function initAtlas({ theme } = {}) {
   const scenarioButtons = document.querySelectorAll(".scenario");
@@ -37,6 +38,7 @@ export function initAtlas({ theme } = {}) {
   const heroTitle = document.querySelector("h1");
   const heroLede = document.querySelector(".lede");
   const editButton = document.querySelector("#editButton");
+  const playButton = document.querySelector("#playButton");
   const replayButton = document.querySelector("#replayButton");
   const incidentButton = document.querySelector("#incidentButton");
   const shareButton = document.querySelector("#shareButton");
@@ -556,6 +558,94 @@ export function initAtlas({ theme } = {}) {
     }
   }
 
+  // --- Incident Playback (cinematic auto-walkthrough) --------------------
+
+  let playbackBanner = null;
+  let playbackTimer = 0;
+  let playbackIndex = 0;
+  let playing = false;
+
+  function ensurePlaybackBanner() {
+    if (playbackBanner) return playbackBanner;
+    playbackBanner = document.createElement("div");
+    playbackBanner.className = "playback-banner";
+    playbackBanner.setAttribute("role", "status");
+    playbackBanner.setAttribute("aria-live", "polite");
+    playbackBanner.innerHTML = `
+      <div class="playback-dots" aria-hidden="true"></div>
+      <div class="playback-copy"><strong></strong><span></span></div>
+      <button type="button" class="playback-stop" aria-label="Stop playback">Stop ✕</button>`;
+    playbackBanner.querySelector(".playback-stop").addEventListener("click", stopPlayback);
+    document.body.appendChild(playbackBanner);
+    return playbackBanner;
+  }
+
+  function renderPlaybackStep(step, index) {
+    const banner = ensurePlaybackBanner();
+    banner.querySelector(".playback-copy strong").textContent =
+      `${index + 1}/${PLAYBACK_LENGTH} · ${step.title}`;
+    banner.querySelector(".playback-copy span").textContent = step.narration;
+    banner.querySelector(".playback-dots").innerHTML = PLAYBACK_SCRIPT.map(
+      (_, i) => `<i class="${i === index ? "is-on" : ""}"></i>`
+    ).join("");
+  }
+
+  function applyPlaybackStep(step, index) {
+    activeFailures.clear();
+    step.faults.forEach((id) => {
+      if (failureModes[id]) activeFailures.add(id);
+    });
+    selectedNode = step.node;
+    setScenario(step.scenario, { sync: false });
+    setNode(step.node, { sync: false });
+    renderPlaybackStep(step, index);
+  }
+
+  function advancePlayback() {
+    if (playbackIndex >= PLAYBACK_LENGTH) {
+      stopPlayback();
+      flashToast("Walkthrough complete");
+      return;
+    }
+    const step = PLAYBACK_SCRIPT[playbackIndex];
+    applyPlaybackStep(step, playbackIndex);
+    const delay = prefersReducedMotion() ? 2000 : step.ms;
+    playbackIndex += 1;
+    playbackTimer = window.setTimeout(advancePlayback, delay);
+  }
+
+  function startPlayback() {
+    if (playing) return;
+    playing = true;
+    playbackIndex = 0;
+    if (shell) shell.classList.add("is-playing");
+    if (playButton) playButton.setAttribute("aria-pressed", "true");
+    advancePlayback();
+  }
+
+  function stopPlayback() {
+    if (!playing) return;
+    playing = false;
+    window.clearTimeout(playbackTimer);
+    if (shell) shell.classList.remove("is-playing");
+    if (playButton) playButton.setAttribute("aria-pressed", "false");
+    if (playbackBanner) playbackBanner.classList.remove("is-visible");
+  }
+
+  function togglePlayback() {
+    if (playing) {
+      stopPlayback();
+    } else {
+      ensurePlaybackBanner().classList.add("is-visible");
+      startPlayback();
+    }
+  }
+
+  if (playButton) playButton.addEventListener("click", togglePlayback);
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && playing) stopPlayback();
+  });
+
   // --- Command palette (⌘K) ----------------------------------------------
 
   function buildCommands() {
@@ -611,6 +701,13 @@ export function initAtlas({ theme } = {}) {
       });
     }
     commands.push(
+      {
+        id: "action:playback",
+        group: "Action",
+        label: playing ? "Stop incident walkthrough" : "Play incident walkthrough",
+        keywords: "play playback walkthrough tour demo cinematic story",
+        run: togglePlayback,
+      },
       {
         id: "action:replay",
         group: "Action",

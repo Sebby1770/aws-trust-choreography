@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here.
 
+## 2026-06-30 — Incident Playback
+
+### Added
+
+- **Incident Playback** — a cinematic ▶ mode (also in the ⌘K palette) that auto-runs a narrated, six-step walkthrough: steady state → traffic surge → edge flood → identity drift → a compounding two-fault failure → recovery. Each step drives the scenario, injected faults, and inspected node while a caption banner with progress dots explains what is happening, then hands control back. Honours `prefers-reduced-motion` (calmer pacing) and stops on Escape, the Stop button, or toggling ▶.
+- The playback script is data-only and unit-tested against the resilience model, so it can never reference a scenario, fault, or node that does not exist.
+
 ## 2026-06-24 — Edit mode & readable titles
 
 ### Added
