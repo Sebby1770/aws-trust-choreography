@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here.
 
+## 2026-07-02 — Resilience Index
+
+### Added
+
+- **Resilience Index** — a single composite 0–100 headline score with an A–F grade, shown as a live ring gauge on the map's authority card. It blends route health, the weakest node, fallback readiness, data durability, and recovery speed, minus a blast-radius penalty, and recolours (green / amber / red) as scenarios, injected faults, and personalized scores change. Pure and unit-tested against the composition model.
+
 ## 2026-06-30 — Incident Playback
 
 ### Added

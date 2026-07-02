@@ -16,13 +16,13 @@ dedicated, full-screen **Flow Studio**.
 - A rail · map · console layout: scenario rail, a dominant live service topology, and an
   **Operations console** whose dropdown switches between Incident inspector, Telemetry, Active
   runbook, Control posture, and Operating doctrine.
+- A **Resilience Index** — a composite 0–100 score with an A–F grade, shown as a live ring gauge
+  that blends route health, weakest node, fallback, durability, and recovery time (minus a
+  blast-radius penalty) and recolours as the situation changes.
 - Glowing service nodes for CloudFront, EKS, IAM, Aurora, Step Functions, Lambda, S3, EventBridge,
   and an SNS-backed manual lane, joined by animated trust-path packets and fallback routes.
 - Scenario tabs — steady state, traffic surge, identity drift, recovery drill — that drive the
   topology, telemetry, runbooks, posture model, and operating doctrine.
-- **Incident Playback** — a ▶ cinematic mode that auto-runs a narrated, six-step incident
-  walkthrough (steady → surge → edge flood → identity drift → compounding failure → recovery),
-  captioning each step, then hands control back.
 - A **failure composer** that stacks faults (edge flood, identity breach, data lag, workflow
   backlog), recomputes service confidence scores, and classifies blast radius from _Contained_ to
   _Systemic_.

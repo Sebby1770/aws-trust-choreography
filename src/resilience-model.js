@@ -591,3 +591,37 @@ export function deriveComposedState(name, activeFailures = [], scoreOverrides = 
     activeModeObjects,
   };
 }
+
+const BLAST_PENALTY = {
+  Contained: 0,
+  Localized: 4,
+  "Domain-wide": 8,
+  "Cross-domain": 10,
+  Systemic: 16,
+};
+
+/**
+ * Collapse a composed state into a single headline Resilience Index (0–100)
+ * with a letter grade — a weighted blend of route health, the weakest node,
+ * fallback readiness, data durability, and recovery speed, minus a blast-radius
+ * penalty. Pure and deterministic.
+ *
+ * @param {ReturnType<typeof deriveComposedState>} composed
+ * @returns {{score: number, grade: string, tone: string}}
+ */
+export function computeResilienceIndex(composed) {
+  if (!composed) return { score: 0, grade: "—", tone: "strained" };
+  const durabilityNorm = clampNumber(((composed.dataDurability - 95) / (99.99 - 95)) * 100, 0, 100);
+  const recoveryScore = clampNumber(100 - composed.recoveryMinutes * 3, 0, 100);
+  const weighted =
+    0.3 * composed.routeHealth +
+    0.25 * composed.weakestScore +
+    0.15 * composed.fallbackReady +
+    0.15 * durabilityNorm +
+    0.15 * recoveryScore;
+  const penalty = BLAST_PENALTY[composed.blastRadius] ?? 0;
+  const score = Math.round(clampNumber(weighted - penalty, 0, 100));
+  const grade = score >= 90 ? "A" : score >= 80 ? "B" : score >= 70 ? "C" : score >= 55 ? "D" : "F";
+  const tone = score >= 80 ? "strong" : score >= 65 ? "watch" : "strained";
+  return { score, grade, tone };
+}
