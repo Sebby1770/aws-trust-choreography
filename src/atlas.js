@@ -16,6 +16,7 @@ import {
   nodeHints,
   nodeLinks,
   deriveComposedState,
+  computeResilienceIndex,
 } from "./resilience-model.js";
 import { prefersReducedMotion } from "./theme.js";
 import { encodeState, readStateFromUrl, syncStateToUrl } from "./url-state.js";
@@ -50,6 +51,8 @@ export function initAtlas({ theme } = {}) {
   const textTargets = {
     scenarioTitle: document.querySelector("#scenarioTitle"),
     scenarioMeta: document.querySelector("#scenarioMeta"),
+    resilienceIndex: document.querySelector("#resilienceIndex"),
+    resilienceGrade: document.querySelector("#resilienceGrade"),
     routeHealth: document.querySelector("#routeHealth"),
     fallbackReady: document.querySelector("#fallbackReady"),
     dataDurability: document.querySelector("#dataDurability"),
@@ -132,6 +135,16 @@ export function initAtlas({ theme } = {}) {
     textTargets.weakestNode.textContent = `${composed.weakestNode} (${composed.weakestScore}%)`;
     textTargets.composedRecovery.textContent = `${String(composed.recoveryMinutes).padStart(2, "0")}m`;
     textTargets.failureRecommendation.textContent = composed.recommendation;
+    const index = computeResilienceIndex(composed);
+    if (textTargets.resilienceIndex) {
+      textTargets.resilienceIndex.textContent = index.score;
+      const gauge = textTargets.resilienceIndex.closest(".resilience-gauge");
+      if (gauge) {
+        gauge.dataset.tone = index.tone;
+        gauge.style.setProperty("--index", `${index.score}`);
+      }
+    }
+    if (textTargets.resilienceGrade) textTargets.resilienceGrade.textContent = index.grade;
     textTargets.clearFailuresButton.disabled = activeFailures.size === 0;
     root.classList.toggle("has-injected-failures", activeFailures.size > 0);
     textTargets.failureControls.querySelectorAll("[data-failure-mode]").forEach((button) => {
