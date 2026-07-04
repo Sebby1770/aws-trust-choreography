@@ -52,6 +52,9 @@ dedicated, full-screen **Flow Studio**.
 - **Shareable deep links** — the active scenario, injected faults, and selected node are encoded in
   the URL hash, so the share button copies a link that reopens the exact same view.
 - **Theming** — light / dark / follow-system, persisted across visits.
+- **Animated reveals** — a vanilla port of React Bits'
+  [AnimatedContent](https://reactbits.dev/animations/animated-content): sections glide + fade into
+  place on viewport entry (staggered, `prefers-reduced-motion`-aware, with a no-JS failsafe).
 - **Accessibility** — skip link, keyboard-operable nodes, visible focus rings, and full
   `prefers-reduced-motion` support (the SVG choreography freezes when motion is reduced).
 - Responsive layouts for desktop, tablet, and mobile with no horizontal overflow.
@@ -94,6 +97,7 @@ src/
   url-state.js         shareable URL-hash state (unit-tested)
   command-palette.js   ⌘K launcher + fuzzy ranking (unit-tested)
   incident-report.js   Markdown incident-report builder (unit-tested)
+  animated-content.js  reveal-on-scroll engine (unit-tested)
   icon-catalog.js      lazy loader for the icon catalog chunk
 assets/ai-icons/       custom AI / LLM node SVGs
 tests/                 Vitest suites for the pure modules

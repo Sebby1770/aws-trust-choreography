@@ -2624,3 +2624,47 @@ h1 {
   font-size: 2rem;
   line-height: 1;
 }
+
+/* =====================================================================
+   v2.6 — Animated Content reveals (vanilla port of reactbits AnimatedContent)
+   ===================================================================== */
+
+/* Elements only hide once the engine (or head-script failsafe) marks the root
+   ac-ready, so a JS failure or reduced-motion never leaves content hidden. */
+.ac-ready [data-animate] {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(0.985);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.ac-ready [data-animate="down"] {
+  transform: translate3d(0, -34px, 0) scale(0.985);
+}
+
+.ac-ready [data-animate="left"] {
+  transform: translate3d(48px, 0, 0);
+}
+
+.ac-ready [data-animate="right"] {
+  transform: translate3d(-48px, 0, 0);
+}
+
+.ac-ready [data-animate="scale"] {
+  transform: scale(0.94);
+}
+
+.ac-ready [data-animate].ac-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

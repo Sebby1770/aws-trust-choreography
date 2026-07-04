@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here.
 
+## 2026-07-02 — Animated reveals
+
+### Added
+
+- **Animated content reveals** — a dependency-free vanilla port of React Bits' [AnimatedContent](https://reactbits.dev/animations/animated-content). Elements marked `data-animate` (up / down / left / right / scale) glide + fade into place as they enter the viewport, with staggered delays: the hero, workspace switcher, and controls rise in sequence, the scenario rail slides from the left, the topology scales up, the operations console slides from the right, and Flow Studio reveals on scroll. Built on IntersectionObserver + CSS transitions (no React/GSAP, matching the buildless stack), fully `prefers-reduced-motion`-aware, with a head-script failsafe so content can never get stuck hidden if scripting fails.
+
 ## 2026-07-02 — Resilience Index
 
 ### Added

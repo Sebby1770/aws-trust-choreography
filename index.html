@@ -8,6 +8,21 @@
       content="An interactive AWS resilience command atlas built with HTML, CSS, and JavaScript."
     />
     <title>AWS Resilience Command Atlas</title>
+    <script>
+      // Pre-arm reveal animations before first paint (no flash), unless the user
+      // prefers reduced motion. Failsafe: if the reveal engine never runs, show
+      // everything after 3s so content can't get stuck hidden. Placed BEFORE the
+      // stylesheets so it never blocks on (or waits for) CSS loading.
+      try {
+        var root = document.documentElement;
+        if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          root.classList.add("ac-ready");
+          setTimeout(function () {
+            if (!root.classList.contains("ac-live")) root.classList.remove("ac-ready");
+          }, 3000);
+        }
+      } catch (e) {}
+    </script>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="flow-studio.css" />
   </head>
@@ -15,7 +30,7 @@
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <main id="main-content" class="app-shell" aria-label="AWS Resilience Command Atlas dashboard">
       <section class="hero-panel">
-        <div class="intro">
+        <div class="intro" data-animate="up">
           <div class="brand-line">
             <p class="eyebrow">AWS COMMAND ATLAS</p>
             <a
@@ -34,7 +49,13 @@
           </p>
         </div>
 
-        <nav class="view-switch" role="tablist" aria-label="Workspace">
+        <nav
+          class="view-switch"
+          role="tablist"
+          aria-label="Workspace"
+          data-animate="up"
+          data-animate-delay="90"
+        >
           <button
             class="view-tab is-active"
             type="button"
@@ -55,7 +76,12 @@
           </button>
         </nav>
 
-        <div class="actions" aria-label="Simulation controls">
+        <div
+          class="actions"
+          aria-label="Simulation controls"
+          data-animate="up"
+          data-animate-delay="170"
+        >
           <button
             class="icon-button play-button"
             id="playButton"
@@ -126,7 +152,12 @@
 
       <div class="view view-atlas is-active" data-view="atlas">
         <section class="command-workbench" aria-label="Live incident command workbench">
-          <nav class="scenario-strip" role="tablist" aria-label="Incident scenario">
+          <nav
+            class="scenario-strip"
+            role="tablist"
+            aria-label="Incident scenario"
+            data-animate="left"
+          >
             <span class="rail-label">Scenarios</span>
             <button
               class="scenario is-active"
@@ -166,7 +197,12 @@
             </button>
           </nav>
 
-          <section class="stage" aria-label="Interactive AWS service map">
+          <section
+            class="stage"
+            aria-label="Interactive AWS service map"
+            data-animate="scale"
+            data-animate-delay="120"
+          >
             <div class="grid-window">
               <aside class="authority-card" aria-live="polite">
                 <span class="card-kicker">Resilience authority</span>
@@ -451,7 +487,12 @@
             </div>
           </section>
 
-          <aside class="console-deck" aria-label="Operations console">
+          <aside
+            class="console-deck"
+            aria-label="Operations console"
+            data-animate="right"
+            data-animate-delay="200"
+          >
             <div class="console-head">
               <div class="console-title">
                 <span>Operations console</span>
@@ -584,7 +625,7 @@
       </div>
 
       <div class="view view-studio" data-view="studio">
-        <section class="flow-studio" aria-labelledby="flowStudioTitle">
+        <section class="flow-studio" aria-labelledby="flowStudioTitle" data-animate="up">
           <header class="flow-studio-head">
             <div class="flow-studio-brand">
               <h2 id="flowStudioTitle">AWS Flow Studio</h2>
