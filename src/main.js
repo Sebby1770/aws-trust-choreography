@@ -15,6 +15,7 @@ import { loadIconCatalog } from "./icon-catalog.js";
 import { AI_ICONS } from "./ai-icons.js";
 import { initViews } from "./views.js";
 import { initConsoleDeck } from "./console-deck.js";
+import { initAnimatedContent } from "./animated-content.js";
 
 function ready(fn) {
   if (document.readyState === "loading") {
@@ -28,6 +29,7 @@ ready(() => {
   const theme = initTheme(document.querySelector("#themeButton"));
   initAtlas({ theme });
   initConsoleDeck();
+  initAnimatedContent();
 
   const studio = document.querySelector(".flow-studio");
   if (!studio) {
