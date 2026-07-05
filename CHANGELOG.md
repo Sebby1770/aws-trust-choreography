@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## 2026-07-05 — The decision layer: cost lens + IaC and diagram exports
+
+### Added
+
+- **Live cost lens** — a 💰 badge in the Flow Studio header estimates the architecture's rough monthly cost as you build (per-service planning figures scaled by criticality, with a biggest-spenders tooltip). Deliberately coarse: for comparing designs, not billing.
+- **Terraform export** — a "TF" toolbar button downloads the canvas as a `main.tf` skeleton: every service maps to its closest Terraform resource type with tags and TODOs, AI services (Claude, ChatGPT, vector stores…) become SaaS placeholders, and the topology is included as comments — unencrypted paths are flagged.
+- **Mermaid export** — an "MMD" toolbar button copies the architecture as a Mermaid flowchart (typed arrows per traffic kind, high-criticality nodes highlighted) ready to paste into GitHub READMEs and PRs.
+- All three engines are pure, dependency-free modules with unit tests.
+
 ## 2026-07-02 — Flow Studio first
 
 ### Added
