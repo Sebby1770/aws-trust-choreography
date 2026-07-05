@@ -8,8 +8,9 @@ framework, no runtime dependencies.
 
 ## What it does
 
-A header **workspace switcher** splits the app into two screens: the **Command Atlas** and a
-dedicated, full-screen **Flow Studio**.
+The app opens straight into a full-screen **Flow Studio**; a header **workspace dropdown** switches
+to the **Command Atlas** incident workbench. The studio supports **multiple named sessions**
+(create / switch / rename / delete from the titlebar), each with its own auto-saved canvas.
 
 **Command Atlas**
 
@@ -98,6 +99,8 @@ src/
   command-palette.js   ⌘K launcher + fuzzy ranking (unit-tested)
   incident-report.js   Markdown incident-report builder (unit-tested)
   animated-content.js  reveal-on-scroll engine (unit-tested)
+  studio-sessions.js   multi-session store for Flow Studio (unit-tested)
+  spotlight.js         pointer-tracked spotlight cards
   icon-catalog.js      lazy loader for the icon catalog chunk
 assets/ai-icons/       custom AI / LLM node SVGs
 tests/                 Vitest suites for the pure modules

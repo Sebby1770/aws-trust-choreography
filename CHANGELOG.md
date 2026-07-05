@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here.
 
+## 2026-07-02 — Flow Studio first
+
+### Added
+
+- **Flow Studio is now the main screen** — the app opens straight into the architecture studio; the Command Atlas incident workbench is one selection away.
+- **Workspace dropdown** — the header tabs are replaced by a labelled dropdown (Flow Studio / Command Atlas) that persists your choice.
+- **Studio sessions** — create, switch, rename, and delete multiple named architectures from the studio titlebar. Each session keeps its own auto-saved canvas (up to 12), the architecture-name field renames the active session, and the last session can never be deleted. The store core is dependency-free and unit-tested.
+- **Spotlight cards** — a vanilla port of React Bits' SpotlightCard: starter templates and posture/doctrine cards get a radial highlight that follows the pointer (hover devices only, reduced-motion aware).
+- **Animated gradient titles** — a vanilla port of React Bits' GradientText: the headline and Flow Studio title now sweep their gradients continuously.
+
 ## 2026-07-02 — Animated reveals
 
 ### Added

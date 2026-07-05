@@ -179,7 +179,7 @@ export function initAtlas({ theme } = {}) {
       .map((lens) => {
         const tone = lens.score >= 85 ? "strong" : lens.score >= 72 ? "watch" : "strained";
         return `
-      <article class="posture-card ${tone}" style="--score:${lens.score}%">
+      <article class="posture-card ${tone}" data-spotlight style="--score:${lens.score}%">
         <div>
           <span>${lens.name}</span>
           <strong>${lens.score}%</strong>
@@ -199,7 +199,7 @@ export function initAtlas({ theme } = {}) {
     textTargets.doctrineGrid.innerHTML = doctrine.cards
       .map(
         (card) => `
-      <article class="doctrine-card">
+      <article class="doctrine-card" data-spotlight>
         <span>${card.label}</span>
         <strong>${card.value}</strong>
         <p>${card.detail}</p>
