@@ -2668,3 +2668,180 @@ h1 {
     transition: none !important;
   }
 }
+
+/* =====================================================================
+   v3 — Flow Studio first: workspace dropdown, studio sessions, spotlight
+   cards, and animated gradient titles (reactbits-style, vanilla)
+   ===================================================================== */
+
+/* Workspace dropdown (replaces the two-tab switcher) */
+.workspace-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-self: center;
+}
+
+.workspace-label {
+  color: var(--dim);
+  font-size: 0.66rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.workspace-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.workspace-glyph {
+  position: absolute;
+  left: 0.85rem;
+  color: var(--orange);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.workspace-caret {
+  position: absolute;
+  right: 0.85rem;
+  color: var(--dim);
+  pointer-events: none;
+}
+
+#workspaceSelect {
+  min-width: 220px;
+  padding: 0.65rem 2.2rem 0.65rem 2.3rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 800;
+  appearance: none;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+#workspaceSelect:hover,
+#workspaceSelect:focus-visible {
+  border-color: rgba(255, 153, 0, 0.62);
+  box-shadow: 0 0 0 4px rgba(255, 153, 0, 0.1);
+}
+
+/* Studio session controls (titlebar) */
+.studio-sessions {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+#studioSessionSelect {
+  max-width: 190px;
+  min-height: 34px;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.studio-sessions button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  min-height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.studio-sessions button:hover:not(:disabled) {
+  border-color: var(--orange);
+  color: var(--amber);
+}
+
+.studio-sessions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Spotlight cards — reactbits SpotlightCard, vanilla */
+[data-spotlight] {
+  position: relative;
+  overflow: hidden;
+}
+
+[data-spotlight]::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: radial-gradient(
+    240px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(255, 184, 77, 0.16),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+
+[data-spotlight].spot-on::before {
+  opacity: 1;
+}
+
+/* Animated gradient titles — reactbits GradientText, vanilla */
+h1,
+.flow-studio-brand h2,
+#flowStudioTitle {
+  background-size: 220% 100%;
+  animation: gradientShift 9s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  h1,
+  .flow-studio-brand h2,
+  #flowStudioTitle {
+    animation: none;
+  }
+  [data-spotlight]::before {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .workspace-menu {
+    order: 3;
+  }
+  #workspaceSelect {
+    min-width: 170px;
+  }
+  .studio-sessions {
+    flex-wrap: wrap;
+  }
+}

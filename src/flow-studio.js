@@ -1832,6 +1832,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
 
   global.AWSFlowStudio = {
     getState: () => safeParse(architectureSnapshot()),
+    snapshot: architectureSnapshot,
+    loadArchitecture: (snapshot) => {
+      restoreSnapshot(typeof snapshot === "string" ? snapshot : JSON.stringify(snapshot));
+      markSaved("Session loaded");
+    },
     applyTemplate,
     save: saveArchitecture,
     catalogCount: catalog.length,

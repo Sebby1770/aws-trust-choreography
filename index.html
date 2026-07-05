@@ -49,32 +49,17 @@
           </p>
         </div>
 
-        <nav
-          class="view-switch"
-          role="tablist"
-          aria-label="Workspace"
-          data-animate="up"
-          data-animate-delay="90"
-        >
-          <button
-            class="view-tab is-active"
-            type="button"
-            role="tab"
-            aria-selected="true"
-            data-view-target="atlas"
-          >
-            <span class="view-tab-glyph" aria-hidden="true">◎</span>Command Atlas
-          </button>
-          <button
-            class="view-tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            data-view-target="studio"
-          >
-            <span class="view-tab-glyph" aria-hidden="true">⬡</span>Flow Studio
-          </button>
-        </nav>
+        <div class="workspace-menu" data-animate="up" data-animate-delay="90">
+          <label class="workspace-label" for="workspaceSelect">Workspace</label>
+          <div class="workspace-select-wrap">
+            <span class="workspace-glyph" aria-hidden="true">⬡</span>
+            <select id="workspaceSelect" aria-label="Choose workspace">
+              <option value="studio">Flow Studio</option>
+              <option value="atlas">Command Atlas</option>
+            </select>
+            <span class="workspace-caret" aria-hidden="true">▾</span>
+          </div>
+        </div>
 
         <div
           class="actions"
@@ -764,6 +749,26 @@
                   value="My resilient workload"
                   maxlength="80"
                 />
+                <div class="studio-sessions" aria-label="Studio sessions">
+                  <label class="visually-hidden" for="studioSessionSelect">Session</label>
+                  <select id="studioSessionSelect" aria-label="Switch studio session"></select>
+                  <button
+                    id="studioSessionNew"
+                    type="button"
+                    title="New session"
+                    aria-label="Create a new studio session"
+                  >
+                    ＋
+                  </button>
+                  <button
+                    id="studioSessionDelete"
+                    type="button"
+                    title="Delete session"
+                    aria-label="Delete the current studio session"
+                  >
+                    🗑
+                  </button>
+                </div>
                 <span id="flowCanvasHint">Select an icon to add it</span>
               </div>
               <div
@@ -833,25 +838,40 @@
               </div>
               <div class="flow-templates" aria-label="Architecture templates">
                 <span>Starter templates</span>
-                <button type="button" class="is-ai-template" data-flow-template="claude-rag">
+                <button
+                  type="button"
+                  data-spotlight
+                  class="is-ai-template"
+                  data-flow-template="claude-rag"
+                >
                   Claude RAG assistant<small>API GW + Lambda + Claude + Vector DB</small>
                 </button>
-                <button type="button" class="is-ai-template" data-flow-template="ai-agent">
+                <button
+                  type="button"
+                  data-spotlight
+                  class="is-ai-template"
+                  data-flow-template="ai-agent"
+                >
                   AI agent platform<small>Agent + Foundation Model + tools + memory</small>
                 </button>
-                <button type="button" class="is-ai-template" data-flow-template="chatbot">
+                <button
+                  type="button"
+                  data-spotlight
+                  class="is-ai-template"
+                  data-flow-template="chatbot"
+                >
                   GenAI chatbot<small>CloudFront + Lambda + ChatGPT + guardrails</small>
                 </button>
-                <button type="button" data-flow-template="serverless">
+                <button type="button" data-spotlight data-flow-template="serverless">
                   Serverless API<small>API Gateway + Lambda + DynamoDB</small>
                 </button>
-                <button type="button" data-flow-template="events">
+                <button type="button" data-spotlight data-flow-template="events">
                   Event pipeline<small>EventBridge + Step Functions + SQS</small>
                 </button>
-                <button type="button" data-flow-template="web">
+                <button type="button" data-spotlight data-flow-template="web">
                   Resilient web app<small>CloudFront + EC2 + RDS</small>
                 </button>
-                <button type="button" data-flow-template="blank">
+                <button type="button" data-spotlight data-flow-template="blank">
                   Blank<small>Clear the canvas</small>
                 </button>
               </div>

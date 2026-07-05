@@ -16,6 +16,7 @@ import { AI_ICONS } from "./ai-icons.js";
 import { initViews } from "./views.js";
 import { initConsoleDeck } from "./console-deck.js";
 import { initAnimatedContent } from "./animated-content.js";
+import { initSpotlight } from "./spotlight.js";
 
 function ready(fn) {
   if (document.readyState === "loading") {
@@ -30,6 +31,7 @@ ready(() => {
   initAtlas({ theme });
   initConsoleDeck();
   initAnimatedContent();
+  initSpotlight();
 
   const studio = document.querySelector(".flow-studio");
   if (!studio) {
@@ -48,6 +50,8 @@ ready(() => {
       const { catalog, meta } = await loadIconCatalog();
       // AI / LLM building blocks lead the catalog so they are easy to find.
       initFlowStudio([...AI_ICONS, ...catalog], { ...meta, aiCount: AI_ICONS.length });
+      const { initStudioSessions } = await import("./studio-sessions.js");
+      initStudioSessions();
     } catch (error) {
       if (status) status.textContent = "Flow Studio failed to load. Reload to retry.";
       console.error("Flow Studio failed to initialize:", error);
