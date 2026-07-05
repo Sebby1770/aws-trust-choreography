@@ -2845,3 +2845,23 @@ h1,
     flex-wrap: wrap;
   }
 }
+
+/* =====================================================================
+   v3.1 — cost lens badge
+   ===================================================================== */
+
+.flow-cost-badge {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(134, 247, 173, 0.35);
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(134, 247, 173, 0.08);
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: help;
+}
+
+.flow-cost-badge strong {
+  color: var(--green);
+  font-size: 0.82rem;
+}

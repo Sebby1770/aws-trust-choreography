@@ -52,6 +52,8 @@ ready(() => {
       initFlowStudio([...AI_ICONS, ...catalog], { ...meta, aiCount: AI_ICONS.length });
       const { initStudioSessions } = await import("./studio-sessions.js");
       initStudioSessions();
+      const { initStudioExtras } = await import("./studio-extras.js");
+      initStudioExtras();
     } catch (error) {
       if (status) status.textContent = "Flow Studio failed to load. Reload to retry.";
       console.error("Flow Studio failed to initialize:", error);

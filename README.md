@@ -10,7 +10,9 @@ framework, no runtime dependencies.
 
 The app opens straight into a full-screen **Flow Studio**; a header **workspace dropdown** switches
 to the **Command Atlas** incident workbench. The studio supports **multiple named sessions**
-(create / switch / rename / delete from the titlebar), each with its own auto-saved canvas.
+(create / switch / rename / delete from the titlebar), each with its own auto-saved canvas — plus a
+**decision layer**: a live monthly **cost estimate** badge, one-click **Terraform** (`main.tf`
+skeleton) export, and **Mermaid** diagram export for READMEs and PRs.
 
 **Command Atlas**
 
@@ -100,6 +102,10 @@ src/
   incident-report.js   Markdown incident-report builder (unit-tested)
   animated-content.js  reveal-on-scroll engine (unit-tested)
   studio-sessions.js   multi-session store for Flow Studio (unit-tested)
+  cost-model.js        rough monthly cost estimator (unit-tested)
+  terraform-export.js  canvas → main.tf skeleton (unit-tested)
+  mermaid-export.js    canvas → Mermaid flowchart (unit-tested)
+  studio-extras.js     cost badge + TF/MMD toolbar wiring
   spotlight.js         pointer-tracked spotlight cards
   icon-catalog.js      lazy loader for the icon catalog chunk
 assets/ai-icons/       custom AI / LLM node SVGs
