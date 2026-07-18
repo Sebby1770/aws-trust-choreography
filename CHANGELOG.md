@@ -2,6 +2,31 @@
 
 All notable changes to this project are documented here.
 
+## 2026-07-05 — The decision layer: cost lens + IaC and diagram exports
+
+### Added
+
+- **Live cost lens** — a 💰 badge in the Flow Studio header estimates the architecture's rough monthly cost as you build (per-service planning figures scaled by criticality, with a biggest-spenders tooltip). Deliberately coarse: for comparing designs, not billing.
+- **Terraform export** — a "TF" toolbar button downloads the canvas as a `main.tf` skeleton: every service maps to its closest Terraform resource type with tags and TODOs, AI services (Claude, ChatGPT, vector stores…) become SaaS placeholders, and the topology is included as comments — unencrypted paths are flagged.
+- **Mermaid export** — an "MMD" toolbar button copies the architecture as a Mermaid flowchart (typed arrows per traffic kind, high-criticality nodes highlighted) ready to paste into GitHub READMEs and PRs.
+- All three engines are pure, dependency-free modules with unit tests.
+
+## 2026-07-02 — Flow Studio first
+
+### Added
+
+- **Flow Studio is now the main screen** — the app opens straight into the architecture studio; the Command Atlas incident workbench is one selection away.
+- **Workspace dropdown** — the header tabs are replaced by a labelled dropdown (Flow Studio / Command Atlas) that persists your choice.
+- **Studio sessions** — create, switch, rename, and delete multiple named architectures from the studio titlebar. Each session keeps its own auto-saved canvas (up to 12), the architecture-name field renames the active session, and the last session can never be deleted. The store core is dependency-free and unit-tested.
+- **Spotlight cards** — a vanilla port of React Bits' SpotlightCard: starter templates and posture/doctrine cards get a radial highlight that follows the pointer (hover devices only, reduced-motion aware).
+- **Animated gradient titles** — a vanilla port of React Bits' GradientText: the headline and Flow Studio title now sweep their gradients continuously.
+
+## 2026-07-02 — Animated reveals
+
+### Added
+
+- **Animated content reveals** — a dependency-free vanilla port of React Bits' [AnimatedContent](https://reactbits.dev/animations/animated-content). Elements marked `data-animate` (up / down / left / right / scale) glide + fade into place as they enter the viewport, with staggered delays: the hero, workspace switcher, and controls rise in sequence, the scenario rail slides from the left, the topology scales up, the operations console slides from the right, and Flow Studio reveals on scroll. Built on IntersectionObserver + CSS transitions (no React/GSAP, matching the buildless stack), fully `prefers-reduced-motion`-aware, with a head-script failsafe so content can never get stuck hidden if scripting fails.
+
 ## 2026-07-02 — Resilience Index
 
 ### Added

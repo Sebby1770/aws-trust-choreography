@@ -5,79 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="An interactive AWS resilience command atlas built with HTML, CSS, and JavaScript."
+      content="Design AWS architectures from real workload blueprints, analyze cost and resilience, rehearse failure, and export production-ready scaffolding."
     />
-    <title>AWS Resilience Command Atlas</title>
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Trust Choreography" />
+    <meta
+      property="og:description"
+      content="Build the cloud. Then break it. Design, analyze, and rehearse resilient AWS architectures."
+    />
+    <meta property="og:image" content="https://sebby1770.github.io/aws-trust-choreography/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Trust Choreography" />
+    <meta
+      name="twitter:description"
+      content="Build the cloud. Then break it. Design, analyze, and rehearse resilient AWS architectures."
+    />
+    <meta
+      name="twitter:image"
+      content="https://sebby1770.github.io/aws-trust-choreography/og.png"
+    />
+    <title>Trust Choreography — AWS Architecture &amp; Resilience Lab</title>
+    <script>
+      // Pre-arm reveal animations before first paint (no flash), unless the user
+      // prefers reduced motion. Failsafe: if the reveal engine never runs, show
+      // everything after 3s so content can't get stuck hidden. Placed BEFORE the
+      // stylesheets so it never blocks on (or waits for) CSS loading.
+      try {
+        var root = document.documentElement;
+        if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          root.classList.add("ac-ready");
+          setTimeout(function () {
+            if (!root.classList.contains("ac-live")) root.classList.remove("ac-ready");
+          }, 3000);
+        }
+      } catch (e) {}
+    </script>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="flow-studio.css" />
+    <link rel="stylesheet" href="launchpad.css" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <main id="main-content" class="app-shell" aria-label="AWS Resilience Command Atlas dashboard">
-      <section class="hero-panel">
-        <div class="intro">
-          <div class="brand-line">
-            <p class="eyebrow">AWS COMMAND ATLAS</p>
-            <a
-              class="aws-link"
-              href="https://aws.amazon.com/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Open the official AWS website"
-              >AWS</a
-            >
-          </div>
-          <h1>AWS Resilience Command Atlas</h1>
-          <p class="lede">
-            Track how edge traffic, containers, identity, workflow state, and recovery lanes move
-            through a live cloud incident.
-          </p>
-        </div>
+    <main
+      id="main-content"
+      class="app-shell"
+      aria-label="AWS Trust Choreography architecture workspace"
+    >
+      <header class="site-header" data-animate="down">
+        <button class="brand-lockup" type="button" data-view-target="home">
+          <span class="brand-sigil" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>
+            <strong>Trust Choreography</strong>
+            <small>AWS architecture lab</small>
+          </span>
+        </button>
 
-        <nav class="view-switch" role="tablist" aria-label="Workspace">
-          <button
-            class="view-tab is-active"
-            type="button"
-            role="tab"
-            aria-selected="true"
-            data-view-target="atlas"
-          >
-            <span class="view-tab-glyph" aria-hidden="true">◎</span>Command Atlas
-          </button>
-          <button
-            class="view-tab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            data-view-target="studio"
-          >
-            <span class="view-tab-glyph" aria-hidden="true">⬡</span>Flow Studio
-          </button>
+        <nav class="workspace-nav" aria-label="Primary navigation">
+          <button type="button" data-view-target="home" aria-selected="true">Explore</button>
+          <button type="button" data-view-target="studio" aria-selected="false">Build</button>
+          <button type="button" data-view-target="atlas" aria-selected="false">Rehearse</button>
         </nav>
 
-        <div class="actions" aria-label="Simulation controls">
-          <button
-            class="icon-button play-button"
-            id="playButton"
-            type="button"
-            aria-pressed="false"
-            aria-label="Play the narrated incident walkthrough"
-            title="Play incident walkthrough"
+        <div class="header-actions">
+          <a
+            class="header-github"
+            href="https://github.com/Sebby1770/aws-trust-choreography"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub <span aria-hidden="true">↗</span></a
           >
-            <span aria-hidden="true">▶</span>
-          </button>
           <button
-            class="icon-button edit-button"
-            id="editButton"
-            type="button"
-            aria-pressed="false"
-            aria-label="Edit this atlas to make it your own"
-            title="Edit — make this atlas your own"
-          >
-            <span aria-hidden="true">✎</span>
-          </button>
-          <button
-            class="icon-button command-button"
+            class="header-icon command-button"
             id="commandButton"
             type="button"
             aria-label="Open command palette (Command or Control K)"
@@ -86,34 +87,7 @@
             <span aria-hidden="true">⌘K</span>
           </button>
           <button
-            class="icon-button"
-            id="replayButton"
-            type="button"
-            aria-label="Replay signal choreography"
-            title="Replay signal choreography"
-          >
-            <span aria-hidden="true">&#8635;</span>
-          </button>
-          <button
-            class="icon-button"
-            id="incidentButton"
-            type="button"
-            aria-label="Escalate incident mode"
-            title="Escalate incident mode"
-          >
-            <span aria-hidden="true">!</span>
-          </button>
-          <button
-            class="icon-button"
-            id="shareButton"
-            type="button"
-            aria-label="Copy a shareable link to this view"
-            title="Copy a shareable link to this view"
-          >
-            <span aria-hidden="true">&#128279;</span>
-          </button>
-          <button
-            class="icon-button"
+            class="header-icon"
             id="themeButton"
             type="button"
             aria-label="Theme: follow system"
@@ -122,11 +96,385 @@
             <span aria-hidden="true">&#9680;</span>
           </button>
         </div>
-      </section>
+      </header>
 
-      <div class="view view-atlas is-active" data-view="atlas">
+      <div class="view view-home is-active" data-view="home">
+        <section class="launch-hero" aria-labelledby="launchTitle">
+          <div class="launch-copy" data-animate="up">
+            <div class="launch-kicker">
+              <span class="live-dot" aria-hidden="true"></span>
+              Interactive architecture &amp; resilience lab
+            </div>
+            <h1 id="launchTitle">Build the cloud.<br /><em>Then break it.</em></h1>
+            <p>
+              Compose a real AWS architecture, understand its cost and trust boundaries, then
+              rehearse failure before production does it for you.
+            </p>
+            <div class="launch-actions">
+              <button class="primary-action" id="createArchitectureButton" type="button">
+                Create your architecture <span aria-hidden="true">↗</span>
+              </button>
+              <button class="secondary-action" id="browseProjectsButton" type="button">
+                Browse blueprints <span aria-hidden="true">↓</span>
+              </button>
+            </div>
+            <div class="launch-proof" aria-label="Product capabilities">
+              <span><strong>862</strong> official AWS icons</span>
+              <span><strong>7</strong> launch-ready blueprints</span>
+              <span><strong>0</strong> accounts required</span>
+            </div>
+          </div>
+
+          <div class="launch-visual" data-animate="scale" data-animate-delay="100">
+            <div class="visual-orbit orbit-one" aria-hidden="true"></div>
+            <div class="visual-orbit orbit-two" aria-hidden="true"></div>
+            <div class="architecture-glass">
+              <div class="architecture-glass-head">
+                <span><i></i> Production / ap-southeast-2</span>
+                <strong>94 <small>/ 100</small></strong>
+              </div>
+              <div class="mini-architecture" aria-label="Example resilient serverless architecture">
+                <div class="mini-path path-a" aria-hidden="true"></div>
+                <div class="mini-path path-b" aria-hidden="true"></div>
+                <div class="mini-path path-c" aria-hidden="true"></div>
+                <article class="mini-node node-edge">
+                  <img
+                    src="assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-CloudFront_64.svg"
+                    alt=""
+                  />
+                  <span>CloudFront<small>Edge</small></span>
+                </article>
+                <article class="mini-node node-api">
+                  <img
+                    src="assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-API-Gateway_64.svg"
+                    alt=""
+                  />
+                  <span>API Gateway<small>Ingress</small></span>
+                </article>
+                <article class="mini-node node-compute">
+                  <img
+                    src="assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Lambda_64.svg"
+                    alt=""
+                  />
+                  <span>Lambda<small>Compute</small></span>
+                </article>
+                <article class="mini-node node-data">
+                  <img
+                    src="assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-DynamoDB_64.svg"
+                    alt=""
+                  />
+                  <span>DynamoDB<small>State</small></span>
+                </article>
+                <article class="mini-node node-observe">
+                  <img
+                    src="assets/aws-icons/service/Arch_Management-Tools/64/Arch_Amazon-CloudWatch_64.svg"
+                    alt=""
+                  />
+                  <span>CloudWatch<small>Observe</small></span>
+                </article>
+              </div>
+              <div class="architecture-glass-foot">
+                <span><i class="status-ok"></i> All trust paths healthy</span>
+                <span>≈ $138 / month</span>
+              </div>
+            </div>
+            <aside class="signal-card signal-cost">
+              <span>Cost lens</span><strong>$138<small>/mo</small></strong>
+            </aside>
+            <aside class="signal-card signal-recovery">
+              <span>Recovery target</span><strong>4m 20s</strong>
+            </aside>
+          </div>
+        </section>
+
+        <section class="blueprint-section" id="blueprints" aria-labelledby="blueprintTitle">
+          <div class="section-heading" data-animate="up">
+            <div>
+              <span class="section-index">01 / BLUEPRINTS</span>
+              <h2 id="blueprintTitle">Start with a workload,<br />not an empty canvas.</h2>
+            </div>
+            <p>
+              Choose a proven shape, name it, select your region, and make every service and trust
+              path your own.
+            </p>
+          </div>
+
+          <div class="blueprint-filters" aria-label="Filter architecture blueprints">
+            <button class="is-active" type="button" data-project-filter="all">All projects</button>
+            <button type="button" data-project-filter="apps">Applications</button>
+            <button type="button" data-project-filter="ai">AI systems</button>
+            <button type="button" data-project-filter="data">Data &amp; events</button>
+          </div>
+
+          <div class="blueprint-grid">
+            <article class="blueprint-card card-featured" data-project-category="apps">
+              <div class="blueprint-topline">
+                <span class="blueprint-number">01</span><span class="blueprint-badge">Popular</span>
+              </div>
+              <div class="blueprint-icons" aria-hidden="true">
+                <img
+                  src="assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-CloudFront_64.svg"
+                  alt=""
+                />
+                <img src="assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Lambda_64.svg" alt="" />
+                <img
+                  src="assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-DynamoDB_64.svg"
+                  alt=""
+                />
+              </div>
+              <h3>Serverless product API</h3>
+              <p>Secure edge-to-data request flow with identity, telemetry, and object storage.</p>
+              <div class="blueprint-meta">
+                <span>8 services</span><span>Beginner</span><span>≈ $131/mo</span>
+              </div>
+              <button type="button" data-project-template="serverless">
+                Configure this project <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="blueprint-card" data-project-category="ai">
+              <div class="blueprint-topline">
+                <span class="blueprint-number">02</span><span class="blueprint-badge">AI</span>
+              </div>
+              <div class="blueprint-icons" aria-hidden="true">
+                <img src="assets/ai-icons/claude.svg" alt="" />
+                <img src="assets/ai-icons/embeddings.svg" alt="" />
+                <img src="assets/ai-icons/vector-db.svg" alt="" />
+              </div>
+              <h3>Claude RAG assistant</h3>
+              <p>Retrieval-augmented assistant with embeddings, guardrails, and source storage.</p>
+              <div class="blueprint-meta">
+                <span>8 services</span><span>Intermediate</span><span>≈ $375/mo</span>
+              </div>
+              <button type="button" data-project-template="claude-rag">
+                Configure this project <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="blueprint-card" data-project-category="apps">
+              <div class="blueprint-topline">
+                <span class="blueprint-number">03</span
+                ><span class="blueprint-badge">Resilient</span>
+              </div>
+              <div class="blueprint-icons" aria-hidden="true">
+                <img
+                  src="assets/aws-icons/service/Arch_Networking-Content-Delivery/64/Arch_Amazon-CloudFront_64.svg"
+                  alt=""
+                />
+                <img
+                  src="assets/aws-icons/service/Arch_Compute/64/Arch_Amazon-EC2-Auto-Scaling_64.svg"
+                  alt=""
+                />
+                <img
+                  src="assets/aws-icons/service/Arch_Databases/64/Arch_Amazon-RDS_64.svg"
+                  alt=""
+                />
+              </div>
+              <h3>Resilient web platform</h3>
+              <p>Global delivery, protected ingress, autoscaling compute, database, and backup.</p>
+              <div class="blueprint-meta">
+                <span>9 services</span><span>Intermediate</span><span>≈ $391/mo</span>
+              </div>
+              <button type="button" data-project-template="web">
+                Configure this project <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="blueprint-card" data-project-category="data">
+              <div class="blueprint-topline">
+                <span class="blueprint-number">04</span><span class="blueprint-badge">Async</span>
+              </div>
+              <div class="blueprint-icons" aria-hidden="true">
+                <img
+                  src="assets/aws-icons/service/Arch_Application-Integration/64/Arch_Amazon-EventBridge_64.svg"
+                  alt=""
+                />
+                <img
+                  src="assets/aws-icons/service/Arch_Application-Integration/64/Arch_AWS-Step-Functions_64.svg"
+                  alt=""
+                />
+                <img src="assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Lambda_64.svg" alt="" />
+              </div>
+              <h3>Event processing pipeline</h3>
+              <p>
+                Durable event ingress, orchestration, queues, workers, state, and observability.
+              </p>
+              <div class="blueprint-meta">
+                <span>8 services</span><span>Intermediate</span><span>≈ $100/mo</span>
+              </div>
+              <button type="button" data-project-template="events">
+                Configure this project <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="blueprint-card" data-project-category="ai">
+              <div class="blueprint-topline">
+                <span class="blueprint-number">05</span><span class="blueprint-badge">Agentic</span>
+              </div>
+              <div class="blueprint-icons" aria-hidden="true">
+                <img src="assets/ai-icons/ai-agent.svg" alt="" />
+                <img src="assets/ai-icons/foundation-model.svg" alt="" />
+                <img src="assets/ai-icons/ai-guardrails.svg" alt="" />
+              </div>
+              <h3>AI agent platform</h3>
+              <p>
+                Agent planning with model inference, tools, durable memory, retrieval, and evals.
+              </p>
+              <div class="blueprint-meta">
+                <span>8 services</span><span>Advanced</span><span>≈ $445/mo</span>
+              </div>
+              <button type="button" data-project-template="ai-agent">
+                Configure this project <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="blueprint-card" data-project-category="ai">
+              <div class="blueprint-topline">
+                <span class="blueprint-number">06</span
+                ><span class="blueprint-badge">Conversational</span>
+              </div>
+              <div class="blueprint-icons" aria-hidden="true">
+                <img src="assets/ai-icons/chatgpt.svg" alt="" />
+                <img src="assets/aws-icons/service/Arch_Compute/64/Arch_AWS-Lambda_64.svg" alt="" />
+                <img
+                  src="assets/aws-icons/service/Arch_Security-Identity/64/Arch_Amazon-Cognito_64.svg"
+                  alt=""
+                />
+              </div>
+              <h3>Generative AI chatbot</h3>
+              <p>
+                Global chat delivery with identity, model calls, moderation, history, and traces.
+              </p>
+              <div class="blueprint-meta">
+                <span>8 services</span><span>Intermediate</span><span>≈ $415/mo</span>
+              </div>
+              <button type="button" data-project-template="chatbot">
+                Configure this project <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+
+            <article class="blueprint-card blueprint-blank" data-project-category="all">
+              <div>
+                <span class="blank-mark" aria-hidden="true">＋</span>
+                <span class="section-index">YOUR OWN SYSTEM</span>
+              </div>
+              <h3>Start from zero.</h3>
+              <p>Bring an architecture in your head to life with the complete AWS icon library.</p>
+              <button type="button" data-project-template="blank">
+                Open a blank canvas <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <section class="workflow-section" aria-labelledby="workflowTitle">
+          <div class="workflow-intro">
+            <span class="section-index">02 / FROM IDEA TO EVIDENCE</span>
+            <h2 id="workflowTitle">Architecture is a living argument.</h2>
+            <p>
+              Trust Choreography makes that argument visible—from the first service to the first
+              failure.
+            </p>
+          </div>
+          <ol class="workflow-steps">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Compose</strong><small>Drag 862 official AWS components into place.</small>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Understand</strong
+                ><small>Score resilience, security, cost, and recovery.</small>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>Rehearse</strong
+                ><small>Inject failure and watch the blast radius move.</small>
+              </div>
+            </li>
+            <li>
+              <span>04</span>
+              <div>
+                <strong>Ship</strong
+                ><small>Export JSON, SVG, Mermaid, or Terraform scaffolding.</small>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <div class="view view-atlas" data-view="atlas">
+        <section class="atlas-intro" aria-labelledby="atlasTitle">
+          <div>
+            <span class="section-index">LIVE RESILIENCE LAB</span>
+            <h1 id="atlasTitle">Make failure<br /><em>observable.</em></h1>
+            <p>
+              Track how edge traffic, identity, workflow state, and recovery lanes behave through a
+              live cloud incident.
+            </p>
+          </div>
+          <div class="actions atlas-actions" aria-label="Simulation controls">
+            <button
+              class="icon-button play-button"
+              id="playButton"
+              type="button"
+              aria-pressed="false"
+              aria-label="Play the narrated incident walkthrough"
+              title="Play incident walkthrough"
+            >
+              <span aria-hidden="true">▶</span>
+            </button>
+            <button
+              class="icon-button edit-button"
+              id="editButton"
+              type="button"
+              aria-pressed="false"
+              aria-label="Edit this atlas to make it your own"
+              title="Edit — make this atlas your own"
+            >
+              <span aria-hidden="true">✎</span>
+            </button>
+            <button
+              class="icon-button"
+              id="replayButton"
+              type="button"
+              aria-label="Replay signal choreography"
+              title="Replay signal choreography"
+            >
+              <span aria-hidden="true">&#8635;</span>
+            </button>
+            <button
+              class="icon-button"
+              id="incidentButton"
+              type="button"
+              aria-label="Escalate incident mode"
+              title="Escalate incident mode"
+            >
+              <span aria-hidden="true">!</span>
+            </button>
+            <button
+              class="icon-button"
+              id="shareButton"
+              type="button"
+              aria-label="Copy a shareable link to this view"
+              title="Copy a shareable link to this view"
+            >
+              <span aria-hidden="true">&#128279;</span>
+            </button>
+          </div>
+        </section>
         <section class="command-workbench" aria-label="Live incident command workbench">
-          <nav class="scenario-strip" role="tablist" aria-label="Incident scenario">
+          <nav
+            class="scenario-strip"
+            role="tablist"
+            aria-label="Incident scenario"
+            data-animate="left"
+          >
             <span class="rail-label">Scenarios</span>
             <button
               class="scenario is-active"
@@ -166,7 +514,12 @@
             </button>
           </nav>
 
-          <section class="stage" aria-label="Interactive AWS service map">
+          <section
+            class="stage"
+            aria-label="Interactive AWS service map"
+            data-animate="scale"
+            data-animate-delay="120"
+          >
             <div class="grid-window">
               <aside class="authority-card" aria-live="polite">
                 <span class="card-kicker">Resilience authority</span>
@@ -451,7 +804,12 @@
             </div>
           </section>
 
-          <aside class="console-deck" aria-label="Operations console">
+          <aside
+            class="console-deck"
+            aria-label="Operations console"
+            data-animate="right"
+            data-animate-delay="200"
+          >
             <div class="console-head">
               <div class="console-title">
                 <span>Operations console</span>
@@ -584,7 +942,7 @@
       </div>
 
       <div class="view view-studio" data-view="studio">
-        <section class="flow-studio" aria-labelledby="flowStudioTitle">
+        <section class="flow-studio" aria-labelledby="flowStudioTitle" data-animate="up">
           <header class="flow-studio-head">
             <div class="flow-studio-brand">
               <h2 id="flowStudioTitle">AWS Flow Studio</h2>
@@ -723,6 +1081,26 @@
                   value="My resilient workload"
                   maxlength="80"
                 />
+                <div class="studio-sessions" aria-label="Studio sessions">
+                  <label class="visually-hidden" for="studioSessionSelect">Session</label>
+                  <select id="studioSessionSelect" aria-label="Switch studio session"></select>
+                  <button
+                    id="studioSessionNew"
+                    type="button"
+                    title="New session"
+                    aria-label="Create a new studio session"
+                  >
+                    ＋
+                  </button>
+                  <button
+                    id="studioSessionDelete"
+                    type="button"
+                    title="Delete session"
+                    aria-label="Delete the current studio session"
+                  >
+                    🗑
+                  </button>
+                </div>
                 <span id="flowCanvasHint">Select an icon to add it</span>
               </div>
               <div
@@ -792,25 +1170,40 @@
               </div>
               <div class="flow-templates" aria-label="Architecture templates">
                 <span>Starter templates</span>
-                <button type="button" class="is-ai-template" data-flow-template="claude-rag">
+                <button
+                  type="button"
+                  data-spotlight
+                  class="is-ai-template"
+                  data-flow-template="claude-rag"
+                >
                   Claude RAG assistant<small>API GW + Lambda + Claude + Vector DB</small>
                 </button>
-                <button type="button" class="is-ai-template" data-flow-template="ai-agent">
+                <button
+                  type="button"
+                  data-spotlight
+                  class="is-ai-template"
+                  data-flow-template="ai-agent"
+                >
                   AI agent platform<small>Agent + Foundation Model + tools + memory</small>
                 </button>
-                <button type="button" class="is-ai-template" data-flow-template="chatbot">
+                <button
+                  type="button"
+                  data-spotlight
+                  class="is-ai-template"
+                  data-flow-template="chatbot"
+                >
                   GenAI chatbot<small>CloudFront + Lambda + ChatGPT + guardrails</small>
                 </button>
-                <button type="button" data-flow-template="serverless">
+                <button type="button" data-spotlight data-flow-template="serverless">
                   Serverless API<small>API Gateway + Lambda + DynamoDB</small>
                 </button>
-                <button type="button" data-flow-template="events">
+                <button type="button" data-spotlight data-flow-template="events">
                   Event pipeline<small>EventBridge + Step Functions + SQS</small>
                 </button>
-                <button type="button" data-flow-template="web">
+                <button type="button" data-spotlight data-flow-template="web">
                   Resilient web app<small>CloudFront + EC2 + RDS</small>
                 </button>
-                <button type="button" data-flow-template="blank">
+                <button type="button" data-spotlight data-flow-template="blank">
                   Blank<small>Clear the canvas</small>
                 </button>
               </div>
@@ -943,6 +1336,102 @@
         </section>
       </div>
     </main>
+
+    <dialog class="project-dialog" id="projectWizard" aria-labelledby="projectWizardTitle">
+      <form id="projectWizardForm">
+        <div class="dialog-head">
+          <div>
+            <span class="section-index">NEW ARCHITECTURE</span>
+            <h2 id="projectWizardTitle">Give the cloud a shape.</h2>
+            <p>Choose a starting point. Everything stays editable in the studio.</p>
+          </div>
+          <button
+            class="dialog-close"
+            id="projectWizardClose"
+            type="button"
+            aria-label="Close new architecture dialog"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="dialog-body">
+          <div class="dialog-fields">
+            <label class="dialog-field" for="projectName">
+              <span>Project name</span>
+              <input
+                id="projectName"
+                name="projectName"
+                type="text"
+                value="My production architecture"
+                maxlength="80"
+                required
+              />
+            </label>
+            <div class="dialog-field-row">
+              <label class="dialog-field" for="projectRegion">
+                <span>Home region</span>
+                <select id="projectRegion" name="projectRegion">
+                  <option value="ap-southeast-2">ap-southeast-2 · Sydney</option>
+                  <option value="us-east-1">us-east-1 · N. Virginia</option>
+                  <option value="us-west-2">us-west-2 · Oregon</option>
+                  <option value="eu-west-1">eu-west-1 · Ireland</option>
+                  <option value="ap-northeast-1">ap-northeast-1 · Tokyo</option>
+                </select>
+              </label>
+              <label class="dialog-field" for="projectStage">
+                <span>Workload stage</span>
+                <select id="projectStage" name="projectStage">
+                  <option value="production">Production</option>
+                  <option value="prototype">Prototype</option>
+                  <option value="migration">Migration</option>
+                  <option value="learning">Learning lab</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <fieldset class="project-starters">
+            <legend>Starting point</legend>
+            <label>
+              <input type="radio" name="projectTemplate" value="blank" />
+              <span><i>＋</i><strong>Blank canvas</strong><small>Build freely</small></span>
+            </label>
+            <label>
+              <input type="radio" name="projectTemplate" value="serverless" checked />
+              <span><i>λ</i><strong>Serverless API</strong><small>8 services</small></span>
+            </label>
+            <label>
+              <input type="radio" name="projectTemplate" value="web" />
+              <span><i>◉</i><strong>Web platform</strong><small>9 services</small></span>
+            </label>
+            <label>
+              <input type="radio" name="projectTemplate" value="events" />
+              <span><i>↯</i><strong>Event pipeline</strong><small>8 services</small></span>
+            </label>
+            <label>
+              <input type="radio" name="projectTemplate" value="claude-rag" />
+              <span><i>AI</i><strong>Claude RAG</strong><small>8 services</small></span>
+            </label>
+            <label>
+              <input type="radio" name="projectTemplate" value="ai-agent" />
+              <span><i>⌁</i><strong>Agent platform</strong><small>8 services</small></span>
+            </label>
+            <label>
+              <input type="radio" name="projectTemplate" value="chatbot" />
+              <span><i>···</i><strong>GenAI chatbot</strong><small>8 services</small></span>
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="dialog-foot">
+          <p><span aria-hidden="true">●</span> Stored locally in this browser</p>
+          <button class="dialog-submit" type="submit">
+            Create architecture <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </form>
+    </dialog>
 
     <script type="module" src="src/main.js"></script>
   </body>

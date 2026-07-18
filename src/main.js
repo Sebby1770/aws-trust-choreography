@@ -15,6 +15,9 @@ import { loadIconCatalog } from "./icon-catalog.js";
 import { AI_ICONS } from "./ai-icons.js";
 import { initViews } from "./views.js";
 import { initConsoleDeck } from "./console-deck.js";
+import { initAnimatedContent } from "./animated-content.js";
+import { initSpotlight } from "./spotlight.js";
+import { initProjectLaunchpad } from "./project-launchpad.js";
 
 function ready(fn) {
   if (document.readyState === "loading") {
@@ -28,6 +31,8 @@ ready(() => {
   const theme = initTheme(document.querySelector("#themeButton"));
   initAtlas({ theme });
   initConsoleDeck();
+  initAnimatedContent();
+  initSpotlight();
 
   const studio = document.querySelector(".flow-studio");
   if (!studio) {
@@ -35,21 +40,30 @@ ready(() => {
     return;
   }
 
-  let started = false;
-  const boot = async () => {
-    if (started) return;
-    started = true;
-    const status = document.querySelector("#flowStatusMessage");
-    if (status) status.textContent = "Loading icon library…";
-    try {
-      const { initFlowStudio } = await import("./flow-studio.js");
-      const { catalog, meta } = await loadIconCatalog();
-      // AI / LLM building blocks lead the catalog so they are easy to find.
-      initFlowStudio([...AI_ICONS, ...catalog], { ...meta, aiCount: AI_ICONS.length });
-    } catch (error) {
-      if (status) status.textContent = "Flow Studio failed to load. Reload to retry.";
-      console.error("Flow Studio failed to initialize:", error);
-    }
+  let bootPromise = null;
+  const boot = () => {
+    if (bootPromise) return bootPromise;
+    bootPromise = (async () => {
+      const status = document.querySelector("#flowStatusMessage");
+      if (status) status.textContent = "Loading icon library…";
+      try {
+        const { initFlowStudio } = await import("./flow-studio.js");
+        const { catalog, meta } = await loadIconCatalog();
+        // AI / LLM building blocks lead the catalog so they are easy to find.
+        initFlowStudio([...AI_ICONS, ...catalog], { ...meta, aiCount: AI_ICONS.length });
+        const { initStudioSessions } = await import("./studio-sessions.js");
+        initStudioSessions();
+        const { initStudioExtras } = await import("./studio-extras.js");
+        initStudioExtras();
+        window.dispatchEvent(new CustomEvent("atlas:studioready"));
+        return window.AWSFlowStudio;
+      } catch (error) {
+        if (status) status.textContent = "Flow Studio failed to load. Reload to retry.";
+        console.error("Flow Studio failed to initialize:", error);
+        return null;
+      }
+    })();
+    return bootPromise;
   };
 
   // Eager path: load as soon as the studio nears the viewport.
@@ -84,6 +98,15 @@ ready(() => {
     });
   });
 
-  // Mount the workspace switcher last so its initial event reaches the listener.
-  initViews();
+  // Mount navigation after the view-change listener so its initial event is observed.
+  const views = initViews();
+  initProjectLaunchpad({
+    launch: async (project) => {
+      views?.setView("studio");
+      const flowStudio = await boot();
+      if (!flowStudio) return;
+      flowStudio.createProject(project);
+      window.requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+    },
+  });
 });

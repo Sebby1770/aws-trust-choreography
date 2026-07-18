@@ -1215,6 +1215,48 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     }
   }
 
+  function createProject(project = {}) {
+    const template = templateDefinition(project.template) ? project.template : "blank";
+    applyTemplate(template, { initial: true });
+
+    const stageEnvironment = {
+      production: "Production",
+      prototype: "Development",
+      migration: "Staging",
+      learning: "Development",
+    };
+    const environment = stageEnvironment[project.stage] || "Production";
+
+    state.name =
+      typeof project.name === "string" && project.name.trim()
+        ? project.name.trim().slice(0, 80)
+        : state.name;
+    state.region =
+      typeof project.region === "string" && project.region ? project.region : state.region;
+    state.nodes.forEach((node) => {
+      node.environment = environment;
+    });
+
+    history.length = 0;
+    future = [];
+    selectedConnectionId = null;
+    resetSimulationState();
+    syncControls();
+    renderAll();
+    markUnsaved(`${state.name} created`);
+    elements.architectureName.dispatchEvent(new Event("change", { bubbles: true }));
+    global.dispatchEvent(
+      new CustomEvent("atlas:projectcreated", {
+        detail: {
+          name: state.name,
+          template,
+          region: state.region,
+          stage: project.stage || "production",
+        },
+      })
+    );
+  }
+
   function updateSelectedNode(field, value) {
     const node = selectedNode();
     if (!node) {
@@ -1832,7 +1874,13 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
 
   global.AWSFlowStudio = {
     getState: () => safeParse(architectureSnapshot()),
+    snapshot: architectureSnapshot,
+    loadArchitecture: (snapshot) => {
+      restoreSnapshot(typeof snapshot === "string" ? snapshot : JSON.stringify(snapshot));
+      markSaved("Session loaded");
+    },
     applyTemplate,
+    createProject,
     save: saveArchitecture,
     catalogCount: catalog.length,
   };

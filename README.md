@@ -1,15 +1,30 @@
-# AWS Resilience Command Atlas
+# Trust Choreography
 
 [![CI](https://github.com/Sebby1770/aws-trust-choreography/actions/workflows/ci.yml/badge.svg)](https://github.com/Sebby1770/aws-trust-choreography/actions/workflows/ci.yml)
 
-An interactive, single-page incident-command atlas and architecture studio inspired by AWS
-resilience dashboards and service maps. Built with vanilla HTML, CSS, and modern ES modules — no
-framework, no runtime dependencies.
+An interactive AWS architecture and resilience lab: start from a real workload, make the
+architecture your own, understand its trust boundaries and cost, then rehearse failure before
+production does it for you. Built with vanilla HTML, CSS, and modern ES modules — no framework and
+no runtime dependencies.
 
 ## What it does
 
-A header **workspace switcher** splits the app into two screens: the **Command Atlas** and a
-dedicated, full-screen **Flow Studio**.
+The app opens in a project-first **Launchpad**, with dedicated **Build** and **Rehearse** workspaces.
+The studio supports **multiple named sessions** (create / switch / rename / delete from the
+titlebar), each with its own auto-saved canvas — plus a **decision layer**: a live monthly **cost
+estimate** badge, one-click **Terraform** (`main.tf` skeleton) export, and **Mermaid** diagram
+export for READMEs and PRs.
+
+**Project Launchpad**
+
+- A guided "create architecture" flow for naming a project, choosing its AWS region and lifecycle
+  stage, and selecting a starting shape.
+- A filterable blueprint gallery for serverless APIs, resilient web platforms, event pipelines,
+  Claude RAG assistants, AI agent platforms, generative AI chatbots, or a blank canvas.
+- Every choice opens directly in Flow Studio with the project metadata and service environments
+  already applied.
+- A responsive, editorial visual system with a live architecture preview, workload cost and
+  recovery signals, and a clear compose → understand → rehearse → ship journey.
 
 **Command Atlas**
 
@@ -52,6 +67,9 @@ dedicated, full-screen **Flow Studio**.
 - **Shareable deep links** — the active scenario, injected faults, and selected node are encoded in
   the URL hash, so the share button copies a link that reopens the exact same view.
 - **Theming** — light / dark / follow-system, persisted across visits.
+- **Animated reveals** — a vanilla port of React Bits'
+  [AnimatedContent](https://reactbits.dev/animations/animated-content): sections glide + fade into
+  place on viewport entry (staggered, `prefers-reduced-motion`-aware, with a no-JS failsafe).
 - **Accessibility** — skip link, keyboard-operable nodes, visible focus rings, and full
   `prefers-reduced-motion` support (the SVG choreography freezes when motion is reduced).
 - Responsive layouts for desktop, tablet, and mobile with no horizontal overflow.
@@ -61,6 +79,7 @@ dedicated, full-screen **Flow Studio**.
 ```bash
 npm install      # install dev tooling
 npm run dev      # start the Vite dev server with hot reload
+npm run build    # create a production build
 ```
 
 Then open the printed local URL. The app ships as native ES modules and has no bundling step — it
@@ -71,6 +90,7 @@ runs directly from the source files, both in development and in production.
 | Script                | Purpose                                               |
 | --------------------- | ----------------------------------------------------- |
 | `npm run dev`         | Vite dev server with hot module reload                |
+| `npm run build`       | Build the production site into `dist/`                |
 | `npm test`            | Run the Vitest unit suite                             |
 | `npm run coverage`    | Run tests with a V8 coverage report                   |
 | `npm run lint`        | Lint with ESLint                                      |
@@ -94,6 +114,13 @@ src/
   url-state.js         shareable URL-hash state (unit-tested)
   command-palette.js   ⌘K launcher + fuzzy ranking (unit-tested)
   incident-report.js   Markdown incident-report builder (unit-tested)
+  animated-content.js  reveal-on-scroll engine (unit-tested)
+  studio-sessions.js   multi-session store for Flow Studio (unit-tested)
+  cost-model.js        rough monthly cost estimator (unit-tested)
+  terraform-export.js  canvas → main.tf skeleton (unit-tested)
+  mermaid-export.js    canvas → Mermaid flowchart (unit-tested)
+  studio-extras.js     cost badge + TF/MMD toolbar wiring
+  spotlight.js         pointer-tracked spotlight cards
   icon-catalog.js      lazy loader for the icon catalog chunk
 assets/ai-icons/       custom AI / LLM node SVGs
 tests/                 Vitest suites for the pure modules
