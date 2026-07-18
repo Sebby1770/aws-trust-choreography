@@ -8,7 +8,7 @@
  */
 
 const STORAGE_KEY = "aws-command-atlas-view-v2";
-const VIEWS = ["home", "studio", "atlas"];
+const VIEWS = ["home", "studio", "network", "atlas"];
 const DEFAULT_VIEW = "home";
 
 export function initViews() {
@@ -26,7 +26,11 @@ export function initViews() {
     tabs.forEach((tab) => {
       const on = tab.dataset.viewTarget === view;
       tab.classList.toggle("is-active", on);
-      tab.setAttribute("aria-selected", String(on));
+      tab.removeAttribute("aria-selected");
+      if (tab.closest(".workspace-nav")) {
+        if (on) tab.setAttribute("aria-current", "page");
+        else tab.removeAttribute("aria-current");
+      }
     });
     if (select && select.value !== view) select.value = view;
     if (shell) shell.dataset.activeView = view;

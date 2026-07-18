@@ -259,9 +259,23 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   }
 
   function addNode(icon) {
-    const index = state.nodes.length;
-    const x = 0.18 + ((index * 0.19) % 0.64);
-    const y = 0.22 + ((Math.floor(index / 4) * 0.24) % 0.54);
+    const slots = [];
+    [0.18, 0.38, 0.58, 0.78].forEach((y) => {
+      [0.16, 0.33, 0.5, 0.67, 0.84].forEach((x) => slots.push({ x, y }));
+    });
+    const openSlot = slots.find(
+      (slot) =>
+        !state.nodes.some(
+          (node) => Math.abs(node.x - slot.x) < 0.09 && Math.abs(node.y - slot.y) < 0.12
+        )
+    );
+    const fallbackIndex = state.nodes.length;
+    const x = openSlot?.x ?? 0.18 + ((fallbackIndex * 0.19) % 0.64);
+    const y = openSlot?.y ?? 0.22 + ((Math.floor(fallbackIndex / 4) * 0.24) % 0.54);
+    addNodeAt(icon, x, y);
+  }
+
+  function addNodeAt(icon, x, y) {
     commit(`Added ${icon.name}`, () => {
       const node = makeNode(icon, x, y);
       state.nodes.push(node);
@@ -408,6 +422,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       button.className = "flow-icon-tile";
       button.classList.toggle("is-selected", selectedLibraryIconId === icon.id);
       button.dataset.iconId = icon.id;
+      button.draggable = true;
       button.title = `${icon.name} · ${icon.category}`;
       const image = document.createElement("img");
       image.src = icon.path;
@@ -447,6 +462,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       button.type = "button";
       button.className = "flow-recent-icon";
       button.dataset.iconId = icon.id;
+      button.draggable = true;
       button.title = `Add ${icon.name}`;
       const image = document.createElement("img");
       image.src = icon.path;
@@ -514,17 +530,30 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
           .filter(Boolean)
           .join(" ")
       );
+      visible.setAttribute("aria-hidden", "true");
       const hit = document.createElementNS("http://www.w3.org/2000/svg", "path");
       hit.setAttribute("d", pathData);
       hit.setAttribute("class", "flow-connection-hit");
+      hit.setAttribute("aria-hidden", "true");
       hit.dataset.connectionId = connection.id;
+      const focusTarget = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      focusTarget.setAttribute("class", "flow-connection-keyboard");
+      focusTarget.setAttribute("cx", String(((from.x + to.x) / 2) * rect.width));
+      focusTarget.setAttribute("cy", String(((from.y + to.y) / 2) * rect.height));
+      focusTarget.setAttribute("r", "9");
+      focusTarget.setAttribute("role", "button");
+      focusTarget.setAttribute("tabindex", "0");
+      focusTarget.setAttribute("aria-label", `${from.name} to ${to.name}`);
+      focusTarget.setAttribute("aria-pressed", String(selectedConnectionId === connection.id));
+      focusTarget.dataset.connectionId = connection.id;
       const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
       label.setAttribute("class", "flow-connection-label");
+      label.setAttribute("aria-hidden", "true");
       label.setAttribute("x", String(((from.x + to.x) / 2) * rect.width));
       label.setAttribute("y", String(((from.y + to.y) / 2) * rect.height - 8));
       label.textContent =
         connection.label || connectionDefaults(connection.from, connection.to).label;
-      elements.connections.append(visible, label, hit);
+      elements.connections.append(visible, label, hit, focusTarget);
     });
   }
 
@@ -550,6 +579,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
         "aria-label",
         `${node.name}, ${node.environment}, ${node.criticality} criticality`
       );
+      button.setAttribute("aria-pressed", String(selectedNodeId === node.id));
       const image = document.createElement("img");
       image.src = node.iconPath;
       image.alt = "";
@@ -1003,6 +1033,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     renderLibrary();
   }
 
+  function refreshLayout() {
+    renderConnections();
+    renderMinimap();
+  }
+
   function syncControls() {
     elements.architectureName.value = state.name;
     elements.region.value = state.region;
@@ -1289,6 +1324,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       const active = button.dataset.inspectorTab === tab;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-selected", String(active));
+      button.tabIndex = active ? 0 : -1;
     });
     elements.inspectPanel.hidden = tab !== "inspect";
     elements.analyzePanel.hidden = tab !== "analyze";
@@ -1629,7 +1665,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       elements.iconTypeButtons.forEach((candidate) => {
         const active = candidate === button;
         candidate.classList.toggle("is-active", active);
-        candidate.setAttribute("aria-selected", String(active));
+        candidate.setAttribute("aria-pressed", String(active));
       });
       renderCategories();
       renderLibrary();
@@ -1646,6 +1682,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     const icon = catalog.find((item) => item.id === tile.dataset.iconId);
     if (icon) {
       addNode(icon);
+      if (event.detail === 0) {
+        global.requestAnimationFrame(() => {
+          elements.nodeLayer.querySelector(`[data-node-id="${selectedNodeId}"]`)?.focus();
+        });
+      }
     }
   });
   elements.recentIcons.addEventListener("click", (event) => {
@@ -1656,8 +1697,56 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     const icon = catalog.find((item) => item.id === tile.dataset.iconId);
     if (icon) {
       addNode(icon);
+      if (event.detail === 0) {
+        global.requestAnimationFrame(() => {
+          elements.nodeLayer.querySelector(`[data-node-id="${selectedNodeId}"]`)?.focus();
+        });
+      }
     }
   });
+  [elements.iconGrid, elements.recentIcons].forEach((library) => {
+    library.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const tile = event.target.closest("[data-icon-id]");
+      if (!tile) return;
+      event.preventDefault();
+      tile.click();
+    });
+    library.addEventListener("dragstart", (event) => {
+      const tile = event.target.closest("[data-icon-id]");
+      if (!tile || !event.dataTransfer) return;
+      event.dataTransfer.effectAllowed = "copy";
+      event.dataTransfer.setData("text/aws-icon-id", tile.dataset.iconId);
+      event.dataTransfer.setData("text/plain", tile.dataset.iconId);
+    });
+  });
+  elements.canvas.addEventListener("dragover", (event) => {
+    if (!event.dataTransfer) return;
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+    elements.canvas.classList.add("is-drag-target");
+  });
+  elements.canvas.addEventListener("dragleave", (event) => {
+    if (!elements.canvas.contains(event.relatedTarget)) {
+      elements.canvas.classList.remove("is-drag-target");
+    }
+  });
+  elements.canvas.addEventListener("drop", (event) => {
+    event.preventDefault();
+    elements.canvas.classList.remove("is-drag-target");
+    const iconId =
+      event.dataTransfer?.getData("text/aws-icon-id") ||
+      event.dataTransfer?.getData("text/plain");
+    const icon = catalog.find((item) => item.id === iconId);
+    if (!icon) return;
+    const rect = elements.canvas.getBoundingClientRect();
+    addNodeAt(
+      icon,
+      (event.clientX - rect.left) / rect.width,
+      (event.clientY - rect.top) / rect.height
+    );
+  });
+  document.addEventListener("dragend", () => elements.canvas.classList.remove("is-drag-target"));
 
   elements.nodeLayer.addEventListener("pointerdown", (event) => {
     const nodeElement = event.target.closest("[data-node-id]");
@@ -1694,6 +1783,25 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     };
     nodeElement.setPointerCapture?.(event.pointerId);
     event.preventDefault();
+  });
+
+  elements.nodeLayer.addEventListener("click", (event) => {
+    if (event.detail !== 0) return;
+    const nodeElement = event.target.closest("[data-node-id]");
+    if (!nodeElement) return;
+    const nodeId = nodeElement.dataset.nodeId;
+    handleNodeActivation(nodeId);
+    global.requestAnimationFrame(() => {
+      elements.nodeLayer.querySelector(`[data-node-id="${nodeId}"]`)?.focus();
+    });
+  });
+
+  elements.nodeLayer.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const nodeElement = event.target.closest("[data-node-id]");
+    if (!nodeElement) return;
+    event.preventDefault();
+    nodeElement.click();
   });
 
   elements.nodeLayer.addEventListener("pointermove", (event) => {
@@ -1733,15 +1841,33 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   elements.nodeLayer.addEventListener("pointerup", endDrag);
   elements.nodeLayer.addEventListener("pointercancel", endDrag);
 
-  elements.connections.addEventListener("click", (event) => {
-    const path = event.target.closest("[data-connection-id]");
-    if (!path) {
-      return;
-    }
-    selectedConnectionId = path.dataset.connectionId;
+  function selectConnection(connectionId, { restoreFocus = false } = {}) {
+    if (!state.connections.some((connection) => connection.id === connectionId)) return;
+    selectedConnectionId = connectionId;
     selectedNodeId = null;
     setInspectorTab("inspect");
     renderAll();
+    if (restoreFocus) {
+      global.requestAnimationFrame(() => {
+        elements.connections
+          .querySelector(`[data-connection-id="${connectionId}"][tabindex]`)
+          ?.focus();
+      });
+    }
+  }
+
+  elements.connections.addEventListener("click", (event) => {
+    const path = event.target.closest("[data-connection-id]");
+    if (!path) return;
+    selectConnection(path.dataset.connectionId);
+  });
+
+  elements.connections.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const path = event.target.closest("[data-connection-id]");
+    if (!path) return;
+    event.preventDefault();
+    selectConnection(path.dataset.connectionId, { restoreFocus: true });
   });
 
   elements.canvas.addEventListener("click", (event) => {
@@ -1786,12 +1912,28 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   elements.zoomOutButton.addEventListener("click", () => adjustZoom(-1));
   elements.libraryToggle.addEventListener("click", () => {
     const studio = elements.canvas.closest(".flow-studio");
-    studio.classList.toggle("is-library-collapsed");
-    global.setTimeout(renderConnections, 170);
+    const collapsed = studio.classList.toggle("is-library-collapsed");
+    elements.libraryToggle.setAttribute("aria-expanded", String(!collapsed));
+    global.setTimeout(refreshLayout, 170);
   });
 
   elements.inspectorTabs.forEach((button) => {
     button.addEventListener("click", () => setInspectorTab(button.dataset.inspectorTab));
+    button.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const currentIndex = elements.inspectorTabs.indexOf(button);
+      const nextIndex =
+        event.key === "Home"
+          ? 0
+          : event.key === "End"
+            ? elements.inspectorTabs.length - 1
+            : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + elements.inspectorTabs.length) %
+              elements.inspectorTabs.length;
+      const next = elements.inspectorTabs[nextIndex];
+      setInspectorTab(next.dataset.inspectorTab);
+      next.focus();
+    });
   });
 
   elements.templateButtons.forEach((button) => {
@@ -1840,6 +1982,10 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   );
 
   global.addEventListener("keydown", (event) => {
+    const studioView = elements.canvas.closest(".view-studio");
+    if (!studioView?.classList.contains("is-active")) {
+      return;
+    }
     const target = event.target;
     const typing =
       target instanceof HTMLInputElement ||
@@ -1858,9 +2004,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     }
   });
 
-  global.addEventListener("resize", () => {
-    renderConnections();
-  });
+  global.addEventListener("resize", refreshLayout);
+  if (typeof global.ResizeObserver === "function") {
+    const canvasObserver = new global.ResizeObserver(refreshLayout);
+    canvasObserver.observe(elements.canvas);
+  }
 
   renderCategories();
   syncControls();
@@ -1882,6 +2030,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     applyTemplate,
     createProject,
     save: saveArchitecture,
+    refreshLayout,
     catalogCount: catalog.length,
   };
 

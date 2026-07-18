@@ -43,6 +43,7 @@ function copyArchitectureAssets() {
 // so production builds retain the same catalog behavior as the dev server and
 // GitHub Pages' source deployment.
 export default defineConfig({
+  base: "./",
   build: {
     outDir: "dist/client",
   },

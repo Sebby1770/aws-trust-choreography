@@ -33,7 +33,8 @@ function slug(value) {
 }
 
 export function initStudioExtras(studio = window.AWSFlowStudio) {
-  const toolbar = document.querySelector(".flow-toolbar");
+  const toolbar =
+    document.querySelector(".flow-export-actions") || document.querySelector(".flow-toolbar");
   const meta = document.querySelector(".flow-studio-meta");
   const status = document.querySelector("#flowStatusMessage");
   if (!studio || !toolbar) return null;
@@ -46,7 +47,9 @@ export function initStudioExtras(studio = window.AWSFlowStudio) {
 
   const tfButton = document.createElement("button");
   tfButton.type = "button";
+  tfButton.id = "flowExportTerraformButton";
   tfButton.title = "Export architecture as a Terraform skeleton";
+  tfButton.setAttribute("aria-label", "Export architecture as a Terraform skeleton");
   tfButton.innerHTML = `<span aria-hidden="true">⛏</span>TF`;
   tfButton.addEventListener("click", () => {
     const state = studio.getState();
@@ -56,7 +59,9 @@ export function initStudioExtras(studio = window.AWSFlowStudio) {
 
   const mmdButton = document.createElement("button");
   mmdButton.type = "button";
+  mmdButton.id = "flowExportMermaidButton";
   mmdButton.title = "Copy architecture as a Mermaid diagram";
+  mmdButton.setAttribute("aria-label", "Copy architecture as a Mermaid diagram");
   mmdButton.innerHTML = `<span aria-hidden="true">⧉</span>MMD`;
   mmdButton.addEventListener("click", async () => {
     const text = toMermaid(studio.getState());

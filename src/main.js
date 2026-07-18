@@ -18,6 +18,8 @@ import { initConsoleDeck } from "./console-deck.js";
 import { initAnimatedContent } from "./animated-content.js";
 import { initSpotlight } from "./spotlight.js";
 import { initProjectLaunchpad } from "./project-launchpad.js";
+import { initNetworkLab } from "./network-lab.js";
+import { initStudioShell } from "./studio-shell.js";
 
 function ready(fn) {
   if (document.readyState === "loading") {
@@ -33,6 +35,8 @@ ready(() => {
   initConsoleDeck();
   initAnimatedContent();
   initSpotlight();
+  initStudioShell();
+  const networkLab = initNetworkLab();
 
   const studio = document.querySelector(".flow-studio");
   if (!studio) {
@@ -92,9 +96,14 @@ ready(() => {
   // When the user opens the Flow Studio screen, make sure it is booted and let
   // its canvas re-measure now that it is visible (it lays out from real sizes).
   window.addEventListener("atlas:viewchange", (event) => {
-    if (event.detail?.view !== "studio") return;
-    Promise.resolve(boot()).then(() => {
-      window.requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+    const view = event.detail?.view;
+    if (view === "network") {
+      window.requestAnimationFrame(() => networkLab?.refreshLayout?.());
+      return;
+    }
+    if (view !== "studio") return;
+    Promise.resolve(boot()).then((flowStudio) => {
+      window.requestAnimationFrame(() => flowStudio?.refreshLayout?.());
     });
   });
 
@@ -103,10 +112,14 @@ ready(() => {
   initProjectLaunchpad({
     launch: async (project) => {
       views?.setView("studio");
+      window.scrollTo({ top: 0, left: 0 });
       const flowStudio = await boot();
       if (!flowStudio) return;
       flowStudio.createProject(project);
-      window.requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+      window.requestAnimationFrame(() => {
+        flowStudio.refreshLayout?.();
+        document.querySelector("#flowArchitectureName")?.focus();
+      });
     },
   });
 });

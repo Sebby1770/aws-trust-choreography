@@ -348,10 +348,31 @@
 
 .flow-connection-hit {
   fill: none;
-  stroke: transparent;
+  stroke: var(--cyan);
+  stroke-opacity: 0.001;
   stroke-width: 14;
   pointer-events: stroke;
   cursor: pointer;
+}
+
+.flow-connection-hit:focus {
+  stroke-opacity: 0.28;
+  outline: none;
+}
+
+.flow-connection-keyboard {
+  fill: var(--cyan);
+  fill-opacity: 0.001;
+  stroke: var(--cyan);
+  stroke-opacity: 0.001;
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.flow-connection-keyboard:focus {
+  fill-opacity: 0.22;
+  stroke-opacity: 0.9;
+  outline: none;
 }
 
 .flow-node-layer {

@@ -57,7 +57,7 @@ export function initAtlas({ theme } = {}) {
     fallbackReady: document.querySelector("#fallbackReady"),
     dataDurability: document.querySelector("#dataDurability"),
     recoveryEta: document.querySelector("#recoveryEta"),
-    nodeName: document.querySelector("#nodeName"),
+    nodeName: document.querySelector("#atlasNodeName"),
     nodeScore: document.querySelector("#nodeScore"),
     nodeCopy: document.querySelector("#nodeCopy"),
     nodeLink: document.querySelector("#nodeLink"),

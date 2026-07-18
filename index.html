@@ -5,29 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Design AWS architectures from real workload blueprints, analyze cost and resilience, rehearse failure, and export production-ready scaffolding."
+      content="Design AWS cloud architectures and enterprise network topologies on spacious visual canvases, analyze resilience, simulate packets and failures, and export production-ready scaffolding."
     />
     <meta name="theme-color" content="#07080b" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Trust Choreography" />
+    <meta property="og:title" content="Trust Choreography — AWS + Network Architecture Lab" />
     <meta
       property="og:description"
-      content="Build the cloud. Then break it. Design, analyze, and rehearse resilient AWS architectures."
+      content="Build cloud and network architecture visually. Analyze trust, simulate packets and failures, and learn from guided or professional workflows."
     />
-    <meta property="og:image" content="https://sebby1770.github.io/aws-trust-choreography/og.png" />
+    <meta
+      property="og:image"
+      content="https://trust-choreography.sebastianf17.chatgpt.site/og-v2.png"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Trust Choreography" />
+    <meta name="twitter:title" content="Trust Choreography — AWS + Network Architecture Lab" />
     <meta
       name="twitter:description"
-      content="Build the cloud. Then break it. Design, analyze, and rehearse resilient AWS architectures."
+      content="Build cloud and network architecture visually. Analyze trust, simulate packets and failures, and learn from guided or professional workflows."
     />
     <meta
       name="twitter:image"
-      content="https://sebby1770.github.io/aws-trust-choreography/og.png"
+      content="https://trust-choreography.sebastianf17.chatgpt.site/og-v2.png"
     />
-    <title>Trust Choreography — AWS Architecture &amp; Resilience Lab</title>
+    <title>Trust Choreography — AWS + Network Architecture Lab</title>
     <script>
       // Pre-arm reveal animations before first paint (no flash), unless the user
       // prefers reduced motion. Failsafe: if the reveal engine never runs, show
@@ -46,27 +49,30 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="flow-studio.css" />
     <link rel="stylesheet" href="launchpad.css" />
+    <link rel="stylesheet" href="studio-shell.css" />
+    <link rel="stylesheet" href="network-lab.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <a class="skip-link" href="#workspaceContentStart">Skip to workspace content</a>
     <main
       id="main-content"
       class="app-shell"
-      aria-label="AWS Trust Choreography architecture workspace"
+      aria-label="Trust Choreography cloud and network architecture workspace"
     >
       <header class="site-header" data-animate="down">
         <button class="brand-lockup" type="button" data-view-target="home">
           <span class="brand-sigil" aria-hidden="true"><i></i><i></i><i></i></span>
           <span>
             <strong>Trust Choreography</strong>
-            <small>AWS architecture lab</small>
+            <small>AWS + network lab</small>
           </span>
         </button>
 
         <nav class="workspace-nav" aria-label="Primary navigation">
-          <button type="button" data-view-target="home" aria-selected="true">Explore</button>
-          <button type="button" data-view-target="studio" aria-selected="false">Build</button>
-          <button type="button" data-view-target="atlas" aria-selected="false">Rehearse</button>
+          <button type="button" data-view-target="home" aria-current="page">Explore</button>
+          <button type="button" data-view-target="studio">AWS Studio</button>
+          <button type="button" data-view-target="network">Network Lab</button>
+          <button type="button" data-view-target="atlas">Rehearse</button>
         </nav>
 
         <div class="header-actions">
@@ -97,6 +103,9 @@
           </button>
         </div>
       </header>
+      <span id="workspaceContentStart" class="visually-hidden" tabindex="-1"
+        >Workspace content</span
+      >
 
       <div class="view view-home is-active" data-view="home">
         <section class="launch-hero" aria-labelledby="launchTitle">
@@ -367,9 +376,54 @@
           </div>
         </section>
 
+        <section class="network-promo" aria-labelledby="networkPromoTitle">
+          <div class="network-promo-copy">
+            <span class="section-index">02 / NETWORK LAB</span>
+            <h2 id="networkPromoTitle">Trace every packet.<br /><em>Understand every hop.</em></h2>
+            <p>
+              Build routers, switches, firewalls, endpoints, and server rooms on a packet-tracer
+              style canvas. Configure addressing, VLANs, and links, then send a packet through the
+              topology and see the route it takes.
+            </p>
+            <div class="network-promo-actions">
+              <button class="primary-action" type="button" data-view-target="network">
+                Open Network Lab <span aria-hidden="true">↗</span>
+              </button>
+              <span>Vendor-neutral · Local-first · Built for learning and design</span>
+            </div>
+          </div>
+          <div class="network-promo-map" aria-label="Example network topology">
+            <div class="promo-network-link link-internet-router" aria-hidden="true"></div>
+            <div class="promo-network-link link-router-firewall" aria-hidden="true"></div>
+            <div class="promo-network-link link-firewall-switch" aria-hidden="true"></div>
+            <div class="promo-network-link link-switch-server" aria-hidden="true"></div>
+            <div class="promo-network-link link-switch-client" aria-hidden="true"></div>
+            <article class="promo-device device-internet">
+              <span aria-hidden="true">◎</span><strong>Internet</strong><small>WAN</small>
+            </article>
+            <article class="promo-device device-router">
+              <span aria-hidden="true">⇄</span><strong>Edge router</strong><small>10.0.0.1</small>
+            </article>
+            <article class="promo-device device-firewall">
+              <span aria-hidden="true">◇</span><strong>Firewall</strong><small>Policy active</small>
+            </article>
+            <article class="promo-device device-switch">
+              <span aria-hidden="true">⌘</span><strong>Core switch</strong
+              ><small>VLAN 10 / 20</small>
+            </article>
+            <article class="promo-device device-server">
+              <span aria-hidden="true">▦</span><strong>Web server</strong><small>10.0.20.12</small>
+            </article>
+            <article class="promo-device device-client">
+              <span aria-hidden="true">▣</span><strong>Workstation</strong><small>10.0.10.24</small>
+            </article>
+            <div class="promo-packet" aria-hidden="true"></div>
+          </div>
+        </section>
+
         <section class="workflow-section" aria-labelledby="workflowTitle">
           <div class="workflow-intro">
-            <span class="section-index">02 / FROM IDEA TO EVIDENCE</span>
+            <span class="section-index">03 / FROM IDEA TO EVIDENCE</span>
             <h2 id="workflowTitle">Architecture is a living argument.</h2>
             <p>
               Trust Choreography makes that argument visible—from the first service to the first
@@ -788,7 +842,7 @@
               </svg>
 
               <section class="node-drawer" aria-live="polite">
-                <span id="nodeName">Step Functions core</span>
+                <span id="atlasNodeName">Step Functions core</span>
                 <strong id="nodeScore">93%</strong>
                 <p id="nodeCopy">
                   Workflow state machine coordinates retries, compensations, and audit events.
@@ -942,18 +996,44 @@
       </div>
 
       <div class="view view-studio" data-view="studio">
-        <section class="flow-studio" aria-labelledby="flowStudioTitle" data-animate="up">
+        <section
+          class="flow-studio"
+          aria-labelledby="flowStudioTitle"
+          data-studio-experience="guided"
+        >
           <header class="flow-studio-head">
             <div class="flow-studio-brand">
               <h2 id="flowStudioTitle">AWS Flow Studio</h2>
-              <p>Design, analyze, and simulate resilient architectures.</p>
+              <p>Build the system, connect its trust paths, then test the weak points.</p>
             </div>
             <div class="flow-studio-meta" aria-live="polite">
               <span id="flowSaveState">Auto-saved</span>
               <span><strong id="flowNodeCount">0</strong> nodes</span>
               <span><strong id="flowConnectionCount">0</strong> paths</span>
             </div>
+            <div class="studio-experience" aria-label="Editor experience">
+              <button
+                class="is-active"
+                type="button"
+                data-studio-experience="guided"
+                aria-pressed="true"
+              >
+                Guided
+              </button>
+              <button
+                type="button"
+                data-studio-experience="pro"
+                aria-pressed="false"
+                title="Show advanced architecture detail"
+              >
+                Pro
+              </button>
+              <button id="flowHelpButton" type="button" title="How to use AWS Flow Studio">
+                ? <span>Help</span>
+              </button>
+            </div>
             <div class="flow-toolbar" role="toolbar" aria-label="Flow editor tools">
+              <span class="flow-toolbar-label">Canvas</span>
               <button
                 class="is-active"
                 type="button"
@@ -982,54 +1062,82 @@
               <button id="flowRedoButton" type="button" title="Redo">
                 <span aria-hidden="true">&#8631;</span>
               </button>
-              <button id="flowImportButton" type="button" title="Import architecture JSON">
-                <span aria-hidden="true">&#8679;</span>Import
-              </button>
-              <input id="flowImportInput" type="file" accept="application/json,.json" hidden />
-              <button id="flowSaveButton" type="button" title="Save architecture locally">
-                <span aria-hidden="true">&#9635;</span>Save
-              </button>
-              <button id="flowExportButton" type="button" title="Export architecture as JSON">
-                <span aria-hidden="true">{ }</span>JSON
+              <button
+                id="flowInspectorToggle"
+                type="button"
+                aria-pressed="false"
+                aria-controls="flowInspector"
+                aria-expanded="true"
+                title="Hide or show architecture intelligence"
+              >
+                <span aria-hidden="true">◫</span>Insights
               </button>
               <button
-                id="flowExportSvgButton"
+                id="flowFocusButton"
                 type="button"
-                title="Export architecture as an SVG diagram"
+                aria-pressed="false"
+                title="Focus on the canvas"
               >
-                <span aria-hidden="true">&#8681;</span>SVG
+                <span aria-hidden="true">⛶</span>Focus
               </button>
+              <details class="flow-export-menu">
+                <summary>Export <span aria-hidden="true">▾</span></summary>
+                <div class="flow-export-actions">
+                  <button id="flowImportButton" type="button" title="Import architecture JSON">
+                    <span aria-hidden="true">&#8679;</span>Import JSON
+                  </button>
+                  <input id="flowImportInput" type="file" accept="application/json,.json" hidden />
+                  <button id="flowSaveButton" type="button" title="Save architecture locally">
+                    <span aria-hidden="true">&#9635;</span>Save locally
+                  </button>
+                  <button id="flowExportButton" type="button" title="Export architecture as JSON">
+                    <span aria-hidden="true">{ }</span>Architecture JSON
+                  </button>
+                  <button
+                    id="flowExportSvgButton"
+                    type="button"
+                    title="Export architecture as an SVG diagram"
+                  >
+                    <span aria-hidden="true">&#8681;</span>SVG diagram
+                  </button>
+                </div>
+              </details>
             </div>
           </header>
 
           <div class="flow-workspace">
-            <aside class="flow-library" aria-label="AWS icon library">
-              <div class="flow-library-tabs" role="tablist" aria-label="Icon type">
+            <aside class="flow-library" id="flowLibrary" aria-label="AWS icon library">
+              <div class="flow-library-mobile-head">
+                <div>
+                  <strong>AWS service library</strong>
+                  <small>Click or drag a service onto the canvas</small>
+                </div>
                 <button
-                  class="flow-tab-ai"
+                  id="flowLibraryClose"
                   type="button"
-                  role="tab"
-                  aria-selected="false"
-                  data-icon-type="ai"
+                  aria-label="Close AWS service library"
+                  title="Close service library"
                 >
+                  ×
+                </button>
+              </div>
+              <div class="flow-library-tabs" aria-label="Icon type">
+                <button class="flow-tab-ai" type="button" aria-pressed="false" data-icon-type="ai">
                   AI
                 </button>
                 <button
                   class="is-active"
                   type="button"
-                  role="tab"
-                  aria-selected="true"
+                  aria-pressed="true"
                   data-icon-type="service"
                 >
                   Services
                 </button>
-                <button type="button" role="tab" aria-selected="false" data-icon-type="resource">
+                <button type="button" aria-pressed="false" data-icon-type="resource">
                   Resources
                 </button>
-                <button type="button" role="tab" aria-selected="false" data-icon-type="group">
-                  Groups
-                </button>
-                <button type="button" role="tab" aria-selected="false" data-icon-type="category">
+                <button type="button" aria-pressed="false" data-icon-type="group">Groups</button>
+                <button type="button" aria-pressed="false" data-icon-type="category">
                   Categories
                 </button>
               </div>
@@ -1065,12 +1173,20 @@
             </aside>
 
             <section class="flow-canvas-shell" aria-label="Architecture canvas">
+              <div class="flow-guidance" aria-label="Guided workflow">
+                <span><i>1</i><strong>Add</strong> a service from the library</span>
+                <span><i>2</i><strong>Connect</strong> the trust path</span>
+                <span><i>3</i><strong>Analyze</strong> and rehearse failure</span>
+                <small>Tip: click a node to edit it. Drag to rearrange.</small>
+              </div>
               <div class="flow-canvas-titlebar">
                 <button
                   id="flowLibraryToggle"
                   type="button"
                   title="Toggle icon library"
                   aria-label="Toggle icon library"
+                  aria-controls="flowLibrary"
+                  aria-expanded="true"
                 >
                   &#8249;
                 </button>
@@ -1101,7 +1217,60 @@
                     🗑
                   </button>
                 </div>
-                <span id="flowCanvasHint">Select an icon to add it</span>
+                <span id="flowCanvasHint" aria-live="polite">
+                  Choose a service, place it, then connect its trust path.
+                </span>
+                <details class="flow-template-menu">
+                  <summary>Start from a template <span aria-hidden="true">▾</span></summary>
+                  <div class="flow-templates" aria-label="Architecture templates">
+                    <button
+                      type="button"
+                      data-spotlight
+                      class="is-ai-template"
+                      data-flow-template="claude-rag"
+                    >
+                      Claude RAG assistant<small>API GW + Lambda + Claude + Vector DB</small>
+                    </button>
+                    <button
+                      type="button"
+                      data-spotlight
+                      class="is-ai-template"
+                      data-flow-template="ai-agent"
+                    >
+                      AI agent platform<small>Agent + model + tools + memory</small>
+                    </button>
+                    <button
+                      type="button"
+                      data-spotlight
+                      class="is-ai-template"
+                      data-flow-template="chatbot"
+                    >
+                      GenAI chatbot<small>CloudFront + Lambda + model + guardrails</small>
+                    </button>
+                    <button type="button" data-spotlight data-flow-template="serverless">
+                      Serverless API<small>API Gateway + Lambda + DynamoDB</small>
+                    </button>
+                    <button type="button" data-spotlight data-flow-template="events">
+                      Event pipeline<small>EventBridge + Step Functions + SQS</small>
+                    </button>
+                    <button type="button" data-spotlight data-flow-template="web">
+                      Resilient web app<small>CloudFront + EC2 + RDS</small>
+                    </button>
+                    <button type="button" data-spotlight data-flow-template="blank">
+                      Blank canvas<small>Start from zero</small>
+                    </button>
+                  </div>
+                </details>
+                <button
+                  id="flowInspectorToggleCompact"
+                  type="button"
+                  aria-pressed="false"
+                  aria-controls="flowInspector"
+                  aria-expanded="true"
+                  title="Toggle architecture intelligence"
+                >
+                  Insights ›
+                </button>
               </div>
               <div
                 class="flow-canvas"
@@ -1114,21 +1283,31 @@
                   <span>Data and asynchronous work</span>
                   <span>Shared services and telemetry</span>
                 </div>
-                <svg class="flow-connections" id="flowConnections" aria-hidden="true"></svg>
+                <svg
+                  class="flow-connections"
+                  id="flowConnections"
+                  role="group"
+                  aria-label="Architecture trust paths"
+                ></svg>
                 <div class="flow-node-layer" id="flowNodeLayer"></div>
                 <div class="flow-empty-state" id="flowEmptyState">
                   <strong>Build your AWS flow</strong
                   ><span>Choose a template or add services from the official icon library.</span>
                 </div>
                 <div class="flow-canvas-controls" aria-label="Canvas controls">
-                  <button id="flowZoomInButton" type="button" title="Zoom in" aria-label="Zoom in">
+                  <button
+                    id="flowZoomInButton"
+                    type="button"
+                    title="Increase node size"
+                    aria-label="Increase node size"
+                  >
                     +
                   </button>
                   <button
                     id="flowZoomOutButton"
                     type="button"
-                    title="Zoom out"
-                    aria-label="Zoom out"
+                    title="Decrease node size"
+                    aria-label="Decrease node size"
                   >
                     &#8722;
                   </button>
@@ -1168,83 +1347,44 @@
                   ><small id="flowSimulationMessage">Select a node to rehearse failure.</small>
                 </div>
               </div>
-              <div class="flow-templates" aria-label="Architecture templates">
-                <span>Starter templates</span>
-                <button
-                  type="button"
-                  data-spotlight
-                  class="is-ai-template"
-                  data-flow-template="claude-rag"
-                >
-                  Claude RAG assistant<small>API GW + Lambda + Claude + Vector DB</small>
-                </button>
-                <button
-                  type="button"
-                  data-spotlight
-                  class="is-ai-template"
-                  data-flow-template="ai-agent"
-                >
-                  AI agent platform<small>Agent + Foundation Model + tools + memory</small>
-                </button>
-                <button
-                  type="button"
-                  data-spotlight
-                  class="is-ai-template"
-                  data-flow-template="chatbot"
-                >
-                  GenAI chatbot<small>CloudFront + Lambda + ChatGPT + guardrails</small>
-                </button>
-                <button type="button" data-spotlight data-flow-template="serverless">
-                  Serverless API<small>API Gateway + Lambda + DynamoDB</small>
-                </button>
-                <button type="button" data-spotlight data-flow-template="events">
-                  Event pipeline<small>EventBridge + Step Functions + SQS</small>
-                </button>
-                <button type="button" data-spotlight data-flow-template="web">
-                  Resilient web app<small>CloudFront + EC2 + RDS</small>
-                </button>
-                <button type="button" data-spotlight data-flow-template="blank">
-                  Blank<small>Clear the canvas</small>
-                </button>
-              </div>
             </section>
 
-            <aside class="flow-inspector" aria-label="Architecture intelligence">
+            <aside class="flow-inspector" id="flowInspector" aria-label="Architecture intelligence">
               <div class="flow-inspector-head">
                 <span>Architecture intelligence</span
                 ><strong id="flowInspectorMode">Diagram</strong>
               </div>
               <div class="flow-inspector-tabs" role="tablist" aria-label="Inspector view">
                 <button
+                  id="flowInspectTab"
                   class="is-active"
                   type="button"
                   role="tab"
                   aria-selected="true"
+                  aria-controls="flowInspectPanel"
+                  tabindex="0"
                   data-inspector-tab="inspect"
                 >
                   Inspect
                 </button>
-                <button type="button" role="tab" aria-selected="false" data-inspector-tab="analyze">
+                <button
+                  id="flowAnalyzeTab"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="flowAnalyzePanel"
+                  tabindex="-1"
+                  data-inspector-tab="analyze"
+                >
                   Analyze
                 </button>
               </div>
-              <section class="flow-score-panel" aria-labelledby="flowScoreTitle">
-                <div class="flow-score-ring" id="flowScoreRing">
-                  <strong id="flowScore">0</strong><span>/ 100</span>
-                </div>
-                <div>
-                  <span id="flowScoreTitle">Resilience score</span
-                  ><strong id="flowScoreGrade">Building</strong>
-                  <p id="flowScoreSummary">Add services and paths to begin analysis.</p>
-                </div>
-              </section>
-              <div class="flow-score-metrics" aria-label="Architecture score dimensions">
-                <span>Security<strong id="flowSecurityScore">0</strong></span>
-                <span>Reliability<strong id="flowReliabilityScore">0</strong></span>
-                <span>Observability<strong id="flowObservabilityScore">0</strong></span>
-                <span>Recovery<strong id="flowRecoveryScore">0</strong></span>
-              </div>
-              <div id="flowInspectPanel">
+              <div
+                id="flowInspectPanel"
+                role="tabpanel"
+                aria-labelledby="flowInspectTab"
+                tabindex="0"
+              >
                 <div class="flow-selected-summary" id="flowSelectedSummary">
                   <span class="flow-selected-placeholder"
                     >Select a node or path to inspect it.</span
@@ -1294,18 +1434,37 @@
                   >
                 </div>
               </div>
-              <section
-                class="flow-checks"
+              <div
                 id="flowAnalyzePanel"
-                aria-labelledby="flowChecksTitle"
+                role="tabpanel"
+                aria-labelledby="flowAnalyzeTab"
+                tabindex="0"
                 hidden
               >
-                <div>
-                  <span>Prioritized recommendations</span
-                  ><strong id="flowChecksTitle">0 checks</strong>
+                <section class="flow-score-panel" aria-labelledby="flowScoreTitle">
+                  <div class="flow-score-ring" id="flowScoreRing">
+                    <strong id="flowScore">0</strong><span>/ 100</span>
+                  </div>
+                  <div>
+                    <span id="flowScoreTitle">Resilience score</span
+                    ><strong id="flowScoreGrade">Building</strong>
+                    <p id="flowScoreSummary">Add services and paths to begin analysis.</p>
+                  </div>
+                </section>
+                <div class="flow-score-metrics" aria-label="Architecture score dimensions">
+                  <span>Security<strong id="flowSecurityScore">0</strong></span>
+                  <span>Reliability<strong id="flowReliabilityScore">0</strong></span>
+                  <span>Observability<strong id="flowObservabilityScore">0</strong></span>
+                  <span>Recovery<strong id="flowRecoveryScore">0</strong></span>
                 </div>
-                <div id="flowChecksList"></div>
-              </section>
+                <section class="flow-checks" aria-labelledby="flowChecksTitle">
+                  <div>
+                    <span>Prioritized recommendations</span
+                    ><strong id="flowChecksTitle">0 checks</strong>
+                  </div>
+                  <div id="flowChecksList"></div>
+                </section>
+              </div>
             </aside>
           </div>
 
@@ -1324,13 +1483,340 @@
               ><input id="flowGridToggle" type="checkbox" checked /> Grid</label
             >
             <label for="flowZoom"
-              >Zoom<select id="flowZoom">
+              >Node size<select id="flowZoom">
                 <option value="0.75">75%</option>
                 <option value="0.9">90%</option>
                 <option value="1" selected>100%</option>
                 <option value="1.15">115%</option>
                 <option value="1.3">130%</option>
               </select></label
+            >
+          </footer>
+        </section>
+      </div>
+
+      <div class="view view-network" data-view="network">
+        <section class="network-lab" id="networkLab" aria-labelledby="networkLabTitle">
+          <header class="network-lab-head">
+            <div class="network-lab-brand">
+              <span class="network-brand-mark" aria-hidden="true">⇆</span>
+              <div>
+                <h2 id="networkLabTitle">Network Lab</h2>
+                <p>Design a topology, configure the devices, and trace a packet end to end.</p>
+              </div>
+            </div>
+            <div class="network-lab-meta" aria-live="polite">
+              <span id="networkSaveState">Auto-saved</span>
+              <span><strong id="networkNodeCount">0</strong> devices</span>
+              <span><strong id="networkLinkCount">0</strong> links</span>
+            </div>
+            <div class="network-toolbar" role="toolbar" aria-label="Network editor tools">
+              <span class="network-toolbar-label">Canvas</span>
+              <button
+                class="is-active"
+                type="button"
+                data-network-mode="select"
+                aria-pressed="true"
+                title="Select and move devices"
+              >
+                <span aria-hidden="true">↖</span>Select
+              </button>
+              <button
+                type="button"
+                data-network-mode="connect"
+                aria-pressed="false"
+                title="Connect two devices"
+              >
+                <span aria-hidden="true">⇄</span>Connect
+              </button>
+              <button id="networkAutoLayoutButton" type="button" title="Arrange the topology">
+                <span aria-hidden="true">⁝</span>Auto layout
+              </button>
+              <button id="networkDeleteButton" type="button" title="Delete selected device or link">
+                <span aria-hidden="true">×</span>
+              </button>
+              <span class="toolbar-divider" aria-hidden="true"></span>
+              <button id="networkUndoButton" type="button" title="Undo">
+                <span aria-hidden="true">↶</span>
+              </button>
+              <button id="networkRedoButton" type="button" title="Redo">
+                <span aria-hidden="true">↷</span>
+              </button>
+              <button
+                id="networkInspectorToggle"
+                type="button"
+                aria-pressed="true"
+                aria-expanded="true"
+                aria-controls="networkInspector"
+                title="Toggle network intelligence"
+              >
+                <span aria-hidden="true">◫</span>Insights
+              </button>
+              <details class="network-export-menu">
+                <summary>File <span aria-hidden="true">▾</span></summary>
+                <div>
+                  <button id="networkSaveButton" type="button">
+                    <span aria-hidden="true">□</span>Save locally
+                  </button>
+                  <button id="networkImportButton" type="button">
+                    <span aria-hidden="true">↑</span>Import JSON
+                  </button>
+                  <input
+                    id="networkImportInput"
+                    type="file"
+                    accept="application/json,.json"
+                    hidden
+                  />
+                  <button id="networkExportButton" type="button">
+                    <span aria-hidden="true">{ }</span>Export JSON
+                  </button>
+                  <button id="networkResetButton" type="button">
+                    <span aria-hidden="true">↺</span>Reset lab
+                  </button>
+                </div>
+              </details>
+            </div>
+          </header>
+
+          <div class="network-workspace">
+            <aside class="network-palette" id="networkPalette" aria-label="Network device library">
+              <div class="network-palette-head">
+                <div>
+                  <span>Device library</span>
+                  <small>Click to add</small>
+                </div>
+                <button
+                  id="networkPaletteToggle"
+                  type="button"
+                  aria-label="Hide device library"
+                  title="Hide device library"
+                  aria-controls="networkPalette"
+                  aria-expanded="true"
+                >
+                  ‹
+                </button>
+              </div>
+              <label class="network-search" for="networkDeviceSearch">
+                <span>Find a device</span>
+                <input
+                  id="networkDeviceSearch"
+                  type="search"
+                  placeholder="Router, switch, web server…"
+                  autocomplete="off"
+                />
+              </label>
+              <div class="network-categories" aria-label="Device categories">
+                <button
+                  class="is-active"
+                  type="button"
+                  aria-pressed="true"
+                  data-network-category="all"
+                >
+                  All
+                </button>
+                <button type="button" aria-pressed="false" data-network-category="network">
+                  Network
+                </button>
+                <button type="button" aria-pressed="false" data-network-category="servers">
+                  Servers
+                </button>
+                <button type="button" aria-pressed="false" data-network-category="endpoints">
+                  Endpoints
+                </button>
+                <button type="button" aria-pressed="false" data-network-category="cloud-security">
+                  Cloud
+                </button>
+              </div>
+              <div class="network-device-grid" id="networkDeviceGrid" aria-live="polite"></div>
+              <div class="network-template-section">
+                <div>
+                  <span>Starter topologies</span>
+                  <small>Editable examples</small>
+                </div>
+                <div class="network-template-grid">
+                  <button type="button" data-network-template="small-office">
+                    Small office<small>Router, switch, Wi-Fi, endpoints</small>
+                  </button>
+                  <button type="button" data-network-template="three-tier">
+                    Three-tier data centre<small>Edge, app, and database tiers</small>
+                  </button>
+                  <button type="button" data-network-template="campus">
+                    Campus network<small>Core, distribution, access</small>
+                  </button>
+                  <button type="button" data-network-template="hybrid">
+                    Hybrid cloud<small>Office, VPN, cloud services</small>
+                  </button>
+                  <button type="button" data-network-template="blank">
+                    Blank topology<small>Clear the canvas</small>
+                  </button>
+                </div>
+              </div>
+            </aside>
+
+            <section class="network-canvas-shell" aria-label="Network topology canvas">
+              <div class="network-guidance">
+                <span><i>1</i><strong>Add</strong> devices</span>
+                <span><i>2</i><strong>Connect</strong> the ports</span>
+                <span><i>3</i><strong>Configure</strong> IP and VLAN</span>
+                <span><i>4</i><strong>Send</strong> a test packet</span>
+              </div>
+              <div class="network-canvas-titlebar">
+                <label for="networkArchitectureName">Topology</label>
+                <input id="networkArchitectureName" type="text" value="My network" maxlength="80" />
+                <span>Packet-tracer workflow · vendor-neutral</span>
+                <button
+                  type="button"
+                  data-network-template="small-office"
+                  title="Load the small office starter"
+                >
+                  Load example
+                </button>
+              </div>
+              <div
+                class="network-canvas"
+                id="networkCanvas"
+                tabindex="0"
+                aria-label="Network canvas. Add devices and connect them into a topology."
+              >
+                <div class="network-zone network-zone-wan" aria-hidden="true">WAN / INTERNET</div>
+                <div class="network-zone network-zone-lan" aria-hidden="true">TRUSTED LAN</div>
+                <div class="network-zone network-zone-services" aria-hidden="true">
+                  SERVER &amp; SERVICES
+                </div>
+                <svg
+                  class="network-connections"
+                  id="networkConnections"
+                  role="group"
+                  aria-label="Network links"
+                ></svg>
+                <div class="network-node-layer" id="networkNodeLayer"></div>
+                <div class="network-empty-state">
+                  <span aria-hidden="true">⇆</span>
+                  <strong>Build your first network</strong>
+                  <p>Add a router or load an example topology to begin.</p>
+                  <button type="button" data-network-template="small-office">
+                    Load small office example
+                  </button>
+                </div>
+              </div>
+              <div class="network-packet-bar" aria-label="Packet simulation">
+                <div class="network-packet-intro">
+                  <span>Packet test</span>
+                  <small>Choose two devices to check reachability.</small>
+                </div>
+                <label for="networkPacketSource"
+                  >From<select id="networkPacketSource" aria-label="Packet source">
+                    <option value="">Choose source</option>
+                  </select></label
+                >
+                <span class="packet-direction" aria-hidden="true">→</span>
+                <label for="networkPacketTarget"
+                  >To<select id="networkPacketTarget" aria-label="Packet destination">
+                    <option value="">Choose destination</option>
+                  </select></label
+                >
+                <button id="networkSendPacketButton" type="button">
+                  <span aria-hidden="true">▶</span>Send packet
+                </button>
+                <strong id="networkPacketStatus" aria-live="polite">Ready to test</strong>
+              </div>
+            </section>
+
+            <aside
+              class="network-inspector"
+              id="networkInspector"
+              aria-label="Network intelligence"
+            >
+              <div class="network-inspector-head">
+                <div>
+                  <span>Network intelligence</span>
+                  <small>Live topology checks</small>
+                </div>
+                <button
+                  type="button"
+                  data-network-inspector-close
+                  aria-label="Hide network intelligence"
+                >
+                  ×
+                </button>
+              </div>
+              <section class="network-score-panel" aria-labelledby="networkScoreLabel">
+                <div class="network-score-ring">
+                  <strong id="networkScore">0</strong><span>/100</span>
+                </div>
+                <div>
+                  <span id="networkScoreLabel">Starting</span>
+                  <p id="networkScoreSummary">Add devices to begin analyzing the topology.</p>
+                </div>
+              </section>
+              <section class="network-checks" aria-labelledby="networkChecksTitle">
+                <div>
+                  <span id="networkChecksTitle">Recommended next steps</span>
+                  <small>Updated as you build</small>
+                </div>
+                <ul id="networkChecksList"></ul>
+              </section>
+              <div class="network-inspector-empty" id="networkInspectorEmpty">
+                <span aria-hidden="true">⌁</span>
+                <strong>Select a device</strong>
+                <p>Its addressing, VLAN, status, and notes will appear here.</p>
+              </div>
+              <div class="network-inspector-fields" id="networkInspectorFields" hidden>
+                <label for="networkNodeName"
+                  >Device name<input id="networkNodeName" type="text" maxlength="60"
+                /></label>
+                <div class="network-field-row">
+                  <label for="networkNodeIp"
+                    >IPv4 address<input
+                      id="networkNodeIp"
+                      type="text"
+                      placeholder="10.0.0.1"
+                      maxlength="15"
+                  /></label>
+                  <label for="networkNodeSubnet"
+                    >Subnet / CIDR<input
+                      id="networkNodeSubnet"
+                      type="text"
+                      placeholder="24 or 255.255.255.0"
+                      maxlength="15"
+                  /></label>
+                </div>
+                <div class="network-field-row">
+                  <label for="networkNodeVlan"
+                    >VLAN<input
+                      id="networkNodeVlan"
+                      type="number"
+                      min="1"
+                      max="4094"
+                      placeholder="10"
+                  /></label>
+                  <label for="networkNodeStatus"
+                    >Status<select id="networkNodeStatus">
+                      <option value="online">Online</option>
+                      <option value="maintenance">Maintenance</option>
+                      <option value="offline">Offline</option>
+                    </select></label
+                  >
+                </div>
+                <label for="networkNodeNotes"
+                  >Notes<textarea
+                    id="networkNodeNotes"
+                    rows="4"
+                    maxlength="280"
+                    placeholder="Role, port, routing, or configuration notes…"
+                  ></textarea>
+                </label>
+              </div>
+            </aside>
+          </div>
+          <footer class="network-statusbar">
+            <span>Everything is stored on this device.</span>
+            <span>Keyboard: Delete removes · ⌘Z undoes · drag devices to move</span>
+            <a
+              href="https://www.cisco.com/site/us/en/learn/training-certifications/training/netacad/index.html"
+              target="_blank"
+              rel="noreferrer"
+              >Explore Cisco's official Packet Tracer learning path ↗</a
             >
           </footer>
         </section>
@@ -1431,6 +1917,46 @@
           </button>
         </div>
       </form>
+    </dialog>
+
+    <dialog class="studio-help-dialog" id="studioHelpDialog" aria-labelledby="studioHelpTitle">
+      <div class="studio-help-head">
+        <div>
+          <span>AWS FLOW STUDIO</span>
+          <h2 id="studioHelpTitle">From first diagram to architecture review.</h2>
+        </div>
+        <button id="studioHelpClose" type="button" aria-label="Close AWS Flow Studio help">
+          ×
+        </button>
+      </div>
+      <div class="studio-help-grid">
+        <article>
+          <span>01</span>
+          <strong>Add services</strong>
+          <p>Search the library and click any AWS service to place it on the canvas.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Connect trust paths</strong>
+          <p>Choose Connect, then click a source node and a destination node.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Inspect the design</strong>
+          <p>Select a node or path to edit ownership, criticality, encryption, and notes.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <strong>Rehearse failure</strong>
+          <p>Select a node, inject a failure, and watch affected dependencies light up.</p>
+        </article>
+      </div>
+      <div class="studio-help-tips">
+        <span><kbd>⌘ Z</kbd> Undo</span>
+        <span><kbd>⌘ S</kbd> Save</span>
+        <span><kbd>Delete</kbd> Remove selection</span>
+        <span><kbd>Focus</kbd> Hide both side panels</span>
+      </div>
     </dialog>
 
     <script type="module" src="src/main.js"></script>

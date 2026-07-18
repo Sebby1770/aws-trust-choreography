@@ -1,7 +1,7 @@
 {
   "name": "aws-resilience-command-atlas",
   "version": "1.0.0",
-  "description": "Interactive AWS resilience command atlas and architecture studio built with vanilla HTML, CSS, and JavaScript.",
+  "description": "Interactive AWS and enterprise network architecture studio with resilience analysis and packet simulation.",
   "type": "module",
   "license": "MIT",
   "author": "Sebastian Forbes (https://github.com/Sebby1770)",
