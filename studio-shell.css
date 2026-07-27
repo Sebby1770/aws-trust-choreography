@@ -1179,3 +1179,180 @@ body.is-network-view {
     animation: none;
   }
 }
+
+/* --- Distraction-free workspace chrome ------------------------------- */
+
+.workspace-chrome-toggle {
+  display: none;
+  gap: 0.42rem;
+  width: auto;
+  padding-inline: 0.72rem;
+  border-color: color-mix(in srgb, var(--tc-orange) 34%, var(--tc-line));
+  background: color-mix(in srgb, var(--tc-orange) 8%, var(--tc-panel-raised));
+}
+
+.app-shell[data-active-view="studio"] .workspace-chrome-toggle,
+.app-shell[data-active-view="network"] .workspace-chrome-toggle {
+  display: inline-flex;
+}
+
+.workspace-chrome-toggle svg,
+.workspace-chrome-restore svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.workspace-chrome-toggle > span {
+  font-size: 0.68rem;
+}
+
+.workspace-chrome-restore[hidden] {
+  display: none !important;
+}
+
+.workspace-chrome-restore {
+  position: fixed;
+  z-index: 140;
+  top: 0.55rem;
+  left: 0.55rem;
+  display: inline-flex;
+  gap: 0;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 156, 66, 0.5);
+  border-radius: 12px;
+  color: #fff7ec;
+  background:
+    linear-gradient(145deg, rgba(255, 156, 66, 0.2), transparent 55%), rgba(11, 15, 20, 0.94);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.48);
+  cursor: pointer;
+  backdrop-filter: blur(18px) saturate(140%);
+  transition:
+    width 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.workspace-chrome-restore > svg {
+  flex: 0 0 17px;
+}
+
+.workspace-chrome-restore > span {
+  max-width: 0;
+  margin-left: 0;
+  overflow: hidden;
+  font-size: 0.68rem;
+  font-weight: 850;
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    max-width 180ms ease,
+    margin-left 180ms ease,
+    opacity 140ms ease;
+}
+
+.workspace-chrome-restore:hover,
+.workspace-chrome-restore:focus-visible {
+  width: 150px;
+  border-color: var(--tc-orange);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.58);
+  outline: none;
+}
+
+.workspace-chrome-restore:hover > span,
+.workspace-chrome-restore:focus-visible > span {
+  max-width: 108px;
+  margin-left: 0.48rem;
+  opacity: 1;
+}
+
+.app-shell.is-workspace-maximised[data-active-view="studio"],
+.app-shell.is-workspace-maximised[data-active-view="network"] {
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+  padding: 0;
+}
+
+.app-shell.is-workspace-maximised[data-active-view="studio"] .site-header,
+.app-shell.is-workspace-maximised[data-active-view="network"] .site-header {
+  display: none;
+}
+
+.app-shell.is-workspace-maximised[data-active-view="studio"] .view-studio,
+.app-shell.is-workspace-maximised[data-active-view="network"] .view-network {
+  height: 100%;
+}
+
+.app-shell.is-workspace-maximised[data-active-view="studio"] .flow-studio,
+.app-shell.is-workspace-maximised[data-active-view="network"] .network-lab {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.app-shell.is-workspace-maximised[data-active-view="studio"] .flow-studio-head,
+.app-shell.is-workspace-maximised[data-active-view="network"] .network-lab-head {
+  padding-left: 3.5rem;
+}
+
+@media (max-width: 760px) {
+  .workspace-chrome-toggle > span {
+    display: none;
+  }
+
+  .workspace-chrome-toggle {
+    width: 40px;
+    min-width: 40px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell[data-active-view="studio"] #themeButton,
+  .app-shell[data-active-view="network"] #themeButton {
+    display: none;
+  }
+
+  .workspace-chrome-toggle {
+    width: 34px;
+    min-width: 34px;
+  }
+
+  .workspace-chrome-restore {
+    top: 0.35rem;
+    left: 0.35rem;
+    width: 36px;
+    height: 36px;
+    padding-inline: 9px;
+    border-radius: 10px;
+  }
+
+  .workspace-chrome-restore:hover,
+  .workspace-chrome-restore:focus-visible {
+    width: 36px;
+  }
+
+  .workspace-chrome-restore > span {
+    display: none;
+  }
+
+  .app-shell.is-workspace-maximised[data-active-view="studio"] .flow-studio-head,
+  .app-shell.is-workspace-maximised[data-active-view="network"] .network-lab-head {
+    padding-left: 2.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-chrome-restore,
+  .workspace-chrome-restore > span {
+    transition: none;
+  }
+}

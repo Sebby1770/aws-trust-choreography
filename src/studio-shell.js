@@ -42,12 +42,18 @@ export function initStudioShell() {
   const helpButton = document.querySelector("#flowHelpButton");
   const helpDialog = document.querySelector("#studioHelpDialog");
   const helpClose = document.querySelector("#studioHelpClose");
+  const shell = document.querySelector(".app-shell");
+  const siteHeader = document.querySelector("#siteHeader");
+  const workspaceChromeToggle = document.querySelector("#workspaceChromeToggle");
+  const workspaceChromeRestore = document.querySelector("#workspaceChromeRestore");
   const mobileLibraryMedia = window.matchMedia("(max-width: 760px)");
   const compactInspectorMedia = window.matchMedia("(max-width: 1050px)");
   const preferences = readPreferences() || {
     experience: "guided",
     inspectorCollapsed: true,
   };
+  let activeView = shell?.dataset.activeView || "home";
+  let workspaceMaximised = Boolean(preferences.workspaceMaximised);
 
   function refreshLayout() {
     window.requestAnimationFrame(() => window.AWSFlowStudio?.refreshLayout?.());
@@ -57,7 +63,39 @@ export function initStudioShell() {
     writePreferences({
       experience: studio.dataset.studioExperience,
       inspectorCollapsed: studio.classList.contains("is-inspector-collapsed"),
+      workspaceMaximised,
     });
+  }
+
+  function syncWorkspaceChrome({ focus = null } = {}) {
+    const isEditorView = activeView === "studio" || activeView === "network";
+    const isMaximised = workspaceMaximised && isEditorView;
+    shell?.classList.toggle("is-workspace-maximised", isMaximised);
+    document.body.classList.toggle("is-workspace-maximised", isMaximised);
+    workspaceChromeToggle?.setAttribute("aria-pressed", String(isMaximised));
+    workspaceChromeRestore?.setAttribute("aria-expanded", String(!isMaximised));
+    if (siteHeader) {
+      if (isMaximised) siteHeader.setAttribute("aria-hidden", "true");
+      else siteHeader.removeAttribute("aria-hidden");
+    }
+    if (workspaceChromeRestore) workspaceChromeRestore.hidden = !isMaximised;
+
+    window.requestAnimationFrame(() => {
+      if (focus === "restore") workspaceChromeRestore?.focus();
+      if (focus === "toggle") workspaceChromeToggle?.focus();
+      refreshLayout();
+      window.dispatchEvent(
+        new CustomEvent("atlas:workspacechromechange", {
+          detail: { maximised: isMaximised, view: activeView },
+        })
+      );
+    });
+  }
+
+  function setWorkspaceMaximised(maximised, { save = true, focus = null } = {}) {
+    workspaceMaximised = Boolean(maximised);
+    if (save) persist();
+    syncWorkspaceChrome({ focus });
   }
 
   function syncInspectorControls(collapsed) {
@@ -128,6 +166,12 @@ export function initStudioShell() {
   focusButton?.addEventListener("click", () => {
     setFocusMode(!studio.classList.contains("is-focus-mode"));
   });
+  workspaceChromeToggle?.addEventListener("click", () => {
+    setWorkspaceMaximised(true, { focus: "restore" });
+  });
+  workspaceChromeRestore?.addEventListener("click", () => {
+    setWorkspaceMaximised(false, { focus: "toggle" });
+  });
   libraryToggle?.addEventListener("click", () => {
     window.requestAnimationFrame(() => {
       const collapsed = studio.classList.contains("is-library-collapsed");
@@ -175,30 +219,40 @@ export function initStudioShell() {
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
+    if (event.key !== "Escape" || event.defaultPrevented) return;
     if (helpDialog?.open) {
       closeHelp();
       return;
     }
     const studioView = studio.closest(".view");
-    if (!studioView?.classList.contains("is-active")) return;
-    if (studio.classList.contains("is-focus-mode")) {
-      setFocusMode(false);
-    } else if (
-      studio.dataset.studioExperience === "guided" ||
-      window.matchMedia("(max-width: 1050px)").matches
-    ) {
-      setInspectorCollapsed(true);
+    if (studioView?.classList.contains("is-active")) {
+      if (studio.classList.contains("is-focus-mode")) {
+        setFocusMode(false);
+        return;
+      }
+      if (
+        !studio.classList.contains("is-inspector-collapsed") &&
+        (studio.dataset.studioExperience === "guided" ||
+          window.matchMedia("(max-width: 1050px)").matches)
+      ) {
+        setInspectorCollapsed(true);
+        return;
+      }
+    }
+    if (shell?.classList.contains("is-workspace-maximised")) {
+      setWorkspaceMaximised(false, { focus: "toggle" });
     }
   });
 
   window.addEventListener("atlas:viewchange", (event) => {
     const view = event.detail?.view;
+    activeView = view || "home";
     document.body.classList.toggle("is-studio-view", view === "studio");
     document.body.classList.toggle("is-network-view", view === "network");
     if (view === "studio" || view === "network") {
       window.scrollTo({ top: 0, left: 0 });
     }
+    syncWorkspaceChrome();
     refreshLayout();
   });
 
@@ -212,6 +266,7 @@ export function initStudioShell() {
   libraryToggle?.setAttribute("aria-expanded", "true");
   setExperience(preferences.experience, { save: false });
   setInspectorCollapsed(Boolean(preferences.inspectorCollapsed), { save: false });
+  syncWorkspaceChrome();
   if (mobileLibraryMedia.matches) setLibraryCollapsed(true);
   if (compactInspectorMedia.matches) setInspectorCollapsed(true, { save: false });
   mobileLibraryMedia.addEventListener?.("change", (event) => {
@@ -222,5 +277,11 @@ export function initStudioShell() {
   });
   studio.dataset.shellInitialized = "true";
 
-  return { setExperience, setInspectorCollapsed, setFocusMode, refreshLayout };
+  return {
+    setExperience,
+    setInspectorCollapsed,
+    setFocusMode,
+    setWorkspaceMaximised,
+    refreshLayout,
+  };
 }

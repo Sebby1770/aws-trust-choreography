@@ -59,7 +59,7 @@
       class="app-shell"
       aria-label="Trust Choreography cloud and network architecture workspace"
     >
-      <header class="site-header" data-animate="down">
+      <header class="site-header" id="siteHeader" data-animate="down">
         <button class="brand-lockup" type="button" data-view-target="home">
           <span class="brand-sigil" aria-hidden="true"><i></i><i></i><i></i></span>
           <span>
@@ -76,6 +76,20 @@
         </nav>
 
         <div class="header-actions">
+          <button
+            class="header-icon workspace-chrome-toggle"
+            id="workspaceChromeToggle"
+            type="button"
+            aria-label="Maximise the editor and hide workspace navigation"
+            aria-controls="siteHeader"
+            aria-pressed="false"
+            title="Maximise editor"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M9 3H3v6M15 3h6v6M3 15v6h6M21 15v6h-6" />
+            </svg>
+            <span>Maximise</span>
+          </button>
           <a
             class="header-github"
             href="https://github.com/Sebby1770/aws-trust-choreography"
@@ -103,6 +117,21 @@
           </button>
         </div>
       </header>
+      <button
+        class="workspace-chrome-restore"
+        id="workspaceChromeRestore"
+        type="button"
+        aria-label="Show workspace navigation"
+        aria-controls="siteHeader"
+        aria-expanded="false"
+        title="Show navigation (Escape)"
+        hidden
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h10M4 18h7M17 12v6m-3-3 3 3 3-3" />
+        </svg>
+        <span>Show navigation</span>
+      </button>
       <span id="workspaceContentStart" class="visually-hidden" tabindex="-1"
         >Workspace content</span
       >
