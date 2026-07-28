@@ -50,6 +50,11 @@ of sections embedded in a long page.
   path is selected.
 - **Pro mode** reveals named sessions, detailed score controls, status tools, JSON import, local
   save, and JSON / SVG / Terraform / Mermaid exports. The selected experience persists locally.
+- **Import infrastructure as code** — paste (or drop) a Terraform `.tf` file or a CloudFormation
+  JSON template and it becomes a live diagram: services are drawn, plumbing is hidden, references
+  become directional trust paths, and plaintext listeners arrive already flagged as unencrypted.
+  A preview shows exactly what will be drawn before it replaces the canvas. Everything is parsed
+  in the browser — nothing is uploaded and no AWS account is contacted.
 - **AI / LLM building blocks** — an "AI" library tab with Claude, ChatGPT, Foundation Model, AI
   Agent, Vector Database, Embeddings Model, and AI Guardrails nodes you can drop into an AWS
   architecture.
@@ -99,6 +104,12 @@ The packet test follows the shortest available graph path while excluding offlin
 not model physical ports, routing tables, ACLs, STP, VLAN enforcement, latency, protocol stacks, or
 device CLI configuration.
 
+The infrastructure-as-code importer reads the diagram implied by your code — it does not run
+`terraform plan`, resolve state, or contact AWS. Modules are not expanded, `count` / `for_each`
+resources are drawn once rather than fanned out, and only AWS resources are drawn; each of these is
+reported as a warning on the import preview rather than silently guessed at. CloudFormation support
+covers JSON templates (convert YAML with `cfn-flip` first).
+
 ## Getting started
 
 ```bash
@@ -146,6 +157,9 @@ src/
   cost-model.js        rough monthly cost estimator (unit-tested)
   terraform-export.js  canvas → main.tf skeleton (unit-tested)
   mermaid-export.js    canvas → Mermaid flowchart (unit-tested)
+  iac-import.js        Terraform/CloudFormation → canvas (unit-tested)
+  iac-service-map.js   IaC resource type → AWS service tables
+  iac-import-ui.js     import dialog wiring (unit-tested)
   studio-extras.js     cost badge + TF/MMD toolbar wiring
   spotlight.js         pointer-tracked spotlight cards
   icon-catalog.js      lazy loader for the icon catalog chunk

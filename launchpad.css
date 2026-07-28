@@ -1616,3 +1616,234 @@ body::before {
     transition: none;
   }
 }
+
+/* --- Infrastructure-as-code import dialog ------------------------------ */
+
+.iac-dialog {
+  width: min(1080px, calc(100% - 2rem));
+}
+
+.iac-dialog.is-dropping {
+  border-color: var(--tc-mint);
+}
+
+/* The pasted stack can be long, so keep the primary action reachable without
+   scrolling back down on short viewports. */
+.iac-dialog .dialog-foot {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  background: var(--tc-panel-solid);
+}
+
+.iac-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.iac-input-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.iac-input-head label {
+  color: var(--tc-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.iac-input-head code {
+  color: var(--tc-ink);
+  font-size: 0.72rem;
+  text-transform: none;
+}
+
+.iac-input-actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.iac-format {
+  color: var(--tc-dim);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.iac-format[data-known="true"] {
+  color: var(--tc-mint);
+}
+
+#iacFileButton {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--tc-line);
+  border-radius: 999px;
+  color: var(--tc-ink);
+  background: var(--tc-panel-raised);
+  font: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+#iacFileButton:hover {
+  border-color: var(--tc-line-strong);
+}
+
+#iacSource {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--tc-line);
+  border-radius: 16px;
+  color: var(--tc-ink);
+  background: var(--tc-bg-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  resize: vertical;
+  tab-size: 2;
+}
+
+#iacSource:focus {
+  border-color: var(--tc-mint);
+  outline: none;
+}
+
+.iac-preview {
+  min-height: 12rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--tc-line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--tc-bg-soft) 70%, transparent);
+}
+
+.iac-empty {
+  margin: 0;
+  color: var(--tc-dim);
+  font-size: 0.78rem;
+}
+
+.iac-error {
+  margin: 0;
+  color: var(--tc-coral);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.iac-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--tc-line);
+}
+
+.iac-stats div {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.iac-stats strong {
+  color: var(--tc-ink);
+  font-size: 1.65rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.iac-stats span {
+  color: var(--tc-dim);
+  font-size: 0.66rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.iac-stats .is-alert strong {
+  color: var(--tc-coral);
+}
+
+.iac-meta {
+  margin: 0.85rem 0 0;
+  color: var(--tc-muted);
+  font-size: 0.74rem;
+}
+
+.iac-meta strong {
+  color: var(--tc-ink);
+}
+
+.iac-services {
+  display: grid;
+  gap: 0.35rem;
+  max-height: 13rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.iac-services li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--tc-line);
+  border-radius: 10px;
+  background: var(--tc-panel-raised);
+}
+
+.iac-services strong {
+  color: var(--tc-ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.iac-services span {
+  flex: 0 0 auto;
+  color: var(--tc-dim);
+  font-size: 0.66rem;
+}
+
+.iac-warnings {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--tc-line);
+}
+
+.iac-warnings h4 {
+  margin: 0 0 0.5rem;
+  color: var(--tc-orange);
+  font-size: 0.66rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.iac-warnings ul {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.iac-warnings li {
+  color: var(--tc-muted);
+  font-size: 0.73rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .iac-body {
+    grid-template-columns: 1fr;
+  }
+
+  .iac-services {
+    max-height: 9rem;
+  }
+}
