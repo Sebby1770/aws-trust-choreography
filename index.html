@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="launchpad.css" />
     <link rel="stylesheet" href="studio-shell.css" />
     <link rel="stylesheet" href="network-lab.css" />
+    <link rel="stylesheet" href="review-center.css" />
   </head>
   <body>
     <a class="skip-link" href="#workspaceContentStart">Skip to workspace content</a>
@@ -72,7 +73,7 @@
           <button type="button" data-view-target="home" aria-current="page">Explore</button>
           <button type="button" data-view-target="studio">AWS Studio</button>
           <button type="button" data-view-target="network">Network Lab</button>
-          <button type="button" data-view-target="atlas">Rehearse</button>
+          <button type="button" data-view-target="review">Review</button>
         </nav>
 
         <div class="header-actions">
@@ -476,8 +477,8 @@
             <li>
               <span>03</span>
               <div>
-                <strong>Rehearse</strong
-                ><small>Inject failure and watch the blast radius move.</small>
+                <strong>Review</strong
+                ><small>Turn both labs into a prioritised readiness report.</small>
               </div>
             </li>
             <li>
@@ -491,539 +492,221 @@
         </section>
       </div>
 
-      <div class="view view-atlas" data-view="atlas">
-        <section class="atlas-intro" aria-labelledby="atlasTitle">
-          <div>
-            <span class="section-index">LIVE RESILIENCE LAB</span>
-            <h1 id="atlasTitle">Make failure<br /><em>observable.</em></h1>
-            <p>
-              Track how edge traffic, identity, workflow state, and recovery lanes behave through a
-              live cloud incident.
-            </p>
-          </div>
-          <div class="actions atlas-actions" aria-label="Simulation controls">
-            <button
-              class="icon-button play-button"
-              id="playButton"
-              type="button"
-              aria-pressed="false"
-              aria-label="Play the narrated incident walkthrough"
-              title="Play incident walkthrough"
-            >
-              <span aria-hidden="true">▶</span>
-            </button>
-            <button
-              class="icon-button edit-button"
-              id="editButton"
-              type="button"
-              aria-pressed="false"
-              aria-label="Edit this atlas to make it your own"
-              title="Edit — make this atlas your own"
-            >
-              <span aria-hidden="true">✎</span>
-            </button>
-            <button
-              class="icon-button"
-              id="replayButton"
-              type="button"
-              aria-label="Replay signal choreography"
-              title="Replay signal choreography"
-            >
-              <span aria-hidden="true">&#8635;</span>
-            </button>
-            <button
-              class="icon-button"
-              id="incidentButton"
-              type="button"
-              aria-label="Escalate incident mode"
-              title="Escalate incident mode"
-            >
-              <span aria-hidden="true">!</span>
-            </button>
-            <button
-              class="icon-button"
-              id="shareButton"
-              type="button"
-              aria-label="Copy a shareable link to this view"
-              title="Copy a shareable link to this view"
-            >
-              <span aria-hidden="true">&#128279;</span>
-            </button>
-          </div>
-        </section>
-        <section class="command-workbench" aria-label="Live incident command workbench">
-          <nav
-            class="scenario-strip"
-            role="tablist"
-            aria-label="Incident scenario"
-            data-animate="left"
-          >
-            <span class="rail-label">Scenarios</span>
-            <button
-              class="scenario is-active"
-              type="button"
-              role="tab"
-              aria-selected="true"
-              data-scenario="steady"
-            >
-              Steady state
-            </button>
-            <button
-              class="scenario"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              data-scenario="surge"
-            >
-              Traffic surge
-            </button>
-            <button
-              class="scenario"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              data-scenario="identity"
-            >
-              Identity drift
-            </button>
-            <button
-              class="scenario"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              data-scenario="recovery"
-            >
-              Recovery drill
-            </button>
-          </nav>
-
-          <section
-            class="stage"
-            aria-label="Interactive AWS service map"
-            data-animate="scale"
-            data-animate-delay="120"
-          >
-            <div class="grid-window">
-              <aside class="authority-card" aria-live="polite">
-                <span class="card-kicker">Resilience authority</span>
-                <strong id="scenarioTitle"
-                  >Applications stay available even when confidence becomes uneven.</strong
-                >
-                <span id="scenarioMeta">9 services, 7 trust paths</span>
-                <div class="resilience-gauge" data-tone="strong" style="--index: 82">
-                  <div class="resilience-ring">
-                    <strong id="resilienceIndex">82</strong>
-                    <span>/ 100</span>
-                  </div>
-                  <div class="resilience-meta">
-                    <span class="resilience-label">Resilience index</span>
-                    <strong id="resilienceGrade">B</strong>
-                  </div>
-                </div>
-              </aside>
-
-              <div class="sweep" aria-hidden="true"></div>
-
-              <svg
-                class="map"
-                viewBox="0 0 1440 850"
-                role="img"
-                aria-labelledby="mapTitle mapDescription"
+      <div class="view view-review" data-view="review">
+        <section class="review-center" id="reviewCenter" aria-labelledby="reviewTitle">
+          <header class="review-hero">
+            <div class="review-hero-copy">
+              <span class="section-index">DESIGN READINESS</span>
+              <h1 id="reviewTitle">Know what to fix<br /><em>before you ship.</em></h1>
+              <p>
+                Review the architecture you actually built, see the evidence behind every result,
+                and jump straight back to the right canvas.
+              </p>
+              <span class="review-live-badge"
+                ><i aria-hidden="true"></i> Live from AWS Studio and Network Lab</span
               >
-                <title id="mapTitle">AWS trust path map</title>
-                <desc id="mapDescription">
-                  Glowing AWS service nodes linked by animated resilience paths and fallback lanes.
-                </desc>
-                <defs>
-                  <filter id="amberGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="7" result="blur"></feGaussianBlur>
-                    <feColorMatrix
-                      in="blur"
-                      values="1 0 0 0 1  0 0.74 0 0 0.58  0 0 0.1 0 0.12  0 0 0 1 0"
-                    ></feColorMatrix>
-                    <feMerge>
-                      <feMergeNode></feMergeNode>
-                      <feMergeNode in="SourceGraphic"></feMergeNode>
-                    </feMerge>
-                  </filter>
-                  <filter id="cyanGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
-                    <feColorMatrix
-                      in="blur"
-                      values="0 0 0 0 0.2  0 0 0 0 0.82  0 0 0 0 1  0 0 0 1 0"
-                    ></feColorMatrix>
-                    <feMerge>
-                      <feMergeNode></feMergeNode>
-                      <feMergeNode in="SourceGraphic"></feMergeNode>
-                    </feMerge>
-                  </filter>
-                  <filter id="greenGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="9" result="blur"></feGaussianBlur>
-                    <feColorMatrix
-                      in="blur"
-                      values="0 0 0 0 0.45  0 0 0 0 1  0 0 0 0 0.67  0 0 0 1 0"
-                    ></feColorMatrix>
-                    <feMerge>
-                      <feMergeNode></feMergeNode>
-                      <feMergeNode in="SourceGraphic"></feMergeNode>
-                    </feMerge>
-                  </filter>
-                  <filter id="violetGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
-                    <feColorMatrix
-                      in="blur"
-                      values="0 0 0 0 0.77  0 0 0 0 0.48  0 0 0 0 1  0 0 0 1 0"
-                    ></feColorMatrix>
-                    <feMerge>
-                      <feMergeNode></feMergeNode>
-                      <feMergeNode in="SourceGraphic"></feMergeNode>
-                    </feMerge>
-                  </filter>
-                </defs>
-
-                <g class="routes" fill="none" stroke-linecap="round">
-                  <path
-                    id="route-edge"
-                    class="route route-primary"
-                    d="M215 250 C350 190 430 165 562 232 S786 330 930 295 S1090 210 1225 265"
-                  ></path>
-                  <path
-                    id="route-compute"
-                    class="route route-secondary"
-                    d="M215 250 C315 330 402 430 545 498 S773 668 900 564 S1014 386 1096 372"
-                  ></path>
-                  <path
-                    id="route-data"
-                    class="route route-primary"
-                    d="M1096 372 C1090 485 1108 605 1104 728"
-                  ></path>
-                  <path
-                    id="route-fallback"
-                    class="route route-fallback"
-                    d="M470 740 C628 718 720 630 820 558 S965 446 1096 372"
-                  ></path>
-                  <path
-                    id="route-governance"
-                    class="route route-secondary"
-                    d="M562 232 C620 350 645 442 545 498 S430 612 470 740"
-                  ></path>
-                </g>
-
-                <g class="tokens" aria-hidden="true">
-                  <circle r="7" class="packet packet-one">
-                    <animateMotion dur="7.2s" repeatCount="indefinite" rotate="auto">
-                      <mpath href="#route-edge"></mpath>
-                    </animateMotion>
-                  </circle>
-                  <circle r="7" class="packet packet-two">
-                    <animateMotion dur="8.6s" begin="-2.4s" repeatCount="indefinite" rotate="auto">
-                      <mpath href="#route-compute"></mpath>
-                    </animateMotion>
-                  </circle>
-                  <circle r="7" class="packet packet-three">
-                    <animateMotion dur="6.8s" begin="-1.4s" repeatCount="indefinite" rotate="auto">
-                      <mpath href="#route-fallback"></mpath>
-                    </animateMotion>
-                  </circle>
-                </g>
-
-                <g class="event-tags" aria-hidden="true">
-                  <g transform="translate(426 196)">
-                    <rect class="diamond" width="18" height="18"></rect>
-                    <text x="-44" y="-18">cache miss</text>
-                  </g>
-                  <g transform="translate(722 300)">
-                    <rect class="diamond" width="18" height="18"></rect>
-                    <text x="-32" y="-18">scale</text>
-                  </g>
-                  <g transform="translate(908 404)">
-                    <rect class="diamond" width="18" height="18"></rect>
-                    <text x="-38" y="-18">policy</text>
-                  </g>
-                  <g transform="translate(620 626)">
-                    <rect class="diamond" width="18" height="18"></rect>
-                    <text x="-58" y="-18">fallback</text>
-                  </g>
-                  <g transform="translate(1100 528)">
-                    <rect class="diamond" width="18" height="18"></rect>
-                    <text x="-42" y="-18">restore</text>
-                  </g>
-                </g>
-
-                <g
-                  class="service-node hex-node"
-                  transform="translate(215 250)"
-                  data-node="CloudFront edge"
-                  data-score="82"
-                  data-label="Global traffic entry with WAF and Shield controls."
-                >
-                  <polygon points="0,-58 51,-29 51,29 0,58 -51,29 -51,-29"></polygon>
-                  <text class="score" y="8">82%</text>
-                  <text class="node-label" y="96">CloudFront Edge</text>
-                  <text class="aws-chip" y="-78">WAF</text>
-                </g>
-
-                <g
-                  class="service-node hex-node amber"
-                  transform="translate(562 232)"
-                  data-node="EKS compute fleet"
-                  data-score="88"
-                  data-label="Container workloads shift across zones as target groups heat up."
-                >
-                  <polygon points="0,-58 51,-29 51,29 0,58 -51,29 -51,-29"></polygon>
-                  <text class="score" y="8">88%</text>
-                  <text class="node-label" y="96">EKS Compute</text>
-                  <text class="aws-chip" y="-78">EKS</text>
-                </g>
-
-                <g
-                  class="service-node circle-node violet"
-                  transform="translate(1096 372)"
-                  data-node="IAM trust broker"
-                  data-score="64"
-                  data-label="Federated identity contracts are reviewed before emergency permissions widen."
-                >
-                  <circle r="58"></circle>
-                  <text class="score" y="8">64%</text>
-                  <text class="node-label" y="96">IAM Trust Broker</text>
-                  <text class="aws-chip" y="-78">IAM</text>
-                </g>
-
-                <g
-                  class="service-node circle-node cyan"
-                  transform="translate(1104 728)"
-                  data-node="Aurora data mesh"
-                  data-score="76"
-                  data-label="Read replicas and event streams keep product state moving through recovery."
-                >
-                  <circle r="58"></circle>
-                  <text class="score" y="8">76%</text>
-                  <text class="node-label" y="96">Aurora Mesh</text>
-                  <text class="aws-chip" y="-78">RDS</text>
-                </g>
-
-                <g
-                  class="service-node diamond-node green"
-                  transform="translate(820 558)"
-                  data-node="Step Functions core"
-                  data-score="93"
-                  data-label="Workflow state machine coordinates retries, compensations, and audit events."
-                >
-                  <rect x="-47" y="-47" width="94" height="94" transform="rotate(45)"></rect>
-                  <text class="score" y="8">93%</text>
-                  <text class="node-label" y="96">Step Functions Core</text>
-                  <text class="aws-chip" y="-82">SFN</text>
-                </g>
-
-                <g
-                  class="service-node circle-node green"
-                  transform="translate(470 740)"
-                  data-node="Manual approval lane"
-                  data-score="58"
-                  data-label="Human review gates can take over if automated confidence dips."
-                >
-                  <circle r="52"></circle>
-                  <text class="score" y="8">58%</text>
-                  <text class="node-label" y="94">Manual Lane</text>
-                  <text class="aws-chip" y="-72">SNS</text>
-                </g>
-
-                <g
-                  class="service-node small-node"
-                  transform="translate(545 498)"
-                  data-node="Lambda decision agent"
-                  data-score="79"
-                  data-label="Short-lived decision functions score incidents without carrying state."
-                >
-                  <circle r="20"></circle>
-                  <text class="small-label" x="-48" y="-34">Lambda decision</text>
-                </g>
-
-                <g
-                  class="service-node small-node"
-                  transform="translate(900 564)"
-                  data-node="S3 evidence vault"
-                  data-score="84"
-                  data-label="Immutable recovery evidence lands in an encrypted audit bucket."
-                >
-                  <circle r="20"></circle>
-                  <text class="small-label" x="-34" y="52">S3 vault</text>
-                </g>
-
-                <g
-                  class="service-node small-node"
-                  transform="translate(1225 265)"
-                  data-node="EventBridge mesh"
-                  data-score="72"
-                  data-label="Partner and internal events are normalized before fan-out."
-                >
-                  <circle r="20"></circle>
-                  <text class="small-label" x="-58" y="-34">EventBridge</text>
-                </g>
-
-                <g
-                  class="cursor-mark"
-                  aria-hidden="true"
-                  transform="translate(888 430) rotate(-22)"
-                >
-                  <path d="M0 0 L42 17 L22 27 L12 49 Z"></path>
-                </g>
-              </svg>
-
-              <section class="node-drawer" aria-live="polite">
-                <span id="atlasNodeName">Step Functions core</span>
-                <strong id="nodeScore">93%</strong>
-                <p id="nodeCopy">
-                  Workflow state machine coordinates retries, compensations, and audit events.
-                </p>
-                <a
-                  id="nodeLink"
-                  href="https://aws.amazon.com/step-functions/"
-                  target="_blank"
-                  rel="noreferrer"
-                  >AWS Step Functions</a
-                >
-              </section>
             </div>
-          </section>
 
-          <aside
-            class="console-deck"
-            aria-label="Operations console"
-            data-animate="right"
-            data-animate-delay="200"
-          >
-            <div class="console-head">
-              <div class="console-title">
-                <span>Operations console</span>
-                <strong id="consoleModuleTitle">Incident inspector</strong>
-              </div>
-              <label class="console-select" for="consoleModule">
-                <span class="visually-hidden">Choose console module</span>
-                <select id="consoleModule">
-                  <option value="inspector">Incident inspector</option>
-                  <option value="telemetry">Telemetry</option>
-                  <option value="runbook">Active runbook</option>
-                  <option value="posture">Control posture</option>
-                  <option value="doctrine">Operating doctrine</option>
+            <div class="review-controls">
+              <label for="reviewScope">
+                <span>Review scope</span>
+                <select id="reviewScope">
+                  <option value="combined">Whole system</option>
+                  <option value="aws">AWS architecture</option>
+                  <option value="network">Network topology</option>
                 </select>
               </label>
+              <div class="review-mode-switch" role="group" aria-label="Review detail">
+                <button
+                  class="is-active"
+                  type="button"
+                  data-review-mode="guided"
+                  aria-pressed="true"
+                >
+                  Guided
+                </button>
+                <button type="button" data-review-mode="evidence" aria-pressed="false">
+                  Evidence
+                </button>
+              </div>
             </div>
+          </header>
 
-            <div class="console-body">
-              <section
-                class="console-module"
-                data-module="inspector"
-                aria-label="Incident inspector"
-              >
-                <section class="failure-composer" aria-label="Failure injection composer">
-                  <div class="failure-composer-head">
-                    <span>Inject faults to rehearse and validate</span>
-                    <strong id="failureComposerSummary">No faults injected</strong>
-                  </div>
-                  <div
-                    class="failure-controls"
-                    id="failureControls"
-                    role="group"
-                    aria-label="Inject failure modes"
+          <section class="review-verdict" aria-labelledby="reviewVerdictTitle">
+            <div
+              class="review-score-ring"
+              id="reviewScoreRing"
+              style="--review-score: 0%"
+              aria-label="Design readiness score"
+            >
+              <div>
+                <strong id="reviewScore">—</strong>
+                <span>/ 100</span>
+              </div>
+            </div>
+            <div class="review-verdict-copy">
+              <span>Current verdict</span>
+              <h2 id="reviewVerdictTitle">Preparing your design review…</h2>
+              <p id="reviewSummary">
+                Reading the latest architecture and topology stored on this device.
+              </p>
+              <div class="review-verdict-actions">
+                <button
+                  class="review-primary-action"
+                  id="reviewFixTopButton"
+                  type="button"
+                  disabled
+                >
+                  Fix the top priority <span aria-hidden="true">↗</span>
+                </button>
+                <button class="review-secondary-action" id="reviewRefreshButton" type="button">
+                  Refresh review
+                </button>
+              </div>
+            </div>
+            <dl class="review-project-facts">
+              <div>
+                <dt>AWS project</dt>
+                <dd id="reviewAwsProject">Preparing…</dd>
+                <small id="reviewAwsMeta">Loading architecture</small>
+              </div>
+              <div>
+                <dt>Network project</dt>
+                <dd id="reviewNetworkProject">Preparing…</dd>
+                <small id="reviewNetworkMeta">Loading topology</small>
+              </div>
+              <div>
+                <dt>Planning estimate</dt>
+                <dd id="reviewCost">—</dd>
+                <small>Monthly comparison only</small>
+              </div>
+            </dl>
+          </section>
+
+          <section class="review-lenses-section" aria-labelledby="reviewLensesTitle">
+            <div class="review-section-heading">
+              <div>
+                <span>READINESS LENSES</span>
+                <h2 id="reviewLensesTitle">The evidence, without the jargon.</h2>
+              </div>
+              <p>
+                Every score comes from services, paths, devices, and controls visible in your
+                diagrams.
+              </p>
+            </div>
+            <div class="review-lenses" id="reviewLenses" aria-live="polite"></div>
+          </section>
+
+          <div class="review-layout">
+            <section class="review-findings-section" aria-labelledby="reviewFindingsTitle">
+              <div class="review-findings-head">
+                <div>
+                  <span>PRIORITISED FINDINGS</span>
+                  <h2 id="reviewFindingsTitle">What deserves attention next.</h2>
+                  <p id="reviewFindingsSummary">Waiting for the latest review.</p>
+                </div>
+                <div class="review-filters" role="group" aria-label="Filter review findings">
+                  <button
+                    class="is-active"
+                    type="button"
+                    data-review-filter="all"
+                    aria-pressed="true"
                   >
-                    <button type="button" data-failure-mode="edge" aria-pressed="false">
-                      <span></span>Edge flood
-                    </button>
-                    <button type="button" data-failure-mode="identity" aria-pressed="false">
-                      <span></span>Identity breach
-                    </button>
-                    <button type="button" data-failure-mode="data" aria-pressed="false">
-                      <span></span>Data lag
-                    </button>
-                    <button type="button" data-failure-mode="workflow" aria-pressed="false">
-                      <span></span>Workflow backlog
-                    </button>
-                  </div>
-                  <div class="failure-readout">
-                    <article>
-                      <span>Blast radius</span>
-                      <strong id="blastRadius">Contained</strong>
-                    </article>
-                    <article>
-                      <span>Weakest node</span>
-                      <strong id="weakestNode">Manual approval lane</strong>
-                    </article>
-                    <article>
-                      <span>Composed recovery</span>
-                      <strong id="composedRecovery">07m</strong>
-                    </article>
-                  </div>
-                  <p id="failureRecommendation">
-                    Inject one or more faults to test how resilience controls interact.
-                  </p>
-                  <button class="clear-failures" id="clearFailuresButton" type="button">
-                    Clear injections
+                    All
                   </button>
-                </section>
-              </section>
-
-              <section
-                class="console-module"
-                data-module="telemetry"
-                aria-label="Live resilience metrics"
-                hidden
-              >
-                <div class="metrics">
-                  <article><span>Route health</span><strong id="routeHealth">87%</strong></article>
-                  <article>
-                    <span>Fallback ready</span><strong id="fallbackReady">58%</strong>
-                  </article>
-                  <article>
-                    <span>Data durability</span><strong id="dataDurability">99.95</strong>
-                  </article>
-                  <article><span>Recovery ETA</span><strong id="recoveryEta">07m</strong></article>
+                  <button type="button" data-review-filter="must" aria-pressed="false">
+                    Must fix
+                  </button>
+                  <button type="button" data-review-filter="improve" aria-pressed="false">
+                    Improve
+                  </button>
+                  <button type="button" data-review-filter="passed" aria-pressed="false">
+                    Passed
+                  </button>
                 </div>
-              </section>
+              </div>
+              <div class="review-findings-list" id="reviewFindingsList" aria-live="polite"></div>
+            </section>
 
-              <section
-                class="console-module"
-                data-module="runbook"
-                aria-label="Active recovery runbook"
-                hidden
-              >
-                <div class="runbook-head">
-                  <span>Active runbook</span>
-                  <strong id="runbookTitle">Steady state watch</strong>
+            <aside class="review-passport" aria-labelledby="reviewPassportTitle">
+              <div class="review-passport-top">
+                <span>ARCHITECTURE PASSPORT</span>
+                <i aria-hidden="true">TC</i>
+              </div>
+              <h2 id="reviewPassportTitle">Design evidence ready to hand over.</h2>
+              <dl>
+                <div>
+                  <dt>Readiness</dt>
+                  <dd id="reviewPassportScore">—</dd>
                 </div>
-                <div class="runbook-steps" id="runbookSteps" aria-live="polite"></div>
-              </section>
+                <div>
+                  <dt>AWS services</dt>
+                  <dd id="reviewPassportAwsNodes">—</dd>
+                </div>
+                <div>
+                  <dt>Trust paths</dt>
+                  <dd id="reviewPassportAwsPaths">—</dd>
+                </div>
+                <div>
+                  <dt>Network devices</dt>
+                  <dd id="reviewPassportNetworkNodes">—</dd>
+                </div>
+                <div>
+                  <dt>Network links</dt>
+                  <dd id="reviewPassportNetworkLinks">—</dd>
+                </div>
+                <div>
+                  <dt>Checks passed</dt>
+                  <dd id="reviewPassportPassed">—</dd>
+                </div>
+                <div>
+                  <dt>Open priorities</dt>
+                  <dd id="reviewPassportOpen">—</dd>
+                </div>
+              </dl>
+              <div class="review-passport-actions">
+                <button id="reviewCopyButton" type="button">Copy summary</button>
+                <button id="reviewDownloadMarkdownButton" type="button">Download .md</button>
+                <button id="reviewDownloadJsonButton" type="button">Download JSON</button>
+              </div>
+              <p>
+                This reviews what is represented in your diagrams. It is design guidance, not a live
+                AWS account audit or certification.
+              </p>
+            </aside>
+          </div>
 
-              <section
-                class="console-module"
-                data-module="posture"
-                aria-label="Resilience posture model"
-                hidden
-              >
-                <div class="posture-head">
-                  <span>Control posture</span>
-                  <strong id="postureTitle">Balanced watch</strong>
-                </div>
-                <div class="posture-grid" id="postureGrid" aria-live="polite"></div>
-              </section>
-
-              <section
-                class="console-module"
-                data-module="doctrine"
-                aria-label="Operating doctrine"
-                hidden
-              >
-                <div class="doctrine-head">
-                  <span>Operating doctrine</span>
-                  <strong id="doctrineTitle">Keep the system legible</strong>
-                </div>
-                <div class="doctrine-grid" id="doctrineGrid" aria-live="polite"></div>
-              </section>
+          <section class="review-next-tests" aria-labelledby="reviewNextTestsTitle">
+            <div>
+              <span>NEXT TESTS</span>
+              <h2 id="reviewNextTestsTitle">Take the evidence back to the canvas.</h2>
             </div>
-          </aside>
+            <article>
+              <i aria-hidden="true">AWS</i>
+              <div>
+                <strong>Test a service failure</strong>
+                <p>Select a critical node and inspect every downstream path it affects.</p>
+              </div>
+              <button type="button" data-review-open="studio">Open AWS Studio</button>
+            </article>
+            <article>
+              <i aria-hidden="true">⇆</i>
+              <div>
+                <strong>Trace a simulated packet route</strong>
+                <p>Send traffic between two devices and confirm every hop is reachable.</p>
+              </div>
+              <button type="button" data-review-open="network">Open Network Lab</button>
+            </article>
+          </section>
+
+          <p
+            class="review-status visually-hidden"
+            id="reviewStatus"
+            role="status"
+            aria-live="polite"
+          ></p>
         </section>
       </div>
-
       <div class="view view-studio" data-view="studio">
         <section
           class="flow-studio"

@@ -711,7 +711,7 @@ export function scoreNetwork(input = {}) {
   const score = Math.round(checks.reduce((total, check) => total + check.score, 0) / checks.length);
   const label =
     score >= 80
-      ? "Ready to rehearse"
+      ? "Review ready"
       : score >= 60
         ? "Solid foundation"
         : score >= 35
@@ -864,6 +864,9 @@ export function initNetworkLab() {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       updateSaveCopy(copy, "saved");
+      window.dispatchEvent(
+        new CustomEvent("trust:designchange", { detail: { source: "network", reason: copy } })
+      );
       return true;
     } catch {
       updateSaveCopy("Could not save in this browser", "error");
@@ -1636,6 +1639,52 @@ export function initNetworkLab() {
   root.dataset.networkInitialized = "true";
   root.dataset.networkMode = activeMode;
 
+  function reveal(target = {}) {
+    if (target.kind === "library") {
+      activeCategory = "all";
+      categoryButtons.forEach((button) => {
+        const active = button.dataset.networkCategory === "all";
+        button.classList.toggle("network-is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      root.classList.remove("network-palette-collapsed");
+      syncPaletteToggle(false);
+      controls.search.value = String(target.query || "");
+      renderDeviceGrid();
+      window.requestAnimationFrame(() => controls.search?.focus());
+      window.requestAnimationFrame(renderConnections);
+      return true;
+    }
+
+    if (target.kind === "link" && target.id) {
+      if (!state.links.some((item) => item.id === target.id)) return false;
+      selectLink(target.id);
+      return true;
+    }
+
+    if (target.kind === "device") {
+      const requested = target.id && state.nodes.find((item) => item.id === target.id);
+      const invalidAddress = state.nodes.find(
+        (item) =>
+          !["internet", "cloud"].includes(item.type) &&
+          (!validIpv4(item.ip) || !validSubnet(item.subnet))
+      );
+      const selected = requested || invalidAddress || state.nodes[0];
+      if (!selected) return false;
+      root.classList.remove("network-inspector-collapsed");
+      controls.inspectorToggle?.setAttribute("aria-expanded", "true");
+      controls.inspectorToggle?.setAttribute("aria-pressed", "true");
+      selectNode(selected.id);
+      window.requestAnimationFrame(() => {
+        const field = target.field === "subnet" ? controls.nodeSubnet : controls.nodeIp;
+        field?.focus();
+      });
+      return true;
+    }
+
+    return false;
+  }
+
   return {
     getState: () => cloneState(state),
     setState: (next) => replaceState(next),
@@ -1645,6 +1694,7 @@ export function initNetworkLab() {
     deleteSelection,
     autoLayout,
     sendPacket,
+    reveal,
     undo,
     redo,
     save: saveState,

@@ -280,6 +280,7 @@ export function initStudioShell() {
   return {
     setExperience,
     setInspectorCollapsed,
+    setLibraryCollapsed,
     setFocusMode,
     setWorkspaceMaximised,
     refreshLayout,

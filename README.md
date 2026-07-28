@@ -10,7 +10,7 @@ packet paths before production does it for you. Built with vanilla HTML, CSS, an
 ## What it does
 
 The app opens in a project-first **Explore** workspace, with dedicated **AWS Studio**, **Network
-Lab**, and **Rehearse** workspaces. AWS Studio and Network Lab use the full available viewport under
+Lab**, and **Review** workspaces. AWS Studio and Network Lab use the full available viewport under
 the compact navigation bar, so their canvases feel like focused diagramming applications instead
 of sections embedded in a long page.
 
@@ -27,24 +27,18 @@ of sections embedded in a long page.
 - A responsive, editorial visual system with a live architecture preview, workload cost and
   recovery signals, and a clear compose → understand → rehearse → ship journey.
 
-**Command Atlas**
+**Review Center**
 
-- A rail · map · console layout: scenario rail, a dominant live service topology, and an
-  **Operations console** whose dropdown switches between Incident inspector, Telemetry, Active
-  runbook, Control posture, and Operating doctrine.
-- A **Resilience Index** — a composite 0–100 score with an A–F grade, shown as a live ring gauge
-  that blends route health, weakest node, fallback, durability, and recovery time (minus a
-  blast-radius penalty) and recolours as the situation changes.
-- Glowing service nodes for CloudFront, EKS, IAM, Aurora, Step Functions, Lambda, S3, EventBridge,
-  and an SNS-backed manual lane, joined by animated trust-path packets and fallback routes.
-- Scenario tabs — steady state, traffic surge, identity drift, recovery drill — that drive the
-  topology, telemetry, runbooks, posture model, and operating doctrine.
-- A **failure composer** that stacks faults (edge flood, identity breach, data lag, workflow
-  backlog), recomputes service confidence scores, and classifies blast radius from _Contained_ to
-  _Systemic_.
-- **Make it your own** — an edit mode lets any visitor rename the atlas and its services and set
-  their own confidence scores; the personalization persists in the browser, with a reset to
-  defaults, and a "Copy a link to my version" command shares the whole tailored atlas as a URL.
+- Reviews the live AWS architecture and Network Lab topology instead of a fixed demo.
+- Produces an explainable readiness verdict across security, reliability, observability, recovery,
+  addressing, redundancy, and core network services.
+- Prioritises findings as **Must fix**, **Improve**, or **Passed**, with Guided and Evidence modes.
+- **Fix in Studio** actions open the correct editor and select the affected path, service, field,
+  or pre-filtered library result.
+- An Architecture Passport captures diagram counts, checks passed, open priorities, and the rough
+  planning estimate, with Markdown and JSON downloads.
+- Blank labs are excluded from the combined score so unused workspaces cannot dilute real work.
+- The Review Center is diagram guidance, not a live AWS-account audit or certification.
 
 **AWS Flow Studio** (full-screen)
 
@@ -83,12 +77,10 @@ of sections embedded in a long page.
 
 **Experience**
 
-- **Command palette (⌘K)** — a keyboard-first launcher that fuzzy-matches across every action:
-  switch scenarios, inject or clear faults, inspect any node, change theme, or copy a report.
-- **Copy incident report** — generates a shareable Markdown summary (scenario, faults, telemetry,
-  weakest node, recommendation, and a deep link) from the live state.
-- **Shareable deep links** — the active scenario, injected faults, and selected node are encoded in
-  the URL hash, so the share button copies a link that reopens the exact same view.
+- **Command palette (⌘K)** — a keyboard-first launcher for moving between workspaces, changing the
+  theme, refreshing Review, and copying or downloading the current design report.
+- **Portable review reports** — copy a plain-English Markdown summary or download Markdown and JSON
+  versions of the current readiness evidence.
 - **Theming** — light / dark / follow-system, persisted across visits.
 - **Animated reveals** — a vanilla port of React Bits'
   [AnimatedContent](https://reactbits.dev/animations/animated-content): sections glide + fade into
@@ -138,19 +130,17 @@ bundles and minifies the app into `dist/client`.
 ```
 src/
   main.js              app entry — boots the workspaces, lazy-loads AWS Flow Studio
-  resilience-model.js  pure scenario/fault domain model (unit-tested)
-  atlas.js             incident-command DOM controller
   flow-studio.js       AWS architecture canvas and domain state
+  aws-review-model.js  pure, explainable AWS readiness rules
   studio-shell.js      Guided/Pro experience and responsive panel controls
   network-lab.js       network canvas, scoring, persistence, and packet simulation
+  review-center.js     combined review model, report builder, and DOM controller
   ai-icons.js          Claude/ChatGPT/AI library nodes (unit-tested)
   personalize.js       per-visitor edit profile (unit-tested)
-  views.js             Explore / AWS / Network / Rehearse workspace switcher
-  console-deck.js      operations-console module dropdown
+  views.js             Explore / AWS / Network / Review workspace switcher
   theme.js             light/dark/system theme controller
-  url-state.js         shareable URL-hash state (unit-tested)
   command-palette.js   ⌘K launcher + fuzzy ranking (unit-tested)
-  incident-report.js   Markdown incident-report builder (unit-tested)
+  workspace-commands.js navigation, theme, and Review commands
   animated-content.js  reveal-on-scroll engine (unit-tested)
   studio-sessions.js   multi-session store for Flow Studio (unit-tested)
   cost-model.js        rough monthly cost estimator (unit-tested)
@@ -161,6 +151,7 @@ src/
   icon-catalog.js      lazy loader for the icon catalog chunk
 studio-shell.css       full-viewport AWS editor shell and responsive drawers
 network-lab.css        Network Lab visual system and responsive canvas
+review-center.css      Review Center visual system and responsive report layout
 assets/ai-icons/       custom AI / LLM node SVGs
 tests/                 Vitest unit and jsdom interaction suites
 assets/aws-icons/      862 official AWS architecture SVGs + generated catalog
@@ -172,9 +163,9 @@ The resilience, packet-routing, scoring, session, and URL-state logic live in te
 
 ## Performance
 
-The shell, Explore workspace, Rehearse atlas, and Network Lab load immediately. The heavier AWS Flow
+The shell, Explore workspace, Review Center, and Network Lab load immediately. The heavier AWS Flow
 Studio, session/export helpers, and official icon catalog are loaded lazily via dynamic `import()`
-when the studio nears the viewport or the browser is idle.
+when the studio nears the viewport, Review opens, or the browser is idle.
 
 ## Deployment
 

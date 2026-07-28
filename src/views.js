@@ -8,7 +8,8 @@
  */
 
 const STORAGE_KEY = "aws-command-atlas-view-v2";
-const VIEWS = ["home", "studio", "network", "atlas"];
+const VIEWS = ["home", "studio", "network", "review"];
+const LEGACY_VIEWS = { atlas: "review" };
 const DEFAULT_VIEW = "home";
 
 export function initViews() {
@@ -19,7 +20,8 @@ export function initViews() {
   if (!views.length) return null;
 
   function setView(name) {
-    const view = VIEWS.includes(name) ? name : DEFAULT_VIEW;
+    const requested = LEGACY_VIEWS[name] || name;
+    const view = VIEWS.includes(requested) ? requested : DEFAULT_VIEW;
     views.forEach((section) =>
       section.classList.toggle("is-active", section.dataset.view === view)
     );
@@ -48,7 +50,7 @@ export function initViews() {
   let initial = DEFAULT_VIEW;
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && VIEWS.includes(stored)) initial = stored;
+    if (stored) initial = LEGACY_VIEWS[stored] || stored;
   } catch {
     /* ignore */
   }

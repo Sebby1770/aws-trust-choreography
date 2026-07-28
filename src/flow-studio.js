@@ -8,6 +8,8 @@
  * @param {Array} iconCatalog - the AWS icon catalog entries
  * @param {object} iconCatalogMeta - catalog metadata (release, count, ...)
  */
+import { reviewAwsArchitecture } from "./aws-review-model.js";
+
 export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   "use strict";
 
@@ -200,6 +202,9 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     elements.saveState.style.color = "var(--amber)";
     elements.statusMessage.textContent = message || "Architecture changed";
     elements.statusMessage.style.color = "var(--amber)";
+    global.dispatchEvent(
+      new CustomEvent("trust:designchange", { detail: { source: "aws", reason: message || "change" } })
+    );
     global.clearTimeout(autoSaveTimer);
     autoSaveTimer = global.setTimeout(() => {
       try {
@@ -696,192 +701,15 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   }
 
   function architectureChecks() {
-    const checks = [];
-    const names = state.nodes.map((node) => `${node.name} ${node.serviceName}`.toLowerCase());
-    const connectedIds = new Set(
-      state.connections.flatMap((connection) => [connection.from, connection.to])
-    );
-    const isolated = state.nodes.filter((node) => !connectedIds.has(node.id));
-    const hasMonitoring = names.some((name) => name.includes("cloudwatch"));
-    const hasPublicEntry = names.some(
-      (name) => name.includes("cloudfront") || name.includes("api gateway")
-    );
-    const hasEdgeSecurity = names.some((name) => name.includes("waf") || name.includes("shield"));
-    const hasData = names.some(
-      (name) =>
-        name.includes("dynamodb") ||
-        name.includes("rds") ||
-        name.includes("aurora") ||
-        name.includes("s3")
-    );
-    const hasRecovery = names.some(
-      (name) => name.includes("backup") || name.includes("s3") || name.includes("glacier")
-    );
-
-    checks.push(
-      state.nodes.length >= 2 && state.connections.length >= 1
-        ? {
-            tone: "pass",
-            title: "Flow path established",
-            detail: `${state.connections.length} directional connection${state.connections.length === 1 ? "" : "s"}`,
-          }
-        : {
-            tone: "warn",
-            title: "Architecture is not connected",
-            detail: "Add at least two nodes and connect them.",
-          }
-    );
-    checks.push(
-      isolated.length
-        ? {
-            tone: "warn",
-            title: `${isolated.length} isolated node${isolated.length === 1 ? "" : "s"}`,
-            detail: "Connect every service to make ownership and traffic flow visible.",
-          }
-        : {
-            tone: "pass",
-            title: "No isolated services",
-            detail: "Every node participates in the architecture flow.",
-          }
-    );
-    checks.push(
-      hasMonitoring
-        ? {
-            tone: "pass",
-            title: "Observability present",
-            detail: "CloudWatch is represented in the design.",
-          }
-        : {
-            tone: "warn",
-            title: "No observability service",
-            detail: "Add CloudWatch or another telemetry destination.",
-          }
-    );
-    if (hasPublicEntry) {
-      checks.push(
-        hasEdgeSecurity
-          ? {
-              tone: "pass",
-              title: "Public edge is protected",
-              detail: "WAF or Shield is present near the entry path.",
-            }
-          : {
-              tone: "warn",
-              title: "Public edge needs protection",
-              detail: "Consider AWS WAF or Shield for public traffic.",
-            }
-      );
-    }
-    if (hasData) {
-      checks.push(
-        hasRecovery
-          ? {
-              tone: "pass",
-              title: "Recovery target represented",
-              detail: "The architecture includes a durable recovery service.",
-            }
-          : {
-              tone: "warn",
-              title: "Data recovery is unclear",
-              detail: "Add AWS Backup, S3, or Glacier to show recovery intent.",
-            }
-      );
-    }
-    const unencrypted = state.connections.filter((connection) => connection.encrypted === false);
-    if (unencrypted.length) {
-      checks.unshift({
-        tone: "fail",
-        title: `${unencrypted.length} unencrypted path${unencrypted.length === 1 ? "" : "s"}`,
-        detail: "Enable in-transit encryption for every workload path.",
-      });
-    } else if (state.connections.length) {
-      checks.push({
-        tone: "pass",
-        title: "Traffic encryption declared",
-        detail: "Every modeled path is encrypted in transit.",
-      });
-    }
-    const hasIdentity = names.some(
-      (name) => name.includes("iam") || name.includes("cognito") || name.includes("identity")
-    );
-    checks.push(
-      hasIdentity
-        ? {
-            tone: "pass",
-            title: "Identity boundary represented",
-            detail: "The design includes an AWS identity control.",
-          }
-        : {
-            tone: "warn",
-            title: "Identity boundary is implicit",
-            detail: "Add IAM, Cognito, or IAM Identity Center to show trust ownership.",
-          }
-    );
-    return checks;
+    return reviewAwsArchitecture(state).checks;
   }
 
   function architectureAnalysis() {
-    const names = state.nodes.map((node) => `${node.name} ${node.serviceName}`.toLowerCase());
-    const includesAny = (...terms) =>
-      names.some((name) => terms.some((term) => name.includes(term)));
-    const connectedIds = new Set(
-      state.connections.flatMap((connection) => [connection.from, connection.to])
-    );
-    const connectedRatio = state.nodes.length ? connectedIds.size / state.nodes.length : 0;
-    const encryptedRatio = state.connections.length
-      ? state.connections.filter((connection) => connection.encrypted !== false).length /
-        state.connections.length
-      : 0;
-    const security = clamp(
-      Math.round(
-        20 +
-          encryptedRatio * 35 +
-          (includesAny("waf", "shield") ? 25 : 0) +
-          (includesAny("iam", "cognito", "identity center") ? 20 : 0)
-      ),
-      0,
-      100
-    );
-    const reliability = clamp(
-      Math.round(
-        22 +
-          connectedRatio * 30 +
-          Math.min(18, state.nodes.length * 2.5) +
-          (includesAny("queue", "sqs", "eventbridge", "auto scaling", "elastic load") ? 22 : 0) +
-          (state.nodes.filter((node) => node.environment === "Production").length >= 3 ? 8 : 0)
-      ),
-      0,
-      100
-    );
-    const observability = clamp(
-      Math.round(
-        18 +
-          (includesAny("cloudwatch") ? 48 : 0) +
-          (includesAny("x-ray", "cloudtrail") ? 22 : 0) +
-          (state.connections.some((connection) => connection.type === "telemetry") ? 12 : 0)
-      ),
-      0,
-      100
-    );
-    const recovery = clamp(
-      Math.round(
-        18 +
-          (includesAny("backup", "glacier") ? 38 : 0) +
-          (includesAny("s3", "dynamodb", "aurora", "rds") ? 24 : 0) +
-          (includesAny("queue", "sqs", "step functions") ? 20 : 0)
-      ),
-      0,
-      100
-    );
-    const failurePenalty = failedNodeId ? Math.min(20, 7 + affectedNodeIds.size * 2) : 0;
-    const overall = clamp(
-      Math.round((security + reliability + observability + recovery) / 4) - failurePenalty,
-      0,
-      100
-    );
-    return { security, reliability, observability, recovery, overall };
+    return reviewAwsArchitecture(state, {
+      failed: Boolean(failedNodeId),
+      affectedCount: affectedNodeIds.size,
+    }).analysis;
   }
-
   function renderScore() {
     const analysis = architectureAnalysis();
     const grade =
@@ -2020,6 +1848,63 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     markSaved("Saved architecture restored");
   }
 
+  function reveal(target = {}) {
+    if (target.kind === "library") {
+      const query = String(target.query || "").trim();
+      const match = query
+        ? catalog.find((icon) => icon.search?.includes(query.toLowerCase()))
+        : null;
+      iconType = match?.type || "service";
+      elements.iconTypeButtons.forEach((button) => {
+        const active = button.dataset.iconType === iconType;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      renderCategories();
+      elements.categoryFilter.value = "all";
+      elements.iconSearch.value = query;
+      renderLibrary();
+      global.requestAnimationFrame(() => elements.iconSearch.focus());
+      return true;
+    }
+
+    if (target.kind === "connection" && target.id) {
+      if (!state.connections.some((connection) => connection.id === target.id)) return false;
+      setMode("select");
+      selectConnection(target.id);
+      global.requestAnimationFrame(() => {
+        if (target.field === "encrypted") elements.connectionEncrypted.focus();
+        else {
+          elements.connections
+            .querySelector(`[data-connection-id="${target.id}"][tabindex]`)
+            ?.focus();
+        }
+      });
+      return true;
+    }
+
+    if (target.kind === "node" && target.id) {
+      if (!state.nodes.some((node) => node.id === target.id)) return false;
+      setMode("select");
+      selectedNodeId = target.id;
+      selectedConnectionId = null;
+      setInspectorTab("inspect");
+      renderAll();
+      global.requestAnimationFrame(() => {
+        elements.nodeLayer.querySelector(`[data-node-id="${target.id}"]`)?.focus();
+      });
+      return true;
+    }
+
+    if (target.kind === "canvas") {
+      setMode("connect");
+      elements.canvas.focus();
+      return true;
+    }
+
+    return false;
+  }
+
   global.AWSFlowStudio = {
     getState: () => safeParse(architectureSnapshot()),
     snapshot: architectureSnapshot,
@@ -2030,6 +1915,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     applyTemplate,
     createProject,
     save: saveArchitecture,
+    reveal,
     refreshLayout,
     catalogCount: catalog.length,
   };

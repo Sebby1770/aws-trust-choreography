@@ -13,12 +13,12 @@ describe("workspace views", () => {
           <button data-view-target="home">Explore</button>
           <button data-view-target="studio">AWS Studio</button>
           <button data-view-target="network">Network Lab</button>
-          <button data-view-target="atlas">Rehearse</button>
+          <button data-view-target="review">Review</button>
         </nav>
         <section class="view" data-view="home"></section>
         <section class="view" data-view="studio"></section>
         <section class="view" data-view="network"></section>
-        <section class="view" data-view="atlas"></section>
+        <section class="view" data-view="review"></section>
       </main>`;
   });
 
@@ -47,5 +47,14 @@ describe("workspace views", () => {
     expect(document.querySelector('[data-view="network"]').classList.contains("is-active")).toBe(
       true
     );
+  });
+
+  it("migrates the former Rehearse view to Review", () => {
+    localStorage.setItem("aws-command-atlas-view-v2", "atlas");
+    initViews();
+    expect(document.querySelector('[data-view="review"]').classList.contains("is-active")).toBe(
+      true
+    );
+    expect(localStorage.getItem("aws-command-atlas-view-v2")).toBe("review");
   });
 });
