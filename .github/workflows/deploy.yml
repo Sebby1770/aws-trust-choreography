@@ -10,10 +10,11 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment; skip queued runs in favour of the latest.
+# Allow one deployment at a time, but never cancel one that is already
+# publishing — a half-applied production deploy is worse than a queued one.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -24,10 +25,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version-file: .nvmrc
           cache: npm
@@ -41,13 +42,29 @@ jobs:
           npm run build
 
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: dist/client
 
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+
+      - name: Verify the deployed page actually serves
+        run: |
+          url="${{ steps.deployment.outputs.page_url }}"
+          echo "Checking $url"
+          for attempt in 1 2 3 4 5; do
+            code=$(curl -sS -o /tmp/page.html -w '%{http_code}' --max-time 30 "$url" || echo 000)
+            if [ "$code" = "200" ] && grep -q 'id="main-content"' /tmp/page.html; then
+              echo "Deployed page is serving (HTTP $code)"
+              exit 0
+            fi
+            echo "Attempt $attempt: HTTP $code — retrying in 10s"
+            sleep 10
+          done
+          echo "Deployed page did not serve successfully" >&2
+          exit 1

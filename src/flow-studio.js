@@ -9,6 +9,7 @@
  * @param {object} iconCatalogMeta - catalog metadata (release, count, ...)
  */
 import { reviewAwsArchitecture } from "./aws-review-model.js";
+import { matchIcon } from "./icon-match.js";
 
 export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   "use strict";
@@ -224,16 +225,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   }
 
   function findIcon(name, preferredType = "service") {
-    const normalized = name.toLowerCase();
-    return (
-      catalog.find(
-        (icon) => icon.type === preferredType && icon.name.toLowerCase() === normalized
-      ) ||
-      catalog.find(
-        (icon) => icon.type === preferredType && icon.name.toLowerCase().includes(normalized)
-      ) ||
-      catalog.find((icon) => icon.name.toLowerCase().includes(normalized))
-    );
+    return matchIcon(catalog, name, preferredType);
   }
 
   function nextNodeId() {

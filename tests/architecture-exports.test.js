@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { estimateNodeCost, estimateArchitectureCost, formatUsd } from "../src/cost-model.js";
-import { toTerraform, tfName } from "../src/terraform-export.js";
+import { toTerraform, tfName, hclString, hclComment } from "../src/terraform-export.js";
 import { toMermaid, mermaidId } from "../src/mermaid-export.js";
 
 const state = {
@@ -104,5 +104,99 @@ describe("mermaid export", () => {
   it("makes safe ids", () => {
     expect(mermaidId("Amazon S3!", 4)).toBe("AmazonS34");
     expect(mermaidId("", 9)).toBe("n9");
+  });
+});
+
+describe("Terraform export escaping", () => {
+  /** A name that tries to close the `Name = "..."` literal and open a new block. */
+  const breakout = 'x"\n}\nresource "null_resource" "pwn" {\n  provisioner "local-exec" {}\n}\n#';
+
+  function exportWithName(name, overrides = {}) {
+    return toTerraform({
+      name: "Hostile",
+      region: "us-east-1",
+      nodes: [{ id: "n1", serviceName: "Amazon Simple Storage Service", name, ...overrides }],
+      connections: [],
+    });
+  }
+
+  it("neutralises a quote-and-newline breakout in a node name", () => {
+    const tf = exportWithName(breakout);
+    expect(tf).not.toMatch(/^resource "null_resource" "pwn"/m);
+    expect(tf).not.toMatch(/^\s*provisioner "local-exec"/m);
+    // The value survives, escaped, on a single line inside the literal.
+    expect(tf).toMatch(/Name\s+= "x\\"\\n\}\\nresource/);
+  });
+
+  it("keeps every emitted line inside the block structure", () => {
+    const tf = exportWithName(breakout);
+    // Exactly one resource block should exist for one node.
+    expect(tf.match(/^resource /gm)).toHaveLength(1);
+  });
+
+  it("escapes HCL interpolation and template markers", () => {
+    const tf = exportWithName('${file("/etc/passwd")} and %{if true}');
+    // Only the string literal matters — `#` comments are not interpolated by HCL.
+    const tagLine = tf.split("\n").find((line) => line.includes("Name        ="));
+    expect(tagLine).toContain("$${");
+    expect(tagLine).toContain("%%{");
+    expect(tagLine).not.toMatch(/(^|[^$])\$\{file/);
+  });
+
+  it("escapes backslashes so they cannot form an escape sequence", () => {
+    expect(exportWithName('back\\slash"')).toMatch(/Name\s+= "back\\\\slash\\""/);
+  });
+
+  it("strips control characters", () => {
+    expect(exportWithName("nul\u0000bell\u0007")).toMatch(/Name\s+= "nulbell"/);
+  });
+
+  it("keeps a newline in the architecture name out of statement position", () => {
+    const tf = toTerraform({
+      name: 'Demo\nresource "null_resource" "pwn" {}',
+      region: "us-east-1",
+      nodes: [],
+      connections: [],
+    });
+    expect(tf).not.toMatch(/^resource "null_resource" "pwn"/m);
+  });
+
+  it("escapes an untrusted region, environment, and criticality", () => {
+    const tf = exportWithName("Bucket", { environment: 'Prod"\n}\nresource "x" "y" {}' });
+    expect(tf.match(/^resource /gm)).toHaveLength(1);
+    expect(toTerraform({ region: 'us-east-1"\nbad = "1', nodes: [], connections: [] })).toMatch(
+      /region = "us-east-1\\"\\nbad = \\"1"/
+    );
+  });
+
+  it("keeps a hostile connection type inside its comment", () => {
+    const tf = toTerraform({
+      name: "T",
+      region: "us-east-1",
+      nodes: [
+        { id: "a", serviceName: "AWS Lambda", name: "A" },
+        { id: "b", serviceName: "Amazon DynamoDB", name: "B" },
+      ],
+      connections: [{ from: "a", to: "b", type: 'request\nresource "null_resource" "pwn" {}' }],
+    });
+    expect(tf).not.toMatch(/^resource "null_resource" "pwn"/m);
+  });
+
+  it("still produces a clean round-trippable file for ordinary names", () => {
+    const tf = exportWithName("Static assets");
+    expect(tf).toMatch(/Name\s+= "Static assets"/);
+    expect(tf).toMatch(/region = "us-east-1"/);
+  });
+});
+
+describe("HCL escaping helpers", () => {
+  it("wraps and escapes a string literal", () => {
+    expect(hclString('a"b')).toBe('"a\\"b"');
+    expect(hclString(null)).toBe('""');
+  });
+
+  it("collapses a comment onto one line", () => {
+    expect(hclComment("a\nb\r\nc")).toBe("a b c");
+    expect(hclComment(undefined)).toBe("");
   });
 });

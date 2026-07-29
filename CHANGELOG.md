@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented here.
 
+## 2026-07-30 — Harden the IaC round trip
+
+### Fixed
+
+- **HCL injection in the Terraform export.** Node names, environments, criticality, the region, and the architecture name were interpolated raw into `main.tf`. A name containing `"` closed the `Name = "..."` literal early and let the remainder be emitted as top-level HCL — so importing an untrusted template and exporting it could produce a `main.tf` carrying attacker-chosen blocks (including a `provisioner "local-exec"`) into a file a user may `terraform apply`. Values now go through `hclString()` (escapes `\`, `"`, CR/LF/tab, strips control characters, and neutralises the `${` and `%{` interpolation openers) or `hclComment()` (collapses to a single line so a newline cannot reach statement position). Reproduced end to end before and after; 11 new tests cover quote/newline breakout, interpolation markers, backslashes, control characters, and hostile regions and connection types.
+- **X-Ray nodes were silently dropped on import.** The IaC map emitted `AWS X-Ray` but the icon catalog spells it `AWS X Ray`, and an unresolved service name makes Flow Studio discard the node without a word. Every test mocked `adoptArchitecture`, so nothing caught it.
+
+### Added
+
+- **`src/icon-match.js`** — the icon-matching rule now has one definition, used by Flow Studio's `findIcon` and covered directly by tests. A new test walks **every** service name the IaC importer can emit (53 of them) against the real 862-icon catalog, so a silent-drop mismatch fails CI instead of shipping.
+- **Coverage thresholds** (`vite.config.js`) — a ratchet set just under current numbers so coverage cannot quietly regress. Verified it fails when the floor is raised past actual coverage.
+- The Pages deploy no longer cancels an in-flight production deployment, pins its actions to commit SHAs, and **verifies the deployed page actually serves** (HTTP 200 plus a content check, with retries) instead of assuming a green deploy means a working site.
+
 ## 2026-07-29 — Infrastructure-as-code import: the round trip closes
 
 ### Added

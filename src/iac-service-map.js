@@ -111,7 +111,7 @@ export const TERRAFORM_TYPES = {
   aws_cloudwatch_dashboard: { service: "Amazon CloudWatch", kind: "telemetry" },
   aws_cloudwatch_metric_alarm: { service: "Amazon CloudWatch", kind: "telemetry" },
   aws_cloudtrail: { service: "AWS CloudTrail", kind: "telemetry" },
-  aws_xray_sampling_rule: { service: "AWS X-Ray", kind: "telemetry" },
+  aws_xray_sampling_rule: { service: "AWS X Ray", kind: "telemetry" },
   aws_backup_vault: { service: "AWS Backup", kind: "data" },
   aws_ssm_parameter: { service: "AWS Systems Manager", kind: "security" },
 
@@ -298,7 +298,7 @@ export const CLOUDFORMATION_SERVICES = {
   "AWS::Logs": { service: "Amazon CloudWatch", kind: "telemetry" },
   "AWS::CloudWatch": { service: "Amazon CloudWatch", kind: "telemetry" },
   "AWS::CloudTrail": { service: "AWS CloudTrail", kind: "telemetry" },
-  "AWS::XRay": { service: "AWS X-Ray", kind: "telemetry" },
+  "AWS::XRay": { service: "AWS X Ray", kind: "telemetry" },
   "AWS::SSM": { service: "AWS Systems Manager", kind: "security" },
   "AWS::Glue": { service: "AWS Glue", kind: "compute" },
   "AWS::Athena": { service: "Amazon Athena", kind: "data" },
