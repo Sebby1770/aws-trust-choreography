@@ -31,15 +31,20 @@ import {
   CLOUDFORMATION_SERVICES,
   CLOUDFORMATION_SKIP,
   IGNORED_ATTRIBUTES,
+  INTERNAL_ONLY_SIGNALS,
   INVERTED_ATTRIBUTES,
   KIND_CONNECTION,
   KIND_CRITICALITY,
+  networkRole,
   PARENT_ATTRIBUTES_BY_TYPE,
   PLAINTEXT_SIGNALS,
+  PUBLIC_SUBNET_SIGNALS,
+  PUBLICLY_ACCESSIBLE_SIGNALS,
   TERRAFORM_PREFIX_FALLBACKS,
   TERRAFORM_SKIP_PREFIXES,
   TERRAFORM_TYPES,
 } from "./iac-service-map.js";
+import { inferZone } from "./trust-zones.js";
 
 /** Upper bounds so a 4,000-resource stack cannot lock up the canvas. */
 export const MAX_NODES = 60;
@@ -336,9 +341,93 @@ export function classifyCloudFormationType(type) {
  * @param {Array} resources `{key, type, localName, body, refs, tags, mapping}`
  * @param {object} context `{name, region, format, warnings, extraConnections}`
  */
+/**
+ * Work out which subnets are internet-facing.
+ *
+ * A subnet is public if it auto-assigns public IPs, or if it is associated with
+ * a route table that routes to an internet gateway. None of these resources is
+ * drawn, but the graph they form decides whether the compute inside them sits
+ * in the public or the private trust zone.
+ *
+ * @returns {Set<string>} keys of public subnets
+ */
+export function findPublicSubnets(resources = []) {
+  const role = new Map(resources.map((resource) => [resource.key, networkRole(resource.type)]));
+  const publicSubnets = new Set();
+
+  for (const resource of resources) {
+    if (role.get(resource.key) !== "subnet") continue;
+    if (PUBLIC_SUBNET_SIGNALS.some((pattern) => pattern.test(resource.body || ""))) {
+      publicSubnets.add(resource.key);
+    }
+  }
+
+  // Route tables that reach an internet gateway, either directly or via a route.
+  const publicRouteTables = new Set();
+  for (const resource of resources) {
+    const kind = role.get(resource.key);
+    if (kind !== "route-table" && kind !== "route") continue;
+    const reachesGateway = resource.refs.some((ref) => role.get(ref.target) === "gateway");
+    if (!reachesGateway) continue;
+    if (kind === "route-table") {
+      publicRouteTables.add(resource.key);
+    } else {
+      for (const ref of resource.refs) {
+        if (role.get(ref.target) === "route-table") publicRouteTables.add(ref.target);
+      }
+    }
+  }
+
+  // Subnets associated with one of those route tables.
+  for (const resource of resources) {
+    if (role.get(resource.key) !== "association") continue;
+    if (!resource.refs.some((ref) => publicRouteTables.has(ref.target))) continue;
+    for (const ref of resource.refs) {
+      if (role.get(ref.target) === "subnet") publicSubnets.add(ref.target);
+    }
+  }
+
+  return publicSubnets;
+}
+
+/**
+ * Decide the trust zone for an imported resource.
+ *
+ * The service name gives a starting zone; subnet placement then refines *only*
+ * compute. A database in a private subnet belongs in the data tier, not the
+ * private tier, so `data`, `edge`, and `management` are never overridden.
+ */
+function resolveZone(resource, publicSubnets, role) {
+  const base = inferZone(resource.mapping?.service, resource.tags?.Name || resource.localName);
+  if (base !== "private" && base !== "public") return base;
+
+  // An internal load balancer is not a public entry point.
+  if (base === "public" && INTERNAL_ONLY_SIGNALS.some((p) => p.test(resource.body || ""))) {
+    return "private";
+  }
+  if (base === "public") return base;
+
+  const subnets = (resource.placement || []).filter((key) => role.get(key) === "subnet");
+  if (!subnets.length) return base;
+  return subnets.some((key) => publicSubnets.has(key)) ? "public" : "private";
+}
+
 function buildArchitecture(resources, context = {}) {
   const warnings = [...(context.warnings || [])];
   const byKey = new Map(resources.map((resource) => [resource.key, resource]));
+  const role = new Map(resources.map((resource) => [resource.key, networkRole(resource.type)]));
+  const publicSubnets = findPublicSubnets(resources);
+
+  // `publicly_accessible` on a datastore is a strong, checkable signal that the
+  // data tier is reachable from outside — worth saying out loud on import.
+  for (const resource of resources) {
+    if (!resource.mapping) continue;
+    if (PUBLICLY_ACCESSIBLE_SIGNALS.some((pattern) => pattern.test(resource.body || ""))) {
+      warnings.push(
+        `${resource.key} declares public accessibility — it is reachable from outside your VPC.`
+      );
+    }
+  }
 
   // Directed reference graph over *every* resource, plumbing included.
   const outgoing = new Map(resources.map((resource) => [resource.key, new Set()]));
@@ -346,7 +435,13 @@ function buildArchitecture(resources, context = {}) {
     const parentAttrs = PARENT_ATTRIBUTES_BY_TYPE[resource.type] || [];
     for (const reference of resource.refs) {
       if (!byKey.has(reference.target) || reference.target === resource.key) continue;
-      if (IGNORED_ATTRIBUTES.has(reference.attr)) continue;
+      if (IGNORED_ATTRIBUTES.has(reference.attr)) {
+        // Placement is not traffic, so it draws no edge — but it is exactly the
+        // evidence needed to tell a public subnet from a private one, so keep it
+        // instead of discarding it.
+        resource.placement.push(reference.target);
+        continue;
+      }
       const inverted =
         INVERTED_ATTRIBUTES.has(reference.attr) || parentAttrs.includes(reference.attr);
       const from = inverted ? reference.target : resource.key;
@@ -421,6 +516,7 @@ function buildArchitecture(resources, context = {}) {
       name: (resource.tags.Name || humanize(resource.localName)).slice(0, 60),
       environment,
       criticality,
+      zone: resolveZone(resource, publicSubnets, role),
       notes: `Imported from ${resource.key}`.slice(0, 280),
       kind,
       x: 0.5,
@@ -625,6 +721,7 @@ export function parseTerraform(text) {
           localName,
           body: block.body,
           refs: extractReferences(block.body),
+          placement: [],
           tags: { Name: note[1] },
           mapping: { service: note[2], kind: "compute" },
         });
@@ -645,6 +742,7 @@ export function parseTerraform(text) {
       localName,
       body: block.body,
       refs: extractReferences(block.body),
+      placement: [],
       tags: readTerraformTags(block.body),
       mapping: classifyTerraformType(type),
     });
@@ -752,6 +850,7 @@ export function parseCloudFormation(text) {
       localName: logicalId,
       body: JSON.stringify(properties),
       refs,
+      placement: [],
       tags: readCfnTags(properties),
       mapping: classifyCloudFormationType(type),
     });

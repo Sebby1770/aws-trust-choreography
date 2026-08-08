@@ -1130,6 +1130,17 @@
                       </select></label
                     >
                   </div>
+                  <label for="flowNodeZone"
+                    >Trust zone<select id="flowNodeZone">
+                      <option value="internet">Internet — untrusted callers</option>
+                      <option value="edge">Edge — outside the VPC</option>
+                      <option value="public">Public subnet — internet-routable</option>
+                      <option value="private">Private subnet — no inbound route</option>
+                      <option value="data">Data tier — persistent state</option>
+                      <option value="management">Management — identity and telemetry</option>
+                    </select></label
+                  >
+                  <p class="flow-zone-hint" id="flowNodeZoneHint"></p>
                   <label for="flowNodeNotes"
                     >Notes<textarea id="flowNodeNotes" rows="3" maxlength="280"></textarea>
                   </label>

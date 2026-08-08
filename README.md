@@ -55,6 +55,14 @@ of sections embedded in a long page.
   become directional trust paths, and plaintext listeners arrive already flagged as unencrypted.
   A preview shows exactly what will be drawn before it replaces the canvas. Everything is parsed
   in the browser — nothing is uploaded and no AWS account is contacted.
+- **Trust zones** — every service sits in a zone (internet, edge, public subnet, private subnet,
+  data tier, management), editable per node. Imported stacks derive their zone from real VPC and
+  subnet placement: compute in a subnet routing to an internet gateway is public, everything else
+  in the VPC is private, and an `internal = true` load balancer is not a public entry point.
+- **Boundary analysis** — a path between zones is a trust boundary crossing. The review reports
+  plaintext on a boundary, a datastore answering the internet, untrusted traffic reaching internal
+  compute unmediated, outbound paths from the data tier, and edge protection that is present but
+  not actually on the traffic path. Crossings are drawn on the canvas, not just listed.
 - **AI / LLM building blocks** — an "AI" library tab with Claude, ChatGPT, Foundation Model, AI
   Agent, Vector Database, Embeddings Model, and AI Guardrails nodes you can drop into an AWS
   architecture.
@@ -157,6 +165,7 @@ src/
   cost-model.js        rough monthly cost estimator (unit-tested)
   terraform-export.js  canvas → main.tf skeleton (unit-tested)
   mermaid-export.js    canvas → Mermaid flowchart (unit-tested)
+  trust-zones.js       trust zones, boundary crossings, threat model (unit-tested)
   iac-import.js        Terraform/CloudFormation → canvas (unit-tested)
   iac-service-map.js   IaC resource type → AWS service tables
   iac-import-ui.js     import dialog wiring (unit-tested)

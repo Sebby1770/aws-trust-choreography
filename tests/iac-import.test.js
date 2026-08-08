@@ -491,3 +491,89 @@ describe("importInfrastructure", () => {
     expect(result.nodes[0]).not.toHaveProperty("kind");
   });
 });
+
+describe("trust zones derived from placement", () => {
+  const stack = `
+    provider "aws" { region = "eu-west-1" }
+    resource "aws_vpc" "main" { cidr_block = "10.0.0.0/16" tags = { Name = "VPC" } }
+    resource "aws_internet_gateway" "igw" { vpc_id = aws_vpc.main.id }
+    resource "aws_subnet" "pub" { vpc_id = aws_vpc.main.id }
+    resource "aws_subnet" "priv" { vpc_id = aws_vpc.main.id }
+    resource "aws_route_table" "public" {
+      vpc_id = aws_vpc.main.id
+      route { cidr_block = "0.0.0.0/0" gateway_id = aws_internet_gateway.igw.id }
+    }
+    resource "aws_route_table_association" "a" {
+      subnet_id = aws_subnet.pub.id
+      route_table_id = aws_route_table.public.id
+    }
+    resource "aws_instance" "bastion" { subnet_id = aws_subnet.pub.id tags = { Name = "Bastion" } }
+    resource "aws_instance" "app" { subnet_id = aws_subnet.priv.id tags = { Name = "App" } }
+    resource "aws_db_instance" "db" { tags = { Name = "Orders" } }
+    resource "aws_cloudfront_distribution" "cdn" { tags = { Name = "CDN" } }
+    resource "aws_iam_role" "role" { tags = { Name = "Role" } }
+  `;
+
+  it("puts compute in a public subnet in the public zone via the route to the gateway", () => {
+    const result = parseTerraform(stack);
+    expect(node(result, "Bastion").zone).toBe("public");
+  });
+
+  it("keeps compute with no internet route in the private zone", () => {
+    expect(node(parseTerraform(stack), "App").zone).toBe("private");
+  });
+
+  it("does not demote a datastore to the subnet it lives in", () => {
+    expect(node(parseTerraform(stack), "Orders").zone).toBe("data");
+  });
+
+  it("infers edge and management zones from the service", () => {
+    const result = parseTerraform(stack);
+    expect(node(result, "CDN").zone).toBe("edge");
+    expect(node(result, "Role").zone).toBe("management");
+  });
+
+  it("honours map_public_ip_on_launch without any route table", () => {
+    const result = parseTerraform(`
+      resource "aws_subnet" "pub" { map_public_ip_on_launch = true }
+      resource "aws_instance" "web" { subnet_id = aws_subnet.pub.id tags = { Name = "Web" } }
+    `);
+    expect(node(result, "Web").zone).toBe("public");
+  });
+
+  it("treats an internal load balancer as private, not a public entry point", () => {
+    const result = parseTerraform(`
+      resource "aws_lb" "internal" { internal = true tags = { Name = "Internal ALB" } }
+      resource "aws_lb" "public" { internal = false tags = { Name = "Public ALB" } }
+    `);
+    expect(node(result, "Internal ALB").zone).toBe("private");
+    expect(node(result, "Public ALB").zone).toBe("public");
+  });
+
+  it("warns when a datastore declares public accessibility", () => {
+    const result = parseTerraform(
+      `resource "aws_db_instance" "db" { publicly_accessible = true tags = { Name = "DB" } }`
+    );
+    expect(result.warnings.join(" ")).toMatch(/public accessibility/);
+  });
+
+  it("still refuses to draw placement as traffic", () => {
+    const result = parseTerraform(stack);
+    expect(linked(result, "Bastion", "VPC")).toBe(false);
+  });
+
+  it("derives zones from CloudFormation placement too", () => {
+    const result = parseCloudFormation(
+      JSON.stringify({
+        Resources: {
+          Pub: { Type: "AWS::EC2::Subnet", Properties: { MapPublicIpOnLaunch: true } },
+          Web: {
+            Type: "AWS::EC2::Instance",
+            Properties: { SubnetId: { Ref: "Pub" }, Tags: [{ Key: "Name", Value: "Web" }] },
+          },
+        },
+      })
+    );
+    expect(node(result, "Web").zone).toBe("public");
+  });
+});

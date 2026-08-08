@@ -47,7 +47,8 @@ describe("Review Center interface", () => {
     });
 
     expect(document.querySelector("#reviewScore").textContent).not.toBe("—");
-    expect(document.querySelectorAll(".review-lens")).toHaveLength(5);
+    // Security, Trust, Reliability, Observability, Recovery, Network.
+    expect(document.querySelectorAll(".review-lens")).toHaveLength(6);
     expect(document.querySelector(".review-finding.is-must")).not.toBeNull();
 
     document.querySelector("#reviewFixTopButton").click();

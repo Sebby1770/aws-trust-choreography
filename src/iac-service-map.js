@@ -427,6 +427,8 @@ export const IGNORED_ATTRIBUTES = new Set([
   "subnet_id",
   "subnet_ids",
   "subnets",
+  // CloudFormation spells these without separators, singular and plural.
+  "subnetid",
   "subnetids",
   "subnetmappings",
   "availability_zone",
@@ -439,6 +441,49 @@ export const IGNORED_ATTRIBUTES = new Set([
   "db_subnet_group_name",
   "cache_subnet_group_name",
 ]);
+
+/**
+ * Networking roles needed to decide whether a subnet is public.
+ *
+ * These resources are all plumbing — none of them is drawn — but the graph they
+ * form (subnet ← association → route table ← route → internet gateway) is what
+ * tells us whether the compute placed in a subnet is internet-facing. Handles
+ * both Terraform and CloudFormation type names so one algorithm covers both.
+ */
+export function networkRole(type) {
+  switch (String(type || "")) {
+    case "aws_subnet":
+    case "AWS::EC2::Subnet":
+      return "subnet";
+    case "aws_internet_gateway":
+    case "AWS::EC2::InternetGateway":
+      return "gateway";
+    case "aws_route_table":
+    case "AWS::EC2::RouteTable":
+      return "route-table";
+    case "aws_route":
+    case "AWS::EC2::Route":
+      return "route";
+    case "aws_route_table_association":
+    case "AWS::EC2::SubnetRouteTableAssociation":
+      return "association";
+    default:
+      return null;
+  }
+}
+
+/** Bodies declaring a subnet auto-assigns public IPs. */
+export const PUBLIC_SUBNET_SIGNALS = [
+  /map_public_ip_on_launch\s*=\s*true/i,
+  /"MapPublicIpOnLaunch"\s*:\s*true/i,
+];
+
+/** Bodies declaring a load balancer or database is reachable from outside. */
+export const INTERNAL_ONLY_SIGNALS = [/\binternal\s*=\s*true/i, /"Scheme"\s*:\s*"internal"/i];
+export const PUBLICLY_ACCESSIBLE_SIGNALS = [
+  /publicly_accessible\s*=\s*true/i,
+  /"PubliclyAccessible"\s*:\s*true/i,
+];
 
 /** Signals in a resource body that in-transit or at-rest encryption is off. */
 export const PLAINTEXT_SIGNALS = [
