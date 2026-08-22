@@ -43,6 +43,13 @@ skeleton) export, and **Mermaid** diagram export for READMEs and PRs.
 - **Starter templates** — Claude RAG assistant, AI agent platform, GenAI chatbot, plus Serverless
   API, Event pipeline, and Resilient web app.
 - Live Architecture Intelligence scoring across security, reliability, observability, and recovery.
+- **Chaos Lab** — a third inspector tab that turns the canvas into a resilience analysis: an
+  estimated end-to-end availability headline (with nines and projected downtime per year),
+  **single points of failure** found as graph articulation points (ranked by how many nodes they
+  strand, weighted by criticality), per-flow availability with **independent route counts**,
+  a **blast radius** ranking, and plain-English recommendations. "Kill selected node" rehearses a
+  real outage against the live topology and reports whether the architecture stays _resilient_,
+  goes _degraded_, or hits a full _outage_.
 - A searchable library of **862 official AWS architecture icons**, lazy-loaded so it never blocks
   first paint.
 

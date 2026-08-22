@@ -895,6 +895,9 @@
                 <button type="button" role="tab" aria-selected="false" data-inspector-tab="analyze">
                   Analyze
                 </button>
+                <button type="button" role="tab" aria-selected="false" data-inspector-tab="chaos">
+                  Chaos
+                </button>
               </div>
               <section class="flow-score-panel" aria-labelledby="flowScoreTitle">
                 <div class="flow-score-ring" id="flowScoreRing">
@@ -973,6 +976,34 @@
                   ><strong id="flowChecksTitle">0 checks</strong>
                 </div>
                 <div id="flowChecksList"></div>
+              </section>
+              <section
+                class="flow-chaos"
+                id="flowChaosPanel"
+                aria-labelledby="flowChaosTitle"
+                hidden
+              >
+                <div class="flow-chaos-head">
+                  <span>Chaos Lab</span><strong id="flowChaosTitle">Resilience analysis</strong>
+                </div>
+                <p class="flow-chaos-intro">
+                  Estimates end-to-end availability, finds single points of failure, and rehearses
+                  node loss against your live canvas.
+                </p>
+                <div class="flow-chaos-actions">
+                  <button id="flowChaosRun" type="button" class="flow-chaos-primary">
+                    <span aria-hidden="true">&#9888;</span>Analyze resilience
+                  </button>
+                  <button id="flowChaosKill" type="button">
+                    <span aria-hidden="true">&#9760;</span>Kill selected node
+                  </button>
+                  <button id="flowChaosReset" type="button">Restore all</button>
+                </div>
+                <div id="flowChaosResults" class="flow-chaos-results" aria-live="polite">
+                  <p class="flow-chaos-placeholder">
+                    Run an analysis to see availability, single points of failure, and blast radius.
+                  </p>
+                </div>
               </section>
             </aside>
           </div>
