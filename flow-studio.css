@@ -348,10 +348,31 @@
 
 .flow-connection-hit {
   fill: none;
-  stroke: transparent;
+  stroke: var(--cyan);
+  stroke-opacity: 0.001;
   stroke-width: 14;
   pointer-events: stroke;
   cursor: pointer;
+}
+
+.flow-connection-hit:focus {
+  stroke-opacity: 0.28;
+  outline: none;
+}
+
+.flow-connection-keyboard {
+  fill: var(--cyan);
+  fill-opacity: 0.001;
+  stroke: var(--cyan);
+  stroke-opacity: 0.001;
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.flow-connection-keyboard:focus {
+  fill-opacity: 0.22;
+  stroke-opacity: 0.9;
+  outline: none;
 }
 
 .flow-node-layer {
@@ -1853,4 +1874,39 @@
   opacity: 0.42;
   filter: grayscale(0.85);
   outline: 1px dashed var(--danger);
+}
+
+/* --- Trust boundary crossings ------------------------------------------ */
+
+/* Plaintext was recorded on a connection but never drawn. Dash it so an
+   unencrypted path is visible on the canvas, not only in the inspector. */
+.flow-connection.is-unencrypted {
+  stroke-dasharray: 6 5;
+}
+
+/* A path that changes trust zone is drawn differently, because the boundary is
+   the thing worth seeing at a glance. */
+.flow-connection.is-crossing-ingress {
+  stroke-width: 3.5;
+}
+
+/* Reaching persistent storage with no application tier in front, and paths
+   leading back out of the data tier, are the two shapes worth alarming on. */
+.flow-connection.is-crossing-bypass,
+.flow-connection.is-crossing-egress {
+  stroke: #ff9c42;
+  stroke-dasharray: 10 4 2 4;
+}
+
+.flow-connection.is-crossing-bypass.is-unencrypted,
+.flow-connection.is-crossing-egress.is-unencrypted,
+.flow-connection.is-crossing-ingress.is-unencrypted {
+  stroke: #ff6b55;
+}
+
+.flow-zone-hint {
+  margin: 0.3rem 0 0;
+  color: var(--muted, #8fa3ad);
+  font-size: 0.68rem;
+  line-height: 1.4;
 }

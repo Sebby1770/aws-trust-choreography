@@ -2210,7 +2210,7 @@ body.cmdk-open {
   border-color: transparent;
 }
 
-.flow-library-tabs .flow-tab-ai[aria-selected="true"],
+.flow-library-tabs .flow-tab-ai[aria-pressed="true"],
 .flow-library-tabs .flow-tab-ai.is-active {
   box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.4);
 }

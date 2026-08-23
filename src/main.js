@@ -1,22 +1,22 @@
 /**
  * Application entry point.
  *
- * Boots the lightweight incident-command atlas immediately, then lazily
- * initializes the heavier Flow Studio (and its 327 KB icon catalog) off the
- * critical path. The studio loads as soon as it nears the viewport, and an
- * idle-time fallback guarantees it initializes even if the user never scrolls
- * (or IntersectionObserver does not fire). This keeps first paint fast while
- * still loading everything before the user can interact with it.
+ * Boots the shared workspace shell and network lab immediately, then lazily
+ * initializes Flow Studio and its large icon catalog. Review Center consumes
+ * the live state of both builders once they are ready.
  */
 
-import { initAtlas } from "./atlas.js";
 import { initTheme } from "./theme.js";
 import { loadIconCatalog } from "./icon-catalog.js";
 import { AI_ICONS } from "./ai-icons.js";
 import { initViews } from "./views.js";
-import { initConsoleDeck } from "./console-deck.js";
 import { initAnimatedContent } from "./animated-content.js";
 import { initSpotlight } from "./spotlight.js";
+import { initProjectLaunchpad } from "./project-launchpad.js";
+import { initNetworkLab } from "./network-lab.js";
+import { initStudioShell } from "./studio-shell.js";
+import { initReviewCenter } from "./review-center.js";
+import { initWorkspaceCommands } from "./workspace-commands.js";
 
 function ready(fn) {
   if (document.readyState === "loading") {
@@ -28,10 +28,12 @@ function ready(fn) {
 
 ready(() => {
   const theme = initTheme(document.querySelector("#themeButton"));
-  initAtlas({ theme });
-  initConsoleDeck();
   initAnimatedContent();
   initSpotlight();
+  const studioShell = initStudioShell();
+  const networkLab = initNetworkLab();
+  let reviewCenter = null;
+  let views = null;
 
   const studio = document.querySelector(".flow-studio");
   if (!studio) {
@@ -39,25 +41,32 @@ ready(() => {
     return;
   }
 
-  let started = false;
-  const boot = async () => {
-    if (started) return;
-    started = true;
-    const status = document.querySelector("#flowStatusMessage");
-    if (status) status.textContent = "Loading icon library…";
-    try {
-      const { initFlowStudio } = await import("./flow-studio.js");
-      const { catalog, meta } = await loadIconCatalog();
-      // AI / LLM building blocks lead the catalog so they are easy to find.
-      initFlowStudio([...AI_ICONS, ...catalog], { ...meta, aiCount: AI_ICONS.length });
-      const { initStudioSessions } = await import("./studio-sessions.js");
-      initStudioSessions();
-      const { initStudioExtras } = await import("./studio-extras.js");
-      initStudioExtras();
-    } catch (error) {
-      if (status) status.textContent = "Flow Studio failed to load. Reload to retry.";
-      console.error("Flow Studio failed to initialize:", error);
-    }
+  let bootPromise = null;
+  const boot = () => {
+    if (bootPromise) return bootPromise;
+    bootPromise = (async () => {
+      const status = document.querySelector("#flowStatusMessage");
+      if (status) status.textContent = "Loading icon library…";
+      try {
+        const { initFlowStudio } = await import("./flow-studio.js");
+        const { catalog, meta } = await loadIconCatalog();
+        // AI / LLM building blocks lead the catalog so they are easy to find.
+        initFlowStudio([...AI_ICONS, ...catalog], { ...meta, aiCount: AI_ICONS.length });
+        const { initStudioSessions } = await import("./studio-sessions.js");
+        initStudioSessions();
+        const { initStudioExtras } = await import("./studio-extras.js");
+        initStudioExtras();
+        const { initIacImport } = await import("./iac-import-ui.js");
+        initIacImport();
+        window.dispatchEvent(new CustomEvent("atlas:studioready"));
+        return window.AWSFlowStudio;
+      } catch (error) {
+        if (status) status.textContent = "Flow Studio failed to load. Reload to retry.";
+        console.error("Flow Studio failed to initialize:", error);
+        return null;
+      }
+    })();
+    return bootPromise;
   };
 
   // Eager path: load as soon as the studio nears the viewport.
@@ -83,15 +92,63 @@ ready(() => {
     window.addEventListener("load", () => window.setTimeout(idleBoot, 1500), { once: true });
   }
 
-  // When the user opens the Flow Studio screen, make sure it is booted and let
-  // its canvas re-measure now that it is visible (it lays out from real sizes).
+  // Boot or re-measure the relevant workspace when a global view is opened.
   window.addEventListener("atlas:viewchange", (event) => {
-    if (event.detail?.view !== "studio") return;
-    Promise.resolve(boot()).then(() => {
-      window.requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+    const view = event.detail?.view;
+    if (view === "network") {
+      window.requestAnimationFrame(() => networkLab?.refreshLayout?.());
+      return;
+    }
+    if (view === "review") {
+      Promise.resolve(boot()).then(() => reviewCenter?.refresh());
+      return;
+    }
+    if (view !== "studio") return;
+    Promise.resolve(boot()).then((flowStudio) => {
+      window.requestAnimationFrame(() => flowStudio?.refreshLayout?.());
     });
   });
 
-  // Mount the workspace switcher last so its initial event reaches the listener.
-  initViews();
+  // Mount navigation after the view-change listener so its initial event is observed.
+  views = initViews();
+  reviewCenter = initReviewCenter({
+    getAwsState: () => window.AWSFlowStudio?.getState?.() || null,
+    getNetworkState: () => networkLab?.getState?.() || null,
+    navigate: (view) => views?.setView(view),
+    revealTarget: async (target) => {
+      if (target?.view === "studio") {
+        const flowStudio = await boot();
+        studioShell?.setFocusMode?.(false);
+        if (target.kind === "library") studioShell?.setLibraryCollapsed?.(false);
+        else studioShell?.setInspectorCollapsed?.(false);
+        return new Promise((resolve) => {
+          window.requestAnimationFrame(() => resolve(Boolean(flowStudio?.reveal?.(target))));
+        });
+      }
+      if (target?.view === "network") {
+        return new Promise((resolve) => {
+          window.requestAnimationFrame(() => resolve(Boolean(networkLab?.reveal?.(target))));
+        });
+      }
+      return false;
+    },
+  });
+  initWorkspaceCommands({
+    navigate: (view) => views?.setView(view),
+    theme,
+    getReviewCenter: () => reviewCenter,
+  });
+  initProjectLaunchpad({
+    launch: async (project) => {
+      views?.setView("studio");
+      window.scrollTo({ top: 0, left: 0 });
+      const flowStudio = await boot();
+      if (!flowStudio) return;
+      flowStudio.createProject(project);
+      window.requestAnimationFrame(() => {
+        flowStudio.refreshLayout?.();
+        document.querySelector("#flowArchitectureName")?.focus();
+      });
+    },
+  });
 });

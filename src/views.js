@@ -1,16 +1,16 @@
 /**
  * Workspace view switcher.
  *
- * Flow Studio is the main screen; the Command Atlas incident workbench is the
- * second workspace. A header dropdown (plus any legacy tab buttons) switches
- * between them. The choice persists across visits and broadcasts an
- * `atlas:viewchange` event so the entry point can lazily boot Flow Studio and
- * re-flow its canvas when it becomes visible.
+ * The project launchpad is the front door, with Flow Studio and the Command
+ * Atlas as focused workspaces. Header buttons switch between them. The choice
+ * persists across visits and broadcasts an `atlas:viewchange` event so the
+ * entry point can lazily boot Flow Studio and re-flow its canvas when visible.
  */
 
-const STORAGE_KEY = "aws-command-atlas-view";
-const VIEWS = ["studio", "atlas"];
-const DEFAULT_VIEW = "studio";
+const STORAGE_KEY = "aws-command-atlas-view-v2";
+const VIEWS = ["home", "studio", "network", "review"];
+const LEGACY_VIEWS = { atlas: "review" };
+const DEFAULT_VIEW = "home";
 
 export function initViews() {
   const tabs = [...document.querySelectorAll("[data-view-target]")];
@@ -20,14 +20,19 @@ export function initViews() {
   if (!views.length) return null;
 
   function setView(name) {
-    const view = VIEWS.includes(name) ? name : DEFAULT_VIEW;
+    const requested = LEGACY_VIEWS[name] || name;
+    const view = VIEWS.includes(requested) ? requested : DEFAULT_VIEW;
     views.forEach((section) =>
       section.classList.toggle("is-active", section.dataset.view === view)
     );
     tabs.forEach((tab) => {
       const on = tab.dataset.viewTarget === view;
       tab.classList.toggle("is-active", on);
-      tab.setAttribute("aria-selected", String(on));
+      tab.removeAttribute("aria-selected");
+      if (tab.closest(".workspace-nav")) {
+        if (on) tab.setAttribute("aria-current", "page");
+        else tab.removeAttribute("aria-current");
+      }
     });
     if (select && select.value !== view) select.value = view;
     if (shell) shell.dataset.activeView = view;
@@ -45,7 +50,7 @@ export function initViews() {
   let initial = DEFAULT_VIEW;
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && VIEWS.includes(stored)) initial = stored;
+    if (stored) initial = LEGACY_VIEWS[stored] || stored;
   } catch {
     /* ignore */
   }

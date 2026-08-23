@@ -34,6 +34,48 @@ All notable changes to this project are documented here.
   removing a node let its orphaned downstream neighbours look like brand-new front doors, so the
   report could claim a *healthier* architecture after a failure. Covered by a regression test.
 
+## 2026-07-30 — Trust boundaries: the primitive this project is named for
+
+### Added
+
+- **Trust zones** (`src/trust-zones.js`) — every service now sits in a zone (internet, edge, public subnet, private subnet, data tier, management) with an ordinal trust tier, editable per node in the Flow Studio inspector. Existing diagrams gain placement automatically: the zone is inferred from the service when none is declared, so nothing needs relabelling by hand.
+- **Boundary analysis** — a connection between two zones is a *trust boundary crossing*, classified as internal, management, ingress, egress, step, or bypass. The threat model reports plaintext on a boundary, a datastore answering the internet directly, untrusted traffic reaching internal compute unmediated, outbound paths from the data tier, and edge protection that exists but is not on the traffic path.
+- **The importer now uses the placement it used to discard.** VPC and subnet references were dropped so they could not be mistaken for traffic; they are now kept as *placement* and drive the zone. Compute in a subnet that auto-assigns public IPs — or that is associated with a route table routing to an internet gateway — lands in the public zone; everything else in the VPC lands in private. An `internal = true` load balancer is correctly private rather than a public entry point, and a datastore declaring `publicly_accessible` is called out on import.
+- **A Trust lens** in the Review Center, alongside Security, Reliability, Observability, Recovery, and Network.
+- **Boundary crossings are visible on the canvas.** Encryption was recorded on a connection but never drawn; plaintext paths are now dashed, and a crossing that reaches storage with no application tier in front — or leads back out of the data tier — is drawn in warning colour.
+
+### Changed
+
+- **Security scoring is topology-aware instead of substring-based.** A WAF used to earn a flat 25 points for existing anywhere on the canvas, even wired to nothing. It now earns them only if untrusted traffic actually passes through it, and the same applies to identity controls. Encryption on a boundary crossing counts for more than encryption inside a zone.
+
+### Notes on the rules
+
+Two judgements keep the analysis useful rather than noisy, and both are covered by tests: the **management** zone (IAM, KMS, Secrets Manager, CloudWatch) is cross-cutting, so talking to it is never a tier jump; and **`edge → data`** — CloudFront in front of an S3 origin — is recognised as a correct pattern rather than flagged as a bypass. Likewise, skipping a subnet tier is not a bypass: API Gateway → Lambda never touches a subnet, and "bypass" is reserved for reaching persistent storage with no application tier in front of it.
+
+## 2026-07-30 — Harden the IaC round trip
+
+### Fixed
+
+- **HCL injection in the Terraform export.** Node names, environments, criticality, the region, and the architecture name were interpolated raw into `main.tf`. A name containing `"` closed the `Name = "..."` literal early and let the remainder be emitted as top-level HCL — so importing an untrusted template and exporting it could produce a `main.tf` carrying attacker-chosen blocks (including a `provisioner "local-exec"`) into a file a user may `terraform apply`. Values now go through `hclString()` (escapes `\`, `"`, CR/LF/tab, strips control characters, and neutralises the `${` and `%{` interpolation openers) or `hclComment()` (collapses to a single line so a newline cannot reach statement position). Reproduced end to end before and after; 11 new tests cover quote/newline breakout, interpolation markers, backslashes, control characters, and hostile regions and connection types.
+- **X-Ray nodes were silently dropped on import.** The IaC map emitted `AWS X-Ray` but the icon catalog spells it `AWS X Ray`, and an unresolved service name makes Flow Studio discard the node without a word. Every test mocked `adoptArchitecture`, so nothing caught it.
+
+### Added
+
+- **`src/icon-match.js`** — the icon-matching rule now has one definition, used by Flow Studio's `findIcon` and covered directly by tests. A new test walks **every** service name the IaC importer can emit (53 of them) against the real 862-icon catalog, so a silent-drop mismatch fails CI instead of shipping.
+- **Coverage thresholds** (`vite.config.js`) — a ratchet set just under current numbers so coverage cannot quietly regress. Verified it fails when the floor is raised past actual coverage.
+- The Pages deploy no longer cancels an in-flight production deployment, pins its actions to commit SHAs, and **verifies the deployed page actually serves** (HTTP 200 plus a content check, with retries) instead of assuming a green deploy means a working site.
+
+## 2026-07-29 — Infrastructure-as-code import: the round trip closes
+
+### Added
+
+- **Import Terraform and CloudFormation** — an "Import IaC" action in the Flow Studio export menu turns real infrastructure code into a live diagram. Paste, drop a file, or load one; a preview shows the services, paths, hidden plumbing, and unencrypted paths that will be drawn before anything replaces the canvas. Parsing happens entirely in the browser — nothing is uploaded and no AWS account is contacted.
+- **Real HCL scanning** — a string, comment, heredoc, and interpolation-aware scanner finds top-level blocks, so braces inside an IAM policy heredoc or a `${lookup(var.m, "key")}` expression no longer corrupt block boundaries.
+- **Reference tracing with plumbing contraction** — references between resources become directional trust paths, and paths *through* plumbing are collapsed: `alb → listener → target group → attachment → instance` becomes a single `alb → instance` edge. Parent-pointing attributes are inverted first, which is what makes `queue → function`, `api → function`, and `function → log group` come out pointing the right way. Placement attributes (`vpc_id`, `subnets`, security groups) are deliberately *not* drawn as traffic.
+- **Encryption carried from the code** — a `protocol = "HTTP"` listener or `viewer_protocol_policy = "allow-all"` arrives on the canvas as an unencrypted path and flows straight through to the Review Center as a must-fix.
+- **Round trip** — a canvas exported to `main.tf` and re-imported keeps its services, names, environments, criticality, region, topology, and external AI/SaaS nodes, recovered from the exporter's own tags and topology comments.
+- Honest limits, surfaced as warnings rather than guesses: modules are not expanded, `count`/`for_each` is drawn once, non-AWS providers are ignored, very large stacks are capped, and CloudFormation YAML is refused with instructions instead of half-parsed.
+- `adoptArchitecture` is now part of the public `AWSFlowStudio` API, so the JSON file importer and the IaC importer share one validated path onto the canvas.
 ## 2026-07-05 — The decision layer: cost lens + IaC and diagram exports
 
 ### Added

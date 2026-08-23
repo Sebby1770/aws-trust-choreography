@@ -1,8 +1,7 @@
 /**
  * Command palette (⌘K / Ctrl-K).
  *
- * A keyboard-first launcher that fuzzy-matches across every action in the atlas
- * — switch scenarios, toggle faults, select nodes, change theme, copy a report.
+ * A keyboard-first launcher that fuzzy-matches workspace navigation and actions.
  * The ranking is a pure function so it can be unit-tested without a DOM.
  */
 
@@ -79,7 +78,7 @@ export function initCommandPalette(getCommands) {
     <div class="cmdk-panel" role="dialog" aria-modal="true" aria-label="Command palette">
       <input class="cmdk-input" type="text" role="combobox" aria-expanded="true"
              aria-controls="cmdkList" aria-autocomplete="list" autocomplete="off"
-             spellcheck="false" placeholder="Type a command — scenario, fault, node, theme…" />
+             spellcheck="false" placeholder="Type a command — navigate, review, theme…" />
       <ul class="cmdk-list" id="cmdkList" role="listbox"></ul>
       <div class="cmdk-foot"><kbd>↑</kbd><kbd>↓</kbd> navigate <kbd>↵</kbd> run <kbd>esc</kbd> close</div>
     </div>`;
