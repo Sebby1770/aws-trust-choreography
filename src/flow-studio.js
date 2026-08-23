@@ -9,6 +9,7 @@
  * @param {object} iconCatalogMeta - catalog metadata (release, count, ...)
  */
 import { reviewAwsArchitecture } from "./aws-review-model.js";
+import { matchIcon } from "./icon-match.js";
 
 export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   "use strict";
@@ -224,16 +225,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   }
 
   function findIcon(name, preferredType = "service") {
-    const normalized = name.toLowerCase();
-    return (
-      catalog.find(
-        (icon) => icon.type === preferredType && icon.name.toLowerCase() === normalized
-      ) ||
-      catalog.find(
-        (icon) => icon.type === preferredType && icon.name.toLowerCase().includes(normalized)
-      ) ||
-      catalog.find((icon) => icon.name.toLowerCase().includes(normalized))
-    );
+    return matchIcon(catalog, name, preferredType);
   }
 
   function nextNodeId() {
@@ -1366,69 +1358,83 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     elements.statusMessage.style.color = "var(--cyan)";
   }
 
+  /**
+   * Validate an architecture-shaped object and make it the live canvas.
+   *
+   * Shared by the JSON file importer and by generated sources such as the IaC
+   * importer, so every entry point resolves icons, clamps coordinates, and
+   * normalises enums the same way. Nodes whose service cannot be matched to a
+   * catalog icon are dropped and reported back rather than failing the import.
+   *
+   * @returns {{imported: number, skipped: string[], connections: number}}
+   */
+  function adoptArchitecture(imported, label = "Architecture imported") {
+    if (!imported || !Array.isArray(imported.nodes) || !Array.isArray(imported.connections)) {
+      throw new Error("This file does not contain an AWS Flow Studio architecture.");
+    }
+    const skipped = [];
+    const validNodes = imported.nodes
+      .map((node) => {
+        const icon =
+          catalog.find((item) => item.id === node.iconId) ||
+          findIcon(node.serviceName || node.name || "");
+        if (!icon) {
+          skipped.push(String(node.name || node.serviceName || "Unknown service"));
+          return null;
+        }
+        return {
+          ...makeNode(
+            icon,
+            Number.isFinite(Number(node.x)) ? Number(node.x) : 0.5,
+            Number.isFinite(Number(node.y)) ? Number(node.y) : 0.5
+          ),
+          id: String(node.id || nextNodeId()),
+          name: String(node.name || icon.name).slice(0, 60),
+          environment: ["Production", "Staging", "Development", "Shared"].includes(node.environment)
+            ? node.environment
+            : "Production",
+          criticality: ["high", "medium", "low"].includes(node.criticality)
+            ? node.criticality
+            : "medium",
+          notes: String(node.notes || "").slice(0, 280),
+        };
+      })
+      .filter(Boolean);
+    const nodeIds = new Set(validNodes.map((node) => node.id));
+    const validConnections = imported.connections
+      .filter(
+        (connection) => nodeIds.has(String(connection.from)) && nodeIds.has(String(connection.to))
+      )
+      .map((connection) => ({
+        id: String(connection.id || nextConnectionId()),
+        from: String(connection.from),
+        to: String(connection.to),
+        type: ["request", "event", "data", "telemetry", "replication"].includes(connection.type)
+          ? connection.type
+          : "request",
+        label: String(connection.label || "HTTPS").slice(0, 32),
+        encrypted: connection.encrypted !== false,
+      }));
+    commit(label, () => {
+      state.name = String(imported.name || "Imported architecture").slice(0, 80);
+      state.region = String(imported.region || "us-east-1");
+      state.grid = imported.grid !== false;
+      state.zoom = clamp(Number(imported.zoom) || 1, 0.75, 1.3);
+      state.nodes = validNodes;
+      state.connections = validConnections;
+      selectedNodeId = validNodes[0]?.id || null;
+      selectedConnectionId = null;
+      resetSimulationState();
+    });
+    syncControls();
+    return { imported: validNodes.length, skipped, connections: validConnections.length };
+  }
+
   async function importArchitecture(file) {
     try {
       const payload = safeParse(await file.text());
-      const imported = payload?.architecture || payload;
-      if (!imported || !Array.isArray(imported.nodes) || !Array.isArray(imported.connections)) {
-        throw new Error("This file does not contain an AWS Flow Studio architecture.");
-      }
-      const validNodes = imported.nodes
-        .map((node) => {
-          const icon =
-            catalog.find((item) => item.id === node.iconId) ||
-            findIcon(node.serviceName || node.name || "");
-          if (!icon) {
-            return null;
-          }
-          return {
-            ...makeNode(
-              icon,
-              Number.isFinite(Number(node.x)) ? Number(node.x) : 0.5,
-              Number.isFinite(Number(node.y)) ? Number(node.y) : 0.5
-            ),
-            id: String(node.id || nextNodeId()),
-            name: String(node.name || icon.name).slice(0, 60),
-            environment: ["Production", "Staging", "Development", "Shared"].includes(
-              node.environment
-            )
-              ? node.environment
-              : "Production",
-            criticality: ["high", "medium", "low"].includes(node.criticality)
-              ? node.criticality
-              : "medium",
-            notes: String(node.notes || "").slice(0, 280),
-          };
-        })
-        .filter(Boolean);
-      const nodeIds = new Set(validNodes.map((node) => node.id));
-      const validConnections = imported.connections
-        .filter(
-          (connection) => nodeIds.has(String(connection.from)) && nodeIds.has(String(connection.to))
-        )
-        .map((connection) => ({
-          id: String(connection.id || nextConnectionId()),
-          from: String(connection.from),
-          to: String(connection.to),
-          type: ["request", "event", "data", "telemetry", "replication"].includes(connection.type)
-            ? connection.type
-            : "request",
-          label: String(connection.label || "HTTPS").slice(0, 32),
-          encrypted: connection.encrypted !== false,
-        }));
-      commit("Architecture imported", () => {
-        state.name = String(imported.name || "Imported architecture").slice(0, 80);
-        state.region = String(imported.region || "us-east-1");
-        state.grid = imported.grid !== false;
-        state.zoom = clamp(Number(imported.zoom) || 1, 0.75, 1.3);
-        state.nodes = validNodes;
-        state.connections = validConnections;
-        selectedNodeId = validNodes[0]?.id || null;
-        selectedConnectionId = null;
-        resetSimulationState();
-      });
-      syncControls();
-      elements.statusMessage.textContent = `${validNodes.length} nodes imported`;
+      const result = adoptArchitecture(payload?.architecture || payload);
+      elements.statusMessage.textContent = `${result.imported} nodes imported`;
       elements.statusMessage.style.color = "var(--green)";
     } catch (error) {
       elements.statusMessage.textContent = error.message || "Architecture import failed";
@@ -1912,6 +1918,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       restoreSnapshot(typeof snapshot === "string" ? snapshot : JSON.stringify(snapshot));
       markSaved("Session loaded");
     },
+    adoptArchitecture,
     applyTemplate,
     createProject,
     save: saveArchitecture,

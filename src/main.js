@@ -56,6 +56,8 @@ ready(() => {
         initStudioSessions();
         const { initStudioExtras } = await import("./studio-extras.js");
         initStudioExtras();
+        const { initIacImport } = await import("./iac-import-ui.js");
+        initIacImport();
         window.dispatchEvent(new CustomEvent("atlas:studioready"));
         return window.AWSFlowStudio;
       } catch (error) {

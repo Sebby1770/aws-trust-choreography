@@ -799,6 +799,13 @@
                     <span aria-hidden="true">&#8679;</span>Import JSON
                   </button>
                   <input id="flowImportInput" type="file" accept="application/json,.json" hidden />
+                  <button
+                    id="flowIacImportButton"
+                    type="button"
+                    title="Import Terraform or CloudFormation as a diagram"
+                  >
+                    <span aria-hidden="true">&#8682;</span>Import IaC
+                  </button>
                   <button id="flowSaveButton" type="button" title="Save architecture locally">
                     <span aria-hidden="true">&#9635;</span>Save locally
                   </button>
@@ -1629,6 +1636,61 @@
           </button>
         </div>
       </form>
+    </dialog>
+
+    <dialog class="project-dialog iac-dialog" id="iacDialog" aria-labelledby="iacDialogTitle">
+      <div class="dialog-head">
+        <div>
+          <span class="section-index">IMPORT INFRASTRUCTURE</span>
+          <h2 id="iacDialogTitle">Draw what you already run.</h2>
+          <p>
+            Paste Terraform or a CloudFormation JSON template and it becomes a live diagram you can
+            review, score, and rehearse against.
+          </p>
+        </div>
+        <button class="dialog-close" id="iacDialogClose" type="button" aria-label="Close import">
+          ×
+        </button>
+      </div>
+
+      <div class="dialog-body iac-body">
+        <div class="iac-input">
+          <div class="iac-input-head">
+            <label for="iacSource">Terraform <code>.tf</code> or CloudFormation JSON</label>
+            <div class="iac-input-actions">
+              <span class="iac-format" id="iacFormat" aria-live="polite"></span>
+              <button id="iacFileButton" type="button">Load a file</button>
+              <input
+                id="iacFileInput"
+                type="file"
+                accept=".tf,.tf.json,.json,.template,text/plain,application/json"
+                hidden
+              />
+            </div>
+          </div>
+          <textarea
+            id="iacSource"
+            rows="12"
+            spellcheck="false"
+            placeholder='resource "aws_lambda_function" "checkout" {&#10;  function_name = "checkout"&#10;  tags = { Name = "Checkout handler" }&#10;}'
+            aria-describedby="iacPrivacyNote"
+          ></textarea>
+        </div>
+
+        <div class="iac-preview" id="iacPreview" aria-live="polite">
+          <p class="iac-empty">Paste or drop a file to see what will be drawn.</p>
+        </div>
+      </div>
+
+      <div class="dialog-foot">
+        <p id="iacPrivacyNote">
+          <span aria-hidden="true">●</span> Parsed in your browser — nothing is uploaded, and no AWS
+          account is contacted
+        </p>
+        <button class="dialog-submit" id="iacDialogSubmit" type="button" disabled>
+          Import to canvas <span aria-hidden="true">↗</span>
+        </button>
+      </div>
     </dialog>
 
     <dialog class="studio-help-dialog" id="studioHelpDialog" aria-labelledby="studioHelpTitle">

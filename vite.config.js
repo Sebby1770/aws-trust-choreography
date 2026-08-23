@@ -55,6 +55,15 @@ export default defineConfig({
       provider: "v8",
       include: ["src/**/*.js"],
       exclude: ["src/main.js", "src/flow-studio.js", "src/icon-catalog.js"],
+      // A ratchet, not an aspiration: set just under the current numbers so
+      // coverage cannot silently regress. Raise these as coverage improves;
+      // network-lab.js is what holds the statement/line figures down today.
+      thresholds: {
+        statements: 60,
+        branches: 75,
+        functions: 75,
+        lines: 60,
+      },
     },
   },
 });
