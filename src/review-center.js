@@ -131,6 +131,12 @@ export function createReviewSnapshot({
         detail: "Encryption, identity, edge controls, firewalls, and segmentation.",
       },
       {
+        id: "trust",
+        label: "Trust",
+        score: aws.analysis.trust,
+        detail: "Where trust changes hands: zone placement, boundary crossings, and exposure.",
+      },
+      {
         id: "reliability",
         label: "Reliability",
         score: average([aws.analysis.reliability, networkChecks.redundancy?.score]),
@@ -158,6 +164,7 @@ export function createReviewSnapshot({
   } else if (includeAws && aws) {
     lenses = [
       ["security", "Security", aws.analysis.security, "Encryption, identity, and edge controls."],
+      ["trust", "Trust", aws.analysis.trust, "Zone placement, boundary crossings, and exposure."],
       [
         "reliability",
         "Reliability",

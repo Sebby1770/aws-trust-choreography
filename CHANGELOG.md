@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented here.
 
+## 2026-07-30 — Trust boundaries: the primitive this project is named for
+
+### Added
+
+- **Trust zones** (`src/trust-zones.js`) — every service now sits in a zone (internet, edge, public subnet, private subnet, data tier, management) with an ordinal trust tier, editable per node in the Flow Studio inspector. Existing diagrams gain placement automatically: the zone is inferred from the service when none is declared, so nothing needs relabelling by hand.
+- **Boundary analysis** — a connection between two zones is a *trust boundary crossing*, classified as internal, management, ingress, egress, step, or bypass. The threat model reports plaintext on a boundary, a datastore answering the internet directly, untrusted traffic reaching internal compute unmediated, outbound paths from the data tier, and edge protection that exists but is not on the traffic path.
+- **The importer now uses the placement it used to discard.** VPC and subnet references were dropped so they could not be mistaken for traffic; they are now kept as *placement* and drive the zone. Compute in a subnet that auto-assigns public IPs — or that is associated with a route table routing to an internet gateway — lands in the public zone; everything else in the VPC lands in private. An `internal = true` load balancer is correctly private rather than a public entry point, and a datastore declaring `publicly_accessible` is called out on import.
+- **A Trust lens** in the Review Center, alongside Security, Reliability, Observability, Recovery, and Network.
+- **Boundary crossings are visible on the canvas.** Encryption was recorded on a connection but never drawn; plaintext paths are now dashed, and a crossing that reaches storage with no application tier in front — or leads back out of the data tier — is drawn in warning colour.
+
+### Changed
+
+- **Security scoring is topology-aware instead of substring-based.** A WAF used to earn a flat 25 points for existing anywhere on the canvas, even wired to nothing. It now earns them only if untrusted traffic actually passes through it, and the same applies to identity controls. Encryption on a boundary crossing counts for more than encryption inside a zone.
+
+### Notes on the rules
+
+Two judgements keep the analysis useful rather than noisy, and both are covered by tests: the **management** zone (IAM, KMS, Secrets Manager, CloudWatch) is cross-cutting, so talking to it is never a tier jump; and **`edge → data`** — CloudFront in front of an S3 origin — is recognised as a correct pattern rather than flagged as a bypass. Likewise, skipping a subnet tier is not a bypass: API Gateway → Lambda never touches a subnet, and "bypass" is reserved for reaching persistent storage with no application tier in front of it.
+
 ## 2026-07-30 — Harden the IaC round trip
 
 ### Fixed

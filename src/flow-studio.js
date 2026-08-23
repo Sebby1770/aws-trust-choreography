@@ -10,6 +10,14 @@
  */
 import { reviewAwsArchitecture } from "./aws-review-model.js";
 import { matchIcon } from "./icon-match.js";
+import {
+  classifyCrossing,
+  inferZone,
+  normalizeZone,
+  ZONE_IDS,
+  ZONES,
+  zoneOf,
+} from "./trust-zones.js";
 
 export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   "use strict";
@@ -65,6 +73,8 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     nodeName: document.getElementById("flowNodeName"),
     nodeEnvironment: document.getElementById("flowNodeEnvironment"),
     nodeCriticality: document.getElementById("flowNodeCriticality"),
+    nodeZone: document.getElementById("flowNodeZone"),
+    nodeZoneHint: document.getElementById("flowNodeZoneHint"),
     nodeNotes: document.getElementById("flowNodeNotes"),
     connectionFields: document.getElementById("flowConnectionFields"),
     connectionName: document.getElementById("flowConnectionName"),
@@ -251,6 +261,9 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       y: clamp(y, 0.08, 0.92),
       environment: overrides.environment || "Production",
       criticality: overrides.criticality || "medium",
+      // Placement starts from what the service implies, so an existing diagram
+      // gains trust zones without anyone re-labelling every node by hand.
+      zone: normalizeZone(overrides.zone, inferZone(icon.name, overrides.name)),
       notes: overrides.notes || "",
     };
   }
@@ -523,6 +536,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
           `is-${connection.type || "request"}`,
           selectedConnectionId === connection.id ? "is-selected" : "",
           affectedConnectionIds.has(connection.id) ? "is-affected" : "",
+          // Encryption was stored but never drawn. A path that changes trust
+          // zone, and one that carries plaintext across it, are both worth
+          // seeing at a glance rather than only in the inspector.
+          connection.encrypted === false ? "is-unencrypted" : "",
+          `is-crossing-${classifyCrossing(zoneOf(from), zoneOf(to)).kind}`,
         ]
           .filter(Boolean)
           .join(" ")
@@ -690,6 +708,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     elements.nodeEnvironment.value = node.environment;
     elements.nodeCriticality.value = node.criticality;
     elements.nodeNotes.value = node.notes;
+    if (elements.nodeZone) {
+      const zone = zoneOf(node);
+      elements.nodeZone.value = zone;
+      if (elements.nodeZoneHint) elements.nodeZoneHint.textContent = ZONES[zone].hint;
+    }
   }
 
   function architectureChecks() {
@@ -1396,6 +1419,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
           criticality: ["high", "medium", "low"].includes(node.criticality)
             ? node.criticality
             : "medium",
+          zone: ZONE_IDS.includes(node.zone) ? node.zone : inferZone(icon.name, node.name),
           notes: String(node.notes || "").slice(0, 280),
         };
       })
@@ -1799,6 +1823,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   elements.nodeEnvironment.addEventListener("change", () =>
     updateSelectedNode("environment", elements.nodeEnvironment.value)
   );
+  elements.nodeZone?.addEventListener("change", () => {
+    const zone = normalizeZone(elements.nodeZone.value);
+    if (elements.nodeZoneHint) elements.nodeZoneHint.textContent = ZONES[zone].hint;
+    updateSelectedNode("zone", zone);
+  });
   elements.nodeCriticality.addEventListener("change", () =>
     updateSelectedNode("criticality", elements.nodeCriticality.value)
   );

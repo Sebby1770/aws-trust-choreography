@@ -34,6 +34,7 @@ describe("combined Review Center model", () => {
     expect(review.score).toBeGreaterThan(0);
     expect(review.lenses.map((lens) => lens.id)).toEqual([
       "security",
+      "trust",
       "reliability",
       "observability",
       "recovery",

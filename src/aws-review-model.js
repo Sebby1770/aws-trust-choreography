@@ -5,9 +5,14 @@
  * inspect a live AWS account and should never be presented as certification.
  */
 
+import { analyzeTrust } from "./trust-zones.js";
+
 function clamp(value, minimum = 0, maximum = 100) {
   return Math.min(maximum, Math.max(minimum, value));
 }
+
+/** Trust severities mapped onto the review vocabulary. */
+const TRUST_TONE = { critical: "fail", high: "fail", medium: "warn", low: "warn" };
 
 function architectureParts(input) {
   const state = input && typeof input === "object" ? input : {};
@@ -205,6 +210,59 @@ export function reviewAwsChecks(input = {}) {
         )
   );
 
+  checks.push(...trustChecks(input));
+
+  return checks;
+}
+
+/**
+ * Trust-boundary findings.
+ *
+ * Kept as its own block with `trust-` prefixed ids so it composes with the
+ * existing checks rather than colliding with them.
+ */
+export function trustChecks(input = {}) {
+  const trust = analyzeTrust(input);
+  const { nodes } = architectureParts(input);
+  const checks = trust.threats.map((item) =>
+    finding(
+      `trust-${item.id}`,
+      "security",
+      TRUST_TONE[item.severity] || "warn",
+      item.title,
+      item.detail,
+      item.mitigation,
+      item.target
+    )
+  );
+
+  if (nodes.length > 1 && !trust.boundaryCount) {
+    checks.push(
+      finding(
+        "trust-boundaries",
+        "security",
+        "warn",
+        "No trust boundaries are declared",
+        "Every service sits in the same trust zone, so the design says nothing about where trust changes hands.",
+        "Set a trust zone on each service — internet, edge, public subnet, private subnet, data, or management.",
+        { kind: "node", id: nodes[0]?.id || null }
+      )
+    );
+  } else if (trust.boundaryCount && !trust.threats.length) {
+    checks.push(
+      finding(
+        "trust-boundaries",
+        "security",
+        "pass",
+        `${trust.boundaryCount} trust boundar${trust.boundaryCount === 1 ? "y" : "ies"} hold`,
+        trust.recognised.length
+          ? trust.recognised.join(" ")
+          : "Every boundary crossing is encrypted, mediated, and reaches no further in than it should.",
+        "Re-check the boundaries whenever a new path is added."
+      )
+    );
+  }
+
   return checks;
 }
 
@@ -220,12 +278,23 @@ export function scoreAwsArchitecture(input = {}, simulation = {}) {
   const encryptedRatio = connections.length
     ? connections.filter((connection) => connection.encrypted !== false).length / connections.length
     : 0;
+  // Security is judged on topology, not on whether a name appears somewhere.
+  // A WAF parked in a corner of the canvas, wired to nothing, used to be worth
+  // a flat 25 points; it now earns them only if untrusted traffic actually
+  // passes through it. Same for identity.
+  const trust = analyzeTrust(input);
+  const boundary = trust.crossings.filter((crossing) => crossing.kind !== "internal");
+  const boundaryEncryptedRatio = boundary.length
+    ? boundary.filter((crossing) => crossing.encrypted).length / boundary.length
+    : encryptedRatio;
   const security = clamp(
     Math.round(
       20 +
-        encryptedRatio * 35 +
-        (includesAny("waf", "shield") ? 25 : 0) +
-        (includesAny("iam", "cognito", "identity center") ? 20 : 0)
+        // Encryption on a boundary counts for more than encryption within a zone.
+        encryptedRatio * 15 +
+        boundaryEncryptedRatio * 20 +
+        (trust.guardedIngress ? 25 : 0) +
+        (trust.identifiedIngress ? 20 : 0)
     )
   );
   const reliability = clamp(
@@ -257,9 +326,10 @@ export function scoreAwsArchitecture(input = {}, simulation = {}) {
     ? Math.min(20, 7 + Math.max(0, Number(simulation.affectedCount) || 0) * 2)
     : 0;
   const overall = clamp(
-    Math.round((security + reliability + observability + recovery) / 4) - failurePenalty
+    Math.round((security + reliability + observability + recovery + trust.score) / 5) -
+      failurePenalty
   );
-  return { security, reliability, observability, recovery, overall };
+  return { security, reliability, observability, recovery, trust: trust.score, overall };
 }
 
 /** Produce the complete AWS review in one call. */
