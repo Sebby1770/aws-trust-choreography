@@ -8,6 +8,8 @@
  * @param {Array} iconCatalog - the AWS icon catalog entries
  * @param {object} iconCatalogMeta - catalog metadata (release, count, ...)
  */
+import { reviewAwsArchitecture } from "./aws-review-model.js";
+
 export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   "use strict";
 
@@ -200,6 +202,9 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     elements.saveState.style.color = "var(--amber)";
     elements.statusMessage.textContent = message || "Architecture changed";
     elements.statusMessage.style.color = "var(--amber)";
+    global.dispatchEvent(
+      new CustomEvent("trust:designchange", { detail: { source: "aws", reason: message || "change" } })
+    );
     global.clearTimeout(autoSaveTimer);
     autoSaveTimer = global.setTimeout(() => {
       try {
@@ -259,9 +264,23 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   }
 
   function addNode(icon) {
-    const index = state.nodes.length;
-    const x = 0.18 + ((index * 0.19) % 0.64);
-    const y = 0.22 + ((Math.floor(index / 4) * 0.24) % 0.54);
+    const slots = [];
+    [0.18, 0.38, 0.58, 0.78].forEach((y) => {
+      [0.16, 0.33, 0.5, 0.67, 0.84].forEach((x) => slots.push({ x, y }));
+    });
+    const openSlot = slots.find(
+      (slot) =>
+        !state.nodes.some(
+          (node) => Math.abs(node.x - slot.x) < 0.09 && Math.abs(node.y - slot.y) < 0.12
+        )
+    );
+    const fallbackIndex = state.nodes.length;
+    const x = openSlot?.x ?? 0.18 + ((fallbackIndex * 0.19) % 0.64);
+    const y = openSlot?.y ?? 0.22 + ((Math.floor(fallbackIndex / 4) * 0.24) % 0.54);
+    addNodeAt(icon, x, y);
+  }
+
+  function addNodeAt(icon, x, y) {
     commit(`Added ${icon.name}`, () => {
       const node = makeNode(icon, x, y);
       state.nodes.push(node);
@@ -408,6 +427,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       button.className = "flow-icon-tile";
       button.classList.toggle("is-selected", selectedLibraryIconId === icon.id);
       button.dataset.iconId = icon.id;
+      button.draggable = true;
       button.title = `${icon.name} · ${icon.category}`;
       const image = document.createElement("img");
       image.src = icon.path;
@@ -447,6 +467,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       button.type = "button";
       button.className = "flow-recent-icon";
       button.dataset.iconId = icon.id;
+      button.draggable = true;
       button.title = `Add ${icon.name}`;
       const image = document.createElement("img");
       image.src = icon.path;
@@ -514,17 +535,30 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
           .filter(Boolean)
           .join(" ")
       );
+      visible.setAttribute("aria-hidden", "true");
       const hit = document.createElementNS("http://www.w3.org/2000/svg", "path");
       hit.setAttribute("d", pathData);
       hit.setAttribute("class", "flow-connection-hit");
+      hit.setAttribute("aria-hidden", "true");
       hit.dataset.connectionId = connection.id;
+      const focusTarget = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      focusTarget.setAttribute("class", "flow-connection-keyboard");
+      focusTarget.setAttribute("cx", String(((from.x + to.x) / 2) * rect.width));
+      focusTarget.setAttribute("cy", String(((from.y + to.y) / 2) * rect.height));
+      focusTarget.setAttribute("r", "9");
+      focusTarget.setAttribute("role", "button");
+      focusTarget.setAttribute("tabindex", "0");
+      focusTarget.setAttribute("aria-label", `${from.name} to ${to.name}`);
+      focusTarget.setAttribute("aria-pressed", String(selectedConnectionId === connection.id));
+      focusTarget.dataset.connectionId = connection.id;
       const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
       label.setAttribute("class", "flow-connection-label");
+      label.setAttribute("aria-hidden", "true");
       label.setAttribute("x", String(((from.x + to.x) / 2) * rect.width));
       label.setAttribute("y", String(((from.y + to.y) / 2) * rect.height - 8));
       label.textContent =
         connection.label || connectionDefaults(connection.from, connection.to).label;
-      elements.connections.append(visible, label, hit);
+      elements.connections.append(visible, label, hit, focusTarget);
     });
   }
 
@@ -550,6 +584,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
         "aria-label",
         `${node.name}, ${node.environment}, ${node.criticality} criticality`
       );
+      button.setAttribute("aria-pressed", String(selectedNodeId === node.id));
       const image = document.createElement("img");
       image.src = node.iconPath;
       image.alt = "";
@@ -666,192 +701,15 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   }
 
   function architectureChecks() {
-    const checks = [];
-    const names = state.nodes.map((node) => `${node.name} ${node.serviceName}`.toLowerCase());
-    const connectedIds = new Set(
-      state.connections.flatMap((connection) => [connection.from, connection.to])
-    );
-    const isolated = state.nodes.filter((node) => !connectedIds.has(node.id));
-    const hasMonitoring = names.some((name) => name.includes("cloudwatch"));
-    const hasPublicEntry = names.some(
-      (name) => name.includes("cloudfront") || name.includes("api gateway")
-    );
-    const hasEdgeSecurity = names.some((name) => name.includes("waf") || name.includes("shield"));
-    const hasData = names.some(
-      (name) =>
-        name.includes("dynamodb") ||
-        name.includes("rds") ||
-        name.includes("aurora") ||
-        name.includes("s3")
-    );
-    const hasRecovery = names.some(
-      (name) => name.includes("backup") || name.includes("s3") || name.includes("glacier")
-    );
-
-    checks.push(
-      state.nodes.length >= 2 && state.connections.length >= 1
-        ? {
-            tone: "pass",
-            title: "Flow path established",
-            detail: `${state.connections.length} directional connection${state.connections.length === 1 ? "" : "s"}`,
-          }
-        : {
-            tone: "warn",
-            title: "Architecture is not connected",
-            detail: "Add at least two nodes and connect them.",
-          }
-    );
-    checks.push(
-      isolated.length
-        ? {
-            tone: "warn",
-            title: `${isolated.length} isolated node${isolated.length === 1 ? "" : "s"}`,
-            detail: "Connect every service to make ownership and traffic flow visible.",
-          }
-        : {
-            tone: "pass",
-            title: "No isolated services",
-            detail: "Every node participates in the architecture flow.",
-          }
-    );
-    checks.push(
-      hasMonitoring
-        ? {
-            tone: "pass",
-            title: "Observability present",
-            detail: "CloudWatch is represented in the design.",
-          }
-        : {
-            tone: "warn",
-            title: "No observability service",
-            detail: "Add CloudWatch or another telemetry destination.",
-          }
-    );
-    if (hasPublicEntry) {
-      checks.push(
-        hasEdgeSecurity
-          ? {
-              tone: "pass",
-              title: "Public edge is protected",
-              detail: "WAF or Shield is present near the entry path.",
-            }
-          : {
-              tone: "warn",
-              title: "Public edge needs protection",
-              detail: "Consider AWS WAF or Shield for public traffic.",
-            }
-      );
-    }
-    if (hasData) {
-      checks.push(
-        hasRecovery
-          ? {
-              tone: "pass",
-              title: "Recovery target represented",
-              detail: "The architecture includes a durable recovery service.",
-            }
-          : {
-              tone: "warn",
-              title: "Data recovery is unclear",
-              detail: "Add AWS Backup, S3, or Glacier to show recovery intent.",
-            }
-      );
-    }
-    const unencrypted = state.connections.filter((connection) => connection.encrypted === false);
-    if (unencrypted.length) {
-      checks.unshift({
-        tone: "fail",
-        title: `${unencrypted.length} unencrypted path${unencrypted.length === 1 ? "" : "s"}`,
-        detail: "Enable in-transit encryption for every workload path.",
-      });
-    } else if (state.connections.length) {
-      checks.push({
-        tone: "pass",
-        title: "Traffic encryption declared",
-        detail: "Every modeled path is encrypted in transit.",
-      });
-    }
-    const hasIdentity = names.some(
-      (name) => name.includes("iam") || name.includes("cognito") || name.includes("identity")
-    );
-    checks.push(
-      hasIdentity
-        ? {
-            tone: "pass",
-            title: "Identity boundary represented",
-            detail: "The design includes an AWS identity control.",
-          }
-        : {
-            tone: "warn",
-            title: "Identity boundary is implicit",
-            detail: "Add IAM, Cognito, or IAM Identity Center to show trust ownership.",
-          }
-    );
-    return checks;
+    return reviewAwsArchitecture(state).checks;
   }
 
   function architectureAnalysis() {
-    const names = state.nodes.map((node) => `${node.name} ${node.serviceName}`.toLowerCase());
-    const includesAny = (...terms) =>
-      names.some((name) => terms.some((term) => name.includes(term)));
-    const connectedIds = new Set(
-      state.connections.flatMap((connection) => [connection.from, connection.to])
-    );
-    const connectedRatio = state.nodes.length ? connectedIds.size / state.nodes.length : 0;
-    const encryptedRatio = state.connections.length
-      ? state.connections.filter((connection) => connection.encrypted !== false).length /
-        state.connections.length
-      : 0;
-    const security = clamp(
-      Math.round(
-        20 +
-          encryptedRatio * 35 +
-          (includesAny("waf", "shield") ? 25 : 0) +
-          (includesAny("iam", "cognito", "identity center") ? 20 : 0)
-      ),
-      0,
-      100
-    );
-    const reliability = clamp(
-      Math.round(
-        22 +
-          connectedRatio * 30 +
-          Math.min(18, state.nodes.length * 2.5) +
-          (includesAny("queue", "sqs", "eventbridge", "auto scaling", "elastic load") ? 22 : 0) +
-          (state.nodes.filter((node) => node.environment === "Production").length >= 3 ? 8 : 0)
-      ),
-      0,
-      100
-    );
-    const observability = clamp(
-      Math.round(
-        18 +
-          (includesAny("cloudwatch") ? 48 : 0) +
-          (includesAny("x-ray", "cloudtrail") ? 22 : 0) +
-          (state.connections.some((connection) => connection.type === "telemetry") ? 12 : 0)
-      ),
-      0,
-      100
-    );
-    const recovery = clamp(
-      Math.round(
-        18 +
-          (includesAny("backup", "glacier") ? 38 : 0) +
-          (includesAny("s3", "dynamodb", "aurora", "rds") ? 24 : 0) +
-          (includesAny("queue", "sqs", "step functions") ? 20 : 0)
-      ),
-      0,
-      100
-    );
-    const failurePenalty = failedNodeId ? Math.min(20, 7 + affectedNodeIds.size * 2) : 0;
-    const overall = clamp(
-      Math.round((security + reliability + observability + recovery) / 4) - failurePenalty,
-      0,
-      100
-    );
-    return { security, reliability, observability, recovery, overall };
+    return reviewAwsArchitecture(state, {
+      failed: Boolean(failedNodeId),
+      affectedCount: affectedNodeIds.size,
+    }).analysis;
   }
-
   function renderScore() {
     const analysis = architectureAnalysis();
     const grade =
@@ -1001,6 +859,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     renderSimulation();
     renderCounts();
     renderLibrary();
+  }
+
+  function refreshLayout() {
+    renderConnections();
+    renderMinimap();
   }
 
   function syncControls() {
@@ -1215,6 +1078,48 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     }
   }
 
+  function createProject(project = {}) {
+    const template = templateDefinition(project.template) ? project.template : "blank";
+    applyTemplate(template, { initial: true });
+
+    const stageEnvironment = {
+      production: "Production",
+      prototype: "Development",
+      migration: "Staging",
+      learning: "Development",
+    };
+    const environment = stageEnvironment[project.stage] || "Production";
+
+    state.name =
+      typeof project.name === "string" && project.name.trim()
+        ? project.name.trim().slice(0, 80)
+        : state.name;
+    state.region =
+      typeof project.region === "string" && project.region ? project.region : state.region;
+    state.nodes.forEach((node) => {
+      node.environment = environment;
+    });
+
+    history.length = 0;
+    future = [];
+    selectedConnectionId = null;
+    resetSimulationState();
+    syncControls();
+    renderAll();
+    markUnsaved(`${state.name} created`);
+    elements.architectureName.dispatchEvent(new Event("change", { bubbles: true }));
+    global.dispatchEvent(
+      new CustomEvent("atlas:projectcreated", {
+        detail: {
+          name: state.name,
+          template,
+          region: state.region,
+          stage: project.stage || "production",
+        },
+      })
+    );
+  }
+
   function updateSelectedNode(field, value) {
     const node = selectedNode();
     if (!node) {
@@ -1247,6 +1152,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       const active = button.dataset.inspectorTab === tab;
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-selected", String(active));
+      button.tabIndex = active ? 0 : -1;
     });
     elements.inspectPanel.hidden = tab !== "inspect";
     elements.analyzePanel.hidden = tab !== "analyze";
@@ -1587,7 +1493,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       elements.iconTypeButtons.forEach((candidate) => {
         const active = candidate === button;
         candidate.classList.toggle("is-active", active);
-        candidate.setAttribute("aria-selected", String(active));
+        candidate.setAttribute("aria-pressed", String(active));
       });
       renderCategories();
       renderLibrary();
@@ -1604,6 +1510,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     const icon = catalog.find((item) => item.id === tile.dataset.iconId);
     if (icon) {
       addNode(icon);
+      if (event.detail === 0) {
+        global.requestAnimationFrame(() => {
+          elements.nodeLayer.querySelector(`[data-node-id="${selectedNodeId}"]`)?.focus();
+        });
+      }
     }
   });
   elements.recentIcons.addEventListener("click", (event) => {
@@ -1614,8 +1525,56 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     const icon = catalog.find((item) => item.id === tile.dataset.iconId);
     if (icon) {
       addNode(icon);
+      if (event.detail === 0) {
+        global.requestAnimationFrame(() => {
+          elements.nodeLayer.querySelector(`[data-node-id="${selectedNodeId}"]`)?.focus();
+        });
+      }
     }
   });
+  [elements.iconGrid, elements.recentIcons].forEach((library) => {
+    library.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const tile = event.target.closest("[data-icon-id]");
+      if (!tile) return;
+      event.preventDefault();
+      tile.click();
+    });
+    library.addEventListener("dragstart", (event) => {
+      const tile = event.target.closest("[data-icon-id]");
+      if (!tile || !event.dataTransfer) return;
+      event.dataTransfer.effectAllowed = "copy";
+      event.dataTransfer.setData("text/aws-icon-id", tile.dataset.iconId);
+      event.dataTransfer.setData("text/plain", tile.dataset.iconId);
+    });
+  });
+  elements.canvas.addEventListener("dragover", (event) => {
+    if (!event.dataTransfer) return;
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+    elements.canvas.classList.add("is-drag-target");
+  });
+  elements.canvas.addEventListener("dragleave", (event) => {
+    if (!elements.canvas.contains(event.relatedTarget)) {
+      elements.canvas.classList.remove("is-drag-target");
+    }
+  });
+  elements.canvas.addEventListener("drop", (event) => {
+    event.preventDefault();
+    elements.canvas.classList.remove("is-drag-target");
+    const iconId =
+      event.dataTransfer?.getData("text/aws-icon-id") ||
+      event.dataTransfer?.getData("text/plain");
+    const icon = catalog.find((item) => item.id === iconId);
+    if (!icon) return;
+    const rect = elements.canvas.getBoundingClientRect();
+    addNodeAt(
+      icon,
+      (event.clientX - rect.left) / rect.width,
+      (event.clientY - rect.top) / rect.height
+    );
+  });
+  document.addEventListener("dragend", () => elements.canvas.classList.remove("is-drag-target"));
 
   elements.nodeLayer.addEventListener("pointerdown", (event) => {
     const nodeElement = event.target.closest("[data-node-id]");
@@ -1652,6 +1611,25 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     };
     nodeElement.setPointerCapture?.(event.pointerId);
     event.preventDefault();
+  });
+
+  elements.nodeLayer.addEventListener("click", (event) => {
+    if (event.detail !== 0) return;
+    const nodeElement = event.target.closest("[data-node-id]");
+    if (!nodeElement) return;
+    const nodeId = nodeElement.dataset.nodeId;
+    handleNodeActivation(nodeId);
+    global.requestAnimationFrame(() => {
+      elements.nodeLayer.querySelector(`[data-node-id="${nodeId}"]`)?.focus();
+    });
+  });
+
+  elements.nodeLayer.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const nodeElement = event.target.closest("[data-node-id]");
+    if (!nodeElement) return;
+    event.preventDefault();
+    nodeElement.click();
   });
 
   elements.nodeLayer.addEventListener("pointermove", (event) => {
@@ -1691,15 +1669,33 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   elements.nodeLayer.addEventListener("pointerup", endDrag);
   elements.nodeLayer.addEventListener("pointercancel", endDrag);
 
-  elements.connections.addEventListener("click", (event) => {
-    const path = event.target.closest("[data-connection-id]");
-    if (!path) {
-      return;
-    }
-    selectedConnectionId = path.dataset.connectionId;
+  function selectConnection(connectionId, { restoreFocus = false } = {}) {
+    if (!state.connections.some((connection) => connection.id === connectionId)) return;
+    selectedConnectionId = connectionId;
     selectedNodeId = null;
     setInspectorTab("inspect");
     renderAll();
+    if (restoreFocus) {
+      global.requestAnimationFrame(() => {
+        elements.connections
+          .querySelector(`[data-connection-id="${connectionId}"][tabindex]`)
+          ?.focus();
+      });
+    }
+  }
+
+  elements.connections.addEventListener("click", (event) => {
+    const path = event.target.closest("[data-connection-id]");
+    if (!path) return;
+    selectConnection(path.dataset.connectionId);
+  });
+
+  elements.connections.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const path = event.target.closest("[data-connection-id]");
+    if (!path) return;
+    event.preventDefault();
+    selectConnection(path.dataset.connectionId, { restoreFocus: true });
   });
 
   elements.canvas.addEventListener("click", (event) => {
@@ -1744,12 +1740,28 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   elements.zoomOutButton.addEventListener("click", () => adjustZoom(-1));
   elements.libraryToggle.addEventListener("click", () => {
     const studio = elements.canvas.closest(".flow-studio");
-    studio.classList.toggle("is-library-collapsed");
-    global.setTimeout(renderConnections, 170);
+    const collapsed = studio.classList.toggle("is-library-collapsed");
+    elements.libraryToggle.setAttribute("aria-expanded", String(!collapsed));
+    global.setTimeout(refreshLayout, 170);
   });
 
   elements.inspectorTabs.forEach((button) => {
     button.addEventListener("click", () => setInspectorTab(button.dataset.inspectorTab));
+    button.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const currentIndex = elements.inspectorTabs.indexOf(button);
+      const nextIndex =
+        event.key === "Home"
+          ? 0
+          : event.key === "End"
+            ? elements.inspectorTabs.length - 1
+            : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + elements.inspectorTabs.length) %
+              elements.inspectorTabs.length;
+      const next = elements.inspectorTabs[nextIndex];
+      setInspectorTab(next.dataset.inspectorTab);
+      next.focus();
+    });
   });
 
   elements.templateButtons.forEach((button) => {
@@ -1798,6 +1810,10 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   );
 
   global.addEventListener("keydown", (event) => {
+    const studioView = elements.canvas.closest(".view-studio");
+    if (!studioView?.classList.contains("is-active")) {
+      return;
+    }
     const target = event.target;
     const typing =
       target instanceof HTMLInputElement ||
@@ -1816,9 +1832,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     }
   });
 
-  global.addEventListener("resize", () => {
-    renderConnections();
-  });
+  global.addEventListener("resize", refreshLayout);
+  if (typeof global.ResizeObserver === "function") {
+    const canvasObserver = new global.ResizeObserver(refreshLayout);
+    canvasObserver.observe(elements.canvas);
+  }
 
   renderCategories();
   syncControls();
@@ -1830,6 +1848,63 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     markSaved("Saved architecture restored");
   }
 
+  function reveal(target = {}) {
+    if (target.kind === "library") {
+      const query = String(target.query || "").trim();
+      const match = query
+        ? catalog.find((icon) => icon.search?.includes(query.toLowerCase()))
+        : null;
+      iconType = match?.type || "service";
+      elements.iconTypeButtons.forEach((button) => {
+        const active = button.dataset.iconType === iconType;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      renderCategories();
+      elements.categoryFilter.value = "all";
+      elements.iconSearch.value = query;
+      renderLibrary();
+      global.requestAnimationFrame(() => elements.iconSearch.focus());
+      return true;
+    }
+
+    if (target.kind === "connection" && target.id) {
+      if (!state.connections.some((connection) => connection.id === target.id)) return false;
+      setMode("select");
+      selectConnection(target.id);
+      global.requestAnimationFrame(() => {
+        if (target.field === "encrypted") elements.connectionEncrypted.focus();
+        else {
+          elements.connections
+            .querySelector(`[data-connection-id="${target.id}"][tabindex]`)
+            ?.focus();
+        }
+      });
+      return true;
+    }
+
+    if (target.kind === "node" && target.id) {
+      if (!state.nodes.some((node) => node.id === target.id)) return false;
+      setMode("select");
+      selectedNodeId = target.id;
+      selectedConnectionId = null;
+      setInspectorTab("inspect");
+      renderAll();
+      global.requestAnimationFrame(() => {
+        elements.nodeLayer.querySelector(`[data-node-id="${target.id}"]`)?.focus();
+      });
+      return true;
+    }
+
+    if (target.kind === "canvas") {
+      setMode("connect");
+      elements.canvas.focus();
+      return true;
+    }
+
+    return false;
+  }
+
   global.AWSFlowStudio = {
     getState: () => safeParse(architectureSnapshot()),
     snapshot: architectureSnapshot,
@@ -1838,7 +1913,10 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       markSaved("Session loaded");
     },
     applyTemplate,
+    createProject,
     save: saveArchitecture,
+    reveal,
+    refreshLayout,
     catalogCount: catalog.length,
   };
 

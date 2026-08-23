@@ -68,7 +68,7 @@ export function createSessionStore(storage) {
     },
     /** Create a new session (saving `currentSnapshot` into the old one first). */
     create(name, currentSnapshot) {
-      let doc = read();
+      const doc = read();
       if (typeof currentSnapshot === "string") {
         const active = doc.sessions.find((s) => s.id === doc.activeId);
         if (active) active.snapshot = currentSnapshot;

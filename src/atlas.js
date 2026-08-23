@@ -36,8 +36,8 @@ export function initAtlas({ theme } = {}) {
   const scenarioButtons = document.querySelectorAll(".scenario");
   const root = document.querySelector(".grid-window");
   const shell = document.querySelector(".app-shell");
-  const heroTitle = document.querySelector("h1");
-  const heroLede = document.querySelector(".lede");
+  const heroTitle = document.querySelector("#atlasTitle");
+  const heroLede = document.querySelector(".atlas-intro > div > p");
   const editButton = document.querySelector("#editButton");
   const playButton = document.querySelector("#playButton");
   const replayButton = document.querySelector("#replayButton");
@@ -57,7 +57,7 @@ export function initAtlas({ theme } = {}) {
     fallbackReady: document.querySelector("#fallbackReady"),
     dataDurability: document.querySelector("#dataDurability"),
     recoveryEta: document.querySelector("#recoveryEta"),
-    nodeName: document.querySelector("#nodeName"),
+    nodeName: document.querySelector("#atlasNodeName"),
     nodeScore: document.querySelector("#nodeScore"),
     nodeCopy: document.querySelector("#nodeCopy"),
     nodeLink: document.querySelector("#nodeLink"),
