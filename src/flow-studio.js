@@ -18,6 +18,14 @@ import {
   ZONES,
   zoneOf,
 } from "./trust-zones.js";
+import {
+  analyzeResilience,
+  blastRadius,
+  findEntryPoints,
+  findTerminals,
+  formatAvailability,
+  simulateFailures,
+} from "./chaos-engine.js";
 
 export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   "use strict";
@@ -83,6 +91,11 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     inspectorTabs: [...document.querySelectorAll("[data-inspector-tab]")],
     inspectPanel: document.getElementById("flowInspectPanel"),
     analyzePanel: document.getElementById("flowAnalyzePanel"),
+    chaosPanel: document.getElementById("flowChaosPanel"),
+    chaosResults: document.getElementById("flowChaosResults"),
+    chaosRun: document.getElementById("flowChaosRun"),
+    chaosKill: document.getElementById("flowChaosKill"),
+    chaosReset: document.getElementById("flowChaosReset"),
     checksTitle: document.getElementById("flowChecksTitle"),
     checksList: document.getElementById("flowChecksList"),
     scoreRing: document.getElementById("flowScoreRing"),
@@ -125,6 +138,8 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   let inspectorTab = "inspect";
   let simulationRunning = false;
   let failedNodeId = null;
+  let chaosReport = null;
+  let chaosKilledIds = new Set();
   let affectedNodeIds = new Set();
   let affectedConnectionIds = new Set();
   let recentIconIds = [];
@@ -582,6 +597,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       button.classList.toggle("is-selected", selectedNodeId === node.id);
       button.classList.toggle("is-connect-source", connectSourceId === node.id);
       button.classList.toggle("is-failed", failedNodeId === node.id);
+      button.classList.toggle("is-killed", chaosKilledIds.has(node.id));
       button.classList.toggle("is-affected", affectedNodeIds.has(node.id));
       button.dataset.nodeId = node.id;
       button.style.left = `${node.x * 100}%`;
@@ -863,6 +879,180 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     elements.undoButton.disabled = history.length === 0;
     elements.redoButton.disabled = future.length === 0;
     elements.deleteButton.disabled = !selectedNodeId && !selectedConnectionId;
+  }
+
+
+  // ---------- Chaos Lab ----------
+
+  function chaosTone(value) {
+    if (value >= 0.9999) return "good";
+    if (value >= 0.999) return "warn";
+    return "bad";
+  }
+
+  function chaosSection(title, body) {
+    const section = document.createElement("div");
+    section.className = "flow-chaos-section";
+    const heading = document.createElement("h4");
+    heading.textContent = title;
+    section.append(heading, body);
+    return section;
+  }
+
+  function renderChaos() {
+    const results = elements.chaosResults;
+    results.replaceChildren();
+
+    const alive = state.nodes.filter((node) => !chaosKilledIds.has(node.id));
+    const aliveConnections = state.connections.filter(
+      (connection) => !chaosKilledIds.has(connection.from) && !chaosKilledIds.has(connection.to)
+    );
+    // Pin entries/terminals to the undamaged topology so killed nodes cannot
+    // turn their orphaned downstream neighbours into new front doors.
+    chaosReport = analyzeResilience(alive, aliveConnections, {
+      entryIds: findEntryPoints(state.nodes, state.connections).map((node) => node.id),
+      terminalIds: findTerminals(state.nodes, state.connections).map((node) => node.id),
+    });
+
+    if (chaosReport.empty) {
+      const empty = document.createElement("p");
+      empty.className = "flow-chaos-placeholder";
+      empty.textContent = chaosKilledIds.size
+        ? "Every node is killed — restore the architecture to analyze it."
+        : "Add nodes and connect them, then run the analysis.";
+      results.append(empty);
+      return;
+    }
+
+    // Headline availability
+    if (chaosReport.overall != null) {
+      const formatted = formatAvailability(chaosReport.overall);
+      const headline = document.createElement("div");
+      headline.className = `flow-chaos-headline is-${chaosTone(chaosReport.overall)}`;
+      const value = document.createElement("strong");
+      value.textContent = formatted.pct;
+      const label = document.createElement("span");
+      label.textContent = `${formatted.nines} · ~${formatted.downtimeMinutesPerYear} min downtime/year (estimated)`;
+      headline.append(value, label);
+      results.append(headline);
+    }
+
+    // Failure rehearsal state
+    if (chaosKilledIds.size > 0) {
+      const killedNames = state.nodes
+        .filter((node) => chaosKilledIds.has(node.id))
+        .map((node) => node.name);
+      const simulation = simulateFailures(state.nodes, state.connections, [...chaosKilledIds]);
+      const banner = document.createElement("div");
+      banner.className = `flow-chaos-verdict is-${simulation.verdict}`;
+      banner.textContent = `${killedNames.join(", ")} down → ${simulation.verdict.toUpperCase()} · ${simulation.survivingFlows}/${simulation.totalFlows} flows survive`;
+      results.append(banner);
+    }
+
+    // Single points of failure
+    const spofBody = document.createElement("ul");
+    spofBody.className = "flow-chaos-list";
+    if (chaosReport.spofs.length === 0) {
+      const item = document.createElement("li");
+      item.className = "is-good";
+      item.textContent = "None — every node has an alternate route around it.";
+      spofBody.append(item);
+    } else {
+      chaosReport.spofs.slice(0, 5).forEach((spof) => {
+        const item = document.createElement("li");
+        item.className = "is-bad";
+        const name = document.createElement("strong");
+        name.textContent = spof.name;
+        const detail = document.createElement("span");
+        detail.textContent = ` strands ${spof.stranded} node${spof.stranded === 1 ? "" : "s"} (${spof.criticality})`;
+        item.append(name, detail);
+        spofBody.append(item);
+      });
+    }
+    results.append(chaosSection("Single points of failure", spofBody));
+
+    // Flow availability table
+    if (chaosReport.flows.length) {
+      const table = document.createElement("table");
+      table.className = "flow-chaos-table";
+      const head = document.createElement("thead");
+      head.innerHTML =
+        "<tr><th>Flow</th><th>Hops</th><th>Routes</th><th>Availability</th></tr>";
+      const body = document.createElement("tbody");
+      chaosReport.flows.slice(0, 6).forEach((flow) => {
+        const row = document.createElement("tr");
+        const cells = [
+          `${flow.from} → ${flow.to}`,
+          String(flow.hops),
+          String(flow.redundancy),
+          formatAvailability(flow.availability).pct,
+        ];
+        cells.forEach((text, index) => {
+          const cell = document.createElement("td");
+          cell.textContent = text;
+          if (index === 3) cell.className = `is-${chaosTone(flow.availability)}`;
+          row.append(cell);
+        });
+        body.append(row);
+      });
+      table.append(head, body);
+      results.append(chaosSection("Flow availability", table));
+    }
+
+    // Blast radius
+    const blastBody = document.createElement("ul");
+    blastBody.className = "flow-chaos-list";
+    chaosReport.blast.slice(0, 4).forEach((entry) => {
+      const item = document.createElement("li");
+      item.className = `is-${entry.classification === "systemic" ? "bad" : entry.classification === "significant" ? "warn" : "good"}`;
+      const name = document.createElement("strong");
+      name.textContent = entry.name;
+      const detail = document.createElement("span");
+      detail.textContent = ` → ${entry.downstreamCount} downstream (${entry.classification})`;
+      item.append(name, detail);
+      blastBody.append(item);
+    });
+    if (blastBody.childElementCount) {
+      results.append(chaosSection("Blast radius", blastBody));
+    }
+
+    // Recommendations
+    const adviceBody = document.createElement("ul");
+    adviceBody.className = "flow-chaos-advice";
+    chaosReport.recommendations.forEach((text) => {
+      const item = document.createElement("li");
+      item.textContent = text;
+      adviceBody.append(item);
+    });
+    results.append(chaosSection("Recommendations", adviceBody));
+  }
+
+  function chaosKillSelected() {
+    if (!selectedNodeId) {
+      elements.statusMessage.textContent = "Select a node before killing it";
+      elements.statusMessage.style.color = "var(--amber)";
+      return;
+    }
+    const node = state.nodes.find((item) => item.id === selectedNodeId);
+    chaosKilledIds.add(selectedNodeId);
+    failedNodeId = selectedNodeId;
+    traceFailure(selectedNodeId);
+    const impact = blastRadius(state.nodes, state.connections, selectedNodeId);
+    elements.statusMessage.textContent = `${node?.name || "Service"} killed — ${impact?.downstreamCount ?? 0} downstream node${impact?.downstreamCount === 1 ? "" : "s"} affected`;
+    elements.statusMessage.style.color = "var(--danger)";
+    renderAll();
+    renderChaos();
+  }
+
+  function chaosRestore() {
+    chaosKilledIds = new Set();
+    failedNodeId = null;
+    affectedNodeIds = new Set();
+    affectedConnectionIds = new Set();
+    elements.statusMessage.textContent = "Architecture restored";
+    elements.statusMessage.style.color = "var(--green)";
+    renderAll();
+    renderChaos();
   }
 
   function renderAll() {
@@ -1171,6 +1361,8 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     });
     elements.inspectPanel.hidden = tab !== "inspect";
     elements.analyzePanel.hidden = tab !== "analyze";
+    elements.chaosPanel.hidden = tab !== "chaos";
+    if (tab === "chaos" && !chaosReport) renderChaos();
   }
 
   function adjustZoom(direction) {
@@ -1748,6 +1940,13 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     }
   });
 
+  elements.chaosRun.addEventListener("click", () => {
+    renderChaos();
+    elements.statusMessage.textContent = "Resilience analysis complete";
+    elements.statusMessage.style.color = "var(--cyan)";
+  });
+  elements.chaosKill.addEventListener("click", chaosKillSelected);
+  elements.chaosReset.addEventListener("click", chaosRestore);
   elements.deleteButton.addEventListener("click", removeSelection);
   elements.undoButton.addEventListener("click", undo);
   elements.redoButton.addEventListener("click", redo);

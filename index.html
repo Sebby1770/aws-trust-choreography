@@ -1097,6 +1097,17 @@
                 >
                   Analyze
                 </button>
+                <button
+                  id="flowChaosTab"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="flowChaosPanel"
+                  tabindex="-1"
+                  data-inspector-tab="chaos"
+                >
+                  Chaos
+                </button>
               </div>
               <div
                 id="flowInspectPanel"
@@ -1194,6 +1205,36 @@
                   </div>
                   <div id="flowChecksList"></div>
                 </section>
+              </div>
+              <div
+                id="flowChaosPanel"
+                class="flow-chaos"
+                role="tabpanel"
+                aria-labelledby="flowChaosTab"
+                tabindex="0"
+                hidden
+              >
+                <div class="flow-chaos-head">
+                  <span>Chaos Lab</span><strong id="flowChaosTitle">Resilience analysis</strong>
+                </div>
+                <p class="flow-chaos-intro">
+                  Estimates end-to-end availability, finds single points of failure, and rehearses
+                  node loss against your live canvas.
+                </p>
+                <div class="flow-chaos-actions">
+                  <button id="flowChaosRun" type="button" class="flow-chaos-primary">
+                    <span aria-hidden="true">&#9888;</span>Analyze resilience
+                  </button>
+                  <button id="flowChaosKill" type="button">
+                    <span aria-hidden="true">&#9760;</span>Kill selected node
+                  </button>
+                  <button id="flowChaosReset" type="button">Restore all</button>
+                </div>
+                <div id="flowChaosResults" class="flow-chaos-results" aria-live="polite">
+                  <p class="flow-chaos-placeholder">
+                    Run an analysis to see availability, single points of failure, and blast radius.
+                  </p>
+                </div>
               </div>
             </aside>
           </div>

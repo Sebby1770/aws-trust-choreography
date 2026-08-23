@@ -2,6 +2,38 @@
 
 All notable changes to this project are documented here.
 
+## 2026-08-22 — Chaos Lab: availability math, SPOF detection, failure rehearsal
+
+### Added
+
+- **Chaos Lab** — a third Flow Studio inspector tab that analyzes the resilience of whatever is on
+  the canvas:
+  - **Estimated end-to-end availability** — per-service availability heuristics (managed services
+    rank above raw compute, nudged by declared criticality) combined along the best route via
+    Dijkstra in `-log` space, so the reported route maximizes the product of availabilities.
+    Shown as a headline with nines and projected downtime minutes per year.
+  - **Single points of failure** — real graph articulation points (iterative Tarjan low-link),
+    ranked by how many nodes their loss strands, weighted by criticality.
+  - **Flow availability table** — every entry→terminal flow with hop count, the number of
+    **vertex-disjoint routes**, and its availability (redundant flows combine as parallel systems).
+  - **Blast radius** — downstream reach per node, classified contained / significant / systemic.
+  - **Recommendations** — plain-English advice naming the specific SPOF, the fragile flow and what
+    a second route would buy it, the weakest link, and single-front-door risk.
+  - **Failure rehearsal** — "Kill selected node" removes a node from the analysis, greys it on the
+    canvas, and reports whether the architecture stays *resilient*, goes *degraded*, or hits an
+    *outage*, with surviving-flow counts. "Restore all" brings it back.
+- `src/chaos-engine.js` — the whole analysis is a pure, dependency-free, DOM-free module with
+  **31 unit tests** covering availability estimates, entry/terminal discovery, articulation points
+  (including criticality weighting and empty/single-node graphs), blast radius with cycles,
+  best-path selection, disjoint route counting, multi-node failure simulation, and report
+  determinism.
+
+### Fixed
+
+- Failure analysis pinned entry and exit points to the **undamaged** topology. Previously,
+  removing a node let its orphaned downstream neighbours look like brand-new front doors, so the
+  report could claim a *healthier* architecture after a failure. Covered by a regression test.
+
 ## 2026-07-30 — Trust boundaries: the primitive this project is named for
 
 ### Added
@@ -44,7 +76,6 @@ Two judgements keep the analysis useful rather than noisy, and both are covered 
 - **Round trip** — a canvas exported to `main.tf` and re-imported keeps its services, names, environments, criticality, region, topology, and external AI/SaaS nodes, recovered from the exporter's own tags and topology comments.
 - Honest limits, surfaced as warnings rather than guesses: modules are not expanded, `count`/`for_each` is drawn once, non-AWS providers are ignored, very large stacks are capped, and CloudFormation YAML is refused with instructions instead of half-parsed.
 - `adoptArchitecture` is now part of the public `AWSFlowStudio` API, so the JSON file importer and the IaC importer share one validated path onto the canvas.
-
 ## 2026-07-05 — The decision layer: cost lens + IaC and diagram exports
 
 ### Added

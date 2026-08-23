@@ -1685,6 +1685,197 @@
   }
 }
 
+/* ---------- Chaos Lab ---------- */
+.flow-chaos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  overflow-y: auto;
+}
+
+.flow-chaos-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.flow-chaos-head span {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.flow-chaos-intro {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.flow-chaos-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.flow-chaos-actions button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.74rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.flow-chaos-actions button:hover {
+  border-color: var(--cyan);
+}
+
+.flow-chaos-primary {
+  border-color: var(--cyan) !important;
+  color: var(--cyan) !important;
+}
+
+.flow-chaos-results {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.flow-chaos-placeholder {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.flow-chaos-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+.flow-chaos-headline strong {
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.flow-chaos-headline span {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.flow-chaos-headline.is-good strong { color: var(--green); }
+.flow-chaos-headline.is-warn strong { color: var(--amber); }
+.flow-chaos-headline.is-bad strong { color: var(--danger); }
+
+.flow-chaos-verdict {
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+}
+
+.flow-chaos-verdict.is-resilient { color: var(--green); border-color: var(--green); }
+.flow-chaos-verdict.is-degraded { color: var(--amber); border-color: var(--amber); }
+.flow-chaos-verdict.is-outage { color: var(--danger); border-color: var(--danger); }
+
+.flow-chaos-section h4 {
+  margin: 0 0 6px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.flow-chaos-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.flow-chaos-list li {
+  font-size: 0.76rem;
+  padding-left: 10px;
+  border-left: 2px solid var(--line);
+  line-height: 1.4;
+}
+
+.flow-chaos-list li span {
+  color: var(--muted);
+}
+
+.flow-chaos-list li.is-good { border-left-color: var(--green); }
+.flow-chaos-list li.is-warn { border-left-color: var(--amber); }
+.flow-chaos-list li.is-bad { border-left-color: var(--danger); }
+
+.flow-chaos-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.72rem;
+}
+
+.flow-chaos-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.flow-chaos-table td {
+  padding: 5px 6px;
+  border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+
+.flow-chaos-table td.is-good { color: var(--green); }
+.flow-chaos-table td.is-warn { color: var(--amber); }
+.flow-chaos-table td.is-bad { color: var(--danger); }
+
+.flow-chaos-advice {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flow-chaos-advice li {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--text);
+  padding-left: 14px;
+  position: relative;
+}
+
+.flow-chaos-advice li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+}
+
+.flow-node.is-killed {
+  opacity: 0.42;
+  filter: grayscale(0.85);
+  outline: 1px dashed var(--danger);
+}
+
 /* --- Trust boundary crossings ------------------------------------------ */
 
 /* Plaintext was recorded on a connection but never drawn. Dash it so an
