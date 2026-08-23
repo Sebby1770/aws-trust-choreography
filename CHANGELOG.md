@@ -2,6 +2,38 @@
 
 All notable changes to this project are documented here.
 
+## 2026-08-23 — A paper canvas for large architectures
+
+### Added
+
+- **A real canvas zoom.** The diagram now lives on a fixed 2400 x 1500 surface that is visually
+  scaled and scrolled, so architectures are no longer capped at whatever fits the viewport. Zoom
+  runs from 25% to 200% via the status-bar control or the canvas +/- buttons, which previously
+  resized node cards rather than zooming the diagram.
+- **Fit frames the diagram, not the canvas.** "Fit" measures the bounding box of your nodes and
+  scales to that, then scrolls it into view — fitting the whole empty surface would shrink a
+  handful of services to specks.
+- **`svg-export.js`** — the SVG exporter is now a pure, unit-tested module alongside the
+  Terraform and Mermaid exporters, instead of a string template buried in the studio closure.
+
+### Changed
+
+- **The canvas is white paper in every theme.** Official AWS icons are drawn for white
+  backgrounds, and exported diagrams land in READMEs and docs that are white. Node cards,
+  labels, connection strokes, arrowheads, zone bands, the minimap, and the grid were all
+  retinted for ink-on-white contrast.
+- **Nodes are compact** — 76px wide with 34px icons (was 104px/46px), so noticeably more of a
+  real architecture is legible at once. The "Node size" control still scales them from there.
+- **SVG export matches the canvas**, replacing the dark `#06131d` backdrop and light-on-dark
+  text with the same white palette used on screen.
+
+### Fixed
+
+- Diagrams saved before this release have no stored canvas zoom. That resolved to `NaN` and
+  silently pinned the surface at 100% instead of fitting; legacy state is now migrated to "fit".
+- The studio view is `display:none` until opened, so the first fit could run against a
+  zero-size viewport and stick at 100%. A `ResizeObserver` re-fits once the viewport has a box.
+
 ## 2026-08-22 — Chaos Lab: availability math, SPOF detection, failure rehearsal
 
 ### Added

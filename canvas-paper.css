@@ -1,0 +1,292 @@
+/* ============================================================
+   Paper canvas — a large, white, zoomable drawing surface.
+
+   Loaded last so it wins the cascade over flow-studio.css,
+   launchpad.css, and studio-shell.css without editing four files.
+
+   Three things this changes:
+   1. The canvas is white paper in every theme. Official AWS icons are
+      drawn for white backgrounds, and exported diagrams land in READMEs
+      and docs that are white too.
+   2. Nodes are compact, so a real architecture fits on screen.
+   3. The diagram lives on a large fixed surface that genuinely zooms
+      (25%-200%) and scrolls, instead of being capped at the viewport.
+   ============================================================ */
+
+.flow-studio {
+  /* Surface size in unscaled CSS pixels. Node coordinates stay normalized
+     (0-1) against this box, so existing saved diagrams keep their layout. */
+  --flow-surface-w: 2400px;
+  --flow-surface-h: 1500px;
+  --flow-scale: 1;
+
+  /* Compact node geometry. --flow-zoom stays the user's "Node size"
+     multiplier so that control keeps working on top of the new base. */
+  --flow-node-w: 76px;
+  --flow-node-icon: 34px;
+
+  --paper: #ffffff;
+  --paper-grid: rgba(15, 23, 42, 0.07);
+  --paper-grid-major: rgba(15, 23, 42, 0.11);
+  --paper-ink: #0f2027;
+  --paper-ink-muted: #5b6b76;
+  --paper-line: #cbd5dd;
+  --paper-accent: #0972d3; /* AWS console blue — reads correctly on white */
+}
+
+/* ---------- canvas frame: pinned chrome, scrolling interior ---------- */
+
+.flow-canvas {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  background-image: none;
+}
+
+.flow-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background:
+    linear-gradient(var(--paper-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--paper-grid) 1px, transparent 1px),
+    linear-gradient(var(--paper-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--paper-grid-major) 1px, transparent 1px), var(--paper);
+  background-size:
+    32px 32px,
+    32px 32px,
+    160px 160px,
+    160px 160px,
+    auto;
+}
+
+.flow-canvas.is-gridless .flow-viewport {
+  background: var(--paper);
+}
+
+.flow-surface {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--flow-surface-w);
+  height: var(--flow-surface-h);
+  transform: scale(var(--flow-scale));
+  transform-origin: 0 0;
+}
+
+/* The scaled surface still has to reserve its scaled footprint, or the
+   scroll container will not let you reach the far edge when zoomed in. */
+.flow-surface-spacer {
+  width: calc(var(--flow-surface-w) * var(--flow-scale));
+  height: calc(var(--flow-surface-h) * var(--flow-scale));
+  pointer-events: none;
+}
+
+.flow-connections,
+.flow-node-layer,
+.flow-zone-bands {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- nodes: compact white cards ---------- */
+
+.flow-node {
+  grid-template-rows: var(--flow-node-icon) auto;
+  gap: 0.2rem;
+  width: var(--flow-node-w);
+  min-height: auto;
+  padding: 0.3rem 0.2rem 0.35rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 6px;
+  color: var(--paper-ink);
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.flow-node img {
+  width: var(--flow-node-icon);
+  height: var(--flow-node-icon);
+}
+
+.flow-node strong {
+  color: var(--paper-ink);
+  font-size: 0.53rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.flow-node span {
+  color: var(--paper-ink-muted);
+  font-size: 0.45rem;
+}
+
+.flow-node:hover {
+  border-color: var(--paper-accent);
+  box-shadow: 0 2px 8px rgba(9, 114, 211, 0.18);
+}
+
+.flow-node.is-selected {
+  border-color: var(--paper-accent);
+  box-shadow:
+    0 0 0 2px rgba(9, 114, 211, 0.28),
+    0 2px 8px rgba(15, 23, 42, 0.12);
+}
+
+.flow-node.is-connect-source {
+  border-color: #d97706;
+  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.3);
+}
+
+/* Criticality reads as a top edge rather than a glow, which is quieter on
+   white and still scannable across a dense diagram. */
+.flow-node::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  border-radius: 6px 6px 0 0;
+  background: var(--criticality, #6b7f8c);
+  opacity: 0.9;
+}
+
+.flow-node.is-failed {
+  border-color: #d13212;
+  background: #fff5f4;
+  opacity: 1;
+}
+
+.flow-node.is-affected:not(.is-failed) {
+  border-color: #d97706;
+  background: #fffaf2;
+}
+
+.flow-node.is-killed {
+  opacity: 0.45;
+  filter: grayscale(0.9);
+}
+
+/* ---------- connections ---------- */
+
+.flow-connection {
+  stroke: #64798a;
+  stroke-width: 1.6;
+}
+
+.flow-connection.is-selected {
+  stroke: var(--paper-accent);
+  stroke-width: 2.4;
+}
+
+.flow-connection.is-unencrypted {
+  stroke: #d13212;
+}
+
+.flow-connection.is-affected {
+  stroke: #d97706;
+}
+
+.flow-connection-label {
+  fill: var(--paper-ink-muted);
+  font-size: 9px;
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+/* ---------- pinned canvas chrome ---------- */
+
+.flow-canvas-controls,
+.flow-minimap {
+  z-index: 6;
+  border-color: var(--paper-line);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(4px);
+}
+
+.flow-canvas-controls button {
+  border-bottom-color: var(--paper-line);
+  color: var(--paper-ink-muted);
+}
+
+.flow-canvas-controls button:hover {
+  color: var(--paper-accent);
+  background: rgba(9, 114, 211, 0.08);
+}
+
+.flow-canvas-controls output {
+  border-block-color: var(--paper-line);
+  color: var(--paper-ink-muted);
+}
+
+.flow-empty-state {
+  z-index: 5;
+  color: var(--paper-ink-muted);
+}
+
+.flow-empty-state strong {
+  color: var(--paper-ink);
+}
+
+/* Zone bands from the trust-boundaries work, retinted for white paper.
+   The upstream rules colour each band via :nth-child, so these have to match
+   that specificity rather than relying on a bare element selector. */
+.flow-zone-bands {
+  z-index: 0;
+}
+
+.flow-zone-bands span,
+.flow-zone-bands span:nth-child(2),
+.flow-zone-bands span:nth-child(3) {
+  color: #64798a;
+  border-color: rgba(15, 23, 42, 0.14);
+  background: rgba(15, 23, 42, 0.012);
+}
+
+.flow-zone-bands span:nth-child(2) {
+  border-color: rgba(16, 122, 87, 0.22);
+}
+
+.flow-zone-bands span:nth-child(3) {
+  border-color: rgba(9, 114, 211, 0.2);
+}
+
+/* Guided mode restyles the bands with a higher-specificity selector in
+   studio-shell.css, so the paper treatment has to match that weight. */
+.flow-studio[data-studio-experience="guided"] .flow-zone-bands span,
+.flow-studio[data-studio-experience="guided"] .flow-zone-bands span:nth-child(2),
+.flow-studio[data-studio-experience="guided"] .flow-zone-bands span:nth-child(3) {
+  color: #64798a;
+  border-color: rgba(15, 23, 42, 0.14);
+  background: rgba(15, 23, 42, 0.012);
+}
+
+/* ---------- zoom readout in the status bar ---------- */
+
+.flow-canvas-zoom {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-node {
+    transition: none;
+  }
+}
+
+/* Minimap sits on white too, so its marks need ink-side contrast. */
+.flow-minimap-line {
+  stroke: rgba(15, 23, 42, 0.28);
+}
+
+.flow-minimap-node {
+  fill: var(--paper-accent);
+}

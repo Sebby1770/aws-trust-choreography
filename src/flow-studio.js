@@ -9,6 +9,7 @@
  * @param {object} iconCatalogMeta - catalog metadata (release, count, ...)
  */
 import { reviewAwsArchitecture } from "./aws-review-model.js";
+import { svgFileName, toSvg } from "./svg-export.js";
 import { matchIcon } from "./icon-match.js";
 import {
   classifyCrossing,
@@ -70,6 +71,9 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     architectureName: document.getElementById("flowArchitectureName"),
     canvasHint: document.getElementById("flowCanvasHint"),
     canvas: document.getElementById("flowCanvas"),
+    viewport: document.getElementById("flowViewport"),
+    surface: document.getElementById("flowSurface"),
+    canvasZoom: document.getElementById("flowCanvasZoom"),
     connections: document.getElementById("flowConnections"),
     nodeLayer: document.getElementById("flowNodeLayer"),
     emptyState: document.getElementById("flowEmptyState"),
@@ -150,6 +154,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     region: "us-east-1",
     grid: true,
     zoom: 1,
+    canvasZoom: "fit",
     nodes: [],
     connections: [],
   };
@@ -160,6 +165,12 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     encrypted: true,
     ...connection,
   }));
+
+  // Diagrams saved before the canvas gained a zoom have no canvasZoom, which
+  // would otherwise resolve to NaN and silently pin the surface at 100%.
+  if (state.canvasZoom === undefined || state.canvasZoom === null) {
+    state.canvasZoom = "fit";
+  }
 
   function clamp(value, minimum, maximum) {
     return Math.min(maximum, Math.max(minimum, value));
@@ -193,6 +204,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       region: state.region,
       grid: state.grid,
       zoom: state.zoom,
+      canvasZoom: state.canvasZoom,
       nodes: state.nodes,
       connections: state.connections,
     });
@@ -499,8 +511,24 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     });
   }
 
+  // Unscaled surface box, in CSS pixels — the coordinate space the SVG and
+  // node percentages are authored against.
+  function surfaceSize() {
+    return {
+      width: Math.max(1, elements.surface.offsetWidth),
+      height: Math.max(1, elements.surface.offsetHeight),
+    };
+  }
+
+  // On-screen box of the surface, which already reflects the zoom transform.
+  // Normalising a pointer position against it therefore needs no extra
+  // division by the scale factor.
+  function surfaceRect() {
+    return elements.surface.getBoundingClientRect();
+  }
+
   function connectionPath(from, to) {
-    const rect = elements.canvas.getBoundingClientRect();
+    const rect = surfaceSize();
     const x1 = from.x * rect.width;
     const y1 = from.y * rect.height;
     const x2 = to.x * rect.width;
@@ -512,7 +540,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
 
   function renderConnections() {
     const nodeMap = new Map(state.nodes.map((node) => [node.id, node]));
-    const rect = elements.canvas.getBoundingClientRect();
+    const rect = surfaceSize();
     elements.connections.setAttribute(
       "viewBox",
       `0 0 ${Math.max(1, rect.width)} ${Math.max(1, rect.height)}`
@@ -530,7 +558,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     marker.setAttribute("orient", "auto-start-reverse");
     const arrow = document.createElementNS("http://www.w3.org/2000/svg", "path");
     arrow.setAttribute("d", "M 0 0 L 10 5 L 0 10 z");
-    arrow.setAttribute("fill", "#b8c7cd");
+    arrow.setAttribute("fill", "#64798a");
     marker.append(arrow);
     defs.append(marker);
     elements.connections.append(defs);
@@ -587,9 +615,93 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     });
   }
 
+  const CANVAS_ZOOM_MIN = 0.15;
+  const CANVAS_ZOOM_MAX = 2;
+
+  // "fit" frames the diagram, not the empty surface. Fitting the whole 2400px
+  // canvas would shrink a handful of nodes to specks; fitting their bounding
+  // box keeps them readable however large the surface is.
+  function contentBounds() {
+    if (!state.nodes.length) return null;
+    const xs = state.nodes.map((node) => node.x);
+    const ys = state.nodes.map((node) => node.y);
+    return {
+      minX: Math.min(...xs),
+      maxX: Math.max(...xs),
+      minY: Math.min(...ys),
+      maxY: Math.max(...ys),
+    };
+  }
+
+  function fitScale() {
+    const available = elements.viewport.getBoundingClientRect();
+    const surface = surfaceSize();
+    if (!available.width || !available.height) return 1;
+
+    const bounds = contentBounds();
+    // Pad so nodes near the edge of the span are not clipped by their own width.
+    const spanX = bounds ? Math.max(0.12, bounds.maxX - bounds.minX) + 0.12 : 1;
+    const spanY = bounds ? Math.max(0.12, bounds.maxY - bounds.minY) + 0.16 : 1;
+
+    return clamp(
+      Math.min(
+        available.width / (surface.width * spanX),
+        available.height / (surface.height * spanY)
+      ),
+      CANVAS_ZOOM_MIN,
+      CANVAS_ZOOM_MAX
+    );
+  }
+
+  // After a fit, bring the diagram into view rather than leaving the scroller
+  // parked at the top-left of a mostly empty surface.
+  function scrollToContent() {
+    const bounds = contentBounds();
+    if (!bounds) return;
+    const scale = resolvedCanvasScale();
+    const surface = surfaceSize();
+    const centreX = ((bounds.minX + bounds.maxX) / 2) * surface.width * scale;
+    const centreY = ((bounds.minY + bounds.maxY) / 2) * surface.height * scale;
+    elements.viewport.scrollTo({
+      left: Math.max(0, centreX - elements.viewport.clientWidth / 2),
+      top: Math.max(0, centreY - elements.viewport.clientHeight / 2),
+      behavior: "auto",
+    });
+  }
+
+  function resolvedCanvasScale() {
+    if (state.canvasZoom === "fit") return fitScale();
+    const numeric = Number(state.canvasZoom);
+    return Number.isFinite(numeric) && numeric > 0
+      ? clamp(numeric, CANVAS_ZOOM_MIN, CANVAS_ZOOM_MAX)
+      : 1;
+  }
+
+  function applyCanvasZoom() {
+    const scale = resolvedCanvasScale();
+    elements.canvas.style.setProperty("--flow-scale", String(scale));
+    if (elements.canvasZoom) {
+      elements.canvasZoom.value = String(state.canvasZoom);
+    }
+    return scale;
+  }
+
+  function setCanvasZoom(value, { silent = false } = {}) {
+    state.canvasZoom = value;
+    const scale = applyCanvasZoom();
+    if (!silent) {
+      const label = value === "fit" ? `Fit (${Math.round(scale * 100)}%)` : `${Math.round(scale * 100)}%`;
+      markUnsaved(`Canvas zoom set to ${label}`);
+    }
+    renderConnections();
+    renderMinimap();
+    scrollToContent();
+  }
+
   function renderNodes() {
     elements.nodeLayer.replaceChildren();
     elements.canvas.style.setProperty("--flow-zoom", String(state.zoom));
+    applyCanvasZoom();
     state.nodes.forEach((node) => {
       const button = document.createElement("button");
       button.type = "button";
@@ -1067,6 +1179,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   }
 
   function refreshLayout() {
+    applyCanvasZoom();
     renderConnections();
     renderMinimap();
   }
@@ -1365,6 +1478,17 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     if (tab === "chaos" && !chaosReport) renderChaos();
   }
 
+  function adjustCanvasZoom(direction) {
+    const stops = [0.25, 0.5, 0.75, 1, 1.5, 2];
+    const current = resolvedCanvasScale();
+    const index = stops.reduce(
+      (closest, stop, i) =>
+        Math.abs(stop - current) < Math.abs(stops[closest] - current) ? i : closest,
+      0
+    );
+    setCanvasZoom(String(stops[clamp(index + direction, 0, stops.length - 1)]));
+  }
+
   function adjustZoom(direction) {
     const levels = [0.75, 0.9, 1, 1.15, 1.3];
     const currentIndex = levels.reduce(
@@ -1474,32 +1598,13 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${
-      state.name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "") || "aws-architecture"
-    }.json`;
+    link.download = `${svgFileName(state.name)}.json`;
     document.body.append(link);
     link.click();
     link.remove();
     URL.revokeObjectURL(url);
     elements.statusMessage.textContent = "Architecture exported as JSON";
     elements.statusMessage.style.color = "var(--cyan)";
-  }
-
-  function escapeXml(value) {
-    return String(value).replace(
-      /[<>&"']/g,
-      (character) =>
-        ({
-          "<": "&lt;",
-          ">": "&gt;",
-          "&": "&amp;",
-          '"': "&quot;",
-          "'": "&apos;",
-        })[character]
-    );
   }
 
   async function iconAsDataUrl(path) {
@@ -1521,50 +1626,18 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   }
 
   async function exportSvgArchitecture() {
-    const width = 1600;
-    const height = 900;
     const iconEntries = await Promise.all(
       state.nodes.map(async (node) => [node.id, await iconAsDataUrl(node.iconPath)])
     );
-    const iconMap = new Map(iconEntries);
-    const nodeMap = new Map(state.nodes.map((node) => [node.id, node]));
-    const lines = state.connections
-      .map((connection) => {
-        const from = nodeMap.get(connection.from);
-        const to = nodeMap.get(connection.to);
-        if (!from || !to) {
-          return "";
-        }
-        const x1 = from.x * width;
-        const y1 = from.y * height;
-        const x2 = to.x * width;
-        const y2 = to.y * height;
-        const bend = Math.max(60, Math.abs(x2 - x1) * 0.42) * (x2 >= x1 ? 1 : -1);
-        const dash =
-          connection.type === "event" || connection.type === "telemetry"
-            ? ' stroke-dasharray="10 8"'
-            : "";
-        return `<path d="M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 - bend} ${y2}, ${x2} ${y2}" fill="none" stroke="#9db7c3" stroke-width="3"${dash} marker-end="url(#arrow)"/><text x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 12}" fill="#bfd0d7" font-size="16" text-anchor="middle">${escapeXml(connection.label || "Path")}</text>`;
-      })
-      .join("");
-    const nodes = state.nodes
-      .map((node) => {
-        const x = node.x * width;
-        const y = node.y * height;
-        return `<g transform="translate(${x - 58} ${y - 58})"><rect width="116" height="116" rx="6" fill="#07141d" stroke="${criticalityColors[node.criticality] || criticalityColors.medium}"/><image href="${escapeXml(iconMap.get(node.id))}" x="31" y="12" width="54" height="54"/><text x="58" y="88" fill="#f5fafc" font-size="15" font-weight="700" text-anchor="middle">${escapeXml(node.name.slice(0, 22))}</text><text x="58" y="106" fill="#8fa3ad" font-size="11" text-anchor="middle">${escapeXml(node.environment)}</text></g>`;
-      })
-      .join("");
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="#16303c" stroke-width="1"/></pattern><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9db7c3"/></marker></defs><rect width="100%" height="100%" fill="#06131d"/><rect width="100%" height="100%" fill="url(#grid)"/><text x="38" y="48" fill="#ffffff" font-size="24" font-family="system-ui" font-weight="700">${escapeXml(state.name)}</text><text x="38" y="74" fill="#8fa3ad" font-size="14" font-family="system-ui">${escapeXml(state.region)} · AWS Flow Studio</text><g font-family="system-ui">${lines}${nodes}</g></svg>`;
+    const svg = toSvg(state, {
+      icons: new Map(iconEntries),
+      criticalityColors,
+    });
     const blob = new Blob([svg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${
-      state.name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "") || "aws-architecture"
-    }.svg`;
+    link.download = `${svgFileName(state.name)}.svg`;
     document.body.append(link);
     link.click();
     link.remove();
@@ -1636,6 +1709,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       state.region = String(imported.region || "us-east-1");
       state.grid = imported.grid !== false;
       state.zoom = clamp(Number(imported.zoom) || 1, 0.75, 1.3);
+      state.canvasZoom = imported.canvasZoom ?? "fit";
       state.nodes = validNodes;
       state.connections = validConnections;
       selectedNodeId = validNodes[0]?.id || null;
@@ -1789,7 +1863,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
       event.dataTransfer?.getData("text/plain");
     const icon = catalog.find((item) => item.id === iconId);
     if (!icon) return;
-    const rect = elements.canvas.getBoundingClientRect();
+    const rect = surfaceRect();
     addNodeAt(
       icon,
       (event.clientX - rect.left) / rect.width,
@@ -1858,7 +1932,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     if (!dragState) {
       return;
     }
-    const rect = elements.canvas.getBoundingClientRect();
+    const rect = surfaceRect();
     const dx = (event.clientX - dragState.startX) / Math.max(1, rect.width);
     const dy = (event.clientY - dragState.startY) / Math.max(1, rect.height);
     dragState.node.x = clamp(dragState.originalX + dx, 0.06, 0.94);
@@ -1965,8 +2039,9 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   elements.runSimulationButton.addEventListener("click", toggleTrafficSimulation);
   elements.injectFailureButton.addEventListener("click", injectFailure);
   elements.resetSimulationButton.addEventListener("click", resetSimulation);
-  elements.zoomInButton.addEventListener("click", () => adjustZoom(1));
-  elements.zoomOutButton.addEventListener("click", () => adjustZoom(-1));
+  elements.zoomInButton.addEventListener("click", () => adjustCanvasZoom(1));
+  elements.zoomOutButton.addEventListener("click", () => adjustCanvasZoom(-1));
+  elements.canvasZoom.addEventListener("change", () => setCanvasZoom(elements.canvasZoom.value));
   elements.libraryToggle.addEventListener("click", () => {
     const studio = elements.canvas.closest(".flow-studio");
     const collapsed = studio.classList.toggle("is-library-collapsed");
@@ -2067,6 +2142,29 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
   });
 
   global.addEventListener("resize", refreshLayout);
+
+  // The studio view is display:none until it is opened, so the first fit can
+  // run against a zero-size viewport. Observing the viewport re-fits as soon
+  // as it actually has a box, instead of relying on a timer.
+  if (typeof ResizeObserver === "function") {
+    let lastWidth = 0;
+    let lastHeight = 0;
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      const { width, height } = entry.contentRect;
+      if (!width || !height) return;
+      if (Math.abs(width - lastWidth) < 1 && Math.abs(height - lastHeight) < 1) return;
+      lastWidth = width;
+      lastHeight = height;
+      if (state.canvasZoom === "fit") {
+        applyCanvasZoom();
+        renderConnections();
+        scrollToContent();
+      }
+    });
+    observer.observe(elements.viewport);
+  }
   if (typeof global.ResizeObserver === "function") {
     const canvasObserver = new global.ResizeObserver(refreshLayout);
     canvasObserver.observe(elements.canvas);
