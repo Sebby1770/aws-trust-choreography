@@ -350,3 +350,45 @@
 .network-lab.is-canvas-focus .network-zone-services {
   background: rgba(16, 122, 87, 0.03);
 }
+
+/* ---------- maximised: fill the viewport ---------- */
+
+/* The canvas-only layout caps the lab at `min(84vh, 980px)`, which left a band
+   of page background under the canvas once the header was hidden. Maximised
+   means maximised — take the full height the shell gives us. */
+.app-shell.is-workspace-maximised .flow-studio.is-canvas-focus,
+.app-shell.is-workspace-maximised .network-lab.is-canvas-focus {
+  height: 100%;
+  max-height: none;
+}
+
+.app-shell.is-workspace-maximised[data-active-view="studio"] .view-studio,
+.app-shell.is-workspace-maximised[data-active-view="network"] .view-network {
+  height: 100%;
+  min-height: 0;
+}
+
+/* ---------- device icons ---------- */
+
+.network-device-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.network-node-glyph,
+.network-device-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.network-node-glyph {
+  width: 26px;
+  height: 26px;
+}
+
+.network-device-glyph {
+  width: 22px;
+  height: 22px;
+}
