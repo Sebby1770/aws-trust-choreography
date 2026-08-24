@@ -2,6 +2,29 @@
 
 All notable changes to this project are documented here.
 
+## 2026-08-24 — Nothing but the canvas, in both labs
+
+### Changed
+
+- **Every remaining strip of chrome now lives in the drawer.** The toolbar, architecture name,
+  templates, Guided/Pro/Help, the cost estimate, the simulation controls and the status bar are
+  reached from a new **Tools** tab beside Library and Insights. Chrome above the canvas went from
+  105px to 1px — the lab is the drawing surface and nothing else.
+- **The Network Lab gets the same treatment**: same dropdown, same Panels drawer, same three
+  tabs, and the same white paper canvas, node cards and zone bands as the AWS studio. The two
+  labs are now described by one config in `canvas-focus.js` rather than two implementations.
+- The chrome is **relocated at runtime, not duplicated or rebuilt**, so every control in the
+  drawer is the same element the labs already wired up — a listener attached before the move
+  still fires after it.
+
+### Fixed
+
+- `document.ownerDocument` is null, so building the drawer against the document threw and left
+  both labs without panels.
+- `.app-shell[data-active-view] .flow-studio` sets the lab layout at a higher specificity than a
+  plain `.flow-studio.is-canvas-focus`, so the canvas-only layout was being ignored and left a
+  68px band of shell background under the canvas.
+
 ## 2026-08-24 — Canvas-first studio
 
 ### Changed

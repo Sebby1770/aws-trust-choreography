@@ -1,16 +1,13 @@
 /* ============================================================
-   Canvas focus — the studio is the canvas.
+   Canvas focus — the lab is the canvas.
 
-   The studio had five stacked rows of chrome above the drawing surface
-   (title, meta, toolbar, guided steps, architecture bar) plus a fixed
-   library column and inspector column either side. This collapses that
-   to a single slim toolbar over a full-width canvas, and turns the two
-   side columns into one slide-over drawer.
+   Both labs stacked chrome above the drawing surface and pinned a status
+   bar below it, with a library column and inspector column either side.
+   Everything except the canvas now lives in one slide-over drawer opened
+   from the header, with Library / Tools / Insights tabs.
 
-   Nothing is removed — the library, inspector, cost, and insights all
-   live in the drawer, and the workspace nav lives in a dropdown. The
-   markup is untouched apart from the dropdown, the drawer toggle, and
-   the drawer's own tab strip, so every existing control keeps working.
+   The chrome is moved (see src/canvas-focus.js), never duplicated, so the
+   controls in the drawer are the same elements the labs already wired up.
    ============================================================ */
 
 /* ---------- header: workspace dropdown ---------- */
@@ -93,8 +90,8 @@
   white-space: nowrap;
 }
 
-/* Only meaningful while a canvas workspace is on screen. */
-.app-shell[data-active-view="studio"] .studio-drawer-toggle {
+.app-shell[data-active-view="studio"] .studio-drawer-toggle,
+.app-shell[data-active-view="network"] .studio-drawer-toggle {
   display: inline-flex;
 }
 
@@ -103,119 +100,144 @@
   color: var(--flow-cyan, #42d6f5);
 }
 
-/* ---------- studio: strip the chrome down to one row ---------- */
+/* ---------- leave the canvas on its own ---------- */
 
-.flow-studio.is-canvas-focus .flow-studio-brand,
-.flow-studio.is-canvas-focus .flow-guidance {
-  display: none;
-}
-
-/* Hiding the guidance strip removes a grid item, which shifts every later
-   child up one row — the canvas would land on an `auto` row and collapse to
-   zero while the simulation bar absorbed the free space. Restate the rows for
-   the three items that remain: titlebar, canvas, simulation. */
-.flow-studio.is-canvas-focus .flow-canvas-shell {
-  grid-template-rows: auto minmax(0, 1fr) auto;
-}
-
-/* Both of these strips are grids whose column templates assume every child is
-   present. Hiding any of them shifts the rest into the wrong tracks (that is
-   what squashed the architecture name to 30px). Flex sizes what is actually
-   there, so the layout no longer depends on the hidden-child count. */
+/* The headers and footers are emptied by the move; collapse what remains so
+   they take no vertical space. */
 .flow-studio.is-canvas-focus .flow-studio-head,
-.flow-studio.is-canvas-focus .flow-canvas-titlebar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem 0.7rem;
-  padding: 0.4rem 0.65rem;
-}
-
-.flow-studio.is-canvas-focus .flow-canvas-titlebar #flowArchitectureName {
-  flex: 0 1 260px;
-  min-width: 150px;
-}
-
-/* Tools sit at the trailing edge of their strip. */
-.flow-studio.is-canvas-focus .flow-toolbar,
-.flow-studio.is-canvas-focus .flow-canvas-titlebar .flow-template-menu {
-  margin-left: auto;
-}
-
-.flow-studio.is-canvas-focus .flow-studio-meta {
-  font-size: 0.68rem;
-}
-
-.flow-studio.is-canvas-focus .flow-canvas-titlebar {
-  min-height: 38px;
-  padding: 0.3rem 0.6rem;
-}
-
-/* Coaching copy and the counters are guidance, not controls. The cost badge
-   stays because it is the one number worth watching while you build. */
-.flow-studio.is-canvas-focus #flowCanvasHint,
-.flow-studio.is-canvas-focus .flow-canvas-titlebar > label,
-.flow-studio.is-canvas-focus .flow-studio-meta > span:not(.flow-cost-badge) {
+.network-lab.is-canvas-focus .network-lab-head,
+.flow-studio.is-canvas-focus .flow-guidance,
+.network-lab.is-canvas-focus .network-guidance {
   display: none;
 }
 
-/* Both of these now duplicate the header's Panels button. */
-.flow-studio.is-canvas-focus #flowInspectorToggleCompact {
-  display: none;
+/* The lab section is taller than its workspace, which left a band of the dark
+   shell background under the canvas. Let the workspace own the whole height.
+   `.app-shell[data-active-view] .flow-studio` sets the layout at specificity
+   (0,3,0), so these have to match it to win. With the head hidden the
+   workspace is the only in-flow child, hence the single row. */
+.app-shell .flow-studio.is-canvas-focus,
+.app-shell .network-lab.is-canvas-focus {
+  grid-template-rows: minmax(0, 1fr);
+  height: min(84vh, 980px);
+  padding: 0;
+  overflow: hidden;
 }
 
-/* ---------- workspace: one full-width canvas ---------- */
-
-.flow-studio.is-canvas-focus .flow-workspace {
+.app-shell .flow-studio.is-canvas-focus .flow-workspace,
+.app-shell .network-lab.is-canvas-focus .network-workspace {
   position: relative;
   grid-template-columns: minmax(0, 1fr);
-  height: min(78vh, 900px);
+  height: 100%;
+  min-height: 0;
+}
+
+/* With the titlebar and the simulation strip moved out, the shell holds the
+   canvas alone. Stating one row keeps the canvas from landing on an `auto`
+   track and collapsing. */
+.flow-studio.is-canvas-focus .flow-canvas-shell,
+.network-lab.is-canvas-focus .network-canvas-shell {
+  grid-template-rows: minmax(0, 1fr);
+  border-right: 0;
 }
 
 /* ---------- the drawer ---------- */
 
-/* The drawer owns panel visibility here, so the older collapse/focus rules
-   (which hide these with `display: none !important`) must be neutralised. */
 .flow-studio.is-canvas-focus .flow-library {
   display: grid !important;
 }
 
-.flow-studio.is-canvas-focus .flow-inspector {
+.flow-studio.is-canvas-focus .flow-inspector,
+.network-lab.is-canvas-focus .network-palette,
+.network-lab.is-canvas-focus .network-inspector {
   display: block !important;
 }
 
 .flow-studio.is-canvas-focus .flow-library,
-.flow-studio.is-canvas-focus .flow-inspector {
+.flow-studio.is-canvas-focus .flow-inspector,
+.network-lab.is-canvas-focus .network-palette,
+.network-lab.is-canvas-focus .network-inspector,
+.lab-tools-panel {
   position: absolute;
   z-index: 20;
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(360px, 88vw);
+  width: min(380px, 90vw);
+  padding-top: 42px;
+  overflow: auto;
   border-left: 1px solid var(--flow-line, rgba(167, 190, 202, 0.18));
   box-shadow: -18px 0 42px rgba(2, 8, 15, 0.34);
+  background: var(--flow-panel, #0a1622);
   transform: translateX(102%);
   transition: transform 180ms ease;
-  will-change: transform;
 }
 
-.flow-studio.is-canvas-focus[data-drawer="library"] .flow-library,
-.flow-studio.is-canvas-focus[data-drawer="insights"] .flow-inspector {
+.is-canvas-focus[data-drawer="library"] .flow-library,
+.is-canvas-focus[data-drawer="library"] .network-palette,
+.is-canvas-focus[data-drawer="insights"] .flow-inspector,
+.is-canvas-focus[data-drawer="insights"] .network-inspector,
+.is-canvas-focus[data-drawer="tools"] .lab-tools-panel {
   transform: none;
 }
 
-/* Keep the hidden panel out of the tab order and off the a11y tree. */
-.flow-studio.is-canvas-focus:not([data-drawer="library"]) .flow-library,
-.flow-studio.is-canvas-focus:not([data-drawer="insights"]) .flow-inspector {
+/* Keep the hidden panels off the accessibility tree. */
+.is-canvas-focus:not([data-drawer="library"]) .flow-library,
+.is-canvas-focus:not([data-drawer="library"]) .network-palette,
+.is-canvas-focus:not([data-drawer="insights"]) .flow-inspector,
+.is-canvas-focus:not([data-drawer="insights"]) .network-inspector,
+.is-canvas-focus:not([data-drawer="tools"]) .lab-tools-panel {
   visibility: hidden;
 }
 
-/* The drawer's own tab strip rides on the panel's leading edge. */
-.studio-drawer-tabs {
+/* ---------- tools panel contents ---------- */
+
+.lab-tools-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-right: 0.7rem;
+  padding-bottom: 0.9rem;
+  padding-left: 0.7rem;
+}
+
+/* The relocated strips were laid out as wide bars. In a narrow column they
+   read better stacked and wrapping. */
+.lab-tools-panel > * {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  width: 100%;
+  min-height: 0;
+  padding: 0.45rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--flow-line, rgba(167, 190, 202, 0.14));
+  background: transparent;
+}
+
+.lab-tools-panel > *:last-child {
+  border-bottom: 0;
+}
+
+.lab-tools-panel input[type="text"] {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+/* The toolbar's "Canvas" caption is redundant once it sits under a Tools tab. */
+.lab-tools-panel .flow-toolbar-label,
+.lab-tools-panel .network-toolbar-label {
   display: none;
 }
 
-.flow-studio.is-canvas-focus[data-drawer] .studio-drawer-tabs {
+/* ---------- drawer tab strip ---------- */
+
+.lab-drawer-tabs {
+  display: none;
+}
+
+.is-canvas-focus[data-drawer] .lab-drawer-tabs {
   position: absolute;
   z-index: 21;
   top: 0;
@@ -223,54 +245,54 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  width: min(360px, 88vw);
+  width: min(380px, 90vw);
   padding: 6px 6px 6px 10px;
   border-bottom: 1px solid var(--flow-line, rgba(167, 190, 202, 0.18));
-  background: var(--surface, #0b1622);
+  background: var(--flow-panel, #0a1622);
 }
 
-.studio-drawer-tabs button {
-  padding: 0.32rem 0.6rem;
+.lab-drawer-tabs button {
+  padding: 0.32rem 0.55rem;
   border: 1px solid transparent;
   border-radius: 7px;
   background: transparent;
   color: var(--muted, #8fa3ad);
   cursor: pointer;
   font: inherit;
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   font-weight: 700;
 }
 
-.studio-drawer-tabs button:hover {
+.lab-drawer-tabs button:hover {
   color: var(--text, #e8f1f5);
 }
 
-.studio-drawer-tabs button[aria-selected="true"] {
+.lab-drawer-tabs button[aria-selected="true"] {
   border-color: var(--flow-cyan, #42d6f5);
   color: var(--flow-cyan, #42d6f5);
 }
 
-.studio-drawer-close {
+.lab-drawer-close {
   margin-left: auto;
-  font-size: 1rem !important;
+  font-size: 1rem;
   line-height: 1;
 }
 
-/* Push the panels clear of the tab strip. */
-.flow-studio.is-canvas-focus .flow-library,
-.flow-studio.is-canvas-focus .flow-inspector {
-  padding-top: 42px;
-}
-
-/* The in-canvas toggles duplicate the drawer, so retire them here. */
-.flow-studio.is-canvas-focus #flowLibraryToggle,
-.flow-studio.is-canvas-focus #flowInspectorToggle {
+/* In-canvas panel toggles are superseded by the drawer. */
+.is-canvas-focus #flowLibraryToggle,
+.is-canvas-focus #flowInspectorToggle,
+.is-canvas-focus #flowInspectorToggleCompact,
+.is-canvas-focus #networkPaletteToggle,
+.is-canvas-focus #networkInspectorToggle {
   display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .flow-studio.is-canvas-focus .flow-library,
-  .flow-studio.is-canvas-focus .flow-inspector {
+  .flow-studio.is-canvas-focus .flow-inspector,
+  .network-lab.is-canvas-focus .network-palette,
+  .network-lab.is-canvas-focus .network-inspector,
+  .lab-tools-panel {
     transition: none;
   }
 }
@@ -279,4 +301,52 @@
   .studio-drawer-toggle-label {
     display: none;
   }
+}
+
+/* ---------- network lab: same white paper as the AWS canvas ---------- */
+
+.network-lab.is-canvas-focus .network-canvas {
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.07) 1px, transparent 1px),
+    linear-gradient(rgba(15, 23, 42, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.11) 1px, transparent 1px), #ffffff;
+  background-size:
+    32px 32px,
+    32px 32px,
+    160px 160px,
+    160px 160px,
+    auto;
+}
+
+.network-lab.is-canvas-focus .network-node {
+  color: #0f2027;
+  border-color: #cbd5dd;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.network-lab.is-canvas-focus .network-node small,
+.network-lab.is-canvas-focus .network-node span {
+  color: #5b6b76;
+}
+
+.network-lab.is-canvas-focus .network-link {
+  stroke: #64798a;
+}
+
+/* The zone bands are a dark wash that reads as heavy grey blocks on white.
+   Keep them as faint guides rather than filled slabs. */
+.network-lab.is-canvas-focus .network-zone {
+  color: #64798a;
+  border-color: rgba(15, 23, 42, 0.1);
+  background: rgba(15, 23, 42, 0.014);
+}
+
+.network-lab.is-canvas-focus .network-zone-lan {
+  background: rgba(9, 114, 211, 0.03);
+}
+
+.network-lab.is-canvas-focus .network-zone-services {
+  background: rgba(16, 122, 87, 0.03);
 }
