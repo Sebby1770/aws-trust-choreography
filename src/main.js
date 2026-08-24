@@ -15,6 +15,7 @@ import { initSpotlight } from "./spotlight.js";
 import { initProjectLaunchpad } from "./project-launchpad.js";
 import { initNetworkLab } from "./network-lab.js";
 import { initStudioShell } from "./studio-shell.js";
+import { initCanvasFocus } from "./canvas-focus.js";
 import { initReviewCenter } from "./review-center.js";
 import { initWorkspaceCommands } from "./workspace-commands.js";
 
@@ -31,6 +32,7 @@ ready(() => {
   initAnimatedContent();
   initSpotlight();
   const studioShell = initStudioShell();
+  initCanvasFocus();
   const networkLab = initNetworkLab();
   let reviewCenter = null;
   let views = null;

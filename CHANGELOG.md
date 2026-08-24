@@ -2,6 +2,63 @@
 
 All notable changes to this project are documented here.
 
+## 2026-08-24 — Canvas-first studio
+
+### Changed
+
+- **The studio is the canvas now.** It previously stacked five strips above the drawing surface
+  (title, meta, toolbar, guided steps, architecture bar) and pinned a library column and an
+  inspector column either side. That is now one slim toolbar over a full-width canvas.
+- **The workspace switcher is a dropdown** beside the wordmark instead of four header tabs, so
+  the header is a single row and reads as one control rather than a row of competing pills.
+- **The library and the inspector share one slide-over drawer**, opened by a **Panels** button at
+  the far end of the header and switched with Library / Insights tabs. Closing it returns the
+  full width to the canvas. The drawer remembers which panel you had open and whether it was
+  open at all; Escape closes it.
+- Nothing was removed — the library, inspector, cost estimate, insights, chaos lab, and every
+  toolbar control are all still there, just reached from the drawer or the dropdown. The
+  implementation is additive (classes and a `data-drawer` attribute over the existing markup),
+  so the controls the studio already wired up are untouched.
+
+### Fixed
+
+- Hidden panels no longer stay in the tab order or the accessibility tree — the closed side of
+  the drawer is marked `inert`.
+- The older per-panel collapse and focus modes are cleared when the canvas layout is on. Left
+  set, their `display: none !important` kept the drawer permanently empty.
+
+## 2026-08-23 — A paper canvas for large architectures
+
+### Added
+
+- **A real canvas zoom.** The diagram now lives on a fixed 2400 x 1500 surface that is visually
+  scaled and scrolled, so architectures are no longer capped at whatever fits the viewport. Zoom
+  runs from 25% to 200% via the status-bar control or the canvas +/- buttons, which previously
+  resized node cards rather than zooming the diagram.
+- **Fit frames the diagram, not the canvas.** "Fit" measures the bounding box of your nodes and
+  scales to that, then scrolls it into view — fitting the whole empty surface would shrink a
+  handful of services to specks.
+- **`svg-export.js`** — the SVG exporter is now a pure, unit-tested module alongside the
+  Terraform and Mermaid exporters, instead of a string template buried in the studio closure.
+
+### Changed
+
+- **The canvas is white paper in every theme.** Official AWS icons are drawn for white
+  backgrounds, and exported diagrams land in READMEs and docs that are white. Node cards,
+  labels, connection strokes, arrowheads, zone bands, the minimap, and the grid were all
+  retinted for ink-on-white contrast.
+- **Nodes are compact** — 76px wide with 34px icons (was 104px/46px), so noticeably more of a
+  real architecture is legible at once. The "Node size" control still scales them from there.
+- **SVG export matches the canvas**, replacing the dark `#06131d` backdrop and light-on-dark
+  text with the same white palette used on screen.
+
+### Fixed
+
+- Diagrams saved before this release have no stored canvas zoom. That resolved to `NaN` and
+  silently pinned the surface at 100% instead of fitting; legacy state is now migrated to "fit".
+- The studio view is `display:none` until opened, so the first fit could run against a
+  zero-size viewport and stick at 100%. A `ResizeObserver` re-fits once the viewport has a box.
+
 ## 2026-08-22 — Chaos Lab: availability math, SPOF detection, failure rehearsal
 
 ### Added

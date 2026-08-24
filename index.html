@@ -52,6 +52,8 @@
     <link rel="stylesheet" href="studio-shell.css" />
     <link rel="stylesheet" href="network-lab.css" />
     <link rel="stylesheet" href="review-center.css" />
+    <link rel="stylesheet" href="canvas-paper.css" />
+    <link rel="stylesheet" href="canvas-focus.css" />
   </head>
   <body>
     <a class="skip-link" href="#workspaceContentStart">Skip to workspace content</a>
@@ -70,13 +72,40 @@
         </button>
 
         <nav class="workspace-nav" aria-label="Primary navigation">
-          <button type="button" data-view-target="home" aria-current="page">Explore</button>
-          <button type="button" data-view-target="studio">AWS Studio</button>
-          <button type="button" data-view-target="network">Network Lab</button>
-          <button type="button" data-view-target="review">Review</button>
+          <details class="workspace-menu" id="workspaceMenu">
+            <summary
+              id="workspaceMenuTrigger"
+              role="button"
+              aria-haspopup="menu"
+              title="Switch workspace"
+            >
+              <span id="workspaceMenuLabel">Explore</span>
+              <span class="workspace-menu-caret" aria-hidden="true">&#9662;</span>
+            </summary>
+            <div class="workspace-menu-list" role="menu">
+              <button type="button" role="menuitem" data-view-target="home" aria-current="page">
+                Explore
+              </button>
+              <button type="button" role="menuitem" data-view-target="studio">AWS Studio</button>
+              <button type="button" role="menuitem" data-view-target="network">Network Lab</button>
+              <button type="button" role="menuitem" data-view-target="review">Review</button>
+            </div>
+          </details>
         </nav>
 
         <div class="header-actions">
+          <button
+            class="header-icon studio-drawer-toggle"
+            id="studioDrawerToggle"
+            type="button"
+            aria-controls="flowLibrary flowInspector"
+            aria-expanded="false"
+            aria-pressed="false"
+            title="Show the icon library, cost and insights"
+          >
+            <span aria-hidden="true">&#9776;</span
+            ><span class="studio-drawer-toggle-label">Panels</span>
+          </button>
           <button
             class="header-icon workspace-chrome-toggle"
             id="workspaceChromeToggle"
@@ -825,6 +854,23 @@
           </header>
 
           <div class="flow-workspace">
+            <div class="studio-drawer-tabs" id="studioDrawerTabs" role="tablist" aria-label="Panel">
+              <button type="button" role="tab" data-drawer-panel="library" aria-selected="true">
+                Library
+              </button>
+              <button type="button" role="tab" data-drawer-panel="insights" aria-selected="false">
+                Insights
+              </button>
+              <button
+                type="button"
+                class="studio-drawer-close"
+                id="studioDrawerClose"
+                aria-label="Close panel"
+                title="Close panel"
+              >
+                &#215;
+              </button>
+            </div>
             <aside class="flow-library" id="flowLibrary" aria-label="AWS icon library">
               <div class="flow-library-mobile-head">
                 <div>
@@ -997,36 +1043,36 @@
                 tabindex="0"
                 aria-label="Diagram canvas. Add AWS icons and connect them into a flow."
               >
-                <div class="flow-zone-bands" aria-hidden="true">
-                  <span>Primary request path</span>
-                  <span>Data and asynchronous work</span>
-                  <span>Shared services and telemetry</span>
+                <div class="flow-viewport" id="flowViewport">
+                  <div class="flow-surface" id="flowSurface">
+                    <div class="flow-zone-bands" aria-hidden="true">
+                      <span>Primary request path</span>
+                      <span>Data and asynchronous work</span>
+                      <span>Shared services and telemetry</span>
+                    </div>
+                    <svg
+                      class="flow-connections"
+                      id="flowConnections"
+                      role="group"
+                      aria-label="Architecture trust paths"
+                    ></svg>
+                    <div class="flow-node-layer" id="flowNodeLayer"></div>
+                  </div>
+                  <div class="flow-surface-spacer" aria-hidden="true"></div>
                 </div>
-                <svg
-                  class="flow-connections"
-                  id="flowConnections"
-                  role="group"
-                  aria-label="Architecture trust paths"
-                ></svg>
-                <div class="flow-node-layer" id="flowNodeLayer"></div>
                 <div class="flow-empty-state" id="flowEmptyState">
                   <strong>Build your AWS flow</strong
                   ><span>Choose a template or add services from the official icon library.</span>
                 </div>
                 <div class="flow-canvas-controls" aria-label="Canvas controls">
-                  <button
-                    id="flowZoomInButton"
-                    type="button"
-                    title="Increase node size"
-                    aria-label="Increase node size"
-                  >
+                  <button id="flowZoomInButton" type="button" title="Zoom in" aria-label="Zoom in">
                     +
                   </button>
                   <button
                     id="flowZoomOutButton"
                     type="button"
-                    title="Decrease node size"
-                    aria-label="Decrease node size"
+                    title="Zoom out"
+                    aria-label="Zoom out"
                   >
                     &#8722;
                   </button>
@@ -1252,6 +1298,17 @@
             >
             <label class="flow-grid-toggle"
               ><input id="flowGridToggle" type="checkbox" checked /> Grid</label
+            >
+            <label for="flowCanvasZoom" class="flow-canvas-zoom"
+              >Zoom<select id="flowCanvasZoom">
+                <option value="fit">Fit</option>
+                <option value="0.25">25%</option>
+                <option value="0.5">50%</option>
+                <option value="0.75">75%</option>
+                <option value="1">100%</option>
+                <option value="1.5">150%</option>
+                <option value="2">200%</option>
+              </select></label
             >
             <label for="flowZoom"
               >Node size<select id="flowZoom">

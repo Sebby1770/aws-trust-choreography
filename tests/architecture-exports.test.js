@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { estimateNodeCost, estimateArchitectureCost, formatUsd } from "../src/cost-model.js";
 import { toTerraform, tfName, hclString, hclComment } from "../src/terraform-export.js";
 import { toMermaid, mermaidId } from "../src/mermaid-export.js";
+import { toSvg, svgFileName, escapeXml, SVG_PALETTE } from "../src/svg-export.js";
 
 const state = {
   name: "Claude RAG assistant",
@@ -198,5 +199,84 @@ describe("HCL escaping helpers", () => {
   it("collapses a comment onto one line", () => {
     expect(hclComment("a\nb\r\nc")).toBe("a b c");
     expect(hclComment(undefined)).toBe("");
+  });
+});
+
+describe("svg export", () => {
+  it("draws the diagram on a white background", () => {
+    const svg = toSvg(state);
+    // The backdrop rect is what lands behind the diagram in a README.
+    expect(svg).toContain(`<rect width="100%" height="100%" fill="${SVG_PALETTE.paper}"/>`);
+    expect(SVG_PALETTE.paper).toBe("#ffffff");
+  });
+
+  it("uses ink-side colours that are legible on white", () => {
+    const svg = toSvg(state);
+    // No leftover dark-canvas palette.
+    expect(svg).not.toContain("#06131d");
+    expect(svg).not.toContain("#07141d");
+    expect(svg).not.toContain('fill="#f5fafc"');
+    expect(svg).toContain(SVG_PALETTE.ink);
+    expect(svg).toContain(SVG_PALETTE.line);
+  });
+
+  it("renders one group per node and a path per connection", () => {
+    const svg = toSvg(state);
+    for (const node of state.nodes) {
+      expect(svg).toContain(node.name.slice(0, 22));
+    }
+    // Count only connection strokes — the grid pattern and arrow marker are
+    // also <path> elements.
+    expect(svg.match(/stroke-width="3"/g) ?? []).toHaveLength(state.connections.length);
+  });
+
+  it("dashes asynchronous traffic only", () => {
+    const svg = toSvg({
+      ...state,
+      connections: [
+        { from: "n1", to: "n2", type: "event", label: "Queue" },
+        { from: "n2", to: "n3", type: "request", label: "HTTPS" },
+      ],
+    });
+    expect(svg.match(/stroke-dasharray/g) ?? []).toHaveLength(1);
+  });
+
+  it("skips connections whose endpoints are missing", () => {
+    const svg = toSvg({
+      ...state,
+      connections: [{ from: "n1", to: "ghost", label: "Nowhere" }],
+    });
+    expect(svg).not.toContain("Nowhere");
+  });
+
+  it("embeds icons when supplied and omits the image otherwise", () => {
+    const withIcon = toSvg(state, { icons: { n1: "data:image/svg+xml;base64,AAA" } });
+    expect(withIcon).toContain("data:image/svg+xml;base64,AAA");
+    expect(toSvg(state)).not.toContain("<image");
+  });
+
+  it("escapes XML metacharacters in user-controlled text", () => {
+    const svg = toSvg({
+      ...state,
+      name: 'Prod & "primary" <arch>',
+      nodes: [{ id: "x", name: "<script>", x: 0.5, y: 0.5, environment: "A&B" }],
+      connections: [],
+    });
+    expect(svg).not.toContain("<script>");
+    expect(svg).toContain("&lt;script&gt;");
+    expect(svg).toContain("&amp;");
+    expect(escapeXml("<a & \"b\" 'c'>")).toBe("&lt;a &amp; &quot;b&quot; &apos;c&apos;&gt;");
+  });
+
+  it("handles an empty architecture", () => {
+    const svg = toSvg({ name: "Empty", region: "us-east-1", nodes: [], connections: [] });
+    expect(svg).toContain("</svg>");
+    expect(svg).toContain("Empty");
+  });
+
+  it("slugifies the export filename with a sane fallback", () => {
+    expect(svgFileName("Claude RAG assistant")).toBe("claude-rag-assistant");
+    expect(svgFileName("  !!! ")).toBe("aws-architecture");
+    expect(svgFileName(undefined)).toBe("aws-architecture");
   });
 });

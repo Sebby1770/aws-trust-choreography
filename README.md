@@ -69,6 +69,14 @@ of sections embedded in a long page.
 - **Starter templates** — Claude RAG assistant, AI agent platform, GenAI chatbot, plus Serverless
   API, Event pipeline, and Resilient web app.
 - Live Architecture Intelligence scoring across security, reliability, observability, and recovery.
+- **A paper canvas built for large architectures** — the diagram sits on a white 2400 x 1500
+  surface that genuinely zooms (Fit, then 25%-200%) and scrolls, with compact nodes so a real
+  system fits on screen. Fit frames your diagram rather than the empty canvas, and SVG export
+  matches the same white palette so exported diagrams drop straight into a README.
+- **Canvas-first chrome** — the workspace switcher is a dropdown next to the wordmark, and the
+  icon library and insights inspector share one slide-over drawer opened by **Panels** at the far
+  end of the header. What used to be five stacked strips above the canvas plus two fixed side
+  columns is now a single slim toolbar over a full-width canvas.
 - **Chaos Lab** — a third inspector tab that turns the canvas into a resilience analysis: an
   estimated end-to-end availability headline (with nines and projected downtime per year),
   **single points of failure** found as graph articulation points (ranked by how many nodes they
@@ -172,6 +180,8 @@ src/
   cost-model.js        rough monthly cost estimator (unit-tested)
   terraform-export.js  canvas → main.tf skeleton (unit-tested)
   mermaid-export.js    canvas → Mermaid flowchart (unit-tested)
+  svg-export.js        canvas → white-background SVG diagram (unit-tested)
+  canvas-focus.js      canvas-first layout: workspace dropdown + panel drawer (unit-tested)
   trust-zones.js       trust zones, boundary crossings, threat model (unit-tested)
   iac-import.js        Terraform/CloudFormation → canvas (unit-tested)
   iac-service-map.js   IaC resource type → AWS service tables
