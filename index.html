@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="network-lab.css" />
     <link rel="stylesheet" href="review-center.css" />
     <link rel="stylesheet" href="canvas-paper.css" />
+    <link rel="stylesheet" href="canvas-focus.css" />
   </head>
   <body>
     <a class="skip-link" href="#workspaceContentStart">Skip to workspace content</a>
@@ -71,13 +72,40 @@
         </button>
 
         <nav class="workspace-nav" aria-label="Primary navigation">
-          <button type="button" data-view-target="home" aria-current="page">Explore</button>
-          <button type="button" data-view-target="studio">AWS Studio</button>
-          <button type="button" data-view-target="network">Network Lab</button>
-          <button type="button" data-view-target="review">Review</button>
+          <details class="workspace-menu" id="workspaceMenu">
+            <summary
+              id="workspaceMenuTrigger"
+              role="button"
+              aria-haspopup="menu"
+              title="Switch workspace"
+            >
+              <span id="workspaceMenuLabel">Explore</span>
+              <span class="workspace-menu-caret" aria-hidden="true">&#9662;</span>
+            </summary>
+            <div class="workspace-menu-list" role="menu">
+              <button type="button" role="menuitem" data-view-target="home" aria-current="page">
+                Explore
+              </button>
+              <button type="button" role="menuitem" data-view-target="studio">AWS Studio</button>
+              <button type="button" role="menuitem" data-view-target="network">Network Lab</button>
+              <button type="button" role="menuitem" data-view-target="review">Review</button>
+            </div>
+          </details>
         </nav>
 
         <div class="header-actions">
+          <button
+            class="header-icon studio-drawer-toggle"
+            id="studioDrawerToggle"
+            type="button"
+            aria-controls="flowLibrary flowInspector"
+            aria-expanded="false"
+            aria-pressed="false"
+            title="Show the icon library, cost and insights"
+          >
+            <span aria-hidden="true">&#9776;</span
+            ><span class="studio-drawer-toggle-label">Panels</span>
+          </button>
           <button
             class="header-icon workspace-chrome-toggle"
             id="workspaceChromeToggle"
@@ -826,6 +854,23 @@
           </header>
 
           <div class="flow-workspace">
+            <div class="studio-drawer-tabs" id="studioDrawerTabs" role="tablist" aria-label="Panel">
+              <button type="button" role="tab" data-drawer-panel="library" aria-selected="true">
+                Library
+              </button>
+              <button type="button" role="tab" data-drawer-panel="insights" aria-selected="false">
+                Insights
+              </button>
+              <button
+                type="button"
+                class="studio-drawer-close"
+                id="studioDrawerClose"
+                aria-label="Close panel"
+                title="Close panel"
+              >
+                &#215;
+              </button>
+            </div>
             <aside class="flow-library" id="flowLibrary" aria-label="AWS icon library">
               <div class="flow-library-mobile-head">
                 <div>

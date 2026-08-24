@@ -1,0 +1,282 @@
+/* ============================================================
+   Canvas focus — the studio is the canvas.
+
+   The studio had five stacked rows of chrome above the drawing surface
+   (title, meta, toolbar, guided steps, architecture bar) plus a fixed
+   library column and inspector column either side. This collapses that
+   to a single slim toolbar over a full-width canvas, and turns the two
+   side columns into one slide-over drawer.
+
+   Nothing is removed — the library, inspector, cost, and insights all
+   live in the drawer, and the workspace nav lives in a dropdown. The
+   markup is untouched apart from the dropdown, the drawer toggle, and
+   the drawer's own tab strip, so every existing control keeps working.
+   ============================================================ */
+
+/* ---------- header: workspace dropdown ---------- */
+
+.workspace-menu {
+  position: relative;
+}
+
+.workspace-menu > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--line, rgba(148, 163, 184, 0.28));
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.workspace-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.workspace-menu > summary:hover,
+.workspace-menu[open] > summary {
+  border-color: var(--flow-cyan, #42d6f5);
+}
+
+.workspace-menu-caret {
+  font-size: 0.7em;
+  opacity: 0.8;
+}
+
+.workspace-menu-list {
+  position: absolute;
+  z-index: 60;
+  top: calc(100% + 6px);
+  left: 0;
+  display: grid;
+  min-width: 190px;
+  padding: 6px;
+  border: 1px solid var(--line, rgba(148, 163, 184, 0.28));
+  border-radius: 10px;
+  background: var(--surface, #0b1622);
+  box-shadow: 0 18px 40px rgba(2, 8, 15, 0.45);
+}
+
+.workspace-menu-list button {
+  padding: 0.5rem 0.7rem;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.workspace-menu-list button:hover {
+  background: rgba(127, 176, 202, 0.14);
+}
+
+.workspace-menu-list button[aria-current="page"] {
+  color: var(--flow-cyan, #42d6f5);
+  font-weight: 750;
+}
+
+/* ---------- header: drawer toggle ---------- */
+
+.studio-drawer-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  width: auto;
+  padding: 0.4rem 0.7rem;
+  white-space: nowrap;
+}
+
+/* Only meaningful while a canvas workspace is on screen. */
+.app-shell[data-active-view="studio"] .studio-drawer-toggle {
+  display: inline-flex;
+}
+
+.studio-drawer-toggle[aria-pressed="true"] {
+  border-color: var(--flow-cyan, #42d6f5);
+  color: var(--flow-cyan, #42d6f5);
+}
+
+/* ---------- studio: strip the chrome down to one row ---------- */
+
+.flow-studio.is-canvas-focus .flow-studio-brand,
+.flow-studio.is-canvas-focus .flow-guidance {
+  display: none;
+}
+
+/* Hiding the guidance strip removes a grid item, which shifts every later
+   child up one row — the canvas would land on an `auto` row and collapse to
+   zero while the simulation bar absorbed the free space. Restate the rows for
+   the three items that remain: titlebar, canvas, simulation. */
+.flow-studio.is-canvas-focus .flow-canvas-shell {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+/* Both of these strips are grids whose column templates assume every child is
+   present. Hiding any of them shifts the rest into the wrong tracks (that is
+   what squashed the architecture name to 30px). Flex sizes what is actually
+   there, so the layout no longer depends on the hidden-child count. */
+.flow-studio.is-canvas-focus .flow-studio-head,
+.flow-studio.is-canvas-focus .flow-canvas-titlebar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.7rem;
+  padding: 0.4rem 0.65rem;
+}
+
+.flow-studio.is-canvas-focus .flow-canvas-titlebar #flowArchitectureName {
+  flex: 0 1 260px;
+  min-width: 150px;
+}
+
+/* Tools sit at the trailing edge of their strip. */
+.flow-studio.is-canvas-focus .flow-toolbar,
+.flow-studio.is-canvas-focus .flow-canvas-titlebar .flow-template-menu {
+  margin-left: auto;
+}
+
+.flow-studio.is-canvas-focus .flow-studio-meta {
+  font-size: 0.68rem;
+}
+
+.flow-studio.is-canvas-focus .flow-canvas-titlebar {
+  min-height: 38px;
+  padding: 0.3rem 0.6rem;
+}
+
+/* Coaching copy and the counters are guidance, not controls. The cost badge
+   stays because it is the one number worth watching while you build. */
+.flow-studio.is-canvas-focus #flowCanvasHint,
+.flow-studio.is-canvas-focus .flow-canvas-titlebar > label,
+.flow-studio.is-canvas-focus .flow-studio-meta > span:not(.flow-cost-badge) {
+  display: none;
+}
+
+/* Both of these now duplicate the header's Panels button. */
+.flow-studio.is-canvas-focus #flowInspectorToggleCompact {
+  display: none;
+}
+
+/* ---------- workspace: one full-width canvas ---------- */
+
+.flow-studio.is-canvas-focus .flow-workspace {
+  position: relative;
+  grid-template-columns: minmax(0, 1fr);
+  height: min(78vh, 900px);
+}
+
+/* ---------- the drawer ---------- */
+
+/* The drawer owns panel visibility here, so the older collapse/focus rules
+   (which hide these with `display: none !important`) must be neutralised. */
+.flow-studio.is-canvas-focus .flow-library {
+  display: grid !important;
+}
+
+.flow-studio.is-canvas-focus .flow-inspector {
+  display: block !important;
+}
+
+.flow-studio.is-canvas-focus .flow-library,
+.flow-studio.is-canvas-focus .flow-inspector {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(360px, 88vw);
+  border-left: 1px solid var(--flow-line, rgba(167, 190, 202, 0.18));
+  box-shadow: -18px 0 42px rgba(2, 8, 15, 0.34);
+  transform: translateX(102%);
+  transition: transform 180ms ease;
+  will-change: transform;
+}
+
+.flow-studio.is-canvas-focus[data-drawer="library"] .flow-library,
+.flow-studio.is-canvas-focus[data-drawer="insights"] .flow-inspector {
+  transform: none;
+}
+
+/* Keep the hidden panel out of the tab order and off the a11y tree. */
+.flow-studio.is-canvas-focus:not([data-drawer="library"]) .flow-library,
+.flow-studio.is-canvas-focus:not([data-drawer="insights"]) .flow-inspector {
+  visibility: hidden;
+}
+
+/* The drawer's own tab strip rides on the panel's leading edge. */
+.studio-drawer-tabs {
+  display: none;
+}
+
+.flow-studio.is-canvas-focus[data-drawer] .studio-drawer-tabs {
+  position: absolute;
+  z-index: 21;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: min(360px, 88vw);
+  padding: 6px 6px 6px 10px;
+  border-bottom: 1px solid var(--flow-line, rgba(167, 190, 202, 0.18));
+  background: var(--surface, #0b1622);
+}
+
+.studio-drawer-tabs button {
+  padding: 0.32rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted, #8fa3ad);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.studio-drawer-tabs button:hover {
+  color: var(--text, #e8f1f5);
+}
+
+.studio-drawer-tabs button[aria-selected="true"] {
+  border-color: var(--flow-cyan, #42d6f5);
+  color: var(--flow-cyan, #42d6f5);
+}
+
+.studio-drawer-close {
+  margin-left: auto;
+  font-size: 1rem !important;
+  line-height: 1;
+}
+
+/* Push the panels clear of the tab strip. */
+.flow-studio.is-canvas-focus .flow-library,
+.flow-studio.is-canvas-focus .flow-inspector {
+  padding-top: 42px;
+}
+
+/* The in-canvas toggles duplicate the drawer, so retire them here. */
+.flow-studio.is-canvas-focus #flowLibraryToggle,
+.flow-studio.is-canvas-focus #flowInspectorToggle {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-studio.is-canvas-focus .flow-library,
+  .flow-studio.is-canvas-focus .flow-inspector {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .studio-drawer-toggle-label {
+    display: none;
+  }
+}

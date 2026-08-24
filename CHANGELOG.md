@@ -2,6 +2,31 @@
 
 All notable changes to this project are documented here.
 
+## 2026-08-24 — Canvas-first studio
+
+### Changed
+
+- **The studio is the canvas now.** It previously stacked five strips above the drawing surface
+  (title, meta, toolbar, guided steps, architecture bar) and pinned a library column and an
+  inspector column either side. That is now one slim toolbar over a full-width canvas.
+- **The workspace switcher is a dropdown** beside the wordmark instead of four header tabs, so
+  the header is a single row and reads as one control rather than a row of competing pills.
+- **The library and the inspector share one slide-over drawer**, opened by a **Panels** button at
+  the far end of the header and switched with Library / Insights tabs. Closing it returns the
+  full width to the canvas. The drawer remembers which panel you had open and whether it was
+  open at all; Escape closes it.
+- Nothing was removed — the library, inspector, cost estimate, insights, chaos lab, and every
+  toolbar control are all still there, just reached from the drawer or the dropdown. The
+  implementation is additive (classes and a `data-drawer` attribute over the existing markup),
+  so the controls the studio already wired up are untouched.
+
+### Fixed
+
+- Hidden panels no longer stay in the tab order or the accessibility tree — the closed side of
+  the drawer is marked `inert`.
+- The older per-panel collapse and focus modes are cleared when the canvas layout is on. Left
+  set, their `display: none !important` kept the drawer permanently empty.
+
 ## 2026-08-23 — A paper canvas for large architectures
 
 ### Added
