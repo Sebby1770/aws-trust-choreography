@@ -19,6 +19,7 @@ const VIEW_LABELS = {
   home: "Explore",
   studio: "AWS Studio",
   network: "Network Lab",
+  sql: "SQL Review",
   review: "Review",
 };
 

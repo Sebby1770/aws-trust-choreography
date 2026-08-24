@@ -55,6 +55,12 @@ of sections embedded in a long page.
   become directional trust paths, and plaintext listeners arrive already flagged as unencrypted.
   A preview shows exactly what will be drawn before it replaces the canvas. Everything is parsed
   in the browser — nothing is uploaded and no AWS account is contacted.
+- **SQL review** — paste a query and get a structural read of it plus findings: destructive
+  statements with no WHERE, cartesian joins, `NOT IN` against a nullable subquery, leading-wildcard
+  LIKE, functions that make a predicate non-sargable, `DISTINCT` hiding a join fan-out, correlated
+  subqueries in the select list, deep `OFFSET` paging, and interpolated values. Runs entirely in
+  the browser with no key and no network. Optionally goes further with **your own** Anthropic API
+  key, which stays in your browser's local storage.
 - **Trust zones** — every service sits in a zone (internet, edge, public subnet, private subnet,
   data tier, management), editable per node. Imported stacks derive their zone from real VPC and
   subnet placement: compute in a subnet routing to an internet gateway is public, everything else
@@ -184,6 +190,9 @@ src/
   svg-export.js        canvas → white-background SVG diagram (unit-tested)
   canvas-focus.js      canvas-only layout: workspace dropdown + Library/Tools/Insights drawer, both labs (unit-tested)
   network-icons.js     line-art device icons for the Network Lab (unit-tested)
+  sql-review.js        SQL static analysis — masking, rules, scoring (unit-tested)
+  sql-assist.js        optional Claude review via your own API key (unit-tested)
+  sql-lab.js           SQL workspace controller (unit-tested)
   trust-zones.js       trust zones, boundary crossings, threat model (unit-tested)
   iac-import.js        Terraform/CloudFormation → canvas (unit-tested)
   iac-service-map.js   IaC resource type → AWS service tables

@@ -1489,20 +1489,6 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta) {
     setCanvasZoom(String(stops[clamp(index + direction, 0, stops.length - 1)]));
   }
 
-  function adjustZoom(direction) {
-    const levels = [0.75, 0.9, 1, 1.15, 1.3];
-    const currentIndex = levels.reduce(
-      (closest, level, index) =>
-        Math.abs(level - state.zoom) < Math.abs(levels[closest] - state.zoom) ? index : closest,
-      0
-    );
-    const nextIndex = clamp(currentIndex + direction, 0, levels.length - 1);
-    state.zoom = levels[nextIndex];
-    elements.zoom.value = String(state.zoom);
-    markUnsaved(`Zoom set to ${Math.round(state.zoom * 100)}%`);
-    renderNodes();
-  }
-
   function fitArchitecture() {
     if (!state.nodes.length) {
       return;

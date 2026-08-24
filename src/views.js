@@ -8,7 +8,7 @@
  */
 
 const STORAGE_KEY = "aws-command-atlas-view-v2";
-const VIEWS = ["home", "studio", "network", "review"];
+const VIEWS = ["home", "studio", "network", "sql", "review"];
 const LEGACY_VIEWS = { atlas: "review" };
 const DEFAULT_VIEW = "home";
 
