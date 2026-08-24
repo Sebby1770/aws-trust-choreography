@@ -8,6 +8,8 @@
 
 const STORAGE_KEY = "trust-choreography:network-lab:v1";
 const STATE_VERSION = 1;
+import { paintDeviceGlyph } from "./network-icons.js";
+
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const NODE_WIDTH = 112;
 const NODE_HEIGHT = 72;
@@ -966,7 +968,7 @@ export function initNetworkLab() {
       const glyph = document.createElement("span");
       glyph.className = "network-node-glyph";
       glyph.setAttribute("aria-hidden", "true");
-      glyph.textContent = device.glyph;
+      paintDeviceGlyph(glyph, device);
       const copy = document.createElement("span");
       copy.className = "network-node-copy";
       const title = document.createElement("strong");
@@ -1268,7 +1270,7 @@ export function initNetworkLab() {
       const glyph = document.createElement("span");
       glyph.className = "network-device-glyph";
       glyph.setAttribute("aria-hidden", "true");
-      glyph.textContent = device.glyph;
+      paintDeviceGlyph(glyph, device);
       const label = document.createElement("span");
       label.className = "network-device-name";
       label.textContent = device.name;

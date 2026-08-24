@@ -183,6 +183,7 @@ src/
   mermaid-export.js    canvas → Mermaid flowchart (unit-tested)
   svg-export.js        canvas → white-background SVG diagram (unit-tested)
   canvas-focus.js      canvas-only layout: workspace dropdown + Library/Tools/Insights drawer, both labs (unit-tested)
+  network-icons.js     line-art device icons for the Network Lab (unit-tested)
   trust-zones.js       trust zones, boundary crossings, threat model (unit-tested)
   iac-import.js        Terraform/CloudFormation → canvas (unit-tested)
   iac-service-map.js   IaC resource type → AWS service tables

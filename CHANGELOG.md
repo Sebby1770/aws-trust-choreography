@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented here.
 
+## 2026-08-24 — Recognisable network devices, and a maximise that fills the screen
+
+### Added
+
+- **Real device icons in the Network Lab** (`src/network-icons.js`). Devices were single text
+  glyphs — `▣`, `⇆`, `DB`, `@` — which said very little about what they were. All twenty are now
+  line-art icons in the shapes people already recognise from network diagrams: a router is a puck
+  with four-way arrows, a switch a chassis with parallel flows, a firewall a brick wall, a
+  database a cylinder, an access point radiating arcs, and the servers share a rack silhouette
+  with the service marked inside. They are stroke-only and inherit `currentColor`, so each device
+  keeps the colour the lab assigns it, and they render in both the palette and on the canvas.
+
+### Fixed
+
+- **Maximise now fills the viewport.** The canvas-only layout caps a lab at `min(84vh, 980px)`,
+  which left a band of page background below the canvas once the header was hidden. Maximised
+  labs take the full height.
+
 ## 2026-08-24 — Nothing but the canvas, in both labs
 
 ### Changed
