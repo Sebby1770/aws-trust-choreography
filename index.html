@@ -54,6 +54,7 @@
     <link rel="stylesheet" href="review-center.css" />
     <link rel="stylesheet" href="canvas-paper.css" />
     <link rel="stylesheet" href="canvas-focus.css" />
+    <link rel="stylesheet" href="sql-lab.css" />
   </head>
   <body>
     <a class="skip-link" href="#workspaceContentStart">Skip to workspace content</a>
@@ -88,6 +89,7 @@
               </button>
               <button type="button" role="menuitem" data-view-target="studio">AWS Studio</button>
               <button type="button" role="menuitem" data-view-target="network">Network Lab</button>
+              <button type="button" role="menuitem" data-view-target="sql">SQL Review</button>
               <button type="button" role="menuitem" data-view-target="review">Review</button>
             </div>
           </details>
@@ -518,6 +520,87 @@
               </div>
             </li>
           </ol>
+        </section>
+      </div>
+
+      <div class="view view-sql" data-view="sql">
+        <section class="sql-lab" id="sqlLab" aria-labelledby="sqlLabTitle">
+          <div class="sql-grid">
+            <section class="sql-editor-pane" aria-label="SQL input">
+              <div class="sql-pane-head">
+                <h2 id="sqlLabTitle">SQL review</h2>
+                <div class="sql-pane-actions">
+                  <button id="sqlSampleButton" type="button" title="Load an example query">
+                    Example
+                  </button>
+                  <button id="sqlClearButton" type="button" title="Clear the editor">Clear</button>
+                </div>
+              </div>
+              <textarea
+                id="sqlInput"
+                class="sql-input"
+                spellcheck="false"
+                autocomplete="off"
+                placeholder="Paste your SQL here — it is analysed in this browser, with no network call."
+                aria-label="SQL to review"
+              ></textarea>
+              <p class="sql-editor-note" id="sqlStats" aria-live="polite"></p>
+            </section>
+
+            <section class="sql-report-pane" aria-label="Review">
+              <div class="sql-score-row">
+                <div class="sql-score" id="sqlScore">
+                  <strong id="sqlScoreValue">—</strong><span id="sqlScoreGrade">no SQL yet</span>
+                </div>
+                <div class="sql-counts" id="sqlCounts" aria-live="polite"></div>
+              </div>
+
+              <div class="sql-structure" id="sqlStructure"></div>
+
+              <div class="sql-findings" id="sqlFindings" aria-live="polite">
+                <p class="sql-empty">Paste SQL on the left to see findings here.</p>
+              </div>
+
+              <details class="sql-assist" id="sqlAssist">
+                <summary>Go further with Claude <span aria-hidden="true">▾</span></summary>
+                <div class="sql-assist-body">
+                  <p class="sql-assist-note">
+                    Optional. Uses <strong>your own</strong> Anthropic API key, kept in this
+                    browser's local storage and sent only to api.anthropic.com. A key in a browser
+                    is readable by anything running on the page — use a personal key you control,
+                    not a shared or production one.
+                  </p>
+                  <label class="sql-key-row">
+                    <span>API key</span>
+                    <input
+                      id="sqlApiKey"
+                      type="password"
+                      autocomplete="off"
+                      spellcheck="false"
+                      placeholder="sk-ant-..."
+                    />
+                  </label>
+                  <div class="sql-key-actions">
+                    <button id="sqlKeySave" type="button">Save key</button>
+                    <button id="sqlKeyForget" type="button">Forget key</button>
+                    <span id="sqlKeyState" class="sql-key-state" aria-live="polite"></span>
+                  </div>
+                  <label class="sql-question-row">
+                    <span>Question (optional)</span>
+                    <input
+                      id="sqlQuestion"
+                      type="text"
+                      placeholder="e.g. why is this slow on a large orders table?"
+                    />
+                  </label>
+                  <button id="sqlAssistRun" type="button" class="sql-assist-run">
+                    Ask Claude to review this SQL
+                  </button>
+                  <div id="sqlAssistOutput" class="sql-assist-output" aria-live="polite"></div>
+                </div>
+              </details>
+            </section>
+          </div>
         </section>
       </div>
 

@@ -2,6 +2,41 @@
 
 All notable changes to this project are documented here.
 
+## 2026-08-24 — SQL review
+
+### Added
+
+- **A SQL review workspace.** Paste a query on the left, get a read of it on the right: what each
+  statement does (kind, tables, joins, CTEs, subqueries), a 0–100 score with a grade, and findings
+  with a line number, an explanation of *why* it matters, and a concrete fix.
+- **Fifteen rules** across correctness, performance and safety — `UPDATE`/`DELETE` with no WHERE,
+  `DROP`/`TRUNCATE`, joins with no `ON`/`USING` and comma joins with no WHERE, `NOT IN` against a
+  nullable subquery, `SELECT *`, leading-wildcard `LIKE`, functions applied to a column in WHERE,
+  `ORDER BY` with no `LIMIT`, `DISTINCT` over a join, `UNION` vs `UNION ALL`, correlated subqueries
+  in the select list, implicit string/number comparison, deep `OFFSET`, `HAVING` with no `GROUP BY`,
+  and `NATURAL JOIN`.
+- Analysis runs on a **masked copy** of the SQL — comments and string literals blanked but offsets
+  preserved — so a keyword inside a comment or a `%` inside a quoted string cannot trigger a rule,
+  while line numbers still point at the real text.
+- **Optional Claude assist.** Supply your own Anthropic API key and Claude explains the query,
+  reasons about correctness and performance, and proposes a rewrite. The key lives in your
+  browser's local storage, is sent only to api.anthropic.com, and is never logged. The static
+  findings are passed along so the model adds to them instead of repeating them.
+- 61 tests covering masking, statement splitting, line numbers, every rule (positive *and*
+  negative cases), scoring, malformed input, key handling, request shape, refusal handling, and
+  the assist renderer's refusal to turn model output into markup.
+
+### Changed
+
+- The project now has one runtime dependency, `@anthropic-ai/sdk`, used only by the SQL assist.
+- GitHub Pages is now published solely by the deploy workflow. Previously the legacy branch
+  builder ran too, so the live site alternated non-deterministically between the bundled Vite
+  build and raw source.
+
+### Fixed
+
+- Removed `adjustZoom`, dead since the canvas `+`/`−` buttons were repointed at the diagram zoom.
+
 ## 2026-08-24 — Recognisable network devices, and a maximise that fills the screen
 
 ### Added
