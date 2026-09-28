@@ -7,6 +7,7 @@
  */
 
 import { reviewSql } from "./sql-review.js";
+import { looksLikeSchema, SAMPLE_SCHEMA } from "./sql-schema.js";
 import {
   buildPrompt,
   looksLikeApiKey,
@@ -52,7 +53,18 @@ export function renderAssistText(text, doc = globalThis.document) {
   return wrap;
 }
 
-export function initSqlLab({ root = document, storage = globalThis.localStorage } = {}) {
+/**
+ * @param {object} [options]
+ * @param {(sql: string) => void} [options.openDiagram] open this SQL's tables as a studio diagram
+ * @param {(dialect: string) => Promise<{sql: string, tables: number, notes: string[]}|null>} [options.getDiagramSql]
+ *   DDL for the tables drawn in the studio
+ */
+export function initSqlLab({
+  root = document,
+  storage = globalThis.localStorage,
+  openDiagram,
+  getDiagramSql,
+} = {}) {
   const input = root.querySelector("#sqlInput");
   if (!input) return null;
 
@@ -173,7 +185,56 @@ export function initSqlLab({ root = document, storage = globalThis.localStorage 
 
     renderStructure(latest);
     renderFindings(latest);
+    renderSchema(sql);
   }
+
+  // --- schema diagram ⇄ SQL ---------------------------------------------
+  const schemaBox = el("#sqlSchema");
+  const schemaPreview = el("#sqlSchemaPreview");
+  const schemaStats = el("#sqlSchemaStats");
+  const schemaNotes = el("#sqlSchemaNotes");
+  let previewModule = null;
+  let schemaToken = 0;
+
+  async function renderSchema(sql) {
+    if (!schemaBox) return;
+    const token = (schemaToken += 1);
+    if (!looksLikeSchema(sql)) {
+      schemaBox.hidden = true;
+      return;
+    }
+    try {
+      previewModule ||= await import("./sql-schema-preview.js");
+    } catch {
+      schemaBox.hidden = true;
+      return;
+    }
+    if (token !== schemaToken) return;
+    const result = previewModule.renderSchemaPreview(schemaPreview, sql);
+    schemaBox.hidden = !result.tables;
+    schemaStats.textContent = `${result.tables} table${result.tables === 1 ? "" : "s"} · ${result.relationships} relationship${result.relationships === 1 ? "" : "s"}`;
+    schemaNotes.textContent = result.warnings.slice(0, 3).join(" ");
+  }
+
+  el("#sqlSchemaOpen")?.addEventListener("click", () => openDiagram?.(input.value));
+
+  el("#sqlSchemaSample")?.addEventListener("click", () => {
+    input.value = SAMPLE_SCHEMA;
+    render();
+  });
+
+  el("#sqlFromDiagram")?.addEventListener("click", async () => {
+    const dialect = el("#sqlDialect")?.value || "postgres";
+    const result = await getDiagramSql?.(dialect);
+    if (!result?.tables) {
+      statsBox.textContent =
+        "No tables in the current AWS Studio page — add some from Database (ER) in the shape library.";
+      return;
+    }
+    input.value = result.sql;
+    render();
+    input.focus();
+  });
 
   input.addEventListener("input", () => {
     if (timer) clearTimeout(timer);

@@ -1257,78 +1257,6 @@ body::before {
   min-height: calc(100vh - 7rem);
 }
 
-.app-shell[data-active-view="studio"] .flow-studio {
-  min-height: calc(100vh - 8.5rem);
-  margin-top: 0;
-  border-color: rgba(245, 243, 237, 0.14);
-  border-radius: 24px;
-  background: #090d13;
-  box-shadow: 0 28px 85px var(--tc-shadow);
-}
-
-.app-shell[data-active-view="studio"] .flow-studio-head {
-  min-height: 78px;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(90deg, rgba(255, 156, 66, 0.07), transparent 28%), #0b1017;
-}
-
-.flow-studio-brand h2 {
-  font-size: 1.05rem;
-  letter-spacing: -0.02em;
-}
-
-.flow-studio-brand h2::before {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 0.55rem;
-  border-radius: 50%;
-  content: "";
-  background: var(--tc-orange);
-  box-shadow: 0 0 14px rgba(255, 156, 66, 0.7);
-}
-
-.flow-studio-head p {
-  margin-left: 1.1rem;
-}
-
-.flow-toolbar button,
-.flow-canvas-titlebar button,
-.studio-sessions button,
-.flow-simulation button {
-  border-radius: 9px;
-}
-
-.flow-workspace {
-  background: #080c12;
-}
-
-.flow-library,
-.flow-inspector {
-  background: #0b1118;
-}
-
-.flow-canvas-shell {
-  background: #080c12;
-}
-
-.flow-canvas {
-  background-color: #0a0f16;
-}
-
-.flow-node {
-  border-radius: 13px;
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
-}
-
-.flow-icon-tile {
-  border-radius: 8px;
-}
-
-.flow-templates button {
-  border-radius: 10px;
-}
-
 .atlas-intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1574,10 +1502,6 @@ body::before {
 
   .dialog-submit {
     width: 100%;
-  }
-
-  .app-shell[data-active-view="studio"] .flow-studio {
-    border-radius: 16px;
   }
 }
 

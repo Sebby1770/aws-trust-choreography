@@ -2,6 +2,59 @@
 
 All notable changes to this project are documented here.
 
+## 2026-09-29 — AWS Diagram Studio: a draw.io-class editor, and SQL ⇄ schema diagrams
+
+### Added
+
+- **A new diagram engine** (`src/diagram/`) replacing the AWS Studio canvas: an infinite canvas with
+  pan and pointer-anchored zoom, multi-select and marquee, smart alignment guides and grid snapping,
+  eight-handle resizing, copy / paste across tabs, duplicate and ⌥-drag, group / ungroup, lock,
+  z-order, align / distribute, layered auto layout, find, inline label editing (double-click, Enter,
+  or just start typing), labelled undo / redo, a minimap, a right-click menu, and a draw.io-style
+  menubar.
+- **Connectors that route around shapes.** Orthogonal routes are found with A\* over an orthogonal
+  visibility grid built from nearby obstacles, with a bend penalty and a route cache so only the
+  connectors near an edit are recomputed. Straight and curved routing, draggable segments and
+  waypoints, fixed ports, arrowheads, labels that slide along the line, and hover arrows that
+  connect, clone, or open a quick-insert picker when released on empty canvas.
+- **Shape library** with general, flowchart, AWS group, AI, network-device, database and all 862 AWS
+  icon sections, one search across everything (including shorthand such as `sqs`, `alb`, `ddb`),
+  drag and drop, and click-to-add-connected.
+- **AWS group containers** (AWS Cloud, Region, VPC, AZ, public / private subnet, security group, Auto
+  Scaling group, …). Services dropped into a zoned container adopt its trust zone.
+- **Format panel** for style, text, arrangement, container type and zone, connector routing and
+  arrows, and the architecture fields of each service.
+- **draw.io interchange**: open `.drawio`, `.xml` and editable `.drawio.svg` files (compressed pages
+  and multiple pages included) with draw.io AWS shapes mapped to the official catalog; save native
+  `.drawio` files; SVG export embeds the draw.io model so it reopens as an editable diagram; PNG
+  export at 2×.
+- **Pages** along the bottom of the studio, built on the existing session store (now with rename,
+  reorder, and duplicate).
+- **Reference architectures redrawn** inside AWS Cloud / Region / VPC / subnet containers.
+- **SQL ⇄ ER diagrams.** A DDL parser (`src/sql-schema.js`) for PostgreSQL, MySQL, SQLite and SQL
+  Server flavoured `CREATE TABLE` / `ALTER TABLE`, and a writer that emits dependency-ordered DDL per
+  dialect (breaking foreign-key cycles with `ALTER TABLE`). Table shapes with a column editor;
+  drawing a line between tables creates the foreign-key column; crow's-foot ends follow
+  nullability and uniqueness. File › Import SQL schema, Export › SQL, and in SQL Review a live
+  schema diagram with **Open in AWS Studio** and **From diagram**. Tables and relationships
+  round-trip through draw.io entity lists.
+- 120 new tests (509 in total) across geometry, routing, the model, the scene, draw.io, ER / SQL, the editor's
+  pointer and keyboard handling, and the panels.
+
+### Changed
+
+- The studio uses the whole screen: the site header is folded into the studio's own title bar
+  (workspace switcher, theme, command palette), restyled in light blue with a navy dark theme.
+- Diagrams are stored as documents v3 (absolute geometry, shapes, containers, styled connectors).
+  v2 studio saves, sessions and generated architectures (such as IaC imports) migrate on load.
+- Coverage thresholds raised to match the new baseline.
+
+### Removed
+
+- The old Flow Studio canvas, `svg-export.js` and `studio-extras.js` (superseded by the scene
+  renderer and the studio's own export menu), and `flow-studio.css` / `canvas-paper.css` along with
+  the Flow Studio rules in the shared stylesheets.
+
 ## 2026-08-24 — SQL review
 
 ### Added

@@ -75,12 +75,12 @@ export function renderPreview(container, state) {
 /**
  * Mount the IaC import dialog.
  * @param {object} [studio] the AWSFlowStudio API (defaults to the global)
- * @returns {{open: () => void, parse: (text: string) => void}|null}
+ * @returns {{open: () => void, openWith: (text: string) => void, parse: (text: string) => void}|null}
  */
 export function initIacImport(studio = window.AWSFlowStudio) {
   const dialog = document.querySelector("#iacDialog");
   const openButton = document.querySelector("#flowIacImportButton");
-  if (!dialog || !openButton || !studio) return null;
+  if (!dialog || !studio) return null;
 
   const source = dialog.querySelector("#iacSource");
   const preview = dialog.querySelector("#iacPreview");
@@ -153,7 +153,14 @@ export function initIacImport(studio = window.AWSFlowStudio) {
     }
   }
 
-  openButton.addEventListener("click", open);
+  /** Open the dialog with source text already filled in (a dropped .tf file). */
+  function openWith(text) {
+    if (source) source.value = String(text || "");
+    parse(source?.value);
+    open();
+  }
+
+  openButton?.addEventListener("click", open);
   closeButton?.addEventListener("click", close);
   source?.addEventListener("input", scheduleParse);
   fileButton?.addEventListener("click", () => fileInput?.click());
@@ -193,5 +200,5 @@ export function initIacImport(studio = window.AWSFlowStudio) {
     }
   });
 
-  return { open, close, parse };
+  return { open, openWith, close, parse };
 }

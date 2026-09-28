@@ -90,7 +90,6 @@
   white-space: nowrap;
 }
 
-.app-shell[data-active-view="studio"] .studio-drawer-toggle,
 .app-shell[data-active-view="network"] .studio-drawer-toggle {
   display: inline-flex;
 }
@@ -104,9 +103,8 @@
 
 /* The headers and footers are emptied by the move; collapse what remains so
    they take no vertical space. */
-.flow-studio.is-canvas-focus .flow-studio-head,
+
 .network-lab.is-canvas-focus .network-lab-head,
-.flow-studio.is-canvas-focus .flow-guidance,
 .network-lab.is-canvas-focus .network-guidance {
   display: none;
 }
@@ -116,7 +114,7 @@
    `.app-shell[data-active-view] .flow-studio` sets the layout at specificity
    (0,3,0), so these have to match it to win. With the head hidden the
    workspace is the only in-flow child, hence the single row. */
-.app-shell .flow-studio.is-canvas-focus,
+
 .app-shell .network-lab.is-canvas-focus {
   grid-template-rows: minmax(0, 1fr);
   height: min(84vh, 980px);
@@ -124,7 +122,6 @@
   overflow: hidden;
 }
 
-.app-shell .flow-studio.is-canvas-focus .flow-workspace,
 .app-shell .network-lab.is-canvas-focus .network-workspace {
   position: relative;
   grid-template-columns: minmax(0, 1fr);
@@ -135,7 +132,7 @@
 /* With the titlebar and the simulation strip moved out, the shell holds the
    canvas alone. Stating one row keeps the canvas from landing on an `auto`
    track and collapsing. */
-.flow-studio.is-canvas-focus .flow-canvas-shell,
+
 .network-lab.is-canvas-focus .network-canvas-shell {
   grid-template-rows: minmax(0, 1fr);
   border-right: 0;
@@ -143,18 +140,11 @@
 
 /* ---------- the drawer ---------- */
 
-.flow-studio.is-canvas-focus .flow-library {
-  display: grid !important;
-}
-
-.flow-studio.is-canvas-focus .flow-inspector,
 .network-lab.is-canvas-focus .network-palette,
 .network-lab.is-canvas-focus .network-inspector {
   display: block !important;
 }
 
-.flow-studio.is-canvas-focus .flow-library,
-.flow-studio.is-canvas-focus .flow-inspector,
 .network-lab.is-canvas-focus .network-palette,
 .network-lab.is-canvas-focus .network-inspector,
 .lab-tools-panel {
@@ -173,18 +163,15 @@
   transition: transform 180ms ease;
 }
 
-.is-canvas-focus[data-drawer="library"] .flow-library,
 .is-canvas-focus[data-drawer="library"] .network-palette,
-.is-canvas-focus[data-drawer="insights"] .flow-inspector,
 .is-canvas-focus[data-drawer="insights"] .network-inspector,
 .is-canvas-focus[data-drawer="tools"] .lab-tools-panel {
   transform: none;
 }
 
 /* Keep the hidden panels off the accessibility tree. */
-.is-canvas-focus:not([data-drawer="library"]) .flow-library,
+
 .is-canvas-focus:not([data-drawer="library"]) .network-palette,
-.is-canvas-focus:not([data-drawer="insights"]) .flow-inspector,
 .is-canvas-focus:not([data-drawer="insights"]) .network-inspector,
 .is-canvas-focus:not([data-drawer="tools"]) .lab-tools-panel {
   visibility: hidden;
@@ -226,7 +213,7 @@
 }
 
 /* The toolbar's "Canvas" caption is redundant once it sits under a Tools tab. */
-.lab-tools-panel .flow-toolbar-label,
+
 .lab-tools-panel .network-toolbar-label {
   display: none;
 }
@@ -279,17 +266,13 @@
 }
 
 /* In-canvas panel toggles are superseded by the drawer. */
-.is-canvas-focus #flowLibraryToggle,
-.is-canvas-focus #flowInspectorToggle,
-.is-canvas-focus #flowInspectorToggleCompact,
+
 .is-canvas-focus #networkPaletteToggle,
 .is-canvas-focus #networkInspectorToggle {
   display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flow-studio.is-canvas-focus .flow-library,
-  .flow-studio.is-canvas-focus .flow-inspector,
   .network-lab.is-canvas-focus .network-palette,
   .network-lab.is-canvas-focus .network-inspector,
   .lab-tools-panel {
@@ -356,7 +339,7 @@
 /* The canvas-only layout caps the lab at `min(84vh, 980px)`, which left a band
    of page background under the canvas once the header was hidden. Maximised
    means maximised — take the full height the shell gives us. */
-.app-shell.is-workspace-maximised .flow-studio.is-canvas-focus,
+
 .app-shell.is-workspace-maximised .network-lab.is-canvas-focus {
   height: 100%;
   max-height: none;

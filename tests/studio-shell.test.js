@@ -4,7 +4,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { initStudioShell } from "../src/studio-shell.js";
 
-describe("progressive Flow Studio shell", () => {
+describe("editor workspace shell", () => {
   beforeEach(() => {
     localStorage.clear();
     window.scrollTo = vi.fn();
@@ -17,44 +17,36 @@ describe("progressive Flow Studio shell", () => {
         </header>
         <button id="workspaceChromeRestore" aria-expanded="false" hidden></button>
         <section class="view view-studio is-active">
-          <div class="flow-studio" data-studio-experience="guided">
-            <button data-studio-experience="guided"></button>
-            <button data-studio-experience="pro"></button>
-            <button id="flowHelpButton"></button>
-            <button id="flowInspectorToggle"></button>
-            <button id="flowInspectorToggleCompact"></button>
-            <button id="flowFocusButton"></button>
-            <button id="flowLibraryToggle"></button>
-            <aside class="flow-library"></aside>
-            <div id="flowCanvas"><button class="flow-node"></button></div>
-            <aside class="flow-inspector"></aside>
-          </div>
+          <section class="diagram-studio" id="diagramStudio">
+            <div class="dg-canvas" tabindex="0"></div>
+          </section>
         </section>
       </main>
       <dialog id="studioHelpDialog"><button id="studioHelpClose"></button></dialog>`;
   });
 
-  it("starts beginners in Guided mode with the inspector out of the way", () => {
+  it("closes the shortcuts dialog from its close button and the backdrop", () => {
     initStudioShell();
-    const studio = document.querySelector(".flow-studio");
-    expect(studio.dataset.studioExperience).toBe("guided");
-    expect(studio.classList.contains("is-inspector-collapsed")).toBe(true);
+    const dialog = document.querySelector("#studioHelpDialog");
+    dialog.setAttribute("open", "");
+    document.querySelector("#studioHelpClose").click();
+    expect(dialog.hasAttribute("open")).toBe(false);
   });
 
-  it("opens the inspector contextually when a guided user selects a node", () => {
+  it("leaves Escape inside the diagram editor to the editor", () => {
     initStudioShell();
-    document.querySelector(".flow-node").click();
-    expect(
-      document.querySelector(".flow-studio").classList.contains("is-inspector-collapsed")
-    ).toBe(false);
+    document.querySelector("#workspaceChromeToggle").click();
+    document
+      .querySelector(".dg-canvas")
+      .dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    expect(document.querySelector(".app-shell").classList.contains("is-workspace-maximised")).toBe(
+      true
+    );
   });
 
-  it("persists the Pro experience separately from architecture data", () => {
-    initStudioShell();
-    document.querySelector('button[data-studio-experience="pro"]').click();
-    const stored = JSON.parse(localStorage.getItem("trust-choreography:studio-ui:v1"));
-    expect(document.querySelector(".flow-studio").dataset.studioExperience).toBe("pro");
-    expect(stored.experience).toBe("pro");
+  it("initialises once", () => {
+    expect(initStudioShell()).not.toBeNull();
+    expect(initStudioShell()).toBeNull();
   });
 
   it("marks full-screen editor views on the body", () => {

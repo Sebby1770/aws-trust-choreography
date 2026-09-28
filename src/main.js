@@ -2,8 +2,8 @@
  * Application entry point.
  *
  * Boots the shared workspace shell and network lab immediately, then lazily
- * initializes Flow Studio and its large icon catalog. Review Center consumes
- * the live state of both builders once they are ready.
+ * initializes the AWS Diagram Studio and its large icon catalog. Review
+ * Center consumes the live state of both builders once they are ready.
  */
 
 import { initTheme } from "./theme.js";
@@ -32,14 +32,25 @@ ready(() => {
   const theme = initTheme(document.querySelector("#themeButton"));
   initAnimatedContent();
   initSpotlight();
-  const studioShell = initStudioShell();
+  initStudioShell();
   initCanvasFocus();
-  initSqlLab();
+  initSqlLab({
+    // `views` and `boot` are defined below; these run only on user action.
+    openDiagram: async (sql) => {
+      views?.setView("studio");
+      const flowStudio = await boot();
+      flowStudio?.openSqlSchema?.(sql);
+    },
+    getDiagramSql: async (dialect) => {
+      const flowStudio = await boot();
+      return flowStudio?.schemaSql?.(dialect) || null;
+    },
+  });
   const networkLab = initNetworkLab();
   let reviewCenter = null;
   let views = null;
 
-  const studio = document.querySelector(".flow-studio");
+  const studio = document.querySelector(".diagram-studio");
   if (!studio) {
     initViews();
     return;
@@ -55,18 +66,12 @@ ready(() => {
         const { initFlowStudio } = await import("./flow-studio.js");
         const { catalog, meta } = await loadIconCatalog();
         // AI / LLM building blocks lead the catalog so they are easy to find.
-        initFlowStudio([...AI_ICONS, ...catalog], { ...meta, aiCount: AI_ICONS.length });
-        const { initStudioSessions } = await import("./studio-sessions.js");
-        initStudioSessions();
-        const { initStudioExtras } = await import("./studio-extras.js");
-        initStudioExtras();
-        const { initIacImport } = await import("./iac-import-ui.js");
-        initIacImport();
+        initFlowStudio([...AI_ICONS, ...catalog], { ...meta, aiCount: AI_ICONS.length }, { theme });
         window.dispatchEvent(new CustomEvent("atlas:studioready"));
         return window.AWSFlowStudio;
       } catch (error) {
-        if (status) status.textContent = "Flow Studio failed to load. Reload to retry.";
-        console.error("Flow Studio failed to initialize:", error);
+        if (status) status.textContent = "The diagram studio failed to load. Reload to retry.";
+        console.error("Diagram studio failed to initialize:", error);
         return null;
       }
     })();
@@ -122,9 +127,6 @@ ready(() => {
     revealTarget: async (target) => {
       if (target?.view === "studio") {
         const flowStudio = await boot();
-        studioShell?.setFocusMode?.(false);
-        if (target.kind === "library") studioShell?.setLibraryCollapsed?.(false);
-        else studioShell?.setInspectorCollapsed?.(false);
         return new Promise((resolve) => {
           window.requestAnimationFrame(() => resolve(Boolean(flowStudio?.reveal?.(target))));
         });
@@ -141,6 +143,7 @@ ready(() => {
     navigate: (view) => views?.setView(view),
     theme,
     getReviewCenter: () => reviewCenter,
+    getStudioCommands: () => window.AWSFlowStudio?.commands?.() || [],
   });
   initProjectLaunchpad({
     launch: async (project) => {

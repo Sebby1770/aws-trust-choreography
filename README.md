@@ -40,62 +40,65 @@ of sections embedded in a long page.
 - Blank labs are excluded from the combined score so unused workspaces cannot dilute real work.
 - The Review Center is diagram guidance, not a live AWS-account audit or certification.
 
-**AWS Flow Studio** (full-screen)
+**AWS Diagram Studio** (full-screen) — a draw.io-class editor that understands AWS
 
-- A topology-first architecture lab: click or drag services onto the canvas, move nodes, draw
-  directional trust paths, auto-layout, undo / redo, focus the canvas, and open either side panel
-  only when it is useful.
-- **Guided mode** is the beginner-friendly default. It keeps the Add → Connect → Analyze journey
-  visible, starts with the inspector collapsed, and opens intelligence contextually when a node or
-  path is selected.
-- **Pro mode** reveals named sessions, detailed score controls, status tools, JSON import, local
-  save, and JSON / SVG / Terraform / Mermaid exports. The selected experience persists locally.
-- **Import infrastructure as code** — paste (or drop) a Terraform `.tf` file or a CloudFormation
-  JSON template and it becomes a live diagram: services are drawn, plumbing is hidden, references
-  become directional trust paths, and plaintext listeners arrive already flagged as unencrypted.
-  A preview shows exactly what will be drawn before it replaces the canvas. Everything is parsed
-  in the browser — nothing is uploaded and no AWS account is contacted.
-- **SQL review** — paste a query and get a structural read of it plus findings: destructive
-  statements with no WHERE, cartesian joins, `NOT IN` against a nullable subquery, leading-wildcard
-  LIKE, functions that make a predicate non-sargable, `DISTINCT` hiding a join fan-out, correlated
-  subqueries in the select list, deep `OFFSET` paging, and interpolated values. Runs entirely in
-  the browser with no key and no network. Optionally goes further with **your own** Anthropic API
-  key, which stays in your browser's local storage.
-- **Trust zones** — every service sits in a zone (internet, edge, public subnet, private subnet,
-  data tier, management), editable per node. Imported stacks derive their zone from real VPC and
-  subnet placement: compute in a subnet routing to an internet gateway is public, everything else
-  in the VPC is private, and an `internal = true` load balancer is not a public entry point.
-- **Boundary analysis** — a path between zones is a trust boundary crossing. The review reports
-  plaintext on a boundary, a datastore answering the internet, untrusted traffic reaching internal
-  compute unmediated, outbound paths from the data tier, and edge protection that is present but
-  not actually on the traffic path. Crossings are drawn on the canvas, not just listed.
-- **AI / LLM building blocks** — an "AI" library tab with Claude, ChatGPT, Foundation Model, AI
-  Agent, Vector Database, Embeddings Model, and AI Guardrails nodes you can drop into an AWS
-  architecture.
-- **Starter templates** — Claude RAG assistant, AI agent platform, GenAI chatbot, plus Serverless
-  API, Event pipeline, and Resilient web app.
-- Live Architecture Intelligence scoring across security, reliability, observability, and recovery.
-- **A paper canvas built for large architectures** — the diagram sits on a white 2400 x 1500
-  surface that genuinely zooms (Fit, then 25%-200%) and scrolls, with compact nodes so a real
-  system fits on screen. Fit frames your diagram rather than the empty canvas, and SVG export
-  matches the same white palette so exported diagrams drop straight into a README.
-- **The lab is the canvas.** Both labs put _everything_ except the drawing surface into one
-  slide-over drawer opened by **Panels** at the far end of the header — Library, Tools (canvas
-  modes, architecture name, templates, cost, simulation, status), and Insights. The workspace
-  switcher is a dropdown next to the wordmark. What used to be several strips above the canvas,
-  a status bar below it, and two fixed side columns is now just the canvas.
-- **Chaos Lab** — a third inspector tab that turns the canvas into a resilience analysis: an
-  estimated end-to-end availability headline (with nines and projected downtime per year),
-  **single points of failure** found as graph articulation points (ranked by how many nodes they
-  strand, weighted by criticality), per-flow availability with **independent route counts**,
-  a **blast radius** ranking, and plain-English recommendations. "Kill selected node" rehearses a
-  real outage against the live topology and reports whether the architecture stays _resilient_,
-  goes _degraded_, or hits a full _outage_.
+- **Takes the whole screen.** The site header folds into the studio's own light-blue title bar
+  (workspace switcher, theme, command palette), with a draw.io-style menubar (File, Edit, View,
+  Arrange, Insert, Help), a tool strip, the shape library on the left, and a Format / Insights /
+  Chaos panel on the right. Both side panels collapse; on tablets and phones they float over the
+  canvas.
+- **Infinite canvas** — scroll or Space-drag to pan, ⌘-scroll or pinch to zoom at the pointer (10%–400%),
+  fit diagram / fit selection, a draggable minimap, and a grid with snapping.
+- **Real editing** — multi-select (click, shift-click, marquee), move with smart alignment guides,
+  resize from eight handles, nudge with the arrow keys, copy / cut / paste (across tabs via the
+  system clipboard), duplicate or ⌥-drag to copy, group and ungroup, lock, bring to front / send to
+  back, align and distribute, auto layout, find (⌘F), and labelled undo / redo.
+- **Connectors like draw.io, only smarter** — hover a shape for blue arrows: drag one to connect,
+  click one to add a connected copy, or let go on empty canvas to pick what to create there.
+  Orthogonal connectors **route around other shapes** (A\* over an orthogonal visibility grid with a
+  bend penalty) and drop below service labels instead of cutting through them. Straight and curved
+  routing, draggable segments and waypoints, fixed ports, arrowheads (including crow's-foot ER ends),
+  dashes, animated flow, and labels you can drag along the line.
+- **Shapes** — general and flowchart shapes, notes, text, images, all 862 official AWS icons, AI / LLM
+  nodes, 20 network devices, and **AWS group containers** (AWS Cloud, Region, VPC, Availability Zone,
+  public / private subnet, security group, Auto Scaling group and more). Double-click anywhere to
+  add something by name — `sqs`, `alb`, `ddb` and other shorthand work.
+- **Trust zones follow containers.** Drop a service into a private subnet (or a data-tier / edge /
+  management zone container) and it takes on that trust zone; change a container's zone and the
+  services inside follow. Plaintext and tier-skipping paths are highlighted on the canvas.
+- **Format panel** — fill, line, width, pattern, rounded corners, shadow, opacity, fonts and alignment,
+  exact position and size, container type and zone, and the architecture fields (environment,
+  criticality, trust zone, notes) for services.
+- **draw.io interchange** — **open** `.drawio` / `.xml` files (compressed or not, every page) and
+  editable `.drawio.svg`: draw.io's own AWS shapes become live, analysable services and its AWS
+  groups become containers. **Save** as a native `.drawio` file (real draw.io AWS group shapes, the
+  exact icons embedded) that round-trips trust zones, criticality and traffic types.
+- **Export** PNG (2×), SVG that reopens as an editable draw.io diagram, JSON, a Terraform skeleton,
+  Mermaid, and SQL DDL. Paste draw.io shapes straight onto the canvas.
+- **Pages** — tabs along the bottom, each auto-saved; rename, duplicate and delete from the tab menu.
+- **Database diagrams (ER)** — table shapes with a column editor (name, type, PK, NOT NULL, UNIQUE).
+  Drawing a line between two tables creates the foreign key (`players.team_id → teams.id`) with
+  crow's-foot ends that follow the column's nullability. File › Import SQL schema turns
+  `CREATE TABLE` DDL into a laid-out ER diagram, and Export › SQL writes the diagram back out as
+  dependency-ordered DDL for PostgreSQL, MySQL or SQLite.
+- **Architecture intelligence** stays live alongside the drawing: the readiness score and
+  prioritised checks, **Chaos Lab** (availability, single points of failure, blast radius, and
+  "kill this service" rehearsal), traffic animation, and a rough monthly cost.
+- **Import infrastructure as code** — Terraform or CloudFormation becomes a live diagram (see
+  File › Import Terraform / CloudFormation).
+- Keyboard shortcuts for everything (press `?`), command-palette actions, and light / dark themes.
 
-- Traffic and failure rehearsal for understanding affected paths before production.
-- Multiple named sessions, each with its own locally auto-saved canvas, plus a rough monthly cost
-  estimate. Terraform output is scaffolding with TODOs and must be reviewed before use.- A searchable library of **862 official AWS architecture icons**, lazy-loaded so it never blocks
-  first paint.
+**SQL Review**
+
+- Paste a query and get a structural read plus findings: destructive statements with no WHERE,
+  cartesian joins, `NOT IN` against a nullable subquery, leading-wildcard LIKE, non-sargable
+  predicates, `DISTINCT` hiding a join fan-out, correlated subqueries, deep `OFFSET` paging, and
+  interpolated values — all in the browser. Optionally goes further with **your own** Anthropic
+  API key.
+- **SQL ⇄ schema diagram.** Paste `CREATE TABLE` statements and a live ER diagram of the tables and
+  foreign keys appears beside the findings; **Open in AWS Studio** turns it into an editable page.
+  **From diagram** does the reverse, writing DDL for the tables drawn in the studio in the chosen
+  dialect.
 
 **Network Lab** (full-screen)
 
@@ -171,9 +174,22 @@ bundles and minifies the app into `dist/client`.
 ```
 src/
   main.js              app entry — boots the workspaces, lazy-loads AWS Flow Studio
-  flow-studio.js       AWS architecture canvas and domain state
+  flow-studio.js       AWS Diagram Studio: composes the editor with intelligence, pages, import/export
+  diagram/             the diagram engine (unit-tested):
+    editor.js          interactive editor — pointer, keyboard, clipboard, text editing, history
+    model.js           document schema, migration, containment, paint order, clipboard
+    router.js          connector routing (obstacle-avoiding orthogonal, straight, curved) and arrowheads
+    scene.js           document → SVG, shared by the canvas and every export
+    geometry.js        rects, snapping, smart guides, align / distribute, resizing
+    drawio.js          .drawio import / export
+    er.js, table.js    ER tables, foreign keys, SQL schema ⇄ diagram
+    layout.js          layered auto layout
+    overlay.js, viewport.js, history.js, text.js, vdom.js, shapes.js, templates.js
+    library.js, format-panel.js, menus.js, quick-insert.js, minimap.js, export.js
+  sql-schema.js        DDL parser and multi-dialect DDL writer (unit-tested)
+  sql-schema-preview.js live ER preview for SQL Review (loaded on demand)
   aws-review-model.js  pure, explainable AWS readiness rules
-  studio-shell.js      Guided/Pro experience and responsive panel controls
+  studio-shell.js      Maximise mode, per-view layout classes, shortcuts dialog
   network-lab.js       network canvas, scoring, persistence, and packet simulation
   review-center.js     combined review model, report builder, and DOM controller
   ai-icons.js          Claude/ChatGPT/AI library nodes (unit-tested)
@@ -183,12 +199,11 @@ src/
   command-palette.js   ⌘K launcher + fuzzy ranking (unit-tested)
   workspace-commands.js navigation, theme, and Review commands
   animated-content.js  reveal-on-scroll engine (unit-tested)
-  studio-sessions.js   multi-session store for Flow Studio (unit-tested)
+  studio-sessions.js   page store for the diagram studio (unit-tested)
   cost-model.js        rough monthly cost estimator (unit-tested)
   terraform-export.js  canvas → main.tf skeleton (unit-tested)
   mermaid-export.js    canvas → Mermaid flowchart (unit-tested)
-  svg-export.js        canvas → white-background SVG diagram (unit-tested)
-  canvas-focus.js      canvas-only layout: workspace dropdown + Library/Tools/Insights drawer, both labs (unit-tested)
+  canvas-focus.js      workspace dropdown + the Network Lab's Library/Tools/Insights drawer (unit-tested)
   network-icons.js     line-art device icons for the Network Lab (unit-tested)
   sql-review.js        SQL static analysis — masking, rules, scoring (unit-tested)
   sql-assist.js        optional Claude review via your own API key (unit-tested)
@@ -197,10 +212,10 @@ src/
   iac-import.js        Terraform/CloudFormation → canvas (unit-tested)
   iac-service-map.js   IaC resource type → AWS service tables
   iac-import-ui.js     import dialog wiring (unit-tested)
-  studio-extras.js     cost badge + TF/MMD toolbar wiring
   spotlight.js         pointer-tracked spotlight cards
   icon-catalog.js      lazy loader for the icon catalog chunk
-studio-shell.css       full-viewport AWS editor shell and responsive drawers
+diagram-studio.css     the AWS Diagram Studio (light-blue, full-screen)
+studio-shell.css       full-viewport editor shell shared by the labs
 network-lab.css        Network Lab visual system and responsive canvas
 review-center.css      Review Center visual system and responsive report layout
 assets/ai-icons/       custom AI / LLM node SVGs
@@ -214,9 +229,10 @@ The resilience, packet-routing, scoring, session, and URL-state logic live in te
 
 ## Performance
 
-The shell, Explore workspace, Review Center, and Network Lab load immediately. The heavier AWS Flow
-Studio, session/export helpers, and official icon catalog are loaded lazily via dynamic `import()`
-when the studio nears the viewport, Review opens, or the browser is idle.
+The shell, Explore workspace, Review Center, and Network Lab load immediately. The heavier AWS Diagram
+Studio, its diagram engine, and the official icon catalog are loaded lazily via dynamic `import()`
+when the studio nears the viewport, Review opens, or the browser is idle; the SQL Review schema
+preview loads the first time pasted SQL contains a `CREATE TABLE`.
 
 ## Deployment
 
