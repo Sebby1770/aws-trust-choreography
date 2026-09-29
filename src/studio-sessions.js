@@ -1,10 +1,9 @@
 /**
- * Flow Studio sessions — multiple named architectures, each auto-saved and
- * switchable from the studio titlebar.
+ * Studio pages — multiple named architectures, each auto-saved and shown as
+ * page tabs along the bottom of the diagram studio (like draw.io pages).
  *
- * The store core is storage-agnostic (any object with getItem/setItem) so it
- * can be unit-tested without a browser; `initStudioSessions` wires it to the
- * live Flow Studio API (window.AWSFlowStudio) and the titlebar controls.
+ * The store is storage-agnostic (any object with getItem/setItem) so it can
+ * be unit-tested without a browser; the studio wires it to its page tabs.
  */
 
 const STORAGE_KEY = "aws-atlas-studio-sessions-v1";
@@ -66,8 +65,11 @@ export function createSessionStore(storage) {
       if (active && typeof snapshot === "string") active.snapshot = snapshot;
       return write(doc);
     },
-    /** Create a new session (saving `currentSnapshot` into the old one first). */
-    create(name, currentSnapshot) {
+    /**
+     * Create a new session (saving `currentSnapshot` into the old one first).
+     * `snapshot` seeds the new session, which is how a page is duplicated.
+     */
+    create(name, currentSnapshot, snapshot = "") {
       const doc = read();
       if (typeof currentSnapshot === "string") {
         const active = doc.sessions.find((s) => s.id === doc.activeId);
@@ -77,7 +79,7 @@ export function createSessionStore(storage) {
       const session = {
         id: makeId(doc.sessions),
         name: (name || `Session ${doc.sessions.length + 1}`).slice(0, 60),
-        snapshot: "",
+        snapshot: typeof snapshot === "string" ? snapshot : "",
       };
       doc.sessions.push(session);
       doc.activeId = session.id;
@@ -107,89 +109,25 @@ export function createSessionStore(storage) {
     /** Rename the active session. */
     renameActive(name) {
       const doc = read();
-      const active = doc.sessions.find((s) => s.id === doc.activeId);
-      if (active && typeof name === "string" && name.trim()) active.name = name.slice(0, 60);
+      return this.rename(doc.activeId, name);
+    },
+    /** Rename any session. */
+    rename(id, name) {
+      const doc = read();
+      const session = doc.sessions.find((s) => s.id === id);
+      if (session && typeof name === "string" && name.trim())
+        session.name = name.trim().slice(0, 60);
       return write(doc);
     },
+    /** Move a session to a new position in the tab order. */
+    move(id, toIndex) {
+      const doc = read();
+      const from = doc.sessions.findIndex((s) => s.id === id);
+      if (from < 0) return doc;
+      const [session] = doc.sessions.splice(from, 1);
+      doc.sessions.splice(Math.max(0, Math.min(doc.sessions.length, toIndex)), 0, session);
+      return write(doc);
+    },
+    maxSessions: MAX_SESSIONS,
   };
-}
-
-/** Wire the store to the live studio UI. Call after Flow Studio has booted. */
-export function initStudioSessions(studio = window.AWSFlowStudio) {
-  const select = document.querySelector("#studioSessionSelect");
-  const newButton = document.querySelector("#studioSessionNew");
-  const deleteButton = document.querySelector("#studioSessionDelete");
-  const nameInput = document.querySelector("#flowArchitectureName");
-  if (!select || !studio) return null;
-
-  const store = createSessionStore(window.localStorage);
-
-  function render() {
-    const doc = store.list();
-    select.replaceChildren(
-      ...doc.sessions.map((s) => {
-        const option = document.createElement("option");
-        option.value = s.id;
-        option.textContent = s.name;
-        option.selected = s.id === doc.activeId;
-        return option;
-      })
-    );
-    if (deleteButton) deleteButton.disabled = doc.sessions.length <= 1;
-  }
-
-  select.addEventListener("change", () => {
-    const { target } = store.switch(select.value, studio.snapshot());
-    if (target) {
-      if (target.snapshot) {
-        studio.loadArchitecture(target.snapshot);
-      } else {
-        studio.applyTemplate("blank");
-      }
-    }
-    render();
-  });
-
-  if (newButton) {
-    newButton.addEventListener("click", () => {
-      const name = window.prompt("Name the new session", "New architecture");
-      if (name === null) return;
-      const { created } = store.create(name.trim() || undefined, studio.snapshot());
-      if (created) studio.applyTemplate("blank");
-      render();
-    });
-  }
-
-  if (deleteButton) {
-    deleteButton.addEventListener("click", () => {
-      const doc = store.list();
-      const active = doc.sessions.find((s) => s.id === doc.activeId);
-      if (!active || doc.sessions.length <= 1) return;
-      if (!window.confirm(`Delete session "${active.name}"?`)) return;
-      const { active: next } = store.remove(active.id);
-      if (next) {
-        if (next.snapshot) studio.loadArchitecture(next.snapshot);
-        else studio.applyTemplate("blank");
-      }
-      render();
-    });
-  }
-
-  // Keep the session name in sync with the architecture name field.
-  if (nameInput) {
-    nameInput.addEventListener("change", () => {
-      store.renameActive(nameInput.value.trim());
-      render();
-    });
-  }
-
-  // Autosave the active session periodically and when leaving.
-  const persist = () => store.saveActive(studio.snapshot());
-  window.setInterval(persist, 10000);
-  window.addEventListener("beforeunload", persist);
-
-  // First run: adopt the current architecture into the active session.
-  persist();
-  render();
-  return store;
 }

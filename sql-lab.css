@@ -402,3 +402,116 @@
     border-bottom: 1px solid var(--sql-line);
   }
 }
+
+/* ---------- schema diagram ---------- */
+
+.sql-from-diagram {
+  display: inline-flex;
+  border: 1px solid var(--sql-line);
+  border-radius: 8px;
+}
+
+.sql-from-diagram button {
+  border: 0 !important;
+  border-radius: 8px 0 0 8px !important;
+}
+
+.sql-from-diagram select {
+  padding: 0 0.35rem;
+  border: 0;
+  border-left: 1px solid var(--sql-line);
+  border-radius: 0 8px 8px 0;
+  background: transparent;
+  color: var(--sql-ink);
+  font: inherit;
+  font-size: 0.72rem;
+}
+
+.sql-from-diagram select option {
+  color: #0a1622;
+}
+
+.sql-schema {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.7rem;
+  border: 1px solid rgba(90, 169, 255, 0.35);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(90, 169, 255, 0.1), rgba(90, 169, 255, 0.03));
+}
+
+.sql-schema[hidden] {
+  display: none;
+}
+
+.sql-schema-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.sql-schema-head div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.sql-schema-eyebrow {
+  color: #8cc4ff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sql-schema-head strong {
+  font-size: 0.9rem;
+}
+
+.sql-schema-head small {
+  color: var(--sql-muted);
+  font-size: 0.74rem;
+}
+
+.sql-schema-open {
+  flex: none;
+  padding: 0.4rem 0.75rem;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #4aa8ff, #2f8ef0);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sql-schema-open:hover {
+  filter: brightness(1.07);
+}
+
+.sql-schema-preview {
+  overflow: auto;
+  max-height: 540px;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.sql-schema-preview svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sql-schema-notes {
+  margin: 0;
+  color: var(--sql-muted);
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
+.sql-schema-notes:empty {
+  display: none;
+}

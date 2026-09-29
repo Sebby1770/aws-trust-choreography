@@ -59,10 +59,10 @@ export default defineConfig({
       // coverage cannot silently regress. Raise these as coverage improves;
       // network-lab.js is what holds the statement/line figures down today.
       thresholds: {
-        statements: 60,
-        branches: 75,
-        functions: 75,
-        lines: 60,
+        statements: 77,
+        branches: 76,
+        functions: 83,
+        lines: 77,
       },
     },
   },

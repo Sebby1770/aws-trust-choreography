@@ -1,0 +1,1132 @@
+/* =====================================================================
+   App theme — every workspace in the AWS Studio's light-blue language.
+
+   Loaded last. The AWS Diagram Studio's `--ds-*` tokens are the design
+   system; this file points every other page's tokens (`--tc-*`, the
+   original `--bg`/`--text` set, Review's `--review-*`, SQL's `--sql-*`) at
+   them, replaces the floating site banner with a compact full-width title
+   bar that matches the studio's, makes Network Lab and SQL Review fill the
+   screen like the studio does, and restyles the surfaces that were painted
+   dark directly. Miniature canvases (the Explore previews) are white paper
+   in both themes, exactly like the studio canvas.
+   ===================================================================== */
+
+/* ---------------------------------------------------------- extra tokens */
+
+:root {
+  --ds-page: #0a1422;
+  --ds-mint: #4ade9f;
+  --ds-sky: #38bdf8;
+  --ds-violet: #a78bfa;
+  --ds-coral: #fb7185;
+  --ds-accent-soft: rgba(90, 169, 255, 0.14);
+  --ds-page-glow: rgba(74, 168, 255, 0.12);
+}
+
+:root[data-theme="light"] {
+  --ds-page: #eef5fd;
+  --ds-mint: #0f9d6b;
+  --ds-sky: #0284c7;
+  --ds-violet: #6d5efc;
+  --ds-coral: #e0513a;
+  --ds-accent-soft: rgba(26, 115, 232, 0.1);
+  --ds-page-glow: rgba(74, 168, 255, 0.16);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --ds-page: #eef5fd;
+    --ds-mint: #0f9d6b;
+    --ds-sky: #0284c7;
+    --ds-violet: #6d5efc;
+    --ds-coral: #e0513a;
+    --ds-accent-soft: rgba(26, 115, 232, 0.1);
+    --ds-page-glow: rgba(74, 168, 255, 0.16);
+  }
+}
+
+/* The selector list matches the specificity of every theme block the older
+   stylesheets define, so these aliases win in light, dark and system mode. */
+:root,
+:root[data-theme],
+:root:not([data-theme]) {
+  --tc-bg: var(--ds-page);
+  --tc-bg-soft: var(--ds-chrome-sunken);
+  --tc-panel: var(--ds-chrome-raised);
+  --tc-panel-solid: var(--ds-chrome-raised);
+  --tc-panel-raised: var(--ds-chrome);
+  --tc-ink: var(--ds-ink);
+  --tc-muted: var(--ds-muted);
+  --tc-dim: var(--ds-dim);
+  --tc-line: var(--ds-line);
+  --tc-line-strong: var(--ds-line-strong);
+  --tc-orange: var(--ds-accent);
+  --tc-coral: var(--ds-coral);
+  --tc-mint: var(--ds-mint);
+  --tc-violet: var(--ds-violet);
+  --tc-cyan: var(--ds-sky);
+  --tc-shadow: var(--ds-shadow);
+
+  --bg: var(--ds-page);
+  --surface: var(--ds-chrome-raised);
+  --surface-2: var(--ds-chrome);
+  --surface-3: var(--ds-chrome-sunken);
+  --text: var(--ds-ink);
+  --muted: var(--ds-muted);
+  --dim: var(--ds-dim);
+  --border: var(--ds-line-strong);
+  --line: var(--ds-line-strong);
+  --shadow: var(--ds-shadow);
+  --orange: var(--ds-accent);
+  --cyan: var(--ds-sky);
+  --green: var(--ds-mint);
+  --violet: var(--ds-violet);
+  --danger: var(--ds-bad);
+  --flow-cyan: var(--ds-accent);
+  --flow-line: var(--ds-line);
+  --flow-panel: var(--ds-chrome);
+}
+
+/* -------------------------------------------------------------- the page */
+
+html {
+  background: var(--ds-page);
+}
+
+body {
+  color: var(--ds-ink);
+  background:
+    radial-gradient(circle at 82% -6%, var(--ds-page-glow), transparent 32rem),
+    radial-gradient(circle at -4% 36%, var(--ds-page-glow), transparent 30rem), var(--ds-page);
+}
+
+body::before {
+  opacity: 1;
+  background:
+    linear-gradient(var(--ds-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ds-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 60%);
+}
+
+::selection {
+  background: rgba(26, 115, 232, 0.22);
+}
+
+.app-shell {
+  width: 100%;
+  max-width: none;
+  padding: 0 0 3rem;
+}
+
+.view-home,
+.view-review {
+  width: min(1640px, 100%);
+  margin: 0 auto;
+  padding: 1.25rem clamp(0.75rem, 1.8vw, 1.6rem) 0;
+}
+
+/* ---------------------------------------------------- title bar (header) */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  min-height: 56px;
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  border: 0;
+  border-bottom: 1px solid var(--ds-line-strong);
+  border-radius: 0;
+  background: var(--ds-header);
+  box-shadow: 0 8px 24px -18px var(--ds-shadow);
+  backdrop-filter: none;
+}
+
+.brand-lockup {
+  gap: 0.6rem;
+  padding: 0.2rem 0.5rem 0.2rem 0.25rem;
+  border-radius: 10px;
+}
+
+.brand-lockup:hover {
+  background: var(--ds-hover);
+}
+
+.brand-lockup strong {
+  color: var(--ds-ink);
+  font-size: 0.9rem;
+}
+
+.brand-lockup small {
+  color: var(--ds-dim);
+}
+
+.brand-sigil {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 9px;
+  background: linear-gradient(145deg, #4aa8ff 0%, #1a73e8 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 2px 8px rgba(26, 115, 232, 0.35);
+}
+
+.brand-sigil i {
+  width: 7px;
+  height: 7px;
+  border: 1.6px solid #ffffff;
+  box-shadow: none;
+}
+
+.brand-sigil::before,
+.brand-sigil::after {
+  background: #ffffff;
+  opacity: 0.85;
+}
+
+.workspace-menu > summary {
+  min-height: 34px;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--ds-line-strong);
+  border-radius: 999px;
+  color: var(--ds-ink);
+  background: var(--ds-chrome-raised);
+  box-shadow: 0 1px 2px var(--ds-shadow);
+  font-weight: 700;
+}
+
+.workspace-menu > summary:hover,
+.workspace-menu[open] > summary {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-ink);
+}
+
+.workspace-menu-list {
+  padding: 4px;
+  border: 1px solid var(--ds-line-strong);
+  border-radius: 10px;
+  color: var(--ds-ink);
+  background: var(--ds-chrome-raised);
+  box-shadow: 0 16px 40px var(--ds-shadow);
+}
+
+.workspace-menu-list button {
+  border-radius: 6px;
+  color: var(--ds-ink);
+}
+
+.workspace-menu-list button:hover {
+  color: #ffffff;
+  background: var(--ds-select);
+}
+
+.workspace-menu-list button[aria-current="page"] {
+  color: var(--ds-accent-ink);
+  font-weight: 750;
+}
+
+.workspace-menu-list button[aria-current="page"]:hover {
+  color: #ffffff;
+}
+
+.header-actions {
+  gap: 0.25rem;
+}
+
+.header-icon {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--ds-ink);
+  background: transparent;
+  font-size: 0.74rem;
+  font-weight: 700;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
+}
+
+.header-icon:hover,
+.header-icon:focus-visible {
+  transform: none;
+  border-color: transparent;
+  color: var(--ds-accent-ink);
+  background: var(--ds-hover);
+}
+
+.header-icon:focus-visible {
+  outline: 2px solid var(--ds-accent);
+  outline-offset: 1px;
+}
+
+.studio-drawer-toggle[aria-pressed="true"],
+.workspace-chrome-toggle[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--ds-accent) 35%, transparent);
+  color: var(--ds-accent-ink);
+  background: var(--ds-active);
+}
+
+.header-github {
+  padding: 0.5rem 0.6rem;
+  color: var(--ds-muted);
+  font-weight: 700;
+}
+
+.header-github span {
+  color: var(--ds-accent);
+}
+
+.workspace-chrome-restore {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome-raised);
+  box-shadow: 0 10px 28px var(--ds-shadow);
+}
+
+/* ------------------------------------------- full-screen tool workspaces */
+
+.app-shell[data-active-view="network"],
+.app-shell[data-active-view="sql"] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-shell[data-active-view="network"] .view-network,
+.app-shell[data-active-view="sql"] .view-sql {
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-shell .network-lab.is-canvas-focus,
+.app-shell[data-active-view="network"] .network-lab,
+.app-shell[data-active-view="sql"] .sql-lab {
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ---------------------------------------------------------- buttons */
+
+.primary-action,
+.dialog-submit {
+  border: 0;
+  color: #ffffff;
+  background: var(--ds-primary);
+  box-shadow:
+    0 10px 24px rgba(26, 115, 232, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.primary-action:hover,
+.dialog-submit:hover {
+  box-shadow:
+    0 14px 30px rgba(26, 115, 232, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.secondary-action {
+  border: 1px solid var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome-raised);
+}
+
+.secondary-action:hover {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-ink);
+}
+
+/* ------------------------------------------------------------- Explore */
+
+.launch-hero,
+.network-promo,
+.workflow-section {
+  border: 1px solid var(--ds-line-strong);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, var(--ds-accent-soft), transparent 42%),
+    linear-gradient(315deg, var(--ds-accent-soft), transparent 38%), var(--ds-chrome-raised);
+  box-shadow: 0 18px 48px -28px var(--ds-shadow);
+}
+
+.launch-hero::before {
+  border-color: color-mix(in srgb, var(--ds-accent) 16%, transparent);
+  box-shadow:
+    0 0 0 6rem color-mix(in srgb, var(--ds-accent) 4%, transparent),
+    0 0 0 12rem color-mix(in srgb, var(--ds-accent) 2.5%, transparent);
+}
+
+.launch-kicker,
+.section-index {
+  color: var(--ds-accent-ink);
+}
+
+.live-dot {
+  background: var(--ds-accent);
+  box-shadow: 0 0 0 4px var(--ds-accent-soft);
+}
+
+.network-promo-copy h2 em {
+  color: var(--ds-sky);
+}
+
+.visual-orbit {
+  border-color: color-mix(in srgb, var(--ds-accent) 18%, transparent);
+}
+
+/* The hero and promo previews are miniature studio canvases: white paper. */
+.architecture-glass {
+  border: 1px solid rgba(37, 99, 175, 0.2);
+  background: #ffffff;
+  box-shadow:
+    0 30px 70px -20px rgba(24, 64, 120, 0.35),
+    0 2px 6px rgba(24, 64, 120, 0.08);
+  backdrop-filter: none;
+}
+
+.architecture-glass-head,
+.architecture-glass-foot {
+  color: #46607e;
+  background: #f5f9fe;
+}
+
+.architecture-glass-head {
+  border-bottom-color: rgba(37, 99, 175, 0.13);
+}
+
+.architecture-glass-foot {
+  border-top-color: rgba(37, 99, 175, 0.13);
+}
+
+.architecture-glass-head strong {
+  color: #0f9d6b;
+}
+
+.architecture-glass-head small {
+  color: #7890ab;
+}
+
+.architecture-glass-head i,
+.status-ok {
+  background: #0f9d6b;
+  box-shadow: 0 0 0 3px rgba(15, 157, 107, 0.16);
+}
+
+.architecture-glass-foot span:last-child {
+  color: #1a73e8;
+}
+
+.mini-architecture,
+.network-promo-map {
+  background:
+    linear-gradient(rgba(26, 115, 232, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 232, 0.07) 1px, transparent 1px), #ffffff;
+  background-size:
+    20px 20px,
+    20px 20px,
+    auto;
+}
+
+.mini-node,
+.promo-device {
+  border: 1px solid rgba(37, 99, 175, 0.2);
+  color: #0f2742;
+  background: #ffffff;
+  box-shadow: 0 8px 20px -8px rgba(24, 64, 120, 0.28);
+}
+
+.mini-node::after {
+  border-color: #ffffff;
+  background: #1a73e8;
+  box-shadow: none;
+}
+
+.mini-node small,
+.promo-device small {
+  color: #7890ab;
+}
+
+.mini-path,
+.promo-network-link {
+  background: rgba(26, 115, 232, 0.4);
+}
+
+.mini-path::after {
+  background: linear-gradient(90deg, transparent, #1a73e8, transparent);
+}
+
+.network-promo-map {
+  border: 1px solid rgba(37, 99, 175, 0.2);
+  box-shadow: 0 30px 70px -24px rgba(24, 64, 120, 0.32);
+}
+
+.network-promo-map::before {
+  border-color: rgba(26, 115, 232, 0.22);
+}
+
+.promo-device > span {
+  color: #ffffff;
+  background: #1a73e8;
+}
+
+.device-firewall > span {
+  background: #e0513a;
+}
+
+.device-switch > span {
+  background: #6d5efc;
+}
+
+.device-server > span {
+  background: #0f9d6b;
+}
+
+.promo-packet {
+  background: #0f9d6b;
+  box-shadow:
+    0 0 0 5px rgba(15, 157, 107, 0.14),
+    0 0 12px rgba(15, 157, 107, 0.6);
+}
+
+.signal-card {
+  border: 1px solid rgba(37, 99, 175, 0.18);
+  color: #0f2742;
+  background: #ffffff;
+  box-shadow: 0 16px 36px -14px rgba(24, 64, 120, 0.35);
+  backdrop-filter: none;
+}
+
+.signal-card span,
+.signal-card small {
+  color: #7890ab;
+}
+
+.blueprint-filters button {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-muted);
+  background: var(--ds-chrome-raised);
+}
+
+.blueprint-filters button:hover {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-ink);
+}
+
+.blueprint-filters button.is-active {
+  border-color: transparent;
+  color: #ffffff;
+  background: var(--ds-primary);
+}
+
+.blueprint-card {
+  border: 1px solid var(--ds-line-strong);
+  border-radius: 16px;
+  background: var(--ds-chrome-raised);
+  box-shadow: 0 10px 30px -22px var(--ds-shadow);
+}
+
+.blueprint-card::before {
+  background: var(--ds-accent-soft);
+}
+
+.blueprint-card:hover {
+  border-color: var(--ds-accent);
+  box-shadow: 0 18px 40px -22px rgba(26, 115, 232, 0.45);
+}
+
+.card-featured {
+  background:
+    radial-gradient(circle at 90% 10%, var(--ds-accent-soft), transparent 55%),
+    var(--ds-chrome-raised);
+}
+
+.blueprint-badge {
+  border-color: color-mix(in srgb, var(--ds-accent) 30%, transparent);
+  color: var(--ds-accent-ink);
+  background: var(--ds-accent-soft);
+}
+
+.blueprint-icons img {
+  border: 1px solid var(--ds-line);
+  background: #ffffff;
+}
+
+.blueprint-card > button {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome);
+}
+
+.blueprint-card > button:hover {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-ink);
+}
+
+.blueprint-blank {
+  border-style: dashed;
+  background:
+    radial-gradient(circle at 50% 28%, var(--ds-accent-soft), transparent 60%),
+    var(--ds-chrome-raised);
+}
+
+.blank-mark {
+  color: var(--ds-accent);
+  border-color: color-mix(in srgb, var(--ds-accent) 30%, transparent);
+}
+
+.workflow-steps li {
+  border-color: var(--ds-line);
+}
+
+.workflow-steps > li > span {
+  color: var(--ds-accent-ink);
+}
+
+/* ------------------------------------------------------------- dialogs */
+
+.project-dialog {
+  border: 1px solid var(--ds-line-strong);
+  color: var(--ds-ink);
+  background:
+    radial-gradient(circle at 90% 0, var(--ds-accent-soft), transparent 50%),
+    var(--ds-chrome-raised);
+  box-shadow: 0 30px 80px var(--ds-shadow);
+}
+
+.project-dialog::backdrop,
+.studio-help-dialog::backdrop {
+  background: rgba(8, 20, 40, 0.45);
+}
+
+.project-starters input:checked + span {
+  border-color: var(--ds-accent);
+  background: var(--ds-accent-soft);
+}
+
+.project-starters i {
+  color: var(--ds-accent-ink);
+  background: var(--ds-accent-soft);
+}
+
+.dialog-field select,
+.dialog-field input {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome-sunken);
+}
+
+.studio-help-dialog {
+  border: 1px solid var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome-raised);
+  box-shadow: 0 30px 80px var(--ds-shadow);
+}
+
+.studio-help-head span {
+  color: var(--ds-accent-ink);
+}
+
+.studio-help-head button {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome);
+}
+
+.ds-shortcuts kbd,
+.studio-help-tips kbd {
+  color: var(--ds-ink);
+  background: var(--ds-chrome-sunken);
+}
+
+/* Command palette */
+.cmdk-backdrop {
+  background: rgba(8, 20, 40, 0.45);
+}
+
+.cmdk-panel {
+  border-color: var(--ds-line-strong);
+  background: var(--ds-chrome-raised);
+  box-shadow: 0 30px 80px var(--ds-shadow);
+}
+
+.cmdk-item.is-active {
+  color: #ffffff;
+  background: var(--ds-select);
+}
+
+.cmdk-item.is-active .cmdk-item-hint {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cmdk-item-hint {
+  color: var(--ds-accent-ink);
+  background: var(--ds-accent-soft);
+}
+
+/* ------------------------------------------------------------- Review */
+
+.review-center {
+  --review-paper: var(--ds-chrome-raised);
+  --review-paper-raised: var(--ds-chrome);
+  --review-ink: var(--ds-ink);
+  --review-muted: var(--ds-muted);
+  --review-line: var(--ds-line-strong);
+  --review-coral: var(--ds-coral);
+  --review-orange: var(--ds-accent);
+  --review-mint: var(--ds-mint);
+  --review-cyan: var(--ds-sky);
+  --review-violet: var(--ds-violet);
+}
+
+.review-hero {
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, var(--ds-accent-soft), transparent 45%),
+    linear-gradient(315deg, var(--ds-accent-soft), transparent 40%), var(--ds-chrome-raised);
+  box-shadow: 0 18px 48px -28px var(--ds-shadow);
+}
+
+.review-mode-switch button.is-active,
+.review-filters button.is-active {
+  color: #ffffff;
+  background: var(--ds-select);
+}
+
+.review-verdict {
+  border: 1px solid var(--ds-line-strong);
+  border-radius: 20px;
+  color: var(--ds-ink);
+  background:
+    linear-gradient(var(--ds-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ds-line) 1px, transparent 1px),
+    radial-gradient(circle at 12% 30%, var(--ds-accent-soft), transparent 22rem),
+    var(--ds-chrome-raised);
+  background-size:
+    40px 40px,
+    40px 40px,
+    auto,
+    auto;
+  box-shadow: 0 18px 48px -28px var(--ds-shadow);
+}
+
+.review-score-ring {
+  background: conic-gradient(var(--review-orange) var(--review-score), var(--ds-line-strong) 0);
+  box-shadow: 0 0 40px rgba(26, 115, 232, 0.14);
+}
+
+.review-score-ring::before {
+  border-color: var(--ds-line);
+  background: var(--ds-chrome-raised);
+}
+
+.review-score-ring span,
+.review-verdict-copy > span,
+.review-project-facts dt,
+.review-project-facts small {
+  color: var(--ds-dim);
+}
+
+.review-verdict-copy > p {
+  color: var(--ds-muted);
+}
+
+.review-verdict-actions button,
+.review-passport-actions button,
+.review-next-tests article > button {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome);
+}
+
+.review-verdict-actions button:hover:not(:disabled),
+.review-passport-actions button:hover,
+.review-next-tests article > button:hover {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-ink);
+}
+
+.review-verdict-actions .review-primary-action,
+.review-passport-actions button:first-child {
+  border-color: transparent;
+  color: #ffffff;
+  background: var(--ds-primary);
+}
+
+.review-project-facts {
+  border-color: var(--ds-line-strong);
+  background: var(--ds-chrome);
+}
+
+.review-project-facts > div + div {
+  border-top-color: var(--ds-line);
+}
+
+.review-project-facts dd {
+  color: var(--ds-ink);
+}
+
+.review-passport {
+  background:
+    linear-gradient(145deg, var(--ds-accent-soft), transparent 55%), var(--ds-chrome-raised);
+}
+
+.review-next-tests article > i {
+  color: #ffffff;
+}
+
+/* -------------------------------------------------------- SQL Review */
+
+.sql-lab {
+  --sql-ink: var(--ds-ink);
+  --sql-muted: var(--ds-muted);
+  --sql-line: var(--ds-line-strong);
+  --sql-accent: var(--ds-accent);
+  color: var(--ds-ink);
+  background: var(--ds-chrome);
+}
+
+.sql-editor-pane {
+  background: var(--ds-chrome);
+}
+
+.sql-report-pane {
+  background: var(--ds-chrome-raised);
+}
+
+.sql-pane-head h2 {
+  font-size: 1rem;
+}
+
+.sql-pane-actions button,
+.sql-key-actions button,
+.sql-assist-run {
+  color: var(--ds-ink);
+  background: var(--ds-chrome-raised);
+}
+
+.sql-input {
+  border: 1px solid var(--ds-line-strong);
+  border-radius: 10px;
+  box-shadow: inset 0 1px 2px rgba(24, 64, 120, 0.06);
+}
+
+.sql-input:focus {
+  border-color: var(--ds-accent);
+  outline: none;
+}
+
+.sql-key-row input,
+.sql-question-row input {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome-sunken);
+}
+
+.sql-finding,
+.sql-structure-row {
+  border-color: var(--ds-line);
+  background: var(--ds-chrome);
+}
+
+.sql-finding.is-info,
+.is-info .sql-sev {
+  color: var(--ds-sky);
+}
+
+.sql-assist {
+  border-color: var(--ds-line-strong);
+}
+
+.sql-schema {
+  border-color: color-mix(in srgb, var(--ds-accent) 35%, transparent);
+  background: linear-gradient(180deg, var(--ds-accent-soft), transparent 70%), var(--ds-chrome);
+}
+
+.sql-schema-eyebrow {
+  color: var(--ds-accent-ink);
+}
+
+.sql-schema-open {
+  background: var(--ds-primary);
+}
+
+.sql-schema-preview {
+  border: 1px solid var(--ds-line);
+}
+
+.sql-from-diagram select {
+  color: var(--ds-ink);
+}
+
+/* -------------------------------------------------------- Network Lab */
+
+.network-lab {
+  color: var(--ds-ink);
+  background: var(--ds-chrome);
+}
+
+.network-lab.is-canvas-focus .network-palette,
+.network-lab.is-canvas-focus .network-inspector,
+.lab-tools-panel {
+  border-left: 1px solid var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome);
+  box-shadow: -18px 0 42px -20px var(--ds-shadow);
+}
+
+.lab-tools-panel > * {
+  border-bottom-color: var(--ds-line);
+}
+
+.is-canvas-focus[data-drawer] .lab-drawer-tabs {
+  border-bottom-color: var(--ds-line-strong);
+  background: var(--ds-chrome-raised);
+}
+
+.lab-drawer-tabs button {
+  color: var(--ds-muted);
+  font-weight: 650;
+}
+
+.lab-drawer-tabs button:hover {
+  color: var(--ds-ink);
+}
+
+.lab-drawer-tabs button[aria-selected="true"] {
+  border-color: var(--ds-accent);
+  color: var(--ds-ink);
+}
+
+.lab-drawer-close {
+  color: var(--ds-muted);
+}
+
+.network-palette-head span,
+.network-inspector-head span,
+.network-lab-meta strong,
+.network-packet-intro span,
+.network-template-grid button,
+.network-check strong,
+.network-check-item strong,
+.network-inspector-empty strong,
+.network-empty-state strong,
+.network-guidance strong {
+  color: var(--ds-ink);
+}
+
+.network-palette-head small,
+.network-inspector-head small,
+.network-toolbar-label,
+.network-device-tile small,
+.network-template-section > div:first-child small,
+.network-template-grid small,
+.network-packet-intro small,
+.network-score-ring span,
+.network-checks > div:first-child small,
+.network-check-score,
+.network-check small,
+.network-check-item small,
+.network-check p,
+.network-check-item p,
+.network-inspector-empty,
+.network-device-empty,
+.network-no-devices {
+  color: var(--ds-dim);
+}
+
+.network-lab-brand p,
+.network-lab-meta,
+.network-search > span,
+.network-categories button,
+.network-template-section > div:first-child,
+.network-canvas-titlebar label,
+.network-canvas-titlebar span,
+.network-packet-bar label,
+#networkPacketStatus,
+.network-score-panel p,
+.network-checks > div:first-child,
+.network-inspector-fields label,
+.network-statusbar,
+.network-empty-state,
+.network-guidance {
+  color: var(--ds-muted);
+}
+
+.network-palette-head button,
+.network-inspector-head button,
+.network-toolbar > button,
+.network-export-menu summary,
+.network-export-menu button,
+.network-canvas-titlebar button,
+.network-template-grid button,
+.network-empty-state button {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome-raised);
+}
+
+.network-toolbar > button:hover,
+.network-toolbar > button.network-is-active,
+.network-toolbar > button[aria-pressed="true"],
+.network-template-grid button:hover,
+.network-canvas-titlebar button:hover {
+  border-color: color-mix(in srgb, var(--ds-accent) 40%, transparent);
+  color: var(--ds-accent-ink);
+  background: var(--ds-active);
+}
+
+.network-export-menu > div {
+  border-color: var(--ds-line-strong);
+  background: var(--ds-chrome-raised);
+  box-shadow: 0 16px 40px var(--ds-shadow);
+}
+
+.network-search input,
+.network-canvas-titlebar input,
+.network-inspector-fields input,
+.network-inspector-fields select,
+.network-inspector-fields textarea,
+.network-packet-bar select {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome-sunken);
+}
+
+.network-search input:focus,
+.network-canvas-titlebar input:focus,
+.network-inspector-fields input:focus,
+.network-inspector-fields select:focus,
+.network-inspector-fields textarea:focus {
+  border-color: var(--ds-accent);
+}
+
+.network-categories button:hover,
+.network-categories button.network-is-active,
+.network-categories button.is-active:not([aria-pressed="false"]),
+.network-categories button[aria-pressed="true"] {
+  color: var(--ds-accent-ink);
+  background: var(--ds-active);
+}
+
+.network-device-card,
+.network-device-tile {
+  border-color: var(--ds-line-strong);
+  color: var(--ds-ink);
+  background: var(--ds-chrome-raised);
+}
+
+.network-device-card:hover,
+.network-device-tile:hover {
+  border-color: var(--ds-accent);
+  color: var(--ds-accent-ink);
+  background: var(--ds-chrome-raised);
+}
+
+.network-guidance,
+.network-inspector-empty > span {
+  background: var(--ds-chrome-sunken);
+}
+
+.network-canvas-titlebar,
+.network-packet-bar,
+.network-statusbar {
+  background: transparent;
+}
+
+.network-score-ring {
+  background:
+    radial-gradient(circle, var(--ds-chrome) 58%, transparent 60%),
+    conic-gradient(
+      var(--network-score-color, var(--ds-mint)) calc(var(--network-score, 0) * 1%),
+      var(--ds-line-strong) 0
+    );
+}
+
+.network-score-ring::after {
+  border-color: var(--ds-line);
+}
+
+.network-check,
+.network-check-item {
+  border-top-color: var(--ds-line);
+}
+
+.network-lab.is-canvas-focus .network-canvas {
+  background:
+    linear-gradient(rgba(26, 115, 232, 0.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 232, 0.065) 1px, transparent 1px),
+    linear-gradient(rgba(26, 115, 232, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 115, 232, 0.12) 1px, transparent 1px), #ffffff;
+  background-size:
+    10px 10px,
+    10px 10px,
+    50px 50px,
+    50px 50px,
+    auto;
+}
+
+.network-lab.is-canvas-focus .network-node {
+  border-color: rgba(37, 99, 175, 0.22);
+  color: #0f2742;
+  background: #ffffff;
+  box-shadow: 0 6px 16px -10px rgba(24, 64, 120, 0.4);
+}
+
+.network-lab.is-canvas-focus .network-node small,
+.network-lab.is-canvas-focus .network-node span {
+  color: #5f7896;
+}
+
+.network-lab.is-canvas-focus .network-link {
+  stroke: #5f7896;
+}
+
+.network-lab.is-canvas-focus .network-zone {
+  border-color: rgba(26, 115, 232, 0.18);
+  color: #5f7896;
+  background: rgba(26, 115, 232, 0.025);
+}
+
+.network-lab.is-canvas-focus .network-zone-lan {
+  border-color: rgba(15, 157, 107, 0.22);
+  background: rgba(15, 157, 107, 0.03);
+}
+
+.network-lab.is-canvas-focus .network-zone-services {
+  border-color: rgba(109, 94, 252, 0.2);
+  background: rgba(109, 94, 252, 0.03);
+}
+
+/* ---------------------------------------------------------- responsive */
+
+@media (max-width: 760px) {
+  .site-header {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .brand-lockup span:last-child {
+    display: none;
+  }
+
+  .view-home,
+  .view-review {
+    padding: 1rem 0.75rem 0;
+  }
+}

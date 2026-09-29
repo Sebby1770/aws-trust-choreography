@@ -199,6 +199,12 @@ export function describeStatement(text) {
     const name = match[1];
     if (!/^(select|values|set|where)$/i.test(name)) tables.add(name);
   }
+  // DDL names its table after TABLE (CREATE/ALTER/DROP) and its parents after REFERENCES.
+  const ddlPattern =
+    /\b(?:table(?:\s+if\s+(?:not\s+)?exists)?(?:\s+only)?|references)\s+([a-zA-Z_][\w$]*(?:\.[a-zA-Z_][\w$]*)*)/gi;
+  for (const match of masked.matchAll(ddlPattern)) {
+    if (!/^(if|only|as)$/i.test(match[1])) tables.add(match[1]);
+  }
 
   const ctes = new Set();
   const cteBlock = masked.match(/\bwith\b([\s\S]*?)\bselect\b/i);

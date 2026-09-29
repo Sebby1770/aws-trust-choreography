@@ -2,7 +2,12 @@
 
 import { initCommandPalette } from "./command-palette.js";
 
-export function initWorkspaceCommands({ navigate, theme, getReviewCenter } = {}) {
+export function initWorkspaceCommands({
+  navigate,
+  theme,
+  getReviewCenter,
+  getStudioCommands,
+} = {}) {
   const viewCommands = [
     ["home", "Explore", "projects templates start home"],
     ["studio", "AWS Studio", "cloud architecture build aws"],
@@ -58,6 +63,12 @@ export function initWorkspaceCommands({ navigate, theme, getReviewCenter } = {})
         run: () => getReviewCenter?.()?.downloadMarkdown(),
       }
     );
+    // Diagram studio actions join once the studio has booted.
+    try {
+      items.push(...(getStudioCommands?.() || []));
+    } catch {
+      /* the studio is optional */
+    }
     return items;
   }
 

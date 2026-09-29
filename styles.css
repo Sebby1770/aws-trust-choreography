@@ -2091,14 +2091,6 @@ body.cmdk-open {
 }
 
 /* Full-screen Flow Studio screen */
-.app-shell[data-active-view="studio"] .flow-studio {
-  margin-top: 0.7rem;
-  min-height: calc(100vh - 8.2rem);
-}
-
-.app-shell[data-active-view="studio"] .flow-workspace {
-  min-height: calc(100vh - 17rem);
-}
 
 /* --- Operations console (right workbench column) --- */
 .console-deck {
@@ -2203,44 +2195,6 @@ body.cmdk-open {
 }
 
 /* --- AI library tab + AI templates in Flow Studio --- */
-.flow-library-tabs .flow-tab-ai {
-  position: relative;
-  color: #fff;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  border-color: transparent;
-}
-
-.flow-library-tabs .flow-tab-ai[aria-pressed="true"],
-.flow-library-tabs .flow-tab-ai.is-active {
-  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.4);
-}
-
-.flow-templates .is-ai-template {
-  border-color: rgba(139, 92, 246, 0.5);
-  background: linear-gradient(180deg, rgba(139, 92, 246, 0.16), rgba(236, 72, 153, 0.05));
-}
-
-.flow-templates .is-ai-template small {
-  color: var(--muted);
-}
-
-.flow-templates .is-ai-template::after {
-  content: "AI";
-  position: absolute;
-  top: 0.4rem;
-  right: 0.5rem;
-  padding: 0.05rem 0.4rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #6366f1, #ec4899);
-  color: #fff;
-  font-size: 0.6rem;
-  font-weight: 850;
-  letter-spacing: 0.05em;
-}
-
-.flow-templates button {
-  position: relative;
-}
 
 /* Stack the hero switcher cleanly on small screens */
 @media (max-width: 760px) {
@@ -2252,10 +2206,7 @@ body.cmdk-open {
     width: 100%;
     justify-content: center;
   }
-  .app-shell[data-active-view="studio"] .flow-studio,
-  .app-shell[data-active-view="studio"] .flow-workspace {
-    min-height: 0;
-  }
+  
 }
 
 /* =====================================================================
@@ -2265,7 +2216,7 @@ body.cmdk-open {
 /* The Flow Studio and the topology map are deliberately dark workspaces.
    Pin the dark palette to them so their text stays light regardless of the
    global light/dark theme (fixes invisible titles in light mode). */
-.flow-studio,
+
 .grid-window {
   color-scheme: dark;
   --bg: #05080b;
@@ -2289,25 +2240,7 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
-.flow-studio-brand h2,
-#flowStudioTitle {
-  color: #f4f7f8;
-  background: linear-gradient(100deg, #f4f7f8 50%, var(--flow-cyan, #42d6f5));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 850;
-}
-
 /* Make the "Architecture" label + name field legible on the dark titlebar */
-.flow-canvas-titlebar label,
-.flow-canvas-titlebar #flowArchitectureName {
-  color: #f4f7f8;
-}
-
-.flow-canvas-titlebar #flowArchitectureName::placeholder {
-  color: #7e8e98;
-}
 
 /* Console + section eyebrows: a touch more presence */
 .console-title strong,
@@ -2735,51 +2668,6 @@ h1 {
 }
 
 /* Studio session controls (titlebar) */
-.studio-sessions {
-  display: flex;
-  gap: 0.35rem;
-  align-items: center;
-}
-
-#studioSessionSelect {
-  max-width: 190px;
-  min-height: 34px;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--surface-2);
-  color: var(--text);
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 750;
-  cursor: pointer;
-}
-
-.studio-sessions button {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  min-height: 34px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--surface-2);
-  color: var(--text);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition:
-    border-color 150ms ease,
-    color 150ms ease;
-}
-
-.studio-sessions button:hover:not(:disabled) {
-  border-color: var(--orange);
-  color: var(--amber);
-}
-
-.studio-sessions button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
 
 /* Spotlight cards — reactbits SpotlightCard, vanilla */
 [data-spotlight] {
@@ -2806,9 +2694,7 @@ h1 {
 }
 
 /* Animated gradient titles — reactbits GradientText, vanilla */
-h1,
-.flow-studio-brand h2,
-#flowStudioTitle {
+h1{
   background-size: 220% 100%;
   animation: gradientShift 9s ease-in-out infinite;
 }
@@ -2824,9 +2710,7 @@ h1,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  h1,
-  .flow-studio-brand h2,
-  #flowStudioTitle {
+  h1{
     animation: none;
   }
   [data-spotlight]::before {
@@ -2841,27 +2725,10 @@ h1,
   #workspaceSelect {
     min-width: 170px;
   }
-  .studio-sessions {
-    flex-wrap: wrap;
-  }
+  
 }
 
 /* =====================================================================
    v3.1 — cost lens badge
    ===================================================================== */
 
-.flow-cost-badge {
-  padding: 0.2rem 0.6rem;
-  border: 1px solid rgba(134, 247, 173, 0.35);
-  border-radius: 999px;
-  color: var(--green);
-  background: rgba(134, 247, 173, 0.08);
-  font-size: 0.72rem;
-  font-weight: 800;
-  cursor: help;
-}
-
-.flow-cost-badge strong {
-  color: var(--green);
-  font-size: 0.82rem;
-}

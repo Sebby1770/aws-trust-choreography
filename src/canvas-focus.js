@@ -24,26 +24,12 @@ const VIEW_LABELS = {
 };
 
 /**
- * Per-lab wiring. `chrome` is listed in the order it should appear in the
+ * Per-lab wiring. The AWS Diagram Studio has its own editor layout (shape
+ * library, format panel, menus), so only the Network Lab uses this drawer. `chrome` is listed in the order it should appear in the
  * Tools panel; anything missing is skipped, so a lab can drop a control
  * without breaking the drawer.
  */
 export const LABS = [
-  {
-    id: "studio",
-    root: ".flow-studio",
-    workspace: ".flow-workspace",
-    library: "#flowLibrary",
-    inspector: "#flowInspector",
-    chrome: [
-      ".flow-canvas-titlebar",
-      ".flow-toolbar",
-      ".studio-experience",
-      ".flow-studio-meta",
-      ".flow-simulation",
-      ".flow-statusbar",
-    ],
-  },
   {
     id: "network",
     root: ".network-lab",

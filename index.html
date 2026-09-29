@@ -7,7 +7,7 @@
       name="description"
       content="Design AWS cloud architectures and enterprise network topologies on spacious visual canvases, analyze resilience, simulate packets and failures, and export production-ready scaffolding."
     />
-    <meta name="theme-color" content="#07080b" />
+    <meta name="theme-color" content="#1a73e8" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Trust Choreography — AWS + Network Architecture Lab" />
     <meta
@@ -47,14 +47,14 @@
       } catch (e) {}
     </script>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="flow-studio.css" />
     <link rel="stylesheet" href="launchpad.css" />
     <link rel="stylesheet" href="studio-shell.css" />
     <link rel="stylesheet" href="network-lab.css" />
     <link rel="stylesheet" href="review-center.css" />
-    <link rel="stylesheet" href="canvas-paper.css" />
     <link rel="stylesheet" href="canvas-focus.css" />
     <link rel="stylesheet" href="sql-lab.css" />
+    <link rel="stylesheet" href="diagram-studio.css" />
+    <link rel="stylesheet" href="app-theme.css" />
   </head>
   <body>
     <a class="skip-link" href="#workspaceContentStart">Skip to workspace content</a>
@@ -533,6 +533,28 @@
                   <button id="sqlSampleButton" type="button" title="Load an example query">
                     Example
                   </button>
+                  <button
+                    id="sqlSchemaSample"
+                    type="button"
+                    title="Load an example database schema"
+                  >
+                    Schema example
+                  </button>
+                  <span class="sql-from-diagram">
+                    <button
+                      id="sqlFromDiagram"
+                      type="button"
+                      title="Write CREATE TABLE statements for the tables drawn in AWS Studio"
+                    >
+                      From diagram
+                    </button>
+                    <label class="visually-hidden" for="sqlDialect">SQL dialect</label>
+                    <select id="sqlDialect" title="SQL dialect for generated DDL">
+                      <option value="postgres">PostgreSQL</option>
+                      <option value="mysql">MySQL</option>
+                      <option value="sqlite">SQLite</option>
+                    </select>
+                  </span>
                   <button id="sqlClearButton" type="button" title="Clear the editor">Clear</button>
                 </div>
               </div>
@@ -554,6 +576,26 @@
                 </div>
                 <div class="sql-counts" id="sqlCounts" aria-live="polite"></div>
               </div>
+
+              <section class="sql-schema" id="sqlSchema" aria-labelledby="sqlSchemaTitle" hidden>
+                <header class="sql-schema-head">
+                  <div>
+                    <span class="sql-schema-eyebrow">Schema diagram</span>
+                    <strong id="sqlSchemaTitle">Tables and relationships</strong>
+                    <small id="sqlSchemaStats" aria-live="polite"></small>
+                  </div>
+                  <button id="sqlSchemaOpen" type="button" class="sql-schema-open">
+                    Open in AWS Studio <span aria-hidden="true">↗</span>
+                  </button>
+                </header>
+                <div
+                  class="sql-schema-preview"
+                  id="sqlSchemaPreview"
+                  role="img"
+                  aria-label="Entity-relationship diagram of the tables in this SQL"
+                ></div>
+                <p class="sql-schema-notes" id="sqlSchemaNotes"></p>
+              </section>
 
               <div class="sql-structure" id="sqlStructure"></div>
 
@@ -821,477 +863,459 @@
       </div>
       <div class="view view-studio" data-view="studio">
         <section
-          class="flow-studio"
-          aria-labelledby="flowStudioTitle"
-          data-studio-experience="guided"
+          class="diagram-studio"
+          id="diagramStudio"
+          aria-labelledby="diagramStudioTitle"
+          data-library-open="true"
+          data-panel-open="true"
         >
-          <header class="flow-studio-head">
-            <div class="flow-studio-brand">
-              <h2 id="flowStudioTitle">AWS Flow Studio</h2>
-              <p>Build the system, connect its trust paths, then test the weak points.</p>
+          <h2 id="diagramStudioTitle" class="visually-hidden">AWS Diagram Studio</h2>
+          <header class="ds-header">
+            <div class="ds-titlebar">
+              <button
+                class="ds-brand"
+                id="dsBrand"
+                type="button"
+                aria-haspopup="menu"
+                title="Switch workspace, theme, and command palette"
+              >
+                <span class="ds-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="ds-brand-text">AWS Studio</span>
+                <span class="ds-caret" aria-hidden="true">▾</span>
+              </button>
+              <div class="ds-title-block">
+                <div class="ds-title-row">
+                  <label class="visually-hidden" for="flowArchitectureName">Diagram name</label>
+                  <input
+                    id="flowArchitectureName"
+                    class="ds-title-input"
+                    type="text"
+                    value="My resilient workload"
+                    maxlength="80"
+                    spellcheck="false"
+                  />
+                  <span id="flowSaveState" class="ds-save-state" data-state="saved">Saved</span>
+                </div>
+                <nav id="dsMenubar" aria-label="Diagram menu"></nav>
+              </div>
+              <div class="ds-titlebar-end">
+                <button
+                  class="ds-tb-button"
+                  id="dsCommand"
+                  type="button"
+                  title="Command palette (⌘K)"
+                  aria-label="Open command palette"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      d="M7 4a2 2 0 1 0 0 4h6a2 2 0 1 0 0-4v12a2 2 0 1 0 0-4H7a2 2 0 1 0 0 4V4"
+                    />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  id="dsTheme"
+                  type="button"
+                  title="Theme"
+                  aria-label="Change theme"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <circle cx="10" cy="10" r="6.5" />
+                    <path d="M10 3.5v13a6.5 6.5 0 0 0 0-13z" class="is-solid" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  id="dsHelp"
+                  type="button"
+                  title="Keyboard shortcuts (?)"
+                  aria-label="Keyboard shortcuts"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="2" y="5" width="16" height="10" rx="2" />
+                    <path d="M5 8h1m3 0h1m3 0h2M5 12h10" />
+                  </svg>
+                </button>
+                <button class="ds-export-button" id="dsExport" type="button" aria-haspopup="menu">
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M10 3v10m-4-4 4 4 4-4M4 15v2h12v-2" />
+                  </svg>
+                  Export
+                </button>
+              </div>
             </div>
-            <div class="flow-studio-meta" aria-live="polite">
-              <span id="flowSaveState">Auto-saved</span>
-              <span><strong id="flowNodeCount">0</strong> nodes</span>
-              <span><strong id="flowConnectionCount">0</strong> paths</span>
-            </div>
-            <div class="studio-experience" aria-label="Editor experience">
+            <div class="ds-toolbar">
               <button
-                class="is-active"
+                class="ds-tb-button"
+                id="dsLibraryToggle"
                 type="button"
-                data-studio-experience="guided"
-                aria-pressed="true"
-              >
-                Guided
-              </button>
-              <button
-                type="button"
-                data-studio-experience="pro"
-                aria-pressed="false"
-                title="Show advanced architecture detail"
-              >
-                Pro
-              </button>
-              <button id="flowHelpButton" type="button" title="How to use AWS Flow Studio">
-                ? <span>Help</span>
-              </button>
-            </div>
-            <div class="flow-toolbar" role="toolbar" aria-label="Flow editor tools">
-              <span class="flow-toolbar-label">Canvas</span>
-              <button
-                class="is-active"
-                type="button"
-                data-flow-mode="select"
-                title="Select and move nodes"
-              >
-                <span aria-hidden="true">&#8598;</span>Select
-              </button>
-              <button type="button" data-flow-mode="connect" title="Connect two nodes">
-                <span aria-hidden="true">&#8644;</span>Connect
-              </button>
-              <button
-                id="flowAutoLayoutButton"
-                type="button"
-                title="Automatically arrange the architecture"
-              >
-                <span aria-hidden="true">&#8285;</span>Auto layout
-              </button>
-              <button id="flowDeleteButton" type="button" title="Delete the selected node or path">
-                <span aria-hidden="true">&#215;</span>
-              </button>
-              <span class="toolbar-divider" aria-hidden="true"></span>
-              <button id="flowUndoButton" type="button" title="Undo">
-                <span aria-hidden="true">&#8630;</span>
-              </button>
-              <button id="flowRedoButton" type="button" title="Redo">
-                <span aria-hidden="true">&#8631;</span>
-              </button>
-              <button
-                id="flowInspectorToggle"
-                type="button"
-                aria-pressed="false"
-                aria-controls="flowInspector"
+                aria-controls="dsLibrary"
                 aria-expanded="true"
-                title="Hide or show architecture intelligence"
+                title="Shapes panel (/ to search)"
               >
-                <span aria-hidden="true">◫</span>Insights
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <rect x="3" y="3" width="6" height="6" rx="1" />
+                  <circle cx="14" cy="6" r="3" />
+                  <path d="M3 17l3-5 3 5z" />
+                  <rect x="11" y="11" width="6" height="6" rx="3" />
+                </svg>
+                <span class="visually-hidden">Shapes</span>
               </button>
-              <button
-                id="flowFocusButton"
-                type="button"
-                aria-pressed="false"
-                title="Focus on the canvas"
+              <span class="ds-divider" aria-hidden="true"></span>
+              <div
+                class="ds-toolbar-group ds-toolbar-tools"
+                role="toolbar"
+                aria-label="Editing tools"
               >
-                <span aria-hidden="true">⛶</span>Focus
-              </button>
-              <details class="flow-export-menu">
-                <summary>Export <span aria-hidden="true">▾</span></summary>
-                <div class="flow-export-actions">
-                  <button id="flowImportButton" type="button" title="Import architecture JSON">
-                    <span aria-hidden="true">&#8679;</span>Import JSON
-                  </button>
-                  <input id="flowImportInput" type="file" accept="application/json,.json" hidden />
+                <button
+                  class="ds-tb-button"
+                  id="dsUndo"
+                  type="button"
+                  title="Undo"
+                  aria-label="Undo"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M7 5 3 9l4 4M3 9h9a5 5 0 0 1 0 10h-2" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  id="dsRedo"
+                  type="button"
+                  title="Redo"
+                  aria-label="Redo"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="m13 5 4 4-4 4M17 9H8a5 5 0 0 0 0 10h2" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  id="dsDelete"
+                  type="button"
+                  title="Delete (Delete)"
+                  aria-label="Delete selection"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M4 6h12M8 6V4h4v2M6 6l1 11h6l1-11" />
+                  </svg>
+                </button>
+                <span class="ds-divider" aria-hidden="true"></span>
+                <div class="ds-segmented" role="group" aria-label="Pointer tool">
                   <button
-                    id="flowIacImportButton"
+                    class="ds-tb-button"
                     type="button"
-                    title="Import Terraform or CloudFormation as a diagram"
+                    data-ds-tool="select"
+                    aria-pressed="true"
+                    title="Select (V)"
                   >
-                    <span aria-hidden="true">&#8682;</span>Import IaC
-                  </button>
-                  <button id="flowSaveButton" type="button" title="Save architecture locally">
-                    <span aria-hidden="true">&#9635;</span>Save locally
-                  </button>
-                  <button id="flowExportButton" type="button" title="Export architecture as JSON">
-                    <span aria-hidden="true">{ }</span>Architecture JSON
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="m5 3 10 6-4.5 1.2L13 16l-2 1-2.6-5.8L5 14z" />
+                    </svg>
+                    <span class="visually-hidden">Select</span>
                   </button>
                   <button
-                    id="flowExportSvgButton"
+                    class="ds-tb-button"
                     type="button"
-                    title="Export architecture as an SVG diagram"
+                    data-ds-tool="hand"
+                    aria-pressed="false"
+                    title="Pan (H, or hold Space)"
                   >
-                    <span aria-hidden="true">&#8681;</span>SVG diagram
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <path
+                        d="M7 10V4.5a1.2 1.2 0 0 1 2.4 0V9m0-5.5a1.2 1.2 0 0 1 2.4 0V9m0-4a1.2 1.2 0 0 1 2.4 0V10m0-3a1.2 1.2 0 0 1 2.4 0v5.5A5.5 5.5 0 0 1 11 18H10a5 5 0 0 1-4-2l-2.6-3.6a1.3 1.3 0 0 1 2-1.6L7 12.5"
+                      />
+                    </svg>
+                    <span class="visually-hidden">Pan</span>
+                  </button>
+                  <button
+                    class="ds-tb-button"
+                    type="button"
+                    data-ds-tool="connect"
+                    aria-pressed="false"
+                    title="Connect (C) — drag from one shape to another"
+                  >
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <circle cx="4.5" cy="15.5" r="2" />
+                      <circle cx="15.5" cy="4.5" r="2" />
+                      <path d="M6 14c4 0 2-8 8-8.5" />
+                    </svg>
+                    <span class="visually-hidden">Connect</span>
                   </button>
                 </div>
-              </details>
+                <span class="ds-divider" aria-hidden="true"></span>
+                <button
+                  class="ds-tb-button"
+                  type="button"
+                  data-ds-insert="rect"
+                  title="Rectangle (R)"
+                  aria-label="Insert rectangle"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="3" y="5" width="14" height="10" rx="1.5" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  type="button"
+                  data-ds-insert="ellipse"
+                  title="Ellipse (O)"
+                  aria-label="Insert ellipse"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <ellipse cx="10" cy="10" rx="7" ry="5" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  type="button"
+                  data-ds-insert="diamond"
+                  title="Decision (D)"
+                  aria-label="Insert decision"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 3 7 7-7 7-7-7z" /></svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  type="button"
+                  data-ds-insert="text"
+                  title="Text (T)"
+                  aria-label="Insert text"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M4 5V3.5h12V5M10 3.5v13M7.5 16.5h5" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  type="button"
+                  data-ds-insert="note"
+                  title="Note (N)"
+                  aria-label="Insert note"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M4 3h9l3 3v11H4zM13 3v3h3M7 9h6M7 12h6" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button ds-tb-wide"
+                  id="dsInsertGroup"
+                  type="button"
+                  aria-haspopup="menu"
+                  title="AWS group or trust zone — with shapes selected, wraps them"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="2.5" y="4" width="15" height="12" rx="1" stroke-dasharray="3 2" />
+                    <rect x="2.5" y="4" width="4" height="4" />
+                  </svg>
+                  <span>Group</span>
+                  <span class="ds-caret" aria-hidden="true">▾</span>
+                </button>
+                <span class="ds-divider" aria-hidden="true"></span>
+                <button
+                  class="ds-tb-button"
+                  id="dsToFront"
+                  type="button"
+                  title="Bring to front"
+                  aria-label="Bring to front"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="3" y="3" width="9" height="9" />
+                    <rect x="8" y="8" width="9" height="9" class="is-filled" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  id="dsToBack"
+                  type="button"
+                  title="Send to back"
+                  aria-label="Send to back"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="3" y="3" width="9" height="9" class="is-filled" />
+                    <rect x="8" y="8" width="9" height="9" />
+                  </svg>
+                </button>
+                <button
+                  class="ds-tb-button ds-tb-wide"
+                  id="dsLayout"
+                  type="button"
+                  title="Auto layout (left to right)"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="2" y="8" width="4" height="4" />
+                    <rect x="14" y="3" width="4" height="4" />
+                    <rect x="14" y="13" width="4" height="4" />
+                    <path d="M6 10h4m0-5v10m0-10h4m-4 10h4" />
+                  </svg>
+                  <span>Layout</span>
+                </button>
+                <button
+                  class="ds-tb-button"
+                  id="dsFind"
+                  type="button"
+                  title="Find (⌘F)"
+                  aria-label="Find in diagram"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <circle cx="8.5" cy="8.5" r="5" />
+                    <path d="m12.5 12.5 4.5 4.5" />
+                  </svg>
+                </button>
+              </div>
+              <div class="ds-toolbar-group ds-toolbar-end">
+                <div class="ds-zoom" role="group" aria-label="Zoom">
+                  <button
+                    class="ds-tb-button"
+                    id="dsZoomOut"
+                    type="button"
+                    title="Zoom out (⌘−)"
+                    aria-label="Zoom out"
+                  >
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10" /></svg>
+                  </button>
+                  <button
+                    class="ds-zoom-label"
+                    id="dsZoomLabel"
+                    type="button"
+                    aria-haspopup="menu"
+                    title="Zoom presets"
+                  >
+                    100%
+                  </button>
+                  <button
+                    class="ds-tb-button"
+                    id="dsZoomIn"
+                    type="button"
+                    title="Zoom in (⌘+)"
+                    aria-label="Zoom in"
+                  >
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10h10M10 5v10" /></svg>
+                  </button>
+                  <button
+                    class="ds-tb-button"
+                    id="dsFit"
+                    type="button"
+                    title="Fit diagram (⇧1)"
+                    aria-label="Fit diagram"
+                  >
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4" />
+                    </svg>
+                  </button>
+                </div>
+                <button
+                  class="ds-tb-button"
+                  id="dsPanelToggle"
+                  type="button"
+                  aria-controls="dsPanel"
+                  aria-expanded="true"
+                  title="Format &amp; insights panel"
+                >
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="2.5" y="3" width="15" height="14" rx="1.5" />
+                    <path d="M12 3v14M14 7h1.5M14 10h1.5" />
+                  </svg>
+                  <span class="visually-hidden">Format panel</span>
+                </button>
+              </div>
             </div>
           </header>
 
-          <div class="flow-workspace">
-            <aside class="flow-library" id="flowLibrary" aria-label="AWS icon library">
-              <div class="flow-library-mobile-head">
-                <div>
-                  <strong>AWS service library</strong>
-                  <small>Click or drag a service onto the canvas</small>
+          <div class="ds-body">
+            <aside class="ds-library" id="dsLibrary" aria-label="Shape library">
+              <div class="ds-library-body"></div>
+            </aside>
+
+            <div class="ds-canvas-host" id="dsCanvasHost">
+              <div class="ds-empty" id="dsEmpty" hidden>
+                <strong>Start your diagram</strong>
+                <p>
+                  Double-click anywhere to add a shape, drag AWS services from the library, or begin
+                  from a reference architecture.
+                </p>
+                <div class="ds-empty-actions">
+                  <button type="button" data-ds-template="web">Resilient web app</button>
+                  <button type="button" data-ds-template="serverless">Serverless API</button>
+                  <button type="button" data-ds-template="claude-rag">Claude RAG</button>
+                  <button type="button" id="dsEmptyLibrary">Browse AWS icons</button>
+                  <button type="button" id="dsEmptyOpen">Open a draw.io file</button>
                 </div>
+              </div>
+              <div class="ds-findbar" id="dsFindbar" role="search" hidden>
+                <label class="visually-hidden" for="dsFindInput">Find in diagram</label>
+                <input
+                  id="dsFindInput"
+                  type="search"
+                  placeholder="Find shapes, services, notes…"
+                  autocomplete="off"
+                />
+                <span id="dsFindCount" aria-live="polite"></span>
                 <button
-                  id="flowLibraryClose"
                   type="button"
-                  aria-label="Close AWS service library"
-                  title="Close service library"
+                  id="dsFindPrev"
+                  title="Previous (⇧↵)"
+                  aria-label="Previous match"
                 >
+                  ↑
+                </button>
+                <button type="button" id="dsFindNext" title="Next (↵)" aria-label="Next match">
+                  ↓
+                </button>
+                <button type="button" id="dsFindClose" title="Close (Esc)" aria-label="Close find">
                   ×
                 </button>
               </div>
-              <div class="flow-library-tabs" aria-label="Icon type">
-                <button class="flow-tab-ai" type="button" aria-pressed="false" data-icon-type="ai">
-                  AI
-                </button>
-                <button
-                  class="is-active"
-                  type="button"
-                  aria-pressed="true"
-                  data-icon-type="service"
-                >
-                  Services
-                </button>
-                <button type="button" aria-pressed="false" data-icon-type="resource">
-                  Resources
-                </button>
-                <button type="button" aria-pressed="false" data-icon-type="group">Groups</button>
-                <button type="button" aria-pressed="false" data-icon-type="category">
-                  Categories
-                </button>
-              </div>
-              <label class="flow-search" for="flowIconSearch">
-                <span>Search AWS icons</span>
-                <input
-                  id="flowIconSearch"
-                  type="search"
-                  placeholder="Search 862 official icons"
-                  autocomplete="off"
-                />
-              </label>
-              <label class="flow-category" for="flowCategoryFilter">
-                <span>Category</span>
-                <select id="flowCategoryFilter">
-                  <option value="all">All categories</option>
-                </select>
-              </label>
-              <section class="flow-recent" aria-labelledby="flowRecentTitle">
-                <div><span id="flowRecentTitle">Recently used</span><small>Quick add</small></div>
-                <div id="flowRecentIcons"></div>
-              </section>
-              <div class="flow-library-summary">
-                <span id="flowLibraryCount">0 icons</span>
-                <a
-                  href="https://aws.amazon.com/architecture/icons/"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Official AWS set</a
-                >
-              </div>
-              <div class="flow-icon-grid" id="flowIconGrid" aria-live="polite"></div>
-            </aside>
+            </div>
 
-            <section class="flow-canvas-shell" aria-label="Architecture canvas">
-              <div class="flow-guidance" aria-label="Guided workflow">
-                <span><i>1</i><strong>Add</strong> a service from the library</span>
-                <span><i>2</i><strong>Connect</strong> the trust path</span>
-                <span><i>3</i><strong>Analyze</strong> and rehearse failure</span>
-                <small>Tip: click a node to edit it. Drag to rearrange.</small>
-              </div>
-              <div class="flow-canvas-titlebar">
+            <aside class="ds-panel" id="dsPanel" aria-label="Format and architecture insights">
+              <div class="ds-panel-tabs" role="tablist" aria-label="Panel">
                 <button
-                  id="flowLibraryToggle"
-                  type="button"
-                  title="Toggle icon library"
-                  aria-label="Toggle icon library"
-                  aria-controls="flowLibrary"
-                  aria-expanded="true"
-                >
-                  &#8249;
-                </button>
-                <label for="flowArchitectureName">Architecture</label>
-                <input
-                  id="flowArchitectureName"
-                  type="text"
-                  value="My resilient workload"
-                  maxlength="80"
-                />
-                <div class="studio-sessions" aria-label="Studio sessions">
-                  <label class="visually-hidden" for="studioSessionSelect">Session</label>
-                  <select id="studioSessionSelect" aria-label="Switch studio session"></select>
-                  <button
-                    id="studioSessionNew"
-                    type="button"
-                    title="New session"
-                    aria-label="Create a new studio session"
-                  >
-                    ＋
-                  </button>
-                  <button
-                    id="studioSessionDelete"
-                    type="button"
-                    title="Delete session"
-                    aria-label="Delete the current studio session"
-                  >
-                    🗑
-                  </button>
-                </div>
-                <span id="flowCanvasHint" aria-live="polite">
-                  Choose a service, place it, then connect its trust path.
-                </span>
-                <details class="flow-template-menu">
-                  <summary>Start from a template <span aria-hidden="true">▾</span></summary>
-                  <div class="flow-templates" aria-label="Architecture templates">
-                    <button
-                      type="button"
-                      data-spotlight
-                      class="is-ai-template"
-                      data-flow-template="claude-rag"
-                    >
-                      Claude RAG assistant<small>API GW + Lambda + Claude + Vector DB</small>
-                    </button>
-                    <button
-                      type="button"
-                      data-spotlight
-                      class="is-ai-template"
-                      data-flow-template="ai-agent"
-                    >
-                      AI agent platform<small>Agent + model + tools + memory</small>
-                    </button>
-                    <button
-                      type="button"
-                      data-spotlight
-                      class="is-ai-template"
-                      data-flow-template="chatbot"
-                    >
-                      GenAI chatbot<small>CloudFront + Lambda + model + guardrails</small>
-                    </button>
-                    <button type="button" data-spotlight data-flow-template="serverless">
-                      Serverless API<small>API Gateway + Lambda + DynamoDB</small>
-                    </button>
-                    <button type="button" data-spotlight data-flow-template="events">
-                      Event pipeline<small>EventBridge + Step Functions + SQS</small>
-                    </button>
-                    <button type="button" data-spotlight data-flow-template="web">
-                      Resilient web app<small>CloudFront + EC2 + RDS</small>
-                    </button>
-                    <button type="button" data-spotlight data-flow-template="blank">
-                      Blank canvas<small>Start from zero</small>
-                    </button>
-                  </div>
-                </details>
-                <button
-                  id="flowInspectorToggleCompact"
-                  type="button"
-                  aria-pressed="false"
-                  aria-controls="flowInspector"
-                  aria-expanded="true"
-                  title="Toggle architecture intelligence"
-                >
-                  Insights ›
-                </button>
-              </div>
-              <div
-                class="flow-canvas"
-                id="flowCanvas"
-                tabindex="0"
-                aria-label="Diagram canvas. Add AWS icons and connect them into a flow."
-              >
-                <div class="flow-viewport" id="flowViewport">
-                  <div class="flow-surface" id="flowSurface">
-                    <div class="flow-zone-bands" aria-hidden="true">
-                      <span>Primary request path</span>
-                      <span>Data and asynchronous work</span>
-                      <span>Shared services and telemetry</span>
-                    </div>
-                    <svg
-                      class="flow-connections"
-                      id="flowConnections"
-                      role="group"
-                      aria-label="Architecture trust paths"
-                    ></svg>
-                    <div class="flow-node-layer" id="flowNodeLayer"></div>
-                  </div>
-                  <div class="flow-surface-spacer" aria-hidden="true"></div>
-                </div>
-                <div class="flow-empty-state" id="flowEmptyState">
-                  <strong>Build your AWS flow</strong
-                  ><span>Choose a template or add services from the official icon library.</span>
-                </div>
-                <div class="flow-canvas-controls" aria-label="Canvas controls">
-                  <button id="flowZoomInButton" type="button" title="Zoom in" aria-label="Zoom in">
-                    +
-                  </button>
-                  <button
-                    id="flowZoomOutButton"
-                    type="button"
-                    title="Zoom out"
-                    aria-label="Zoom out"
-                  >
-                    &#8722;
-                  </button>
-                  <button
-                    id="flowFitButton"
-                    type="button"
-                    title="Fit architecture to canvas"
-                    aria-label="Fit architecture to canvas"
-                  >
-                    &#9974;
-                  </button>
-                </div>
-                <div class="flow-minimap" aria-label="Architecture minimap">
-                  <svg id="flowMinimap" viewBox="0 0 160 92" aria-hidden="true"></svg>
-                </div>
-              </div>
-              <div class="flow-simulation" aria-label="Architecture simulation">
-                <div class="flow-simulation-state">
-                  <span>Simulation</span><strong id="flowSimulationState">Ready</strong>
-                </div>
-                <button id="flowRunSimulationButton" type="button">
-                  <span aria-hidden="true">&#9654;</span>Run traffic
-                </button>
-                <button id="flowInjectFailureButton" type="button">
-                  <span aria-hidden="true">!</span>Inject failure
-                </button>
-                <button
-                  id="flowResetSimulationButton"
-                  type="button"
-                  title="Reset simulation"
-                  aria-label="Reset simulation"
-                >
-                  &#8635;
-                </button>
-                <div class="flow-impact-summary">
-                  <span>Affected paths</span><strong id="flowAffectedPaths">0</strong
-                  ><small id="flowSimulationMessage">Select a node to rehearse failure.</small>
-                </div>
-              </div>
-            </section>
-
-            <aside class="flow-inspector" id="flowInspector" aria-label="Architecture intelligence">
-              <div class="flow-inspector-head">
-                <span>Architecture intelligence</span
-                ><strong id="flowInspectorMode">Diagram</strong>
-              </div>
-              <div class="flow-inspector-tabs" role="tablist" aria-label="Inspector view">
-                <button
-                  id="flowInspectTab"
-                  class="is-active"
                   type="button"
                   role="tab"
+                  id="dsTabFormat"
+                  data-ds-tab="format"
+                  aria-controls="dsFormat"
                   aria-selected="true"
-                  aria-controls="flowInspectPanel"
-                  tabindex="0"
-                  data-inspector-tab="inspect"
                 >
-                  Inspect
+                  Format
                 </button>
                 <button
-                  id="flowAnalyzeTab"
                   type="button"
                   role="tab"
+                  id="dsTabInsights"
+                  data-ds-tab="insights"
+                  aria-controls="dsInsights"
                   aria-selected="false"
-                  aria-controls="flowAnalyzePanel"
                   tabindex="-1"
-                  data-inspector-tab="analyze"
                 >
-                  Analyze
+                  Insights <span class="ds-score-chip" id="dsScoreChip">—</span>
                 </button>
                 <button
-                  id="flowChaosTab"
                   type="button"
                   role="tab"
+                  id="dsTabChaos"
+                  data-ds-tab="chaos"
+                  aria-controls="dsChaos"
                   aria-selected="false"
-                  aria-controls="flowChaosPanel"
                   tabindex="-1"
-                  data-inspector-tab="chaos"
                 >
                   Chaos
                 </button>
               </div>
               <div
-                id="flowInspectPanel"
+                class="ds-panel-body"
+                id="dsFormat"
                 role="tabpanel"
-                aria-labelledby="flowInspectTab"
-                tabindex="0"
-              >
-                <div class="flow-selected-summary" id="flowSelectedSummary">
-                  <span class="flow-selected-placeholder"
-                    >Select a node or path to inspect it.</span
-                  >
-                </div>
-                <div class="flow-node-fields" id="flowNodeFields" hidden>
-                  <label for="flowNodeName"
-                    >Name<input id="flowNodeName" type="text" maxlength="60"
-                  /></label>
-                  <div class="flow-field-row">
-                    <label for="flowNodeEnvironment"
-                      >Environment<select id="flowNodeEnvironment">
-                        <option>Production</option>
-                        <option>Staging</option>
-                        <option>Development</option>
-                        <option>Shared</option>
-                      </select></label
-                    >
-                    <label for="flowNodeCriticality"
-                      >Criticality<select id="flowNodeCriticality">
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
-                      </select></label
-                    >
-                  </div>
-                  <label for="flowNodeZone"
-                    >Trust zone<select id="flowNodeZone">
-                      <option value="internet">Internet — untrusted callers</option>
-                      <option value="edge">Edge — outside the VPC</option>
-                      <option value="public">Public subnet — internet-routable</option>
-                      <option value="private">Private subnet — no inbound route</option>
-                      <option value="data">Data tier — persistent state</option>
-                      <option value="management">Management — identity and telemetry</option>
-                    </select></label
-                  >
-                  <p class="flow-zone-hint" id="flowNodeZoneHint"></p>
-                  <label for="flowNodeNotes"
-                    >Notes<textarea id="flowNodeNotes" rows="3" maxlength="280"></textarea>
-                  </label>
-                </div>
-                <div class="flow-connection-fields" id="flowConnectionFields" hidden>
-                  <label for="flowConnectionName"
-                    >Path label<input id="flowConnectionName" type="text" maxlength="32"
-                  /></label>
-                  <label for="flowConnectionType"
-                    >Traffic type<select id="flowConnectionType">
-                      <option value="request">Synchronous request</option>
-                      <option value="event">Event / queue</option>
-                      <option value="data">Data access</option>
-                      <option value="telemetry">Telemetry</option>
-                      <option value="replication">Replication</option>
-                    </select></label
-                  >
-                  <label class="flow-encryption-toggle"
-                    ><input id="flowConnectionEncrypted" type="checkbox" checked /> Encrypted in
-                    transit</label
-                  >
-                </div>
-              </div>
+                aria-labelledby="dsTabFormat"
+                data-ds-panel="format"
+              ></div>
               <div
-                id="flowAnalyzePanel"
+                class="ds-panel-body"
+                id="dsInsights"
                 role="tabpanel"
-                aria-labelledby="flowAnalyzeTab"
-                tabindex="0"
+                aria-labelledby="dsTabInsights"
+                data-ds-panel="insights"
                 hidden
               >
                 <section class="flow-score-panel" aria-labelledby="flowScoreTitle">
@@ -1299,7 +1323,7 @@
                     <strong id="flowScore">0</strong><span>/ 100</span>
                   </div>
                   <div>
-                    <span id="flowScoreTitle">Resilience score</span
+                    <span id="flowScoreTitle">Readiness score</span
                     ><strong id="flowScoreGrade">Building</strong>
                     <p id="flowScoreSummary">Add services and paths to begin analysis.</p>
                   </div>
@@ -1312,18 +1336,18 @@
                 </div>
                 <section class="flow-checks" aria-labelledby="flowChecksTitle">
                   <div>
-                    <span>Prioritized recommendations</span
+                    <span>Prioritised recommendations</span
                     ><strong id="flowChecksTitle">0 checks</strong>
                   </div>
                   <div id="flowChecksList"></div>
                 </section>
               </div>
               <div
-                id="flowChaosPanel"
-                class="flow-chaos"
+                class="ds-panel-body flow-chaos"
+                id="dsChaos"
                 role="tabpanel"
-                aria-labelledby="flowChaosTab"
-                tabindex="0"
+                aria-labelledby="dsTabChaos"
+                data-ds-panel="chaos"
                 hidden
               >
                 <div class="flow-chaos-head">
@@ -1331,16 +1355,43 @@
                 </div>
                 <p class="flow-chaos-intro">
                   Estimates end-to-end availability, finds single points of failure, and rehearses
-                  node loss against your live canvas.
+                  service loss against the live diagram.
                 </p>
                 <div class="flow-chaos-actions">
                   <button id="flowChaosRun" type="button" class="flow-chaos-primary">
-                    <span aria-hidden="true">&#9888;</span>Analyze resilience
+                    <span aria-hidden="true">&#9888;</span>Analyse resilience
                   </button>
                   <button id="flowChaosKill" type="button">
-                    <span aria-hidden="true">&#9760;</span>Kill selected node
+                    <span aria-hidden="true">&#9760;</span>Kill selected service
                   </button>
                   <button id="flowChaosReset" type="button">Restore all</button>
+                </div>
+                <div class="ds-simulation" aria-label="Traffic simulation">
+                  <div class="ds-simulation-state">
+                    <span>Simulation</span><strong id="flowSimulationState">Ready</strong>
+                  </div>
+                  <div class="ds-simulation-actions">
+                    <button id="flowRunSimulationButton" type="button">
+                      <span aria-hidden="true">&#9654;</span>Run traffic
+                    </button>
+                    <button id="flowInjectFailureButton" type="button">
+                      <span aria-hidden="true">!</span>Inject failure
+                    </button>
+                    <button
+                      id="flowResetSimulationButton"
+                      type="button"
+                      title="Reset simulation"
+                      aria-label="Reset simulation"
+                    >
+                      &#8635;
+                    </button>
+                  </div>
+                  <p class="ds-simulation-impact">
+                    <strong id="flowAffectedPaths">0</strong> affected paths ·
+                    <span id="flowSimulationMessage"
+                      >Select a service to rehearse its failure.</span
+                    >
+                  </p>
                 </div>
                 <div id="flowChaosResults" class="flow-chaos-results" aria-live="polite">
                   <p class="flow-chaos-placeholder">
@@ -1351,41 +1402,22 @@
             </aside>
           </div>
 
-          <footer class="flow-statusbar">
-            <span id="flowStatusMessage">Ready</span>
-            <label for="flowRegion"
-              >Region<select id="flowRegion">
-                <option value="us-east-1">us-east-1</option>
-                <option value="us-west-2">us-west-2</option>
-                <option value="eu-west-1">eu-west-1</option>
-                <option value="ap-southeast-2">ap-southeast-2</option>
-                <option value="ap-northeast-1">ap-northeast-1</option>
-              </select></label
+          <footer class="ds-statusbar">
+            <div class="ds-pages" id="dsPages" role="tablist" aria-label="Pages"></div>
+            <span id="flowStatusMessage" class="ds-status" role="status" aria-live="polite"
+              >Loading the icon library…</span
             >
-            <label class="flow-grid-toggle"
-              ><input id="flowGridToggle" type="checkbox" checked /> Grid</label
-            >
-            <label for="flowCanvasZoom" class="flow-canvas-zoom"
-              >Zoom<select id="flowCanvasZoom">
-                <option value="fit">Fit</option>
-                <option value="0.25">25%</option>
-                <option value="0.5">50%</option>
-                <option value="0.75">75%</option>
-                <option value="1">100%</option>
-                <option value="1.5">150%</option>
-                <option value="2">200%</option>
-              </select></label
-            >
-            <label for="flowZoom"
-              >Node size<select id="flowZoom">
-                <option value="0.75">75%</option>
-                <option value="0.9">90%</option>
-                <option value="1" selected>100%</option>
-                <option value="1.15">115%</option>
-                <option value="1.3">130%</option>
-              </select></label
-            >
+            <div class="ds-status-meta">
+              <span id="dsCounts"></span>
+              <span class="flow-cost-badge" id="dsCost" title="Rough monthly estimate"></span>
+            </div>
           </footer>
+          <input
+            id="dsOpenInput"
+            type="file"
+            accept=".drawio,.xml,.svg,.json,.tf,.png,.jpg,.jpeg,application/json,image/svg+xml,text/xml,image/png,image/jpeg"
+            hidden
+          />
         </section>
       </div>
 
@@ -1871,40 +1903,128 @@
     <dialog class="studio-help-dialog" id="studioHelpDialog" aria-labelledby="studioHelpTitle">
       <div class="studio-help-head">
         <div>
-          <span>AWS FLOW STUDIO</span>
-          <h2 id="studioHelpTitle">From first diagram to architecture review.</h2>
+          <span>AWS DIAGRAM STUDIO</span>
+          <h2 id="studioHelpTitle">Keyboard shortcuts</h2>
         </div>
-        <button id="studioHelpClose" type="button" aria-label="Close AWS Flow Studio help">
-          ×
-        </button>
+        <button id="studioHelpClose" type="button" aria-label="Close keyboard shortcuts">×</button>
       </div>
-      <div class="studio-help-grid">
-        <article>
-          <span>01</span>
-          <strong>Add services</strong>
-          <p>Search the library and click any AWS service to place it on the canvas.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <strong>Connect trust paths</strong>
-          <p>Choose Connect, then click a source node and a destination node.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <strong>Inspect the design</strong>
-          <p>Select a node or path to edit ownership, criticality, encryption, and notes.</p>
-        </article>
-        <article>
-          <span>04</span>
-          <strong>Rehearse failure</strong>
-          <p>Select a node, inject a failure, and watch affected dependencies light up.</p>
-        </article>
-      </div>
-      <div class="studio-help-tips">
-        <span><kbd>⌘ Z</kbd> Undo</span>
-        <span><kbd>⌘ S</kbd> Save</span>
-        <span><kbd>Delete</kbd> Remove selection</span>
-        <span><kbd>Focus</kbd> Hide both side panels</span>
+      <div class="ds-shortcuts">
+        <section>
+          <h3>Create</h3>
+          <dl>
+            <div>
+              <dt>Double-click canvas</dt>
+              <dd>Add any shape or service</dd>
+            </div>
+            <div>
+              <dt>Drag a blue arrow</dt>
+              <dd>Connect to another shape</dd>
+            </div>
+            <div>
+              <dt>Click a blue arrow</dt>
+              <dd>Add a connected copy</dd>
+            </div>
+            <div>
+              <dt><kbd>R</kbd> <kbd>O</kbd> <kbd>D</kbd> <kbd>T</kbd> <kbd>N</kbd></dt>
+              <dd>Rectangle, ellipse, decision, text, note</dd>
+            </div>
+            <div>
+              <dt><kbd>/</kbd></dt>
+              <dd>Search the shape library</dd>
+            </div>
+            <div>
+              <dt>Library click, shape selected</dt>
+              <dd>Adds it connected (⇧ to skip)</dd>
+            </div>
+          </dl>
+        </section>
+        <section>
+          <h3>Edit</h3>
+          <dl>
+            <div>
+              <dt><kbd>Enter</kbd> or type</dt>
+              <dd>Edit the label</dd>
+            </div>
+            <div>
+              <dt><kbd>⌘ C</kbd> <kbd>⌘ X</kbd> <kbd>⌘ V</kbd></dt>
+              <dd>Copy, cut, paste (works across tabs)</dd>
+            </div>
+            <div>
+              <dt><kbd>⌘ D</kbd> / <kbd>⌥</kbd> drag</dt>
+              <dd>Duplicate</dd>
+            </div>
+            <div>
+              <dt><kbd>⌘ Z</kbd> <kbd>⇧⌘ Z</kbd></dt>
+              <dd>Undo, redo</dd>
+            </div>
+            <div>
+              <dt><kbd>⌘ G</kbd> <kbd>⇧⌘ G</kbd></dt>
+              <dd>Group, ungroup</dd>
+            </div>
+            <div>
+              <dt><kbd>⇧⌘ F</kbd> <kbd>⇧⌘ B</kbd></dt>
+              <dd>Bring to front, send to back</dd>
+            </div>
+            <div>
+              <dt>Arrows / <kbd>⇧</kbd> arrows</dt>
+              <dd>Nudge 1 px / one grid step</dd>
+            </div>
+          </dl>
+        </section>
+        <section>
+          <h3>Navigate</h3>
+          <dl>
+            <div>
+              <dt>Scroll / <kbd>Space</kbd> drag</dt>
+              <dd>Pan</dd>
+            </div>
+            <div>
+              <dt><kbd>⌘</kbd> scroll / pinch</dt>
+              <dd>Zoom at the pointer</dd>
+            </div>
+            <div>
+              <dt><kbd>⇧ 1</kbd> <kbd>⇧ 2</kbd></dt>
+              <dd>Fit diagram, fit selection</dd>
+            </div>
+            <div>
+              <dt><kbd>⌘ 0</kbd></dt>
+              <dd>Actual size</dd>
+            </div>
+            <div>
+              <dt><kbd>Tab</kbd></dt>
+              <dd>Next shape (once one is selected)</dd>
+            </div>
+            <div>
+              <dt><kbd>⌘ F</kbd></dt>
+              <dd>Find</dd>
+            </div>
+            <div>
+              <dt><kbd>V</kbd> <kbd>H</kbd> <kbd>C</kbd></dt>
+              <dd>Select, pan, connect tools</dd>
+            </div>
+          </dl>
+        </section>
+        <section>
+          <h3>Files</h3>
+          <dl>
+            <div>
+              <dt><kbd>⌘ O</kbd></dt>
+              <dd>Open .drawio, .drawio.svg, JSON or Terraform</dd>
+            </div>
+            <div>
+              <dt><kbd>⌘ S</kbd></dt>
+              <dd>Save to this browser (also automatic)</dd>
+            </div>
+            <div>
+              <dt><kbd>⌥ N</kbd></dt>
+              <dd>New page</dd>
+            </div>
+            <div>
+              <dt>Export ▾</dt>
+              <dd>PNG, SVG, .drawio, JSON, Terraform, Mermaid</dd>
+            </div>
+          </dl>
+        </section>
       </div>
     </dialog>
 
