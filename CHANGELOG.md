@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented here.
 
+## 2026-09-29 — Every workspace in the AWS Studio's light-blue design
+
+### Changed
+
+- **One look across the app.** Explore, Network Lab, SQL Review and Review now share the AWS
+  Diagram Studio's light-blue design system (navy in dark mode). `app-theme.css` points every
+  page's colour tokens at the studio's, so there is one palette to maintain.
+- **The floating site banner is now a compact, full-width title bar** matching the studio's, with a
+  blue brand mark, a pill workspace switcher, and flat icon buttons.
+- **Network Lab and SQL Review fill the screen** under the title bar, like AWS Studio, instead of
+  sitting in rounded cards with page margins.
+- Explore's hero and Network Lab previews are drawn as white "paper" canvases with a blue grid,
+  like the studio canvas. Primary buttons, filters, badges and dialogs use the blue accent.
+- Review's dark verdict panel, the command palette, and the Network Lab drawer are restyled to
+  match.
+- SQL Review names the table for `CREATE` / `ALTER` / `DROP TABLE` statements and lists the tables
+  a foreign key references.
+
 ## 2026-09-29 — AWS Diagram Studio: a draw.io-class editor, and SQL ⇄ schema diagrams
 
 ### Added

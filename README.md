@@ -214,7 +214,8 @@ src/
   iac-import-ui.js     import dialog wiring (unit-tested)
   spotlight.js         pointer-tracked spotlight cards
   icon-catalog.js      lazy loader for the icon catalog chunk
-diagram-studio.css     the AWS Diagram Studio (light-blue, full-screen)
+diagram-studio.css     the AWS Diagram Studio (light-blue, full-screen) and its design tokens
+app-theme.css          maps every other workspace onto the studio's light-blue design system
 studio-shell.css       full-viewport editor shell shared by the labs
 network-lab.css        Network Lab visual system and responsive canvas
 review-center.css      Review Center visual system and responsive report layout
