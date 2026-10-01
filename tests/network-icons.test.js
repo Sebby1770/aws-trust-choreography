@@ -1,10 +1,16 @@
 // @vitest-environment jsdom
-/* global document */
+/* global document, window */
 
 import { describe, expect, it } from "vitest";
 import {
   createDeviceIcon,
-  DEVICE_ICON_PATHS,
+  DEVICE_ICON_IDS,
+  DEVICE_ICONS,
+  DEVICE_TONES,
+  deviceIconDataUrl,
+  deviceIconMarkup,
+  deviceIconParts,
+  deviceTone,
   hasDeviceIcon,
   paintDeviceGlyph,
 } from "../src/network-icons.js";
@@ -20,47 +26,90 @@ describe("network device icons", () => {
 
   it("does not define icons for devices that no longer exist", () => {
     const known = new Set(NETWORK_DEVICES.map((device) => device.id));
-    const orphans = Object.keys(DEVICE_ICON_PATHS).filter((id) => !known.has(id));
+    const orphans = DEVICE_ICON_IDS.filter((id) => !known.has(id));
     expect(orphans).toEqual([]);
   });
 
-  it("builds an inline svg that inherits the device colour", () => {
+  it("builds an inline svg tile in the device family colour", () => {
     const icon = createDeviceIcon("router", document);
     expect(icon.tagName.toLowerCase()).toBe("svg");
-    expect(icon.getAttribute("viewBox")).toBe("0 0 24 24");
-    expect(icon.getAttribute("stroke")).toBe("currentColor");
-    expect(icon.getAttribute("fill")).toBe("none");
+    expect(icon.getAttribute("viewBox")).toBe("0 0 48 48");
     // Decorative: the device name is already on the node.
     expect(icon.getAttribute("aria-hidden")).toBe("true");
     expect(icon.getAttribute("focusable")).toBe("false");
+    const tile = icon.querySelector("rect");
+    expect(tile.getAttribute("width")).toBe("48");
+    expect(tile.getAttribute("fill")).toBe(DEVICE_TONES.network);
   });
 
-  it("emits one path per stroke, with non-empty geometry", () => {
-    for (const [id, paths] of Object.entries(DEVICE_ICON_PATHS)) {
-      const icon = createDeviceIcon(id, document);
-      const drawn = [...icon.querySelectorAll("path")];
-      expect(drawn, id).toHaveLength(paths.length);
-      for (const path of drawn) {
-        const d = path.getAttribute("d");
-        expect(d, id).toBeTruthy();
-        // Every path command should start with a move-to.
-        expect(d.trim().startsWith("M"), `${id}: ${d}`).toBe(true);
-      }
+  it("gives each family its own colour", () => {
+    expect(deviceTone("pc")).toBe(DEVICE_TONES.endpoints);
+    expect(deviceTone("firewall")).toBe(DEVICE_TONES.security);
+    expect(deviceTone("database-server")).toBe(DEVICE_TONES.database);
+    expect(deviceTone("web-server")).toBe(DEVICE_TONES.servers);
+    expect(deviceTone("teleporter")).toBe(DEVICE_TONES.network);
+    for (const id of DEVICE_ICON_IDS) {
+      expect(DEVICE_TONES[DEVICE_ICONS[id].tone], id).toMatch(/^#[0-9a-f]{6}$/);
     }
   });
 
-  it("keeps coordinates on the 24-unit grid", () => {
+  it("draws a glyph on top of the tile for every device", () => {
+    for (const id of DEVICE_ICON_IDS) {
+      const parts = deviceIconParts(id);
+      // Tile + sheen, then at least one glyph element.
+      expect(parts.length, id).toBeGreaterThan(2);
+      for (const { tag, attrs } of parts) {
+        expect(["rect", "path", "circle", "ellipse"], id).toContain(tag);
+        if (tag === "path") expect(attrs.d.trim().startsWith("M"), `${id}: ${attrs.d}`).toBe(true);
+        // Nothing is left unresolved: colours are concrete by the time we draw.
+        for (const key of ["fill", "stroke"]) {
+          if (attrs[key] !== undefined) {
+            expect(["white", "soft", "tone", "tone-dark"], `${id} ${key}`).not.toContain(
+              attrs[key]
+            );
+          }
+        }
+      }
+      const drawn = createDeviceIcon(id, document);
+      expect(drawn.children, id).toHaveLength(parts.length);
+    }
+  });
+
+  it("keeps coordinates on the 48-unit grid", () => {
     // Paths mix absolute and relative commands, so a negative number can be a
     // legitimate relative delta (`v-6`). This bounds the magnitude instead,
     // which still catches a coordinate that escaped the viewBox entirely.
-    for (const [id, paths] of Object.entries(DEVICE_ICON_PATHS)) {
-      for (const d of paths) {
-        const numbers = d.match(/-?\d+(\.\d+)?/g)?.map(Number) ?? [];
+    for (const id of DEVICE_ICON_IDS) {
+      for (const { attrs } of deviceIconParts(id)) {
+        const numbers = Object.entries(attrs)
+          .filter(([key]) => ["d", "x", "y", "cx", "cy", "width", "height", "r"].includes(key))
+          .flatMap(
+            ([, value]) =>
+              String(value)
+                .match(/-?\d+(\.\d+)?/g)
+                ?.map(Number) ?? []
+          );
         for (const value of numbers) {
-          expect(Math.abs(value), `${id}: ${d}`).toBeLessThanOrEqual(24);
+          expect(Math.abs(value), id).toBeLessThanOrEqual(48);
         }
       }
     }
+  });
+
+  it("serialises standalone markup and data urls for images", () => {
+    const markup = deviceIconMarkup("firewall");
+    expect(markup.startsWith('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"')).toBe(
+      true
+    );
+    expect(markup).toContain(DEVICE_TONES.security);
+    const parsed = new window.DOMParser().parseFromString(markup, "image/svg+xml");
+    expect(parsed.querySelector("parsererror")).toBeNull();
+    const url = deviceIconDataUrl("firewall");
+    expect(url.startsWith("data:image/svg+xml;base64,")).toBe(true);
+    expect(atob(url.split(",")[1])).toBe(markup);
+    expect(deviceIconMarkup("teleporter")).toBeNull();
+    expect(deviceIconDataUrl("teleporter")).toBeNull();
+    expect(deviceIconParts("teleporter")).toBeNull();
   });
 
   it("returns null for an unknown device", () => {

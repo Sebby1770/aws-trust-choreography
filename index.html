@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="review-center.css" />
     <link rel="stylesheet" href="canvas-focus.css" />
     <link rel="stylesheet" href="sql-lab.css" />
+    <link rel="stylesheet" href="tools.css" />
     <link rel="stylesheet" href="diagram-studio.css" />
     <link rel="stylesheet" href="app-theme.css" />
   </head>
@@ -90,6 +91,8 @@
               <button type="button" role="menuitem" data-view-target="studio">AWS Studio</button>
               <button type="button" role="menuitem" data-view-target="network">Network Lab</button>
               <button type="button" role="menuitem" data-view-target="sql">SQL Review</button>
+              <button type="button" role="menuitem" data-view-target="iam">IAM Review</button>
+              <button type="button" role="menuitem" data-view-target="vpc">VPC Planner</button>
               <button type="button" role="menuitem" data-view-target="review">Review</button>
             </div>
           </details>
@@ -482,9 +485,55 @@
           </div>
         </section>
 
+        <section class="toolkit-section" aria-labelledby="toolkitTitle">
+          <div class="toolkit-intro">
+            <span class="section-index">03 / REVIEW TOOLKIT</span>
+            <h2 id="toolkitTitle">Paste it in.<br /><em>See what's wrong.</em></h2>
+            <p>
+              Three offline analysers that turn text into diagrams and diagrams back into text —
+              nothing leaves your browser.
+            </p>
+          </div>
+          <div class="toolkit-grid">
+            <article class="toolkit-card is-sql">
+              <span class="toolkit-mark" aria-hidden="true">SQL</span>
+              <h3>SQL Review</h3>
+              <p>
+                Lint queries for performance and safety, draw CREATE TABLE statements as an ER
+                diagram, and write DDL back out for PostgreSQL, MySQL or SQLite.
+              </p>
+              <button type="button" data-view-target="sql">
+                Open SQL Review <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+            <article class="toolkit-card is-iam">
+              <span class="toolkit-mark" aria-hidden="true">IAM</span>
+              <h3>IAM Review</h3>
+              <p>
+                Score a policy for admin access, wildcards, escalation paths and public principals,
+                map what it can reach, and generate least-privilege roles from your diagram.
+              </p>
+              <button type="button" data-view-target="iam">
+                Open IAM Review <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+            <article class="toolkit-card is-vpc">
+              <span class="toolkit-mark" aria-hidden="true">/16</span>
+              <h3>VPC Planner</h3>
+              <p>
+                Carve a CIDR block into per-AZ subnets, catch overlaps before you peer, audit the
+                Network Lab's addressing, and export the plan as Terraform or a diagram.
+              </p>
+              <button type="button" data-view-target="vpc">
+                Open VPC Planner <span aria-hidden="true">↗</span>
+              </button>
+            </article>
+          </div>
+        </section>
+
         <section class="workflow-section" aria-labelledby="workflowTitle">
           <div class="workflow-intro">
-            <span class="section-index">03 / FROM IDEA TO EVIDENCE</span>
+            <span class="section-index">04 / FROM IDEA TO EVIDENCE</span>
             <h2 id="workflowTitle">Architecture is a living argument.</h2>
             <p>
               Trust Choreography makes that argument visible—from the first service to the first
@@ -641,6 +690,264 @@
                   <div id="sqlAssistOutput" class="sql-assist-output" aria-live="polite"></div>
                 </div>
               </details>
+            </section>
+          </div>
+        </section>
+      </div>
+
+      <div class="view view-iam" data-view="iam">
+        <section class="tool-lab iam-lab" id="iamLab" aria-labelledby="iamLabTitle">
+          <div class="tool-grid">
+            <section class="tool-pane tool-editor-pane" aria-label="IAM policy input">
+              <div class="tool-pane-head">
+                <div class="tool-title">
+                  <span class="tool-eyebrow">IAM Review</span>
+                  <h2 id="iamLabTitle">Policy analyser</h2>
+                </div>
+                <div class="tool-actions">
+                  <button id="iamSample" type="button" title="Load an example identity policy">
+                    Example
+                  </button>
+                  <button id="iamTrustSample" type="button" title="Load an example trust policy">
+                    Trust policy
+                  </button>
+                  <button
+                    id="iamFromDiagram"
+                    type="button"
+                    class="is-accent"
+                    title="Write least-privilege roles for the arrows drawn in AWS Studio"
+                  >
+                    From diagram
+                  </button>
+                  <button id="iamFormat" type="button" title="Pretty-print the JSON">Format</button>
+                  <button id="iamClear" type="button" title="Clear the editor">Clear</button>
+                </div>
+              </div>
+              <textarea
+                id="iamInput"
+                class="tool-input"
+                spellcheck="false"
+                autocomplete="off"
+                placeholder='Paste an IAM policy — identity, resource (bucket, queue, key) or role trust policy. {"Version": "2012-10-17", "Statement": [...]}'
+                aria-label="IAM policy JSON"
+              ></textarea>
+              <p class="tool-note" id="iamStats" aria-live="polite"></p>
+            </section>
+
+            <section class="tool-pane tool-report-pane" aria-label="Policy review">
+              <div class="tool-score-row">
+                <div class="tool-score" id="iamScore">
+                  <strong id="iamScoreValue">—</strong><span id="iamScoreGrade">no policy yet</span>
+                </div>
+                <span class="tool-badge" id="iamKind" hidden></span>
+                <div class="iam-counts" id="iamCounts"></div>
+              </div>
+
+              <section class="tool-card iam-map" id="iamMap" aria-labelledby="iamMapTitle" hidden>
+                <header class="tool-card-head">
+                  <div>
+                    <span class="tool-eyebrow">Access map</span>
+                    <strong id="iamMapTitle">What this policy can reach</strong>
+                  </div>
+                  <button id="iamMapOpen" type="button" class="tool-primary">
+                    Open in AWS Studio <span aria-hidden="true">↗</span>
+                  </button>
+                </header>
+                <div class="iam-map-body" id="iamMapBody"></div>
+              </section>
+
+              <div class="iam-findings" id="iamFindings"></div>
+
+              <section
+                class="tool-card iam-generated"
+                id="iamGenerated"
+                aria-labelledby="iamGeneratedTitle"
+                hidden
+              >
+                <header class="tool-card-head">
+                  <div>
+                    <span class="tool-eyebrow">Least privilege</span>
+                    <strong id="iamGeneratedTitle">Roles for your AWS Studio diagram</strong>
+                    <small id="iamGeneratedStats"></small>
+                  </div>
+                </header>
+                <div class="iam-generated-body" id="iamGeneratedBody"></div>
+              </section>
+            </section>
+          </div>
+        </section>
+      </div>
+
+      <div class="view view-vpc" data-view="vpc">
+        <section class="tool-lab vpc-lab" id="vpcLab" aria-labelledby="vpcLabTitle">
+          <div class="tool-grid vpc-grid">
+            <section class="tool-pane tool-editor-pane vpc-form-pane" aria-label="VPC settings">
+              <div class="tool-pane-head">
+                <div class="tool-title">
+                  <span class="tool-eyebrow">VPC Planner</span>
+                  <h2 id="vpcLabTitle">Address plan</h2>
+                </div>
+                <div class="tool-actions" role="group" aria-label="Start from a preset">
+                  <button type="button" data-vpc-preset="three-tier">Three-tier</button>
+                  <button type="button" data-vpc-preset="simple">Simple</button>
+                  <button type="button" data-vpc-preset="eks">EKS</button>
+                </div>
+              </div>
+              <form class="vpc-form" id="vpcForm" autocomplete="off">
+                <div class="vpc-fields">
+                  <label class="vpc-field vpc-field-wide">
+                    <span>VPC CIDR block</span>
+                    <input
+                      id="vpcCidr"
+                      type="text"
+                      spellcheck="false"
+                      autocapitalize="off"
+                      autocorrect="off"
+                      placeholder="10.0.0.0/16"
+                    />
+                  </label>
+                  <label class="vpc-field">
+                    <span>Region</span>
+                    <input id="vpcRegion" type="text" list="vpcRegions" spellcheck="false" />
+                  </label>
+                  <label class="vpc-field">
+                    <span>Availability Zones</span>
+                    <select id="vpcAzs">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                    </select>
+                  </label>
+                  <label class="vpc-field">
+                    <span>Spare AZs</span>
+                    <select id="vpcSpare" title="Reserve room to add Availability Zones later">
+                      <option value="0">None</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                  </label>
+                  <label class="vpc-field">
+                    <span>NAT gateways</span>
+                    <select id="vpcNat">
+                      <option value="per-az">One per AZ</option>
+                      <option value="single">Single (cheaper)</option>
+                      <option value="none">None</option>
+                    </select>
+                  </label>
+                </div>
+                <datalist id="vpcRegions">
+                  <option value="us-east-1"></option>
+                  <option value="us-east-2"></option>
+                  <option value="us-west-2"></option>
+                  <option value="eu-west-1"></option>
+                  <option value="eu-west-2"></option>
+                  <option value="eu-central-1"></option>
+                  <option value="ap-southeast-2"></option>
+                  <option value="ap-northeast-1"></option>
+                  <option value="ap-south-1"></option>
+                  <option value="sa-east-1"></option>
+                  <option value="ca-central-1"></option>
+                </datalist>
+                <div class="vpc-tiers-head">
+                  <span>Subnet tiers <small>one subnet per AZ each</small></span>
+                  <button id="vpcAddTier" type="button">+ Add tier</button>
+                </div>
+                <div class="vpc-tiers" id="vpcTiers"></div>
+              </form>
+
+              <details class="tool-card vpc-tool" open>
+                <summary>
+                  <span class="tool-eyebrow">Overlap check</span>
+                  <strong>CIDR blocks to peer or route together</strong>
+                </summary>
+                <textarea
+                  id="vpcCheckInput"
+                  class="tool-input vpc-check-input"
+                  spellcheck="false"
+                  placeholder="10.0.0.0/16 production&#10;10.1.0.0/16 staging"
+                  aria-label="CIDR blocks to check, one per line"
+                ></textarea>
+                <div class="tool-actions">
+                  <button id="vpcCheckRun" type="button" class="is-accent">Check</button>
+                  <button id="vpcCheckPlan" type="button" title="Add the planned VPC to the list">
+                    Add this VPC
+                  </button>
+                  <button id="vpcCheckSample" type="button">Example</button>
+                </div>
+                <div class="vpc-results" id="vpcCheckResults" aria-live="polite"></div>
+              </details>
+            </section>
+
+            <section class="tool-pane tool-report-pane" aria-label="Subnet plan">
+              <div class="vpc-summary" id="vpcSummary"></div>
+              <p class="visually-hidden" id="vpcStatus" role="status"></p>
+              <div class="tool-actions vpc-output-actions">
+                <button id="vpcOpen" type="button" class="tool-primary">
+                  Open in AWS Studio <span aria-hidden="true">↗</span>
+                </button>
+                <button id="vpcCopy" type="button">Copy Terraform</button>
+                <button id="vpcTerraform" type="button">Download .tf</button>
+              </div>
+
+              <section class="tool-card" aria-labelledby="vpcMapTitle">
+                <header class="tool-card-head">
+                  <div>
+                    <span class="tool-eyebrow">Address space</span>
+                    <strong id="vpcMapTitle">How the VPC is divided</strong>
+                  </div>
+                </header>
+                <div
+                  class="vpc-map"
+                  id="vpcMap"
+                  role="img"
+                  aria-label="Address map of the VPC"
+                ></div>
+                <div class="vpc-legend" id="vpcLegend" hidden>
+                  <span class="is-public">Public</span><span class="is-private">Private</span
+                  ><span class="is-data">Isolated</span><span class="is-reserved">Reserved</span
+                  ><span class="is-free">Free</span>
+                </div>
+              </section>
+
+              <div class="vpc-messages" id="vpcMessages"></div>
+
+              <div class="tool-card vpc-table-card">
+                <table class="vpc-table" id="vpcTable">
+                  <caption class="visually-hidden">
+                    Planned subnets
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Tier</th>
+                      <th scope="col">AZ</th>
+                      <th scope="col">CIDR</th>
+                      <th scope="col">Usable range</th>
+                      <th scope="col">Usable IPs</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+                <p class="tool-note">
+                  AWS reserves five addresses in every subnet: the network address, the VPC router,
+                  DNS, one for future use, and the broadcast address.
+                </p>
+              </div>
+
+              <section class="tool-card" aria-labelledby="vpcAuditTitle">
+                <header class="tool-card-head">
+                  <div>
+                    <span class="tool-eyebrow">Network Lab</span>
+                    <strong id="vpcAuditTitle">Check the lab's addressing</strong>
+                    <small>Duplicate IPs, overlapping masks, hosts that need a router.</small>
+                  </div>
+                  <button id="vpcAuditRun" type="button" class="tool-secondary">Check lab</button>
+                </header>
+                <div class="vpc-results" id="vpcAuditResults" aria-live="polite"></div>
+              </section>
             </section>
           </div>
         </section>

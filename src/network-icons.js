@@ -1,129 +1,369 @@
 /**
- * Network device icons.
+ * Network device icons, drawn in the AWS architecture-icon style: a rounded
+ * square in the device family's colour with a detailed white glyph. The
+ * shapes follow the conventions people already read in network diagrams —
+ * a router is a puck with crossing traffic, a switch a chassis with
+ * parallel flows, a firewall a brick wall — and every server shares one rack
+ * silhouette with a badge that says what it runs.
  *
- * The palette and the canvas used single text glyphs ("▣", "⇆", "DB"), which
- * told you almost nothing about what a device was. These are line-art icons
- * drawn on a 24x24 grid in the conventional shapes people already recognise
- * from network diagrams: a router is a puck with four-way arrows, a switch is
- * a chassis with parallel arrows, a firewall is a brick wall, a database is a
- * cylinder, and so on.
- *
- * Every icon is stroke-only and inherits `currentColor`, so it picks up the
- * per-device colour the lab already assigns.
+ * Icons are self-contained SVG (no gradients or ids), so they render the same
+ * inline in the Network Lab, as images in the diagram studio's library, and
+ * in exported diagrams.
  */
 
 const SVG_NS = "http://www.w3.org/2000/svg";
+const WHITE = "#ffffff";
 
-/**
- * Path data per device id. Values are an array of `d` strings so an icon can
- * be several strokes without needing a wrapper element.
- */
-export const DEVICE_ICON_PATHS = {
-  // --- endpoints ---
-  pc: ["M3 5h18v11H3z", "M9 20h6", "M12 16v4"],
-  laptop: ["M5 6h14v9H5z", "M2 18h20l-1.6-3H3.6z"],
-  printer: [
-    "M7 8V3h10v5",
-    "M5 8h14a2 2 0 0 1 2 2v6h-4",
-    "M7 16H3v-6a2 2 0 0 1 2-2",
-    "M7 13h10v8H7z",
-  ],
-  "ip-phone": [
-    "M4 4h11a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
-    "M5 7h9v4H5z",
-    "M5 14h2M9 14h2M13 14h1M5 17h2M9 17h2M13 17h1",
-    "M19 8h3v6h-3",
-  ],
-
-  // --- network infrastructure ---
-  // A router puck with traffic leaving in four directions.
-  router: [
-    "M3 14h18v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z",
-    "M3 14a9 3 0 0 1 18 0",
-    "M8 11V6M8 6l-2 2M8 6l2 2",
-    "M16 4v5M16 9l-2-2M16 9l2-2",
-  ],
-  // A chassis with parallel flows — the classic layer-2 switch.
-  "l2-switch": [
-    "M2 9h20v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z",
-    "M6 6h12M18 6l-2-2M18 6l-2 2",
-    "M18 3H6M6 3l2-2M6 3l2 2",
-    "M6 13h2M10 13h2M14 13h2M18 13h1",
-  ],
-  // Same chassis, but crossing arrows to signal routing between subnets.
-  "l3-switch": [
-    "M2 9h20v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z",
-    "M6 6h12M18 6l-2-2M18 6l-2 2",
-    "M18 3H6M6 3l2-2M6 3l2 2",
-    "M7 13.5l2.5 2.5M12 13h1M16 13h3",
-  ],
-  "wireless-ap": ["M4 16h16v4H4z", "M12 16v-3", "M8.5 9.5a5 5 0 0 1 7 0", "M6 6.5a9 9 0 0 1 12 0"],
-  firewall: [
-    "M3 5h18v14H3z",
-    "M3 9.7h18M3 14.3h18",
-    "M9 5v4.7M15 5v4.7",
-    "M6 9.7v4.6M12 9.7v4.6M18 9.7v4.6",
-    "M9 14.3V19M15 14.3V19",
-  ],
-  "load-balancer": [
-    "M2 12h5",
-    "M7 12a3 3 0 0 1 3-3h2M7 12a3 3 0 0 0 3 3h2",
-    "M7 12h5",
-    "M15 6h6v4h-6zM15 14h6v4h-6z",
-    "M12 9h3M12 12h3M12 15h3",
-  ],
-  "vpn-gateway": ["M3 12h4M17 12h4", "M9 11V9a3 3 0 0 1 6 0v2", "M8 11h8v7H8z", "M12 14v2"],
-
-  // --- servers ---
-  // A shared rack silhouette keeps the server family reading as one group;
-  // the mark inside says which service it runs.
-  "web-server": ["M3 3h18v18H3z", "M3 12h18", "M12 3a9 9 0 0 1 0 18a9 9 0 0 1 0-18"],
-  "dns-server": [
-    "M3 4h18v6H3zM3 14h18v6H3z",
-    "M6 7h.01M6 17h.01",
-    "M11 6.2v3.6M11 6.2l2.6 3.6V6.2",
-    "M15.6 17.2c0 .6.7 1 1.6 1s1.6-.4 1.6-1-.7-.9-1.6-1s-1.6-.4-1.6-1 .7-1 1.6-1 1.6.4 1.6 1",
-  ],
-  "dhcp-server": [
-    "M3 4h18v6H3zM3 14h18v6H3z",
-    "M6 7h.01M6 17h.01",
-    "M10 6v4M10 8h3M13 6v4",
-    "M10 15h2.4a2 2 0 0 1 0 4H10z",
-    "M16 15h3M17.5 15v4",
-  ],
-  "database-server": [
-    "M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3z",
-    "M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6",
-    "M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3",
-  ],
-  "mail-server": ["M3 5h18v14H3z", "M3 6.5l9 6.5 9-6.5"],
-  "linux-server": [
-    "M3 4h18v6H3zM3 14h18v6H3z",
-    "M6 7h.01M6 17h.01",
-    "M10 6.2c0-1 .8-1.7 2-1.7s2 .7 2 1.7c0 1.6 1.4 2.4 1.4 3.3 0 .4-.4.5-1 .5h-4.8c-.6 0-1-.1-1-.5 0-.9 1.4-1.7 1.4-3.3z",
-    "M11 15h2M12 15v4",
-  ],
-  "windows-server": [
-    "M3 4h18v6H3zM3 14h18v6H3z",
-    "M6 7h.01M6 17h.01",
-    "M10 5.6l4-.6v4.4h-4zM15 4.9l4-.6v4.9h-4z",
-    "M11 15h2M12 15v4",
-  ],
-
-  // --- edges of the world ---
-  internet: [
-    "M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18z",
-    "M3 12h18",
-    "M12 3c2.6 2.4 4 5.6 4 9s-1.4 6.6-4 9c-2.6-2.4-4-5.6-4-9s1.4-6.6 4-9z",
-  ],
-  cloud: ["M7.5 19a4.5 4.5 0 0 1-.4-9A6 6 0 0 1 18.5 11a4 4 0 0 1-.5 8z"],
+/** Family colours, matched to the AWS icon palette. */
+export const DEVICE_TONES = {
+  endpoints: "#2563eb",
+  network: "#8c4fff",
+  servers: "#ed7100",
+  database: "#c925d1",
+  security: "#dd344c",
+  internet: "#3f4b5b",
+  cloud: "#0a84d6",
 };
 
-/** Devices whose icon is drawn with a filled mark rather than strokes only. */
-const FILLED_DOTS = new Set(["dns-server", "dhcp-server", "linux-server", "windows-server"]);
+// ------------------------------------------------------------ part helpers
+
+const path = (d, style = {}) => ({ tag: "path", attrs: { d }, ...style });
+const rect = (x, y, width, height, rx, style = {}) => ({
+  tag: "rect",
+  attrs: { x, y, width, height, rx },
+  ...style,
+});
+const circle = (cx, cy, r, style = {}) => ({ tag: "circle", attrs: { cx, cy, r }, ...style });
+const ellipse = (cx, cy, rx, ry, style = {}) => ({
+  tag: "ellipse",
+  attrs: { cx, cy, rx, ry },
+  ...style,
+});
+
+const LINE = { stroke: "white", fill: "none" };
+const SOLID = { fill: "white" };
+const SOFT = { fill: "soft", stroke: "white" };
+const TONE_LINE = { stroke: "tone", fill: "none" };
+const TONE_SOLID = { fill: "tone" };
+
+/** Two stacked rack units: the shared body of every server icon. */
+function rack() {
+  return [
+    rect(9, 8, 26, 11, 2.5, SOFT),
+    rect(9, 21, 26, 11, 2.5, SOFT),
+    circle(14, 13.5, 1.6, SOLID),
+    circle(14, 26.5, 1.6, SOLID),
+    path("M19 13.5h11M19 26.5h11", LINE),
+  ];
+}
+
+/** A white badge in the lower right corner holding a role mark. */
+function badge(mark) {
+  return [circle(33, 33, 9.5, { fill: "white", stroke: "tone-dark", width: 1.2 }), ...mark];
+}
+
+// ------------------------------------------------------------------ icons
+
+/**
+ * id → { tone, parts }. Parts are drawn on a 48-unit grid inside the tile.
+ * `fill`/`stroke` take "white", "soft" (translucent white), "tone" (the
+ * tile colour) or "none".
+ */
+export const DEVICE_ICONS = {
+  // --- endpoints ---
+  pc: {
+    tone: "endpoints",
+    parts: [
+      rect(9, 10, 30, 21, 2.5, SOFT),
+      rect(12.5, 13.5, 23, 14, 1, { fill: "white", stroke: "none" }),
+      path("M24 31v6M16 38h16", LINE),
+    ],
+  },
+  laptop: {
+    tone: "endpoints",
+    parts: [
+      rect(12, 11, 24, 17, 2, SOFT),
+      rect(15, 14, 18, 11, 1, { fill: "white", stroke: "none" }),
+      path("M7 31h34l-3 5H10z", { fill: "white", stroke: "white" }),
+      path("M21 33.5h6", TONE_LINE),
+    ],
+  },
+  printer: {
+    tone: "endpoints",
+    parts: [
+      rect(15, 8, 18, 9, 1, SOFT),
+      rect(8, 17, 32, 14, 3, SOFT),
+      rect(15, 26, 18, 13, 1, { fill: "white", stroke: "white" }),
+      path("M19 30h10M19 34h7", TONE_LINE),
+      circle(34, 21.5, 1.6, SOLID),
+    ],
+  },
+  "ip-phone": {
+    tone: "endpoints",
+    parts: [
+      path("M12 17c0-6 24-6 24 0v3h-6v-3c0-2.4-12-2.4-12 0v3h-6z", {
+        fill: "white",
+        stroke: "white",
+      }),
+      rect(11, 22, 26, 17, 3, SOFT),
+      circle(18, 27, 1.5, SOLID),
+      circle(24, 27, 1.5, SOLID),
+      circle(30, 27, 1.5, SOLID),
+      circle(18, 33, 1.5, SOLID),
+      circle(24, 33, 1.5, SOLID),
+      circle(30, 33, 1.5, SOLID),
+    ],
+  },
+
+  // --- network infrastructure ---
+  // The classic router puck, with traffic crossing its top face.
+  router: {
+    tone: "network",
+    parts: [
+      path("M8 18v10c0 3.3 7.2 6 16 6s16-2.7 16-6V18", SOFT),
+      ellipse(24, 18, 16, 6, { fill: "white", stroke: "white" }),
+      path("M13 16.5l6 3M19 16.5l-6 3M29 16.5l6 3M35 16.5l-6 3", TONE_LINE),
+      path("M18.5 18h11", { stroke: "tone", fill: "none", width: 1.6 }),
+    ],
+  },
+  // A chassis with opposing lanes of traffic: the layer-2 switch.
+  "l2-switch": {
+    tone: "network",
+    parts: [
+      path("M7 20l5-6h24l5 6v12H7z", SOFT),
+      path("M7 20h34", LINE),
+      path("M14 25h18m0 0l-3-2.5m3 2.5l-3 2.5", LINE),
+      path("M34 29.5H16m0 0l3-2.5m-3 2.5l3 2.5", LINE),
+      path("M12 17h24", { stroke: "white", fill: "none", width: 1.2 }),
+    ],
+  },
+  // Same chassis, with a routing cross on the lid: switching plus routing.
+  "l3-switch": {
+    tone: "network",
+    parts: [
+      path("M7 20l5-6h24l5 6v12H7z", SOFT),
+      path("M7 20h34", LINE),
+      path("M14 25h18m0 0l-3-2.5m3 2.5l-3 2.5", LINE),
+      path("M34 29.5H16m0 0l3-2.5m-3 2.5l3 2.5", LINE),
+      path("M20 15.5l8 3M28 15.5l-8 3", LINE),
+    ],
+  },
+  "wireless-ap": {
+    tone: "network",
+    parts: [
+      rect(11, 30, 26, 8, 3, { fill: "white", stroke: "white" }),
+      circle(17, 34, 1.4, TONE_SOLID),
+      path("M24 30v-5", LINE),
+      path("M18.5 21a7.5 7.5 0 0 1 11 0", LINE),
+      path("M14.5 16.5a13 13 0 0 1 19 0", LINE),
+      path("M10.5 12a18.5 18.5 0 0 1 27 0", LINE),
+    ],
+  },
+
+  // --- servers: one rack, a badge per role ---
+  "web-server": {
+    tone: "servers",
+    parts: [
+      ...rack(),
+      ...badge([
+        circle(33, 33, 6, TONE_LINE),
+        path("M27 33h12M33 27c2.4 2.2 2.4 9.8 0 12M33 27c-2.4 2.2-2.4 9.8 0 12", TONE_LINE),
+      ]),
+    ],
+  },
+  "dns-server": {
+    tone: "servers",
+    parts: [
+      ...rack(),
+      ...badge([
+        circle(33, 28.5, 2, TONE_SOLID),
+        circle(28.5, 37, 2, TONE_SOLID),
+        circle(37.5, 37, 2, TONE_SOLID),
+        path("M33 30.5v2.5M33 33l-4.5 2.2M33 33l4.5 2.2", TONE_LINE),
+      ]),
+    ],
+  },
+  "dhcp-server": {
+    tone: "servers",
+    parts: [
+      ...rack(),
+      ...badge([
+        path("M28 31.5a5.5 5.5 0 0 1 9.8-2.4M38 34.5a5.5 5.5 0 0 1-9.8 2.4", TONE_LINE),
+        path("M38.3 26.3v3.2h-3.2M27.7 39.7v-3.2h3.2", TONE_LINE),
+      ]),
+    ],
+  },
+  "database-server": {
+    tone: "database",
+    parts: [
+      path("M11 12v24c0 3 5.8 5 13 5s13-2 13-5V12", SOFT),
+      ellipse(24, 12, 13, 5, { fill: "white", stroke: "white" }),
+      path("M11 20c0 3 5.8 5 13 5s13-2 13-5M11 28c0 3 5.8 5 13 5s13-2 13-5", LINE),
+    ],
+  },
+  "mail-server": {
+    tone: "servers",
+    parts: [
+      ...rack(),
+      ...badge([
+        rect(27, 29, 12, 8.5, 1, TONE_LINE),
+        path("M27.5 29.5l5.5 4.5 5.5-4.5", TONE_LINE),
+      ]),
+    ],
+  },
+  "linux-server": {
+    tone: "servers",
+    parts: [
+      ...rack(),
+      ...badge([
+        rect(27, 28, 12, 10, 1.5, TONE_SOLID),
+        path("M29.5 31l2.5 2-2.5 2M33.5 35.5h3", LINE),
+      ]),
+    ],
+  },
+  "windows-server": {
+    tone: "servers",
+    parts: [
+      ...rack(),
+      ...badge([
+        rect(28, 28, 4.6, 4.6, 0.4, TONE_SOLID),
+        rect(33.4, 28, 4.6, 4.6, 0.4, TONE_SOLID),
+        rect(28, 33.4, 4.6, 4.6, 0.4, TONE_SOLID),
+        rect(33.4, 33.4, 4.6, 4.6, 0.4, TONE_SOLID),
+      ]),
+    ],
+  },
+
+  // --- security and the edges of the world ---
+  firewall: {
+    tone: "security",
+    parts: [
+      rect(8, 11, 15, 7, 1, SOLID),
+      rect(25, 11, 15, 7, 1, SOLID),
+      rect(8, 20.5, 6.5, 7, 1, SOLID),
+      rect(16.5, 20.5, 15, 7, 1, SOLID),
+      rect(33.5, 20.5, 6.5, 7, 1, SOLID),
+      rect(8, 30, 15, 7, 1, SOLID),
+      rect(25, 30, 15, 7, 1, SOLID),
+    ],
+  },
+  "load-balancer": {
+    tone: "network",
+    parts: [
+      path("M8 24h8", LINE),
+      circle(19, 24, 4, SOLID),
+      path("M23 24h12M22 21.5l10-7.5h3M22 26.5l10 7.5h3", LINE),
+      path("M33 11l4 3-4 3M33 21l4 3-4 3M33 31l4 3-4 3", LINE),
+    ],
+  },
+  "vpn-gateway": {
+    tone: "security",
+    parts: [
+      path("M7 28h8M33 28h8", LINE),
+      path("M18.5 22v-3.5a5.5 5.5 0 0 1 11 0V22", LINE),
+      rect(15, 22, 18, 14, 2.5, { fill: "white", stroke: "white" }),
+      circle(24, 27.5, 2, TONE_SOLID),
+      path("M24 29v3", TONE_LINE),
+    ],
+  },
+  internet: {
+    tone: "internet",
+    parts: [
+      circle(24, 24, 14, SOFT),
+      path("M10 24h28M12 17h24M12 31h24", LINE),
+      path(
+        "M24 10c4.2 3.7 6.3 8.4 6.3 14s-2.1 10.3-6.3 14c-4.2-3.7-6.3-8.4-6.3-14s2.1-10.3 6.3-14z",
+        LINE
+      ),
+    ],
+  },
+  cloud: {
+    tone: "cloud",
+    parts: [
+      path("M15 35a7 7 0 0 1-.7-14 10 10 0 0 1 19.4-2.4A7.8 7.8 0 0 1 34 35z", {
+        fill: "white",
+        stroke: "white",
+      }),
+    ],
+  },
+};
+
+/** Stable id list, so callers can iterate the icon set. */
+export const DEVICE_ICON_IDS = Object.keys(DEVICE_ICONS);
 
 export function hasDeviceIcon(deviceId) {
-  return Object.hasOwn(DEVICE_ICON_PATHS, deviceId);
+  return Object.hasOwn(DEVICE_ICONS, deviceId);
+}
+
+export function deviceTone(deviceId) {
+  return DEVICE_TONES[DEVICE_ICONS[deviceId]?.tone] || DEVICE_TONES.network;
+}
+
+function darken(hex, amount = 0.25) {
+  const value = Number.parseInt(hex.slice(1), 16);
+  const channel = (shift) => Math.round(((value >> shift) & 255) * (1 - amount));
+  return `#${[16, 8, 0].map((shift) => channel(shift).toString(16).padStart(2, "0")).join("")}`;
+}
+
+function paint(value, tone) {
+  if (value === "white") return WHITE;
+  if (value === "soft") return "rgba(255,255,255,0.22)";
+  if (value === "tone") return tone;
+  if (value === "tone-dark") return darken(tone, 0.12);
+  return "none";
+}
+
+/**
+ * The drawable elements of an icon as plain records (tile first), shared by
+ * the DOM builder and the markup serialiser.
+ */
+export function deviceIconParts(deviceId) {
+  const icon = DEVICE_ICONS[deviceId];
+  if (!icon) return null;
+  const tone = deviceTone(deviceId);
+  const tile = [
+    { tag: "rect", attrs: { x: 0, y: 0, width: 48, height: 48, rx: 10, fill: tone } },
+    // A soft top-left sheen gives the tile the depth of the AWS icon set.
+    {
+      tag: "path",
+      attrs: { d: "M0 10A10 10 0 0 1 10 0h28L0 38z", fill: "#ffffff", "fill-opacity": 0.12 },
+    },
+  ];
+  const glyph = icon.parts.map((part) => {
+    const fill = paint(part.fill ?? "none", tone);
+    const stroke = paint(part.stroke ?? "none", tone);
+    const attrs = { ...part.attrs, fill };
+    if (stroke !== "none") {
+      attrs.stroke = stroke;
+      attrs["stroke-width"] = part.width ?? 2.2;
+      attrs["stroke-linecap"] = "round";
+      attrs["stroke-linejoin"] = "round";
+    }
+    return { tag: part.tag, attrs };
+  });
+  return [...tile, ...glyph];
+}
+
+/** Standalone SVG markup for an icon (for images and exports). */
+export function deviceIconMarkup(deviceId) {
+  const parts = deviceIconParts(deviceId);
+  if (!parts) return null;
+  const body = parts
+    .map(
+      ({ tag, attrs }) =>
+        `<${tag}${Object.entries(attrs)
+          .map(([key, value]) => ` ${key}="${value}"`)
+          .join("")}/>`
+    )
+    .join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">${body}</svg>`;
+}
+
+/** A data URL for an icon, for <img> tags and diagram image shapes. */
+export function deviceIconDataUrl(deviceId) {
+  const markup = deviceIconMarkup(deviceId);
+  if (!markup) return null;
+  return `data:image/svg+xml;base64,${globalThis.btoa(markup)}`;
 }
 
 /**
@@ -135,30 +375,18 @@ export function hasDeviceIcon(deviceId) {
  *   fall back to the text glyph rather than render an empty box.
  */
 export function createDeviceIcon(deviceId, doc = globalThis.document) {
-  const paths = DEVICE_ICON_PATHS[deviceId];
-  if (!paths || !doc) return null;
-
+  const parts = deviceIconParts(deviceId);
+  if (!parts || !doc) return null;
   const svg = doc.createElementNS(SVG_NS, "svg");
-  svg.setAttribute("viewBox", "0 0 24 24");
-  svg.setAttribute("fill", "none");
-  svg.setAttribute("stroke", "currentColor");
-  svg.setAttribute("stroke-width", "1.5");
-  svg.setAttribute("stroke-linecap", "round");
-  svg.setAttribute("stroke-linejoin", "round");
+  svg.setAttribute("viewBox", "0 0 48 48");
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("focusable", "false");
   svg.classList.add("network-device-icon");
-
-  for (const d of paths) {
-    const path = doc.createElementNS(SVG_NS, "path");
-    path.setAttribute("d", d);
-    // The status LEDs on server chassis read better solid.
-    if (FILLED_DOTS.has(deviceId) && d.includes(".01")) {
-      path.setAttribute("stroke-width", "2.4");
-    }
-    svg.append(path);
+  for (const { tag, attrs } of parts) {
+    const element = doc.createElementNS(SVG_NS, tag);
+    for (const [key, value] of Object.entries(attrs)) element.setAttribute(key, String(value));
+    svg.append(element);
   }
-
   return svg;
 }
 
@@ -170,8 +398,10 @@ export function paintDeviceGlyph(element, device, doc = globalThis.document) {
   const icon = createDeviceIcon(device?.id, doc);
   if (!icon) {
     element.textContent = device?.glyph ?? "";
+    element.classList?.remove("has-device-icon");
     return false;
   }
   element.replaceChildren(icon);
+  element.classList?.add("has-device-icon");
   return true;
 }

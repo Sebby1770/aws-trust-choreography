@@ -6,6 +6,7 @@
  * Coordinates are world pixels (top-left of each 48 x 48 service icon).
  */
 
+import { ZONE_IDS } from "../trust-zones.js";
 import { createDocument, makeConnection, makeServiceNode, makeShape } from "./model.js";
 
 const USERS = "Users 48 Light";
@@ -539,15 +540,50 @@ export const TEMPLATE_IDS = Object.keys(TEMPLATES);
  * @param {{findIcon: (name: string, type?: string) => object|null, connectionDefaults?: Function, environment?: string}} options
  * @returns {object|null}
  */
-export function buildTemplate(
-  id,
-  { findIcon, connectionDefaults = () => ({}), environment = "Production" } = {}
-) {
+export function buildTemplate(id, options = {}) {
   const template = TEMPLATES[id];
   if (!template) return null;
-  const doc = createDocument({ name: template.title });
+  return buildBlueprint({ ...template, name: template.title }, { ...options, strict: true });
+}
+
+function zoneFromContainers(doc, node, groupZone) {
+  let parent = doc.shapes.find((shape) => shape.id === node.parent);
+  while (parent) {
+    const zone =
+      groupZone.get(parent.id) ||
+      (parent.preset === "public-subnet"
+        ? "public"
+        : parent.preset === "private-subnet"
+          ? "private"
+          : null);
+    if (zone) return zone;
+    parent = doc.shapes.find((shape) => shape.id === parent.parent);
+  }
+  return null;
+}
+
+/**
+ * Build a document from a blueprint: the same shape templates use, so any
+ * workspace (IAM Review, VPC Planner…) can hand the studio a diagram.
+ *
+ *  - `groups`: containers `{key, preset, x, y, w, h, label?, zone?, parent?}`
+ *  - `nodes`: services `{key, service, type?, name, x, y, parent?, zone?, notes?, criticality?}`
+ *  - `links`: `[fromKey, toKey]` or `{from, to, label?, type?, style?, encrypted?}`
+ *  - `shapes`: free shapes `{kind, x, y, w?, h?, label?, style?, parent?}` (notes, text)
+ *
+ * A service whose icon cannot be found becomes a labelled rounded box, unless
+ * `strict` is set (templates), where a missing icon is a bug worth throwing on.
+ */
+export function buildBlueprint(
+  blueprint,
+  { findIcon, connectionDefaults = () => ({}), environment = "Production", strict = false } = {}
+) {
+  const doc = createDocument({ name: blueprint.name || "Generated diagram" });
+  if (blueprint.region) doc.region = blueprint.region;
+  const groups = blueprint.groups || [];
   const keys = new Map();
-  template.groups.forEach((group, index) => {
+  const groupZone = new Map();
+  groups.forEach((group, index) => {
     const shape = makeShape("container", {
       preset: group.preset,
       x: group.x,
@@ -556,57 +592,80 @@ export function buildTemplate(
       h: group.h,
       label: group.label,
       zone: group.zone,
-      z: -(template.groups.length - index),
+      style: group.style,
+      z: -(groups.length - index),
     });
     keys.set(group.key, shape.id);
+    if (ZONE_IDS.includes(group.zone)) groupZone.set(shape.id, group.zone);
     doc.shapes.push(shape);
   });
-  template.groups.forEach((group) => {
+  groups.forEach((group) => {
     if (group.parent)
       doc.shapes.find((shape) => shape.id === keys.get(group.key)).parent = keys.get(group.parent);
   });
-  template.nodes.forEach((entry, index) => {
-    const icon = findIcon(entry.service, entry.type || "service");
-    if (!icon) throw new Error(`Missing icon for template service: ${entry.service}`);
+  (blueprint.nodes || []).forEach((entry, index) => {
+    const icon = findIcon?.(entry.service, entry.type || "service");
+    const parent = entry.parent ? keys.get(entry.parent) : null;
+    if (!icon) {
+      if (strict) throw new Error(`Missing icon for template service: ${entry.service}`);
+      const box = makeShape("rounded", {
+        label: entry.name || entry.service,
+        x: entry.x,
+        y: entry.y,
+        w: 120,
+        h: 48,
+        z: index + 1,
+        parent,
+      });
+      keys.set(entry.key, box.id);
+      doc.shapes.push(box);
+      return;
+    }
     const node = makeServiceNode(icon, {
       name: entry.name,
       x: entry.x,
       y: entry.y,
       z: index + 1,
-      parent: entry.parent ? keys.get(entry.parent) : null,
+      parent,
       zone: entry.zone,
       environment,
-      criticality: index < 4 ? "high" : "medium",
-      notes: `${icon.name} in the ${template.title} reference architecture.`,
+      criticality: entry.criticality || (index < 4 ? "high" : "medium"),
+      notes: entry.notes ?? `${icon.name} in the ${doc.name} reference architecture.`,
     });
     keys.set(entry.key, node.id);
+    // Services sitting in a zoned container take on its zone.
+    if (!entry.zone) node.zone = zoneFromContainers(doc, node, groupZone) || node.zone;
     doc.nodes.push(node);
   });
-  // Services sitting in a zoned container take on its zone.
-  for (const node of doc.nodes) {
-    const entry = template.nodes.find((candidate) => keys.get(candidate.key) === node.id);
-    if (entry?.zone) continue;
-    let parent = doc.shapes.find((shape) => shape.id === node.parent);
-    while (parent) {
-      const group = template.groups.find((candidate) => keys.get(candidate.key) === parent.id);
-      const zone =
-        group?.zone ||
-        (parent.preset === "public-subnet"
-          ? "public"
-          : parent.preset === "private-subnet"
-            ? "private"
-            : null);
-      if (zone) {
-        node.zone = zone;
-        break;
-      }
-      parent = doc.shapes.find((shape) => shape.id === parent.parent);
-    }
-  }
-  template.links.forEach(([from, to]) => {
-    const source = doc.nodes.find((node) => node.id === keys.get(from));
-    const target = doc.nodes.find((node) => node.id === keys.get(to));
-    doc.connections.push(makeConnection(source.id, target.id, connectionDefaults(source, target)));
+  (blueprint.shapes || []).forEach((entry, index) => {
+    const shape = makeShape(entry.kind, {
+      x: entry.x,
+      y: entry.y,
+      w: entry.w,
+      h: entry.h,
+      label: entry.label,
+      style: entry.style,
+      z: entry.z ?? 100 + index,
+      parent: entry.parent ? keys.get(entry.parent) : null,
+    });
+    if (entry.key) keys.set(entry.key, shape.id);
+    doc.shapes.push(shape);
+  });
+  const vertex = (id) =>
+    doc.nodes.find((node) => node.id === id) || doc.shapes.find((shape) => shape.id === id);
+  (blueprint.links || []).forEach((link) => {
+    const { from, to, ...options } = Array.isArray(link) ? { from: link[0], to: link[1] } : link;
+    const source = vertex(keys.get(from));
+    const target = vertex(keys.get(to));
+    if (!source || !target) return;
+    const defaults = connectionDefaults(source, target);
+    doc.connections.push(
+      makeConnection(source.id, target.id, {
+        ...defaults,
+        ...options,
+        style: { ...(defaults.style || {}), ...(options.style || {}) },
+      })
+    );
   });
   return doc;
 }

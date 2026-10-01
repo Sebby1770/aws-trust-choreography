@@ -11,7 +11,7 @@
  * turns into vertices; the same descriptor travels through drag and drop.
  */
 
-import { DEVICE_ICON_PATHS } from "../network-icons.js";
+import { DEVICE_ICON_IDS, deviceIconDataUrl } from "../network-icons.js";
 import {
   CONTAINER_PRESETS,
   FLOWCHART_SHAPES,
@@ -58,18 +58,10 @@ const DEVICE_NAMES = {
   "vpn-gateway": "VPN gateway",
 };
 
-/** A data URL for a network device icon, drawn in slate ink for white paper. */
-export function deviceIconDataUrl(id) {
-  const paths = DEVICE_ICON_PATHS[id];
-  if (!paths) return null;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1f3a5f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${paths
-    .map((d) => `<path d="${d}"/>`)
-    .join("")}</svg>`;
-  return `data:image/svg+xml;base64,${globalThis.btoa(svg)}`;
-}
+export { deviceIconDataUrl };
 
 export function networkItems() {
-  return Object.keys(DEVICE_ICON_PATHS).map((id) => ({
+  return DEVICE_ICON_IDS.map((id) => ({
     type: "shape",
     kind: "image",
     key: `net:${id}`,

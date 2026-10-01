@@ -57,7 +57,7 @@ import {
   readDrawioPages,
   toDrawio,
 } from "./diagram/drawio.js";
-import { buildTemplate, TEMPLATES } from "./diagram/templates.js";
+import { buildBlueprint, buildTemplate, TEMPLATES } from "./diagram/templates.js";
 import { downloadBlob, downloadText, fileSlug, iconDataUrls, svgToPng } from "./diagram/export.js";
 import { CONTAINER_PRESETS } from "./diagram/shapes.js";
 import {
@@ -542,6 +542,27 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta, hooks = {}) {
       parsed.warnings.length ? "warn" : "good"
     );
     return { tables: parsed.tables.length, relationships, warnings: parsed.warnings };
+  }
+
+  /**
+   * Open a generated diagram (IAM access map, VPC plan…) as a new page, or on
+   * this page when it is empty. Returns the document that was opened.
+   */
+  function openBlueprint(blueprint, message = null) {
+    let doc;
+    try {
+      doc = buildBlueprint(blueprint, { findIcon, connectionDefaults });
+    } catch (error) {
+      console.error(error);
+      say("That diagram could not be drawn", "warn");
+      return null;
+    }
+    // A new page resets the simulation itself; reusing an empty page must too.
+    if (currentPageIsEmpty()) resetSimulationState();
+    // At the page limit addPage has already explained why nothing opened.
+    if (!openAsPage(doc, blueprint.name || "Generated diagram")) return null;
+    say(message || `Opened ${doc.name}`, "good");
+    return doc;
   }
 
   async function copyTableSql(ids = null, dialect = "postgres") {
@@ -2047,6 +2068,8 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta, hooks = {}) {
     ["studio", "AWS Studio"],
     ["network", "Network Lab"],
     ["sql", "SQL Review"],
+    ["iam", "IAM Review"],
+    ["vpc", "VPC Planner"],
     ["review", "Review"],
   ];
   const themeItems = () =>
@@ -2515,6 +2538,7 @@ export function initFlowStudio(iconCatalog, iconCatalogMeta, hooks = {}) {
     schemaSql,
     openSqlSchema,
     openSqlDialog,
+    openBlueprint,
     editor,
     catalogCount: catalog.length,
   };

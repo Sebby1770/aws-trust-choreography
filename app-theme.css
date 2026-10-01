@@ -291,7 +291,9 @@ body::before {
 /* ------------------------------------------- full-screen tool workspaces */
 
 .app-shell[data-active-view="network"],
-.app-shell[data-active-view="sql"] {
+.app-shell[data-active-view="sql"],
+.app-shell[data-active-view="iam"],
+.app-shell[data-active-view="vpc"] {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   gap: 0;
@@ -304,7 +306,9 @@ body::before {
 }
 
 .app-shell[data-active-view="network"] .view-network,
-.app-shell[data-active-view="sql"] .view-sql {
+.app-shell[data-active-view="sql"] .view-sql,
+.app-shell[data-active-view="iam"] .view-iam,
+.app-shell[data-active-view="vpc"] .view-vpc {
   height: 100%;
   min-height: 0;
   padding: 0;
@@ -313,7 +317,9 @@ body::before {
 
 .app-shell .network-lab.is-canvas-focus,
 .app-shell[data-active-view="network"] .network-lab,
-.app-shell[data-active-view="sql"] .sql-lab {
+.app-shell[data-active-view="sql"] .sql-lab,
+.app-shell[data-active-view="iam"] .iam-lab,
+.app-shell[data-active-view="vpc"] .vpc-lab {
   height: 100%;
   max-height: none;
   margin: 0;
@@ -1092,6 +1098,13 @@ body::before {
 .network-lab.is-canvas-focus .network-node small,
 .network-lab.is-canvas-focus .network-node span {
   color: #5f7896;
+}
+
+/* Node cards are white paper in both themes, so names use dark ink. */
+.network-lab.is-canvas-focus .network-node strong,
+.network-lab.is-canvas-focus .network-node .network-node-name {
+  color: #0f2742;
+  font-weight: 700;
 }
 
 .network-lab.is-canvas-focus .network-link {

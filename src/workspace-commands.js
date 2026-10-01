@@ -12,6 +12,9 @@ export function initWorkspaceCommands({
     ["home", "Explore", "projects templates start home"],
     ["studio", "AWS Studio", "cloud architecture build aws"],
     ["network", "Network Lab", "cisco packet topology devices"],
+    ["sql", "SQL Review", "query schema ddl database lint"],
+    ["iam", "IAM Review", "policy permissions least privilege role trust security"],
+    ["vpc", "VPC Planner", "cidr subnet ip address network terraform"],
     ["review", "Review", "readiness findings audit evidence report"],
   ];
 
