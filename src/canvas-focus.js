@@ -20,6 +20,8 @@ const VIEW_LABELS = {
   studio: "AWS Studio",
   network: "Network Lab",
   sql: "SQL Review",
+  iam: "IAM Review",
+  vpc: "VPC Planner",
   review: "Review",
 };
 

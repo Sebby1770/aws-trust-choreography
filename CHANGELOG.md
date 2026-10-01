@@ -2,6 +2,38 @@
 
 All notable changes to this project are documented here.
 
+## 2026-09-30 — IAM Review, VPC Planner, and new Network Lab icons
+
+### Added
+
+- **IAM Review workspace.** Paste an IAM identity, resource or trust policy for a scored review
+  with line-anchored findings: administrator access, wildcards, privilege-escalation paths
+  (including `iam:PassRole` with a compute launcher), assume-any-role, audit-log tampering,
+  secrets and deletes on `"Resource": "*"`, `NotAction` / `NotResource` / `NotPrincipal`,
+  public, whole-account and unconditioned federated principals, missing TLS enforcement on
+  bucket policies, and policy-grammar problems. An access map shows each service's access level,
+  and **Open in AWS Studio** draws it as a risk-coloured diagram.
+- **Least privilege from a diagram.** IAM Review's **From diagram** reads AWS Studio's arrows and
+  writes a scoped role (identity + trust policy) per compute service, consumer permissions for
+  queues and streams that feed it, and resource policies for services that push into Lambda, SQS,
+  SNS or (via CloudFront) S3.
+- **VPC Planner workspace.** Plan a VPC's subnets per tier and AZ with AWS's reserved addresses,
+  spare-AZ reservations, free-space accounting and warnings; draw it in AWS Studio with Region /
+  AZ / subnet containers and gateways, or export Terraform. Includes a CIDR overlap checker and an
+  addressing audit of the Network Lab topology.
+- **Explore → Review toolkit** cards for SQL Review, IAM Review and VPC Planner; both new
+  workspaces are in the workspace menu and the command palette.
+- `buildBlueprint` in the diagram templates module, so any workspace can hand AWS Studio a diagram
+  (templates now use it too), and `openBlueprint` on the studio API.
+
+### Changed
+
+- **Network Lab device icons redrawn** in the AWS architecture-icon style: a solid tile coloured by
+  device family (endpoints, network, servers, databases, security, internet, cloud) with a detailed
+  white glyph. The same icons appear in the studio's Network devices library.
+- Network Lab node names are dark on the white node cards (they were near-invisible in the light
+  design).
+
 ## 2026-09-29 — Every workspace in the AWS Studio's light-blue design
 
 ### Changed

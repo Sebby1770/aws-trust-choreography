@@ -50,6 +50,44 @@ ready(() => {
   let reviewCenter = null;
   let views = null;
 
+  // Workspaces that draw into AWS Studio switch to it, boot it, then open the page.
+  const openBlueprint = async (blueprint, message) => {
+    views?.setView("studio");
+    const flowStudio = await boot();
+    const opened = flowStudio?.openBlueprint?.(blueprint, message) || null;
+    window.requestAnimationFrame(() => flowStudio?.refreshLayout?.());
+    return opened;
+  };
+  // IAM Review and VPC Planner load the first time their workspace opens
+  // (including when it is the view restored on page load).
+  const lazyWorkspace = (view, start) => {
+    let started = null;
+    window.addEventListener("atlas:viewchange", (event) => {
+      if (event.detail?.view !== view || started) return;
+      started = start().catch((error) => {
+        started = null;
+        console.error(`The ${view} workspace failed to load:`, error);
+      });
+    });
+  };
+  lazyWorkspace("iam", async () => {
+    const { initIamLab } = await import("./iam-lab.js");
+    initIamLab({
+      openBlueprint,
+      getDiagram: async () => {
+        const flowStudio = await boot();
+        return flowStudio?.getState?.() || null;
+      },
+    });
+  });
+  lazyWorkspace("vpc", async () => {
+    const { initVpcLab } = await import("./vpc-lab.js");
+    initVpcLab({
+      openBlueprint,
+      getNetworkState: () => networkLab?.getState?.() || null,
+    });
+  });
+
   const studio = document.querySelector(".diagram-studio");
   if (!studio) {
     initViews();

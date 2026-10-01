@@ -24,8 +24,8 @@ function freezeCatalog(items) {
 }
 
 /**
- * Device glyphs are intentionally text, rather than inline SVG. They stay
- * legible at small sizes and can be restyled by the surrounding application.
+ * Each device keeps a short text glyph as the fallback for when no icon is
+ * drawn for it; the icons themselves live in network-icons.js.
  */
 export const NETWORK_DEVICES = freezeCatalog([
   {

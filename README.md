@@ -100,10 +100,42 @@ of sections embedded in a long page.
   **From diagram** does the reverse, writing DDL for the tables drawn in the studio in the chosen
   dialect.
 
+**IAM Review**
+
+- Paste an identity policy, a resource policy (bucket, queue, key…) or a role trust policy and get
+  a score, grade and ranked findings with line numbers: administrator access, service and action
+  wildcards, privilege-escalation paths (including `iam:PassRole` + a compute launcher), assuming
+  any role, switching off CloudTrail / log groups, secrets and deletes on `"Resource": "*"`,
+  `NotAction` / `NotResource` / `NotPrincipal`, public and whole-account principals, federated
+  (for example GitHub OIDC) trust with no conditions, and plain-HTTP bucket access.
+- An **access map** shows every service the policy reaches and at what level (list, read, tag,
+  write, permissions, full); **Open in AWS Studio** draws it as a diagram coloured by risk.
+- **From diagram** goes the other way: it reads the arrows in AWS Studio and writes a
+  least-privilege role (identity + trust policy) for each Lambda, ECS task, EC2 instance, Step
+  Functions state machine and so on, scoped to the exact tables, buckets, queues and topics they
+  call, plus the resource policies services such as API Gateway, EventBridge, SNS and CloudFront
+  need.
+
+**VPC Planner**
+
+- Describe a VPC — CIDR block, region, Availability Zones, spare AZs to grow into, NAT gateway
+  strategy, and subnet tiers (public, private, isolated) — and get the subnet plan live: per-AZ
+  CIDRs packed without gaps, usable ranges after AWS's five reserved addresses, an address-space
+  bar, free blocks, and warnings (non-RFC 1918 ranges, Docker's 172.17/16, single AZ, subnets too
+  small to scale).
+- **Open in AWS Studio** draws the VPC with Region, AZ and subnet containers (trust zones
+  included), internet and NAT gateways; **Copy Terraform** / **Download .tf** export the VPC,
+  subnets, gateways and route tables.
+- An **overlap checker** for any list of ranges (peered VPCs, on-prem networks), and an **addressing
+  audit** of the Network Lab: duplicate IPs, hosts on network or broadcast addresses, overlapping
+  masks, and hosts sharing a switch without sharing a subnet.
+
 **Network Lab** (full-screen)
 
 - A Packet Tracer-inspired, vendor-neutral editor with **20 devices** across networking, servers,
-  endpoints, cloud, and security.
+  endpoints, cloud, and security, drawn as AWS-style icons: a colour-coded tile per device family
+  with a detailed glyph (router puck, switch chassis, server racks with role badges, firewall
+  wall).
 - Search and filter the device library, click to add, drag devices to arrange them, connect links,
   auto-layout, delete, and use undo / redo.
 - Configure device name, IPv4 address, subnet, VLAN, status, and notes in the live inspector.
@@ -194,7 +226,7 @@ src/
   review-center.js     combined review model, report builder, and DOM controller
   ai-icons.js          Claude/ChatGPT/AI library nodes (unit-tested)
   personalize.js       per-visitor edit profile (unit-tested)
-  views.js             Explore / AWS / Network / Review workspace switcher
+  views.js             Explore / AWS / Network / SQL / IAM / VPC / Review workspace switcher
   theme.js             light/dark/system theme controller
   command-palette.js   ⌘K launcher + fuzzy ranking (unit-tested)
   workspace-commands.js navigation, theme, and Review commands
@@ -204,10 +236,14 @@ src/
   terraform-export.js  canvas → main.tf skeleton (unit-tested)
   mermaid-export.js    canvas → Mermaid flowchart (unit-tested)
   canvas-focus.js      workspace dropdown + the Network Lab's Library/Tools/Insights drawer (unit-tested)
-  network-icons.js     line-art device icons for the Network Lab (unit-tested)
+  network-icons.js     AWS-style device icons for the Network Lab and studio library (unit-tested)
   sql-review.js        SQL static analysis — masking, rules, scoring (unit-tested)
   sql-assist.js        optional Claude review via your own API key (unit-tested)
   sql-lab.js           SQL workspace controller (unit-tested)
+  iam-policy.js        IAM policy analyser, access map, least privilege from a diagram (unit-tested)
+  iam-lab.js           IAM Review workspace controller (unit-tested)
+  cidr.js              CIDR maths, VPC subnet planning, overlap + addressing checks, Terraform (unit-tested)
+  vpc-lab.js           VPC Planner workspace controller (unit-tested)
   trust-zones.js       trust zones, boundary crossings, threat model (unit-tested)
   iac-import.js        Terraform/CloudFormation → canvas (unit-tested)
   iac-service-map.js   IaC resource type → AWS service tables
@@ -219,6 +255,7 @@ app-theme.css          maps every other workspace onto the studio's light-blue d
 studio-shell.css       full-viewport editor shell shared by the labs
 network-lab.css        Network Lab visual system and responsive canvas
 review-center.css      Review Center visual system and responsive report layout
+tools.css              IAM Review and VPC Planner workspaces, and Explore's review toolkit
 assets/ai-icons/       custom AI / LLM node SVGs
 tests/                 Vitest unit and jsdom interaction suites
 assets/aws-icons/      862 official AWS architecture SVGs + generated catalog
